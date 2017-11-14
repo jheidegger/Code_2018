@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
  */
 public class Robot extends IterativeRobot {
 	RobotDrive myRobot = new RobotDrive(0, 1);
-	Joystick wheel = new Joystick(0);
+	Joystick stick = new Joystick(0);
 	Timer timer = new Timer();
 
 	/**
@@ -61,9 +61,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
-		double speed = wheel.getThrottle(); 
-		double turn = wheel.getX();
-		myRobot.tankDrive(speed, speed);
+		myRobot.arcadeDrive(stick);
 	}
 
 	/**
