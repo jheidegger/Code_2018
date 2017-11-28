@@ -14,7 +14,9 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
  * directory.
  */
 public class Robot extends IterativeRobot {
-	DifferentialDrive robotDrive = new DifferentialDrive();
+	RobotDrive myRobot = new RobotDrive(0, 1);
+	Joystick wheel = new Joystick(0);
+	System robotDrive = new System();
 	Timer timer = new Timer();
 
 	/**
@@ -47,8 +49,6 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopInit() {
-		double speed; 
-		double turn; 
 	}
 
 	/**
@@ -56,7 +56,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
-		System.wheelDrive();
+		System.wheelDrive(myRobot,wheel);
 	}
 
 	/**
