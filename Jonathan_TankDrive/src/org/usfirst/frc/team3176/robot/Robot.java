@@ -1,8 +1,7 @@
 package org.usfirst.frc.team3176.robot;
 
-import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.*;
+
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -13,13 +12,18 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends IterativeRobot {
 	
+	DriveTrain chassis = DriveTrain.getInstance();
+	Joystick DriverRight;
+	Joystick DriverLeft;
+	Joystick BM;
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
 	 */
 	@Override
 	public void robotInit() {
-		
+		DriverRight = new Joystick(Constants.DRIVERRIGHTSTICK);
+		DriverLeft = new Joystick(Constants.DRIVERLEFTSTICK);
 	}
 
 	/**
@@ -51,6 +55,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
+		chassis.drive(DriverRight.getY(), DriverLeft.getX());
 	}
 
 	/**
