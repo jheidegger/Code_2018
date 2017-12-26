@@ -7,5 +7,6 @@ public class otherClass {
 	public String printBs() {
 		String test = "Hey";
 		return test; 
+		//double test
 	}
 }
