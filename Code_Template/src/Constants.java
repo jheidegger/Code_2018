@@ -1,4 +1,4 @@
-package org.usfirst.frc.team6713.robot;
+
 /*
  * All constants are stored in this file as static constant variables
  */
