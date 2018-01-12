@@ -21,10 +21,10 @@ public class Drivetrain extends Subsystem {
 	private Drivetrain()
 	{
 		//instantiate the pods
-		upperRight = new Swervepod();
-		upperLeft = new Swervepod();
-		lowerRight = new Swervepod();
-		lowerLeft = new Swervepod();
+		upperRight = new Swervepod(0);
+		upperLeft = new Swervepod(1);
+		lowerRight = new Swervepod(2);
+		lowerLeft = new Swervepod(3);
 		
 		//Add instantiated Pods to the array list
 		Pods.add(upperRight);
@@ -69,13 +69,28 @@ public class Drivetrain extends Subsystem {
 		@Override
 		public void onloop() {
 			// TODO Auto-generated method stub
-			
-		}
+			synchronized(Drivetrain.this) {
+				switch(currentState) {
+				case DRIVE:
+					
+				}
+			}
+		}	
 
 		@Override
 		public void stop() {
 			// TODO Auto-generated method stub
 			
+		}
+		
+		public synchronized void manualDrive() {
+			double[] pDrive = new double[4];
+			double[] pGear = new double[4];
+			
+			final double angle = gyro.getYaw() * Math.PI / 180.0;
+		    final double temp = forward * Math.cos(angle) + strafe * Math.sin(angle);
+		    strafe = -forward * Math.sin(angle) + strafe * Math.cos(angle);
+		    forward = temp;
 		}
 
 	};
