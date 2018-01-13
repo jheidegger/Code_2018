@@ -1,3 +1,4 @@
+package Robot;
 
 /*
  * All constants are stored in this file as static constant variables
@@ -9,7 +10,8 @@ public class Constants {
 	
 	
 	//Subsystem constants
-	
+	public static double DRIVETRAINLENGTH = 5;
+	public static double DRIVETRAINWIDTH = 5;
 	
 	
 	
