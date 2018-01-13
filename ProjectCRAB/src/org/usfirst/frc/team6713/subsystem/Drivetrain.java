@@ -80,7 +80,7 @@ public class Drivetrain extends Subsystem {
 			synchronized(Drivetrain.this) {
 				switch(currentState) {
 				case DRIVE:
-					manualDrive();
+					//manualDrive();
 					
 				}
 			}
