@@ -65,33 +65,36 @@ public class Drivetrain extends Subsystem {
 		return false;
 	}
 	
-	private Loop main = new Loop()
-	{
-
+	
 		@Override
-		public void onStart() {
-			// TODO Auto-generated method stub
-			
+		public void registerLoop()
+		{
+			super.Loop_Manager_Instance.addLoop(new Loop() {
+					@Override
+					public void onStart() {
+						// TODO Auto-generated method stub
+						
+					}
+
+					@Override
+					public void onloop() {
+						// TODO Auto-generated method stub
+						synchronized(Drivetrain.this) {
+							switch(currentState) {
+							case DRIVE:
+								//manualDrive();
+								
+							}
+						}
+					}	
+
+					@Override
+					public void stop() {
+						// TODO Auto-generated method stub
+						
+					}
+			});
 		}
-
-		@Override
-		public void onloop() {
-			// TODO Auto-generated method stub
-			synchronized(Drivetrain.this) {
-				switch(currentState) {
-				case DRIVE:
-					//manualDrive();
-					
-				}
-			}
-		}	
-
-		@Override
-		public void stop() {
-			// TODO Auto-generated method stub
-			
-		}
-		
 		public synchronized void manualDrive(double forward, double strafe, double spin) {
 			double[] podDrive = new double[4];
 			double[] podGear = new double[4];
@@ -132,7 +135,6 @@ public class Drivetrain extends Subsystem {
 			
 		}
 
-	};
+}
 	
 
-}

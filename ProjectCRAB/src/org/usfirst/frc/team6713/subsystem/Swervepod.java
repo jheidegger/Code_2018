@@ -41,4 +41,11 @@ public class Swervepod extends Subsystem {
 		return false;
 	}
 
+
+	@Override
+	public void registerLoop() {
+		// N/A
+		
+	}
+
 }
