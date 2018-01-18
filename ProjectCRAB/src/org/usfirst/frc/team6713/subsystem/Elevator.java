@@ -1,9 +1,17 @@
 package org.usfirst.frc.team6713.subsystem;
 
-public class Elevator extends Subsystem {
+import Robot.Constants;
+import edu.wpi.first.wpilibj.*;
 
+public class Elevator extends Subsystem {
+	
+	
+	private Victor driveMotor;
+	
 	public Elevator() {
 		// TODO Auto-generated constructor stub
+		driveMotor = new Victor(Constants.ELEVATORMOTOR);
+		
 	}
 
 	@Override

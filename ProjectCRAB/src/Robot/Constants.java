@@ -13,6 +13,8 @@ public class Constants {
 	public static double DRIVETRAINLENGTH = 5;
 	public static double DRIVETRAINWIDTH = 5;
 	
+	public static int ELEVATORMOTOR = 4;
+	
 	
 	
 
