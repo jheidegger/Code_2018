@@ -15,6 +15,11 @@ public class Constants {
 	
 	public static int ELEVATORMOTOR = 4;
 	
+	public static double DELTATIME = .02; 
+	
+	public static int AVG_LIST_SIZE = 10;
+	public static int PIXY_CENTER_X = 160; 
+	
 	
 	
 

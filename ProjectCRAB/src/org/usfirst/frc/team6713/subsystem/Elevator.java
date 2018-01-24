@@ -29,28 +29,26 @@ public class Elevator extends Subsystem {
 	@Override
 	public void registerLoop() {
 		super.Loop_Manager_Instance.addLoop(new Loop()
-				{
+		{
 
-					@Override
-					public void onStart() {
-						// TODO Auto-generated method stub
-						
-					}
+			@Override
+			public void onStart() {
+				// TODO Auto-generated method stub
+				
+			}
 
-					@Override
-					public void onloop() {
-						// TODO Auto-generated method stub
-						
-					}
+			@Override
+			public void onloop() {
+				// TODO Auto-generated method stub
+				
+			}
 
-					@Override
-					public void stop() {
-						// TODO Auto-generated method stub
-						
-					}
-			
-				});
-
+			@Override
+			public void stop() {
+				// TODO Auto-generated method stub
+				
+			}
+	
+		});
 	}
-
 }

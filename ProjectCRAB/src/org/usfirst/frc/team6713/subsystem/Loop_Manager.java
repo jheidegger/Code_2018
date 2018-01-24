@@ -38,7 +38,7 @@ public class Loop_Manager {
 	{
 		for(Loop L:Loops)
 		{
-			L.onloop();;
+			L.onloop();
 		}
 	}
 	public void endLoops()
