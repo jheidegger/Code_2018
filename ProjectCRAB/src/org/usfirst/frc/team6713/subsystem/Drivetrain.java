@@ -14,10 +14,10 @@ public class Drivetrain extends Subsystem {
 	private PixyCam cam = PixyCam.getInstance();
 	private PIDLoop pidX;
 	private PIDLoop pidArea;
-	TalonSRX leftMaster = new TalonSRX(0); 
-	TalonSRX leftSlave = new TalonSRX(1); 
-	TalonSRX rightMaster = new TalonSRX(2); 
-	TalonSRX rightSlave = new TalonSRX(3);
+	TalonSRX leftMaster;
+	TalonSRX leftSlave;
+	TalonSRX rightMaster;
+	TalonSRX rightSlave;
 	int centerX = Constants.PIXY_CENTER_X;
 	int targetArea = 1200; 
 	private double output,areaoutput=0;
@@ -64,6 +64,14 @@ public class Drivetrain extends Subsystem {
 		kWidth = Constants.DRIVETRAINWIDTH;
 		kRadius = Math.sqrt(Math.pow(kLength,2)+Math.pow(kWidth,2));
 		*/
+		leftMaster = new TalonSRX(0);
+		leftSlave = new TalonSRX(1);
+		rightMaster = new TalonSRX(2);
+		rightMaster.setInverted(true);
+		rightSlave = new TalonSRX(3);
+		
+		leftSlave.follow(leftMaster);
+		rightSlave.follow(rightMaster);
 		
 		pidX = new PIDLoop(.0027,0.000003,0.00002);
 		pidArea = new PIDLoop(.001,0,0,.2);
@@ -99,7 +107,9 @@ public class Drivetrain extends Subsystem {
 				case DRIVE:
 					//manualDrive();
 				case VISION_TRACK_TANK:
-					vision_track(cam.getAvgX(), cam.getAvgArea());			
+					vision_track(cam.getAvgX(), cam.getAvgArea());
+				default:
+					break;			
 				}
 			}
 		}	
@@ -154,11 +164,7 @@ public class Drivetrain extends Subsystem {
 		areaoutput = pidArea.returnOutput(avgArea, targetArea);
 		
 		leftMaster.set(ControlMode.PercentOutput, output-areaoutput);
-		leftSlave.set(ControlMode.PercentOutput,output-areaoutput);
-		rightMaster.setInverted(true);
-		rightSlave.setInverted(true);
 		rightMaster.set(ControlMode.PercentOutput,-output-areaoutput);
-		rightSlave.set(ControlMode.PercentOutput,-output-areaoutput);
 	}
 	@Override
 	public void zeroAllSensors() {
