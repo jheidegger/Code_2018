@@ -30,6 +30,15 @@ public class PIDLoop {
 		derivative = (error - previous_error)/Constants.DELTATIME; 
 		previous_error = error;
 		
-		return output = (proportionalGain*error) + (integralGain*integral) + (derivativeGain*derivative);
+		output = (proportionalGain*error) + (integralGain*integral) + (derivativeGain*derivative);
+		
+		if(output>max_speed) {
+			output = max_speed; 
+		}
+		else if(output<-max_speed) {
+			output = -max_speed;
+		}
+		
+		return output;
 	}
 }
