@@ -1,5 +1,7 @@
 package org.usfirst.frc.team6713.subsystem;
 import Robot.Constants;
+import Robot.Robot;
+import Util.ADIS16448_IMU;
 import Util.PIDLoop;
 import edu.wpi.first.wpilibj.Joystick;
 
@@ -11,6 +13,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 public class Drivetrain extends Subsystem {
 
 	private static Drivetrain instance;
+	//private ADIS16448_IMU gyro = Robot.getIMUInstance();
 	private PixyCam cam = PixyCam.getInstance();
 	private PIDLoop pidX;
 	private PIDLoop pidArea;
@@ -21,7 +24,7 @@ public class Drivetrain extends Subsystem {
 	int centerX = Constants.PIXY_CENTER_X;
 	int targetArea = 1200; 
 	private double output,areaoutput=0;
-	/*
+	
 	private ArrayList<Swervepod> Pods;
 	private Swervepod upperRight;
 	private Swervepod upperLeft;
@@ -32,7 +35,7 @@ public class Drivetrain extends Subsystem {
 	private double kLength;
 	private double kWidth;
 	private double kRadius;
-	*/
+	
 	
 	public enum systemStates{
 		NEUTRAL,
@@ -47,7 +50,6 @@ public class Drivetrain extends Subsystem {
 	public Drivetrain()
 	{
 		//instantiate the pods
-		/*
 		upperRight = new Swervepod(0,driveTalon[0], gearTalon[0]);
 		upperLeft = new Swervepod(1,driveTalon[1], gearTalon[1]);
 		lowerLeft = new Swervepod(2,driveTalon[2], gearTalon[2]);
@@ -63,7 +65,7 @@ public class Drivetrain extends Subsystem {
 		kLength = Constants.DRIVETRAINLENGTH;
 		kWidth = Constants.DRIVETRAINWIDTH;
 		kRadius = Math.sqrt(Math.pow(kLength,2)+Math.pow(kWidth,2));
-		*/
+
 		leftMaster = new TalonSRX(0);
 		leftSlave = new TalonSRX(1);
 		rightMaster = new TalonSRX(2);
@@ -121,7 +123,7 @@ public class Drivetrain extends Subsystem {
 		}
 		});
 	}
-	/*
+	
 	public synchronized void manualDrive(double forward, double strafe, double spin) {
 		double[] podDrive = new double[4];
 		double[] podGear = new double[4];
@@ -151,6 +153,7 @@ public class Drivetrain extends Subsystem {
 		podDrive[3] = Math.sqrt(Math.pow(a, 2)+ Math.pow(c, 2));
 		podGear[3] = Math.atan2(a,c);
 		
+		
 		for(int idx = 0; idx < Pods.size(); idx++) {
 			(Pods.get(idx)).setPod(podDrive[idx],podGear[idx]); 
 		}
@@ -158,7 +161,7 @@ public class Drivetrain extends Subsystem {
 		
 		
 	}
-	*/
+	
 	public void vision_track(double avgX, double avgArea) {
 		output = pidX.returnOutput(avgX, centerX);
 		areaoutput = pidArea.returnOutput(avgArea, targetArea);

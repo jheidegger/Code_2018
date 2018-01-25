@@ -8,12 +8,10 @@
 package Robot;
 
 import org.usfirst.frc.team6713.subsystem.*;
-
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import Util;
 import Util.ADIS16448_IMU;
 /**
  * The VM is configured to automatically run this class, and to call the

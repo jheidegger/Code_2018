@@ -1177,7 +1177,7 @@ public class ADIS16448_IMU extends GyroBase implements Gyro, PIDSource, Sendable
   
   /**
    * {@inheritDoc}
-   */
+   */ 
   @Override
   public void initSendable(SendableBuilder builder) {
     builder.addDoubleProperty("Value", ()-> getAngle(), null);
