@@ -22,6 +22,10 @@ public class IMU extends Subsystem {
 			return instance;
 		}
 	}
+	public ADIS16448_IMU getIMU()
+	{
+		return myIMU;
+	}
 	@Override
 	public void zeroAllSensors() {
 		myIMU.reset();
