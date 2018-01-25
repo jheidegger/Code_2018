@@ -13,7 +13,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 public class Drivetrain extends Subsystem {
 
 	private static Drivetrain instance;
-	//private ADIS16448_IMU gyro = Robot.getIMUInstance();
+	private ADIS16448_IMU imu = IMU.getInstance().getIMU();
 	private PixyCam cam = PixyCam.getInstance();
 	private PIDLoop pidX;
 	private PIDLoop pidArea;
@@ -35,6 +35,7 @@ public class Drivetrain extends Subsystem {
 	private double kLength;
 	private double kWidth;
 	private double kRadius;
+	private double rel_max_speed =0;
 	
 	
 	public enum systemStates{
@@ -129,10 +130,10 @@ public class Drivetrain extends Subsystem {
 		double[] podGear = new double[4];
 		
 		//converting degrees to radians
-		//final double angle = gyro.getYaw() * Math.PI / 180.0;
-	    //final double temp = forward * Math.cos(angle) + strafe * Math.sin(angle);
-	    //strafe = -forward * Math.sin(angle) + strafe * Math.cos(angle);
-	    //forward = temp;
+		final double angle = imu.getYaw() * Math.PI / 180.0;
+	    final double temp = forward * Math.cos(angle) + strafe * Math.sin(angle);
+	    strafe = -forward * Math.sin(angle) + strafe * Math.cos(angle);
+	    forward = temp;
 		
 		//Calculating components
 		double a = strafe - spin * kLength/2; 
@@ -153,7 +154,11 @@ public class Drivetrain extends Subsystem {
 		podDrive[3] = Math.sqrt(Math.pow(a, 2)+ Math.pow(c, 2));
 		podGear[3] = Math.atan2(a,c);
 		
-		
+		for(int idx = 0; idx < 4; idx++) {
+			if(podDrive[idx]>rel_max_speed) {
+				
+			}
+		}
 		for(int idx = 0; idx < Pods.size(); idx++) {
 			(Pods.get(idx)).setPod(podDrive[idx],podGear[idx]); 
 		}
