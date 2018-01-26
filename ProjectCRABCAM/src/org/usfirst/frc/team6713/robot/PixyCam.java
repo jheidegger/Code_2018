@@ -64,6 +64,8 @@ private static PixyCam instance;
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		setAvgX();
+		setAvgArea();
 		
 	}
 	public int cvt(byte upper, byte lower) {

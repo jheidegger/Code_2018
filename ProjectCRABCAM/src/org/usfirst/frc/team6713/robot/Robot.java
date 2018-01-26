@@ -10,7 +10,9 @@ package org.usfirst.frc.team6713.robot;
 import edu.wpi.first.wpilibj.IterativeRobot;
 
 public class Robot extends IterativeRobot {
-	
+	PixyCam cam = PixyCam.getInstance();
+	Drivetrain drive = Drivetrain.getInstance();
+	Joystick stick = new Joystick(0);
 	@Override
 	public void robotInit() {
 	}
@@ -25,6 +27,13 @@ public class Robot extends IterativeRobot {
 	
 	@Override
 	public void teleopPeriodic() {
+		if(stick.getRawButton(0)) {
+		cam.track_cube();
+		drive.driveTowardsCube();
+		}
+		else {
+			drive.stop();
+		}
 	}
 	
 	@Override

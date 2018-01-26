@@ -6,6 +6,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 public class Drivetrain {
+	Drivetrain instance = new Drivetrain(); 
 	TalonSRX leftMaster = new TalonSRX(0); //fix port
 	TalonSRX leftSlave = new TalonSRX(1); //fix port
 	TalonSRX rightMaster = new TalonSRX(2); //fix port
@@ -16,9 +17,15 @@ public class Drivetrain {
 	PIDLoop turnPID = new PIDLoop(0.0027,0.000003,0.00002);
 	PIDLoop drivePID = new PIDLoop(.001,0,0);
 	
-	
+	public Drivetrain getInstance() {
+		return instance; 
+	}
+	public Drivetrain() {
+		
+	}
 	
 	public void driveTowardsCube() {
+		
 		double gearOutput = turnPID.returnOutput(cam.getAvgX(), 160);
 		double driveOutput = drivePID.returnOutput(cam.getAvgArea(), 1200);
 		
@@ -28,6 +35,12 @@ public class Drivetrain {
 		rightSlave.setInverted(true);
 		rightMaster.set(ControlMode.PercentOutput, -gearOutput+driveOutput);
 		rightSlave.set(ControlMode.PercentOutput,-gearOutput+driveOutput);
+	}
+	public void stop() {
+		leftMaster.set(ControlMode.PercentOutput, 0);
+		leftSlave.set(ControlMode.PercentOutput,0);
+		rightMaster.set(ControlMode.PercentOutput, 0);
+		rightSlave.set(ControlMode.PercentOutput,0);
 	}
 	
 }
