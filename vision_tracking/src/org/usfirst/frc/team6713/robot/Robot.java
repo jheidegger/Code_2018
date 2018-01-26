@@ -43,9 +43,11 @@ public class Robot extends IterativeRobot {
 	Joystick j = new Joystick(0);
 	SendableChooser<String> chooser = new SendableChooser<>();
 	PixyCam cam = new PixyCam();
-	ArrayList<Integer> xValues = new ArrayList<Integer>();
+	double[] xValues = {0,0,0,0,0,0,0};
+	double[] areaValues = {0,0,0,0,0,0,0};
+	//ArrayList<Integer> xValues = new ArrayList<Integer>();
 	static final int SIZE = 5;
-	int averageX;
+	double averageX;
 	int lastX ;
 	double speed;
 	double speed2;
@@ -58,7 +60,8 @@ public class Robot extends IterativeRobot {
 	double MAXforwardspeed;
 	int averageArea;
 	int areaSum;
-	
+	int xIDX = 0; 
+	int areaIDX = 0;
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -110,7 +113,7 @@ public class Robot extends IterativeRobot {
 //		timer.reset();
 //		timer.start();
 		xSum = 0;
-		xValues.clear();
+		//xValues.clear();
 	}
 	/**
 	 * This function is called periodically during operator control
@@ -123,6 +126,8 @@ public class Robot extends IterativeRobot {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		xValues[xIDX] = cam.getX();
+		areaValues[areaIDX] = cam.getArea();
 		//timer.reset();
 //		if(j.getRawButton(1)) {
 //			printValues();
@@ -137,22 +142,23 @@ public class Robot extends IterativeRobot {
 		double kkP = .001;
 		dError = error-prevError;
 		System.out.println("X" +cam.getX());
-		xValues.add(cam.getX());
+		//xValues.add(cam.getX());
 		System.out.println("Cam: " +cam.getX());
-		if (xValues.size() == SIZE) {
-			for (int value : xValues) {
-				xSum += value;
-			}
+		//if (xValues.size() == SIZE) {
+			//for (int value : xValues) {
+				//xSum += value;
+			//}
 		
-		
-			lastX = averageX;
-			averageX = xSum / SIZE;
+			
+			//lastX = averageX;
+			//averageX = xSum / SIZE;
+			averageX = (xValues[0]+xValues[1]+xValues[2]+xValues[3]+xValues[4]+xValues[5]+xValues[6])/7;
 			System.out.println("Avg: "+ averageX);
-			xValues.clear();
+			//xValues.clear();
 			xSum = 0;
 			System.out.println("Average X: " + averageX);
 			System.out.println("xSum: "+ xSum);
-			System.out.println("Size of Array List: " + xValues.size());
+			//System.out.println("Size of Array List: " + xValues.size());
 			System.out.println("LastX: " + lastX);
 			
 			
@@ -160,9 +166,9 @@ public class Robot extends IterativeRobot {
 			
 		
 
-			//double errorArea = 1200 - cam.getArea();
+			double errorArea = 1200 - cam.getArea();
 			totalError = totalError + error;
-			//double forward = kkP * errorArea;
+			double forward = kkP * errorArea;
 			speed = error*kP; 
 			speed2 = totalError*kI;
 		    speed3 = dError*kD;
@@ -177,7 +183,7 @@ public class Robot extends IterativeRobot {
 			if(output < -.6)
 			{
 				output = -.6;
-			}/*
+			}
 			if(forward > .32)
 			{
 				forward = .32;
@@ -185,24 +191,28 @@ public class Robot extends IterativeRobot {
 			if(forward < 0)
 			{
 				forward = 0;
-			}*/
+			}
 			if(j.getRawButton(1)) {
-				leftMaster.set(ControlMode.PercentOutput, output);//-forward);
-				leftSlave.set(ControlMode.PercentOutput,output);//-forward);
+				leftMaster.set(ControlMode.PercentOutput, output+forward);
+				leftSlave.set(ControlMode.PercentOutput,output+forward);
 				rightMaster.setInverted(true);
 				rightSlave.setInverted(true);
-				rightMaster.set(ControlMode.PercentOutput, -output);//-forward);
-				rightSlave.set(ControlMode.PercentOutput,-output);//-forward);
+				rightMaster.set(ControlMode.PercentOutput, -output+forward);
+				rightSlave.set(ControlMode.PercentOutput,-output+forward);
 			}
 			else {
-				leftMaster.set(ControlMode.PercentOutput,0);//-forward);
-				leftSlave.set(ControlMode.PercentOutput,0);//-forwa
-				rightMaster.set(ControlMode.PercentOutput, 0);//-forward);
+				leftMaster.set(ControlMode.PercentOutput,0);
+				leftSlave.set(ControlMode.PercentOutput,0);
+				rightMaster.set(ControlMode.PercentOutput, 0);
 				rightSlave.set(ControlMode.PercentOutput,0);
+			}
+			xIDX++;
+			if(xIDX > 6) {
+				xIDX = 0; 
 			}
 		}
 		
-		}
+		//}
 		
 	
 				
