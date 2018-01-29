@@ -1,28 +1,32 @@
 package org.usfirst.frc.team6713.subsystem;
 
 import Robot.Constants;
+import Util.PIDLoop;
 import edu.wpi.first.wpilibj.*;
 
 public class Elevator extends Subsystem {
-	
-	
 	private Victor driveMotor;
-	
+	private PIDLoop elevatorControlLoop; 
 	public Elevator() {
-		// TODO Auto-generated constructor stub
+		
 		driveMotor = new Victor(Constants.ELEVATORMOTOR);
+		elevatorControlLoop = new PIDLoop(Constants.ElevatorKp,
+											Constants.ElevatorKi, 
+											Constants.ElevatorKd,
+											1);
+		
 		
 	}
 
 	@Override
 	public void zeroAllSensors() {
-		// TODO Auto-generated method stub
+		
 
 	}
 
 	@Override
 	public boolean checkSystem() {
-		// TODO Auto-generated method stub
+		
 		return false;
 	}
 

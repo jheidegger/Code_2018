@@ -21,6 +21,10 @@ public class Constants {
 	public static int PIXY_CENTER_X = 160; 
 	
 	
+	//Elevator control loop
+	public static double ElevatorKp = 0;
+	public static double ElevatorKi = 0;
+	public static double ElevatorKd = 0;
 	
 
 }

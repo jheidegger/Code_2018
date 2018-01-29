@@ -7,6 +7,7 @@ public class PIDLoop {
 	private double proportionalGain; 
 	private double integralGain;
 	private double derivativeGain;
+	private double Kf;
 	private double error, previous_error, integral, derivative, output, integralMax = 0;
 	private double max_speed = 0.8; 
 	
@@ -31,7 +32,14 @@ public class PIDLoop {
 		max_speed = mS; 
 		integralMax = iMax;
 	}
-	
+	public PIDLoop(double pG, double iG, double dG, double mS, double iMax, double f){
+		proportionalGain = pG; 
+		integralGain = iG;
+		derivativeGain = dG;
+		max_speed = mS; 
+		integralMax = iMax;
+		Kf = f;
+	}
 	public double returnOutput(double current, double setpoint) {
 		error = setpoint - current;
 		if(integral < integralMax || integralMax == 0) {
@@ -40,7 +48,7 @@ public class PIDLoop {
 		derivative = (error - previous_error)/Constants.DELTATIME; 
 		previous_error = error;
 		
-		output = (proportionalGain*error) + (integralGain*integral) + (derivativeGain*derivative);
+		output = (proportionalGain*error) + (integralGain*integral) + (derivativeGain*derivative) + (Kf*setpoint);
 		
 		if(output>max_speed) {
 			output = max_speed; 
