@@ -1,5 +1,7 @@
 package org.usfirst.frc.team6713.subsystem;
 import Robot.Constants;
+import Robot.Robot;
+import Util.ADIS16448_IMU;
 import Util.PIDLoop;
 import edu.wpi.first.wpilibj.Joystick;
 
@@ -11,17 +13,18 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 public class Drivetrain extends Subsystem {
 
 	private static Drivetrain instance;
+	private ADIS16448_IMU imu = IMU.getInstance().getIMU();
 	private PixyCam cam = PixyCam.getInstance();
 	private PIDLoop pidX;
 	private PIDLoop pidArea;
-	TalonSRX leftMaster = new TalonSRX(0); 
-	TalonSRX leftSlave = new TalonSRX(1); 
-	TalonSRX rightMaster = new TalonSRX(2); 
-	TalonSRX rightSlave = new TalonSRX(3);
+	TalonSRX leftMaster;
+	TalonSRX leftSlave;
+	TalonSRX rightMaster;
+	TalonSRX rightSlave;
 	int centerX = Constants.PIXY_CENTER_X;
 	int targetArea = 1200; 
 	private double output,areaoutput=0;
-	/*
+	
 	private ArrayList<Swervepod> Pods;
 	private Swervepod upperRight;
 	private Swervepod upperLeft;
@@ -32,7 +35,8 @@ public class Drivetrain extends Subsystem {
 	private double kLength;
 	private double kWidth;
 	private double kRadius;
-	*/
+	private double rel_max_speed =0;
+	
 	
 	public enum systemStates{
 		NEUTRAL,
@@ -47,7 +51,6 @@ public class Drivetrain extends Subsystem {
 	public Drivetrain()
 	{
 		//instantiate the pods
-		/*
 		upperRight = new Swervepod(0,driveTalon[0], gearTalon[0]);
 		upperLeft = new Swervepod(1,driveTalon[1], gearTalon[1]);
 		lowerLeft = new Swervepod(2,driveTalon[2], gearTalon[2]);
@@ -63,7 +66,15 @@ public class Drivetrain extends Subsystem {
 		kLength = Constants.DRIVETRAINLENGTH;
 		kWidth = Constants.DRIVETRAINWIDTH;
 		kRadius = Math.sqrt(Math.pow(kLength,2)+Math.pow(kWidth,2));
-		*/
+
+		leftMaster = new TalonSRX(0);
+		leftSlave = new TalonSRX(1);
+		rightMaster = new TalonSRX(2);
+		rightMaster.setInverted(true);
+		rightSlave = new TalonSRX(3);
+		
+		leftSlave.follow(leftMaster);
+		rightSlave.follow(rightMaster);
 		
 		pidX = new PIDLoop(.0027,0.000003,0.00002);
 		pidArea = new PIDLoop(.001,0,0,.2);
@@ -99,7 +110,9 @@ public class Drivetrain extends Subsystem {
 				case DRIVE:
 					//manualDrive();
 				case VISION_TRACK_TANK:
-					vision_track(cam.getAvgX(), cam.getAvgArea());			
+					vision_track(cam.getAvgX(), cam.getAvgArea());
+				default:
+					break;			
 				}
 			}
 		}	
@@ -111,16 +124,16 @@ public class Drivetrain extends Subsystem {
 		}
 		});
 	}
-	/*
+	
 	public synchronized void manualDrive(double forward, double strafe, double spin) {
 		double[] podDrive = new double[4];
 		double[] podGear = new double[4];
 		
 		//converting degrees to radians
-		//final double angle = gyro.getYaw() * Math.PI / 180.0;
-	    //final double temp = forward * Math.cos(angle) + strafe * Math.sin(angle);
-	    //strafe = -forward * Math.sin(angle) + strafe * Math.cos(angle);
-	    //forward = temp;
+		final double angle = imu.getYaw() * Math.PI / 180.0;
+	    final double temp = forward * Math.cos(angle) + strafe * Math.sin(angle);
+	    strafe = -forward * Math.sin(angle) + strafe * Math.cos(angle);
+	    forward = temp;
 		
 		//Calculating components
 		double a = strafe - spin * kLength/2; 
@@ -141,6 +154,11 @@ public class Drivetrain extends Subsystem {
 		podDrive[3] = Math.sqrt(Math.pow(a, 2)+ Math.pow(c, 2));
 		podGear[3] = Math.atan2(a,c);
 		
+		for(int idx = 0; idx < 4; idx++) {
+			if(podDrive[idx]>rel_max_speed) {
+				
+			}
+		}
 		for(int idx = 0; idx < Pods.size(); idx++) {
 			(Pods.get(idx)).setPod(podDrive[idx],podGear[idx]); 
 		}
@@ -148,17 +166,13 @@ public class Drivetrain extends Subsystem {
 		
 		
 	}
-	*/
+	
 	public void vision_track(double avgX, double avgArea) {
 		output = pidX.returnOutput(avgX, centerX);
 		areaoutput = pidArea.returnOutput(avgArea, targetArea);
 		
 		leftMaster.set(ControlMode.PercentOutput, output-areaoutput);
-		leftSlave.set(ControlMode.PercentOutput,output-areaoutput);
-		rightMaster.setInverted(true);
-		rightSlave.setInverted(true);
 		rightMaster.set(ControlMode.PercentOutput,-output-areaoutput);
-		rightSlave.set(ControlMode.PercentOutput,-output-areaoutput);
 	}
 	@Override
 	public void zeroAllSensors() {

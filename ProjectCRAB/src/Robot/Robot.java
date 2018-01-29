@@ -8,12 +8,11 @@
 package Robot;
 
 import org.usfirst.frc.team6713.subsystem.*;
-
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
+import Util.ADIS16448_IMU;
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the IterativeRobot
@@ -26,15 +25,16 @@ public class Robot extends IterativeRobot {
 	private SendableChooser<String> m_chooser = new SendableChooser<>();
 	private Loop_Manager myLoops = Loop_Manager.getInstance();
 	private Drivetrain drive = Drivetrain.getInstance(); 
-	private PixyCam cam = PixyCam.getInstance();
+	private PixyCam camera = PixyCam.getInstance();
 	private Joystick j;
+	private IMU imu = IMU.getInstance();
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
 	 */
 	@Override
 	public void robotInit() {
-		cam.registerLoop();
+		camera.registerLoop();
 		drive.registerLoop();
 		myLoops.startLoops();
 		j = new Joystick(0);
@@ -44,7 +44,7 @@ public class Robot extends IterativeRobot {
 		
 		
 	}
-
+	
 	/**
 	 * This function is called periodically during autonomous.
 	 */
@@ -60,7 +60,7 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 		myLoops.runLoops();
 		if(j.getRawButton(1)) {
-			cam.setSystemState(PixyCam.systemStates.TRACKING_CUBE);
+			camera.setSystemState(PixyCam.systemStates.TRACKING_CUBE);
 			drive.setSystemState(Drivetrain.systemStates.VISION_TRACK_TANK);
 		}
 	}
@@ -71,4 +71,5 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void testPeriodic() {
 	}
+	
 }
