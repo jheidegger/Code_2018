@@ -3,6 +3,7 @@ import Robot.Constants;
 import Robot.Robot;
 import Util.ADIS16448_IMU;
 import Util.PIDLoop;
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Joystick;
 
 import java.util.ArrayList;
@@ -13,13 +14,13 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 public class Drivetrain extends Subsystem {
 
 	private static Drivetrain instance;
-	private ADIS16448_IMU imu = IMU.getInstance().getIMU();
+	private ADXRS450_Gyro gyro;
 	private PixyCam cam = PixyCam.getInstance();
-	private PIDLoop pidX;
-	private PIDLoop pidArea;
-	int centerX = Constants.PIXY_CENTER_X;
-	int targetArea = 1200; 
-	private double output,areaoutput=0;
+//	private PIDLoop pidX;
+//	private PIDLoop pidArea;
+//	int centerX = Constants.PIXY_CENTER_X;
+//	int targetArea = 1200; 
+//	private double output,areaoutput=0;
 	
 	private ArrayList<Swervepod> Pods;
 	private Swervepod upperRight;
@@ -32,8 +33,10 @@ public class Drivetrain extends Subsystem {
 	private double kWidth;
 	private double kRadius;
 	private double rel_max_speed =0;
-	
-	
+	private double angle;
+	private double forwardCommand;
+	private double strafeCommand;
+	private double spinCommand;
 	public enum systemStates{
 		NEUTRAL,
 		HOMING,
@@ -41,7 +44,15 @@ public class Drivetrain extends Subsystem {
 		PARK,
 		VISION_TRACK_TANK
 	}
-	
+	public enum driveCoords{
+		ROBOTCENTRIC,
+		FIELDCENTRIC,
+	}
+	public enum driveType
+	{
+		PERCENTPOWER,
+		VELOCITY
+	}
 	private systemStates currentState;
 	private systemStates requestedState;
 	
@@ -63,10 +74,15 @@ public class Drivetrain extends Subsystem {
 		kLength = Constants.DRIVETRAINLENGTH;
 		kWidth = Constants.DRIVETRAINWIDTH;
 		kRadius = Math.sqrt(Math.pow(kLength,2)+Math.pow(kWidth,2));
-
-		
-		pidX = new PIDLoop(.0027,0.000003,0.00002);
-		pidArea = new PIDLoop(.001,0,0,.2);
+		//instantiate the gyro
+		gyro = new ADXRS450_Gyro();
+		angle = (gyro.getAngle()* Math.PI/180.0) % (2*Math.PI);
+		//initialize the commands
+		forwardCommand = 0.0;
+		strafeCommand = 0.0;
+		spinCommand = 0.0;
+//		pidX = new PIDLoop(.0027,0.000003,0.00002);
+//		pidArea = new PIDLoop(.001,0,0,.2);
 	}
 	
 	public static Drivetrain getInstance()
@@ -95,9 +111,8 @@ public class Drivetrain extends Subsystem {
 		}
 		@Override
 		public void onloop() {
-			// TODO Auto-generated method stub
-			synchronized(Drivetrain.this) {
-				switch(currentState) {
+			updateAngle();
+			switch(currentState) {
 				case NEUTRAL:
 					if(requestedState!=currentState)
 					{
@@ -106,11 +121,10 @@ public class Drivetrain extends Subsystem {
 				case DRIVE:
 					//manualDrive();
 				case VISION_TRACK_TANK:
-					vision_track(cam.getAvgX(), cam.getAvgArea());
+					//vision_track(cam.getAvgX(), cam.getAvgArea());
 				default:
 					break;			
 				}
-			}
 		}	
 
 		@Override
@@ -120,16 +134,17 @@ public class Drivetrain extends Subsystem {
 		}
 		});
 	}
+	private void updateAngle()
+	{
+		angle = (gyro.getAngle()* Math.PI/180.0) % (2*Math.PI);
+	}
 	
-	public synchronized void manualDrive(double forward, double strafe, double spin) {
+	private void manualDrive(double forward, double strafe, double spin) {
 		double[] podDrive = new double[4];
 		double[] podGear = new double[4];
 		
 		//converting degrees to radians
-		final double angle = imu.getYaw() * Math.PI / 180.0;
-	    final double temp = forward * Math.cos(angle) + strafe * Math.sin(angle);
-	    strafe = -forward * Math.sin(angle) + strafe * Math.cos(angle);
-	    forward = temp;
+	  
 		
 		//Calculating components
 		double a = strafe - spin * kLength/2; 
@@ -163,10 +178,10 @@ public class Drivetrain extends Subsystem {
 		
 	}
 	
-	public void vision_track(double avgX, double avgArea) {
-		output = pidX.returnOutput(avgX, centerX);
-		areaoutput = pidArea.returnOutput(avgArea, targetArea);
-	}
+//	public void vision_track(double avgX, double avgArea) {
+//		output = pidX.returnOutput(avgX, centerX);
+//		areaoutput = pidArea.returnOutput(avgArea, targetArea);
+//	}
 	
 	@Override
 	public void zeroAllSensors() {
@@ -187,6 +202,22 @@ public class Drivetrain extends Subsystem {
 		requestedState = wanted;
 	}
 	
+	public void swerve(double forwardCommand, double strafeCommand, double spinCommand, driveCoords Coords, driveType commandType)
+	{
+		if(Coords == driveCoords.ROBOTCENTRIC && commandType == driveType.VELOCITY)
+		{
+			this.forwardCommand = forwardCommand;
+			this.strafeCommand = strafeCommand;
+			this.spinCommand = spinCommand;
+		}
+		if(Coords == driveCoords.FIELDCENTRIC && commandType == driveType.VELOCITY)
+		{
+			final double temp = forwardCommand * Math.cos(angle) + strafeCommand * Math.sin(angle);
+		    this.strafeCommand = -forwardCommand * Math.sin(angle) + strafeCommand * Math.cos(angle);
+		    this.forwardCommand = temp;
+		    this.spinCommand = spinCommand;
+		}
+	}
 
 }
 	

@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import Util.ADIS16448_IMU;
+
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the IterativeRobot
@@ -27,7 +27,7 @@ public class Robot extends IterativeRobot {
 	private Drivetrain drive = Drivetrain.getInstance(); 
 	private PixyCam camera = PixyCam.getInstance();
 	private Joystick j;
-	private IMU imu = IMU.getInstance();
+	private 
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
