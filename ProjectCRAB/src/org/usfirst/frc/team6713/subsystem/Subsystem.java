@@ -5,10 +5,10 @@ public abstract class Subsystem {
 	 * The Subsystem class is used for each distinct robot function.
 	 * Subsystems are coded as state machines and will be given Loops to accomplish tasks 
 	 */
-	public Loop_Manager Loop_Manager_Instance;
+	
 	public Subsystem()
 	{
-		Loop_Manager_Instance = Loop_Manager.getInstance();
+		
 	}
 	public abstract void zeroAllSensors();
 	

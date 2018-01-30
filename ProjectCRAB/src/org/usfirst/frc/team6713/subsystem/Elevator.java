@@ -32,7 +32,7 @@ public class Elevator extends Subsystem {
 
 	@Override
 	public void registerLoop() {
-		super.Loop_Manager_Instance.addLoop(new Loop()
+		Loop_Manager.getInstance().addLoop(new Loop()
 		{
 
 			@Override

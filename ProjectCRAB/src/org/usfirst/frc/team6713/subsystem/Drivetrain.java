@@ -17,10 +17,6 @@ public class Drivetrain extends Subsystem {
 	private PixyCam cam = PixyCam.getInstance();
 	private PIDLoop pidX;
 	private PIDLoop pidArea;
-	TalonSRX leftMaster;
-	TalonSRX leftSlave;
-	TalonSRX rightMaster;
-	TalonSRX rightSlave;
 	int centerX = Constants.PIXY_CENTER_X;
 	int targetArea = 1200; 
 	private double output,areaoutput=0;
@@ -47,8 +43,9 @@ public class Drivetrain extends Subsystem {
 	}
 	
 	private systemStates currentState;
+	private systemStates requestedState;
 	
-	public Drivetrain()
+	private Drivetrain()
 	{
 		//instantiate the pods
 		upperRight = new Swervepod(0,driveTalon[0], gearTalon[0]);
@@ -67,14 +64,6 @@ public class Drivetrain extends Subsystem {
 		kWidth = Constants.DRIVETRAINWIDTH;
 		kRadius = Math.sqrt(Math.pow(kLength,2)+Math.pow(kWidth,2));
 
-		leftMaster = new TalonSRX(0);
-		leftSlave = new TalonSRX(1);
-		rightMaster = new TalonSRX(2);
-		rightMaster.setInverted(true);
-		rightSlave = new TalonSRX(3);
-		
-		leftSlave.follow(leftMaster);
-		rightSlave.follow(rightMaster);
 		
 		pidX = new PIDLoop(.0027,0.000003,0.00002);
 		pidArea = new PIDLoop(.001,0,0,.2);
@@ -96,10 +85,12 @@ public class Drivetrain extends Subsystem {
 	@Override
 	public void registerLoop()
 	{
-		super.Loop_Manager_Instance.addLoop(new Loop() {
+		Loop_Manager.getInstance().addLoop(new Loop() {
 		@Override
 		public void onStart() {
 		// TODO Auto-generated method stub
+			currentState = systemStates.NEUTRAL;
+			requestedState = systemStates.NEUTRAL;
 						
 		}
 		@Override
@@ -107,6 +98,11 @@ public class Drivetrain extends Subsystem {
 			// TODO Auto-generated method stub
 			synchronized(Drivetrain.this) {
 				switch(currentState) {
+				case NEUTRAL:
+					if(requestedState!=currentState)
+					{
+						currentState = requestedState;
+					}
 				case DRIVE:
 					//manualDrive();
 				case VISION_TRACK_TANK:
@@ -170,13 +166,15 @@ public class Drivetrain extends Subsystem {
 	public void vision_track(double avgX, double avgArea) {
 		output = pidX.returnOutput(avgX, centerX);
 		areaoutput = pidArea.returnOutput(avgArea, targetArea);
-		
-		leftMaster.set(ControlMode.PercentOutput, output-areaoutput);
-		rightMaster.set(ControlMode.PercentOutput,-output-areaoutput);
 	}
+	
 	@Override
 	public void zeroAllSensors() {
-		// TODO Auto-generated method stub
+		for(int idx = 0; idx < Pods.size(); idx++)
+		{
+			Pods.get(idx).zeroAllSensors();
+		}
+		
 
 	}
 
@@ -186,7 +184,7 @@ public class Drivetrain extends Subsystem {
 		return false;
 	}
 	public void setSystemState(systemStates wanted) {
-		currentState = wanted;
+		requestedState = wanted;
 	}
 	
 
