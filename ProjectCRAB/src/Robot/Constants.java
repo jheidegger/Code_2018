@@ -18,7 +18,8 @@ public class Constants {
 	public static double DRIVETRAINWIDTH = 5;
 	// ft/s
 	public static double DRIVETRAINMAXWHEELSPEED = 13.5;
-	
+	// radians/s
+	public static double DRIVETRAINMAXROTATIONSPEED = 5;
 	public static double DELTATIME = .02; 
 	//vision constants
 	public static int AVG_LIST_SIZE = 10;

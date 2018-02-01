@@ -218,16 +218,16 @@ public class Drivetrain extends Subsystem {
 		}
 		if(Coords == driveCoords.ROBOTCENTRIC && commandType == driveType.PERCENTPOWER)
 		{
-			this.forwardCommand = forwardCommand*;
-			this.strafeCommand = strafeCommand;
-			this.spinCommand = spinCommand;
+			this.forwardCommand = forwardCommand*Constants.DRIVETRAINMAXWHEELSPEED;
+			this.strafeCommand = strafeCommand*Constants.DRIVETRAINMAXWHEELSPEED;
+			this.spinCommand = spinCommand*Constants.DRIVETRAINMAXROTATIONSPEED;
 		}
 		if(Coords == driveCoords.FIELDCENTRIC && commandType == driveType.PERCENTPOWER)
 		{
-			final double temp = forwardCommand * Math.cos(angle) + strafeCommand * Math.sin(angle);
-		    this.strafeCommand = -forwardCommand * Math.sin(angle) + strafeCommand * Math.cos(angle);
+			final double temp = (forwardCommand * Math.cos(angle) + strafeCommand * Math.sin(angle))*Constants.DRIVETRAINMAXWHEELSPEED;
+		    this.strafeCommand = (-forwardCommand * Math.sin(angle) + strafeCommand * Math.cos(angle))*Constants.DRIVETRAINMAXWHEELSPEED;
 		    this.forwardCommand = temp;
-		    this.spinCommand = spinCommand;
+		    this.spinCommand = spinCommand*Constants.DRIVETRAINMAXROTATIONSPEED;
 		}
 		
 	}
