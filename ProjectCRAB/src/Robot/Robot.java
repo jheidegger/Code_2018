@@ -29,8 +29,7 @@ public class Robot extends IterativeRobot {
 	private Drivetrain drive = Drivetrain.getInstance(); 
 	private PixyCam camera = PixyCam.getInstance();
 	private Joystick j;
-	private ADXRS450_Gyro gyro;
-	
+	private Joystick j2;
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
@@ -41,7 +40,8 @@ public class Robot extends IterativeRobot {
 		drive.registerLoop();
 		myLoops.startLoops();
 		j = new Joystick(0);
-		gyro = new ADXRS450_Gyro();
+		j2 = new Joystick(1);
+		
 	}
 	@Override
 	public void autonomousInit() {
@@ -67,6 +67,7 @@ public class Robot extends IterativeRobot {
 			camera.setSystemState(PixyCam.systemStates.TRACKING_CUBE);
 			drive.setSystemState(Drivetrain.systemStates.VISION_TRACK_TANK);
 		}
+		drive.swerve(j.getY(), j.getX(), j.getX(), Drivetrain.driveCoords.FIELDCENTRIC, Drivetrain.driveType.PERCENTPOWER);
 	}
 
 	/**

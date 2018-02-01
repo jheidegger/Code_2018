@@ -118,7 +118,7 @@ public class Drivetrain extends Subsystem {
 						currentState = requestedState;
 					}
 				case DRIVE:
-					//manualDrive();
+					manualDrive(forwardCommand,strafeCommand,spinCommand);
 				case VISION_TRACK_TANK:
 					//vision_track(cam.getAvgX(), cam.getAvgArea());
 				default:
