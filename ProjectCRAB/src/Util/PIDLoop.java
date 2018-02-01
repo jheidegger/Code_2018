@@ -1,6 +1,7 @@
 package Util;
 
 import Robot.*;
+import edu.wpi.first.wpilibj.Timer;
 
 public class PIDLoop {
 	
@@ -10,6 +11,10 @@ public class PIDLoop {
 	private double Kf;
 	private double error, previous_error, integral, derivative, output, integralMax = 0;
 	private double max_speed = 0.8; 
+	private double currTime; 
+	private double lastTime = 0.0;
+	private double deltaTime;
+	private Timer timer;
 	
 	
 	public PIDLoop(double pG, double iG, double dG){
@@ -41,11 +46,14 @@ public class PIDLoop {
 		Kf = f;
 	}
 	public double returnOutput(double current, double setpoint) {
+		currTime = timer.get();
+		deltaTime = currTime-lastTime;
+		lastTime = currTime;
 		error = setpoint - current;
 		if(integral < integralMax || integralMax == 0) {
-			integral += (error*Constants.DELTATIME);
+			integral += (error*deltaTime);
 		}
-		derivative = (error - previous_error)/Constants.DELTATIME; 
+		derivative = (error - previous_error)/deltaTime; 
 		previous_error = error;
 		
 		output = (proportionalGain*error) + (integralGain*integral) + (derivativeGain*derivative) + (Kf*setpoint);
