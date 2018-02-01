@@ -118,7 +118,7 @@ public class Drivetrain extends Subsystem {
 						currentState = requestedState;
 					}
 				case DRIVE:
-					manualDrive(forwardCommand,strafeCommand,spinCommand);
+					manualDrive();
 				case VISION_TRACK_TANK:
 					//vision_track(cam.getAvgX(), cam.getAvgArea());
 				default:
@@ -138,7 +138,7 @@ public class Drivetrain extends Subsystem {
 		angle = (gyro.getAngle()* Math.PI/180.0) % (2*Math.PI);
 	}
 	
-	private void manualDrive(double forward, double strafe, double spin) {
+	private void manualDrive() {
 		double[] podDrive = new double[4];
 		double[] podGear = new double[4];
 		
@@ -146,10 +146,10 @@ public class Drivetrain extends Subsystem {
 	  
 		
 		//Calculating components
-		double a = strafe - spin * kLength/2; 
-		double b = strafe + spin * kLength/2; 
-		double c = forward - spin * kWidth/2; 
-		double d = forward + spin * kWidth/2; 
+		double a = strafeCommand - spinCommand * kLength/2; 
+		double b = strafeCommand + spinCommand * kLength/2; 
+		double c = forwardCommand - spinCommand * kWidth/2; 
+		double d = forwardCommand + spinCommand * kWidth/2; 
 		
 		
 		podDrive[0] = Math.sqrt(Math.pow(b, 2)+ Math.pow(c, 2));
