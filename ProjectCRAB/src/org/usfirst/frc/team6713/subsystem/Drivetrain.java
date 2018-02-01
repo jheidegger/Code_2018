@@ -1,7 +1,6 @@
 package org.usfirst.frc.team6713.subsystem;
 import Robot.Constants;
 import Robot.Robot;
-import Util.ADIS16448_IMU;
 import Util.PIDLoop;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Joystick;
@@ -217,7 +216,22 @@ public class Drivetrain extends Subsystem {
 		    this.forwardCommand = temp;
 		    this.spinCommand = spinCommand;
 		}
+		if(Coords == driveCoords.ROBOTCENTRIC && commandType == driveType.PERCENTPOWER)
+		{
+			this.forwardCommand = forwardCommand*;
+			this.strafeCommand = strafeCommand;
+			this.spinCommand = spinCommand;
+		}
+		if(Coords == driveCoords.FIELDCENTRIC && commandType == driveType.PERCENTPOWER)
+		{
+			final double temp = forwardCommand * Math.cos(angle) + strafeCommand * Math.sin(angle);
+		    this.strafeCommand = -forwardCommand * Math.sin(angle) + strafeCommand * Math.cos(angle);
+		    this.forwardCommand = temp;
+		    this.spinCommand = spinCommand;
+		}
+		
 	}
+
 
 }
 	

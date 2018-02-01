@@ -8,6 +8,8 @@
 package Robot;
 
 import org.usfirst.frc.team6713.subsystem.*;
+
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -27,7 +29,8 @@ public class Robot extends IterativeRobot {
 	private Drivetrain drive = Drivetrain.getInstance(); 
 	private PixyCam camera = PixyCam.getInstance();
 	private Joystick j;
-	private 
+	private ADXRS450_Gyro gyro;
+	
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
@@ -38,6 +41,7 @@ public class Robot extends IterativeRobot {
 		drive.registerLoop();
 		myLoops.startLoops();
 		j = new Joystick(0);
+		gyro = new ADXRS450_Gyro();
 	}
 	@Override
 	public void autonomousInit() {
