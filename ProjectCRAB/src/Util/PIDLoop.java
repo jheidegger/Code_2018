@@ -12,9 +12,8 @@ public class PIDLoop {
 	private double error, previous_error, integral, derivative, output, integralMax = 0;
 	private double max_speed = 0.8; 
 	private double currTime; 
-	private double lastTime = 0.0;
+	private double lastTime = Timer.getFPGATimestamp();
 	private double deltaTime;
-	private Timer timer;
 	
 	
 	public PIDLoop(double pG, double iG, double dG){
@@ -46,7 +45,7 @@ public class PIDLoop {
 		Kf = f;
 	}
 	public double returnOutput(double current, double setpoint) {
-		currTime = timer.get();
+		currTime = Timer.getFPGATimestamp();
 		deltaTime = currTime-lastTime;
 		lastTime = currTime;
 		error = setpoint - current;

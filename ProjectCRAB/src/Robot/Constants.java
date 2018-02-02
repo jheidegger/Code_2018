@@ -6,6 +6,8 @@ import edu.wpi.first.wpilibj.Timer;
  * All constants are stored in this file as static constant variables
  */
 public class Constants {
+	public static double DEFAULTDELTATIME = .02;
+	
 	//Robot Port Map NOTE: only change if the robot is rewired
 	public static int ELEVATORMOTOR = 4;
 	
@@ -20,7 +22,7 @@ public class Constants {
 	public static double DRIVETRAINMAXWHEELSPEED = 13.5;
 	// radians/s
 	public static double DRIVETRAINMAXROTATIONSPEED = 5;
-	public static double DELTATIME = .02; 
+	
 	//vision constants
 	public static int AVG_LIST_SIZE = 10;
 	public static int PIXY_CENTER_X = 160; 
