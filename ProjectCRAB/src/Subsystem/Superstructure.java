@@ -1,10 +1,10 @@
-package subsystem;
+package Subsystem;
 
 public class Superstructure{
 	Superstructure instance = new Superstructure();
 	Elevator kElevator;
-	Intake kIntake;
-	Gripper kGripper;
+	//Intake kIntake;
+	//Gripper kGripper;
 	
 	
 }

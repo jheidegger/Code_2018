@@ -1,12 +1,12 @@
-package subsystem;
+package Subsystem;
 
 import java.util.ArrayList;
 
 import Robot.Constants;
+import Subsystem.Drivetrain.systemStates;
 import Vision.*;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.I2C.Port;
-import subsystem.Drivetrain.systemStates;
 
 public class PixyCam extends Subsystem{
 	

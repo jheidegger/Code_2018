@@ -1,4 +1,4 @@
-package subsystem;
+package Subsystem;
 
 public abstract class Subsystem {
 	/*

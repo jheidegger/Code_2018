@@ -1,4 +1,4 @@
-package subsystem;
+package Subsystem;
 import Robot.Constants;
 import Robot.Robot;
 import Util.PIDLoop;

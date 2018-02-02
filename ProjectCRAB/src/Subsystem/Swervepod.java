@@ -1,4 +1,4 @@
-package subsystem;
+package Subsystem;
 import com.ctre.phoenix.CTREJNIWrapper;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
