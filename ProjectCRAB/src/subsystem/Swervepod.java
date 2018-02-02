@@ -1,4 +1,4 @@
-package org.usfirst.frc.team6713.subsystem;
+package subsystem;
 import com.ctre.phoenix.CTREJNIWrapper;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;

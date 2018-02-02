@@ -1,4 +1,4 @@
-package org.usfirst.frc.team6713.subsystem;
+package subsystem;
 
 public abstract class Subsystem {
 	/*

@@ -1,13 +1,12 @@
-package org.usfirst.frc.team6713.subsystem;
+package subsystem;
 
 import java.util.ArrayList;
-
-import org.usfirst.frc.team6713.subsystem.Drivetrain.systemStates;
 
 import Robot.Constants;
 import Vision.*;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.I2C.Port;
+import subsystem.Drivetrain.systemStates;
 
 public class PixyCam extends Subsystem{
 	
