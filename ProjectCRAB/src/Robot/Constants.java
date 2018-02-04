@@ -10,8 +10,7 @@ public class Constants {
 	
 	//Robot Port Map NOTE: only change if the robot is rewired
 	public static int ELEVATORMOTOR = 4;
-	public static int INTAKERIGHTSIDE = 1;
-	public static int INTAKELEFTSIDE = 2;
+	
 	
 	
 	//Subsystem constants
@@ -33,9 +32,6 @@ public class Constants {
 	public static double ElevatorKp = 0;
 	public static double ElevatorKi = 0;
 	public static double ElevatorKd = 0;
-	//intake subsystem
-	public static double INTAKESPEED = .9;
-	public static double INTAKESCORESPEED = -.6;
-	public static double INTAKEHANDOFFSPEED = .3;
+	
 
 }
