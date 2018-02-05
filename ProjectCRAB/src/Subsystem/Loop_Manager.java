@@ -3,7 +3,7 @@ package Subsystem;
 import java.util.ArrayList;
 
 public class Loop_Manager {
-	private static Loop_Manager instance;
+	private static Loop_Manager instance = new Loop_Manager();
 	private ArrayList<Loop> Loops;
 	//private constructor
 	private Loop_Manager()
@@ -13,15 +13,7 @@ public class Loop_Manager {
 	// So there is only ever one instance of the loop manager
 	public static Loop_Manager getInstance()
 	{
-		if(instance == null)
-		{
-			instance = new Loop_Manager();
-			return instance;
-		}
-		else
-		{
-			return instance;
-		}
+		return instance;
 	}
 	public void addLoop(Loop L)
 	{

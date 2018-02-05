@@ -10,9 +10,9 @@ public class Elevator extends Subsystem {
 	public Elevator() {
 		
 		driveMotor = new Victor(Constants.ELEVATORMOTOR);
-		elevatorControlLoop = new PIDLoop(Constants.ElevatorKp,
-											Constants.ElevatorKi, 
-											Constants.ElevatorKd,
+		elevatorControlLoop = new PIDLoop(Constants.ELEVATOR_KP,
+											Constants.ELEVATOR_KI, 
+											Constants.ELEVATOR_KD,
 											1);
 		
 		

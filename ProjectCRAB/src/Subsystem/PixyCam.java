@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.I2C.Port;
 
 public class PixyCam extends Subsystem{
 	
-	private PixyCam instance;
+	private static PixyCam instance;
 	
 	PixyPacket values;
 	I2C pixy;
@@ -40,7 +40,7 @@ public class PixyCam extends Subsystem{
 		pExc = new PixyException(print);
 	}
 	
-	public PixyCam getInstance()
+	public static PixyCam getInstance()
 	{
 		return instance;
 	}
