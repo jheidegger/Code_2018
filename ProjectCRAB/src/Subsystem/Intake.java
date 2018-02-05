@@ -9,7 +9,7 @@ package Subsystem;
  	public static Intake instance = new Intake();
  	private Victor rightSideWheel;
  	private Victor leftSideWheel;
- 
+ 	private Solenoid intakeActuator;
  	private systemStates currState;
  	enum systemStates{
  		Intaking,
@@ -23,6 +23,7 @@ package Subsystem;
  	{
  		rightSideWheel = new Victor(Constants.INTAKERIGHTSIDE);
  		leftSideWheel = new Victor(Constants.INTAKELEFTSIDE);
+ 		intakeActuator = new Solenoid(Constants.INTAKESOLENOID);
  		
  	}
  	@Override
@@ -50,7 +51,7 @@ package Subsystem;
  			public void onloop() {
  				switch(currState)
  				{
- 			case Intaking:
+ 				case Intaking:
  					rightSideWheel.set(Constants.INTAKESPEED);
  					leftSideWheel.set(Constants.INTAKESPEED);
  					break;

@@ -12,9 +12,10 @@ public class Constants {
 	
 	public static final int INTAKERIGHTSIDE = 1;
 	public static final int INTAKELEFTSIDE = 2;
-	public static final double INTAKESPEED = 0;
-	public static final double INTAKESCORESPEED = 0;
-	public static final double INTAKEHANDOFFSPEED = 0;
+	public static final int INTAKESOLENOID = 0;
+	
+	public static final int GRIPSOLENOID = 0;
+	public static final int FLIPPERSOLENOID = 0;
 	
 	//Driverstation constants
 	public static int DRIVE_JOYSTICK = 0; 
@@ -39,6 +40,13 @@ public class Constants {
 	public static double ELEVATOR_KP = 0;
 	public static double ELEVATOR_KI = 0;
 	public static double ELEVATOR_KD = 0;
+	
+	//intake constants
+	public static final double INTAKESPEED = 0;
+	public static final double INTAKESCORESPEED = 0;
+	public static final double INTAKEHANDOFFSPEED = 0;
+
+	
 	
 
 }
