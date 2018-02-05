@@ -7,7 +7,14 @@ import edu.wpi.first.wpilibj.Timer;
  */
 public class Constants {
 	//Robot Port Map NOTE: only change if the robot is rewired
+	
 	public static int ELEVATORMOTOR = 4;
+	
+	public static final int INTAKERIGHTSIDE = 1;
+	public static final int INTAKELEFTSIDE = 2;
+	public static final double INTAKESPEED = 0;
+	public static final double INTAKESCORESPEED = 0;
+	public static final double INTAKEHANDOFFSPEED = 0;
 	
 	//Driverstation constants
 	public static int DRIVE_JOYSTICK = 0; 
