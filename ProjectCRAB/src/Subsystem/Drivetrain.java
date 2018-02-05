@@ -14,28 +14,29 @@ public class Drivetrain extends Subsystem {
 
 	private static Drivetrain instance;
 	private ADXRS450_Gyro gyro;
-	private PixyCam cam = PixyCam.getInstance();
-//	private PIDLoop pidX;
-//	private PIDLoop pidArea;
-//	int centerX = Constants.PIXY_CENTER_X;
-//	int targetArea = 1200; 
-//	private double output,areaoutput=0;
 	
 	private ArrayList<Swervepod> Pods;
 	private Swervepod upperRight;
 	private Swervepod upperLeft;
 	private Swervepod lowerLeft;
 	private Swervepod lowerRight;
+	
 	public TalonSRX[] driveTalon = {new TalonSRX(0), new TalonSRX(2), new TalonSRX(4), new TalonSRX(6)}; 
 	public TalonSRX[] gearTalon = {new TalonSRX(1), new TalonSRX(3), new TalonSRX(5), new TalonSRX(7)};
+	
 	private double kLength;
 	private double kWidth;
 	private double kRadius;
-	private double rel_max_speed =0;
+	
+	private double kMaxSpeed;
+	private double kMaxRotation;
+	
+	private double rel_max_speed = 0;
 	private double angle;
 	private double forwardCommand;
 	private double strafeCommand;
 	private double spinCommand;
+	
 	public enum systemStates{
 		NEUTRAL,
 		HOMING,
@@ -43,20 +44,21 @@ public class Drivetrain extends Subsystem {
 		PARK,
 		VISION_TRACK_TANK
 	}
+	
 	public enum driveCoords{
 		ROBOTCENTRIC,
 		FIELDCENTRIC,
 	}
-	public enum driveType
-	{
+	
+	public enum driveType{
 		PERCENTPOWER,
 		VELOCITY
 	}
+	
 	private systemStates currentState;
 	private systemStates requestedState;
 	
-	private Drivetrain()
-	{
+	private Drivetrain(){
 		//instantiate the pods
 		upperRight = new Swervepod(0,driveTalon[0], gearTalon[0]);
 		upperLeft = new Swervepod(1,driveTalon[1], gearTalon[1]);
@@ -73,68 +75,24 @@ public class Drivetrain extends Subsystem {
 		kLength = Constants.DRIVETRAINLENGTH;
 		kWidth = Constants.DRIVETRAINWIDTH;
 		kRadius = Math.sqrt(Math.pow(kLength,2)+Math.pow(kWidth,2));
+		kMaxSpeed = Constants.DRIVETRAINMAXWHEELSPEED;
+		kMaxRotation = Constants.DRIVETRAINMAXROTATIONSPEED;
+		
 		//instantiate the gyro
 		gyro = new ADXRS450_Gyro();
 		angle = (gyro.getAngle()* Math.PI/180.0) % (2*Math.PI);
+		
 		//initialize the commands
 		forwardCommand = 0.0;
 		strafeCommand = 0.0;
 		spinCommand = 0.0;
-//		pidX = new PIDLoop(.0027,0.000003,0.00002);
-//		pidArea = new PIDLoop(.001,0,0,.2);
 	}
 	
-	public static Drivetrain getInstance()
-	{
-		if(instance == null)
-		{
-			instance = new Drivetrain();
-			return instance;
-		}
-		else
-		{
-			return instance;
-		}
+	public static Drivetrain getInstance(){
+		return instance;
 	}
-	
-	@Override
-	public void registerLoop()
-	{
-		Loop_Manager.getInstance().addLoop(new Loop() {
-		@Override
-		public void onStart() {
-		// TODO Auto-generated method stub
-			currentState = systemStates.NEUTRAL;
-			requestedState = systemStates.NEUTRAL;
-						
-		}
-		@Override
-		public void onloop() {
-			updateAngle();
-			switch(currentState) {
-				case NEUTRAL:
-					if(requestedState!=currentState)
-					{
-						currentState = requestedState;
-					}
-				case DRIVE:
-					manualDrive();
-				case VISION_TRACK_TANK:
-					//vision_track(cam.getAvgX(), cam.getAvgArea());
-				default:
-					break;			
-				}
-		}	
 
-		@Override
-		public void stop() {
-			// TODO Auto-generated method stub
-						
-		}
-		});
-	}
-	private void updateAngle()
-	{
+	private void updateAngle(){
 		angle = (gyro.getAngle()* Math.PI/180.0) % (2*Math.PI);
 	}
 	
@@ -142,15 +100,11 @@ public class Drivetrain extends Subsystem {
 		double[] podDrive = new double[4];
 		double[] podGear = new double[4];
 		
-		//converting degrees to radians
-	  
-		
 		//Calculating components
 		double a = strafeCommand - spinCommand * kLength/2; 
 		double b = strafeCommand + spinCommand * kLength/2; 
 		double c = forwardCommand - spinCommand * kWidth/2; 
 		double d = forwardCommand + spinCommand * kWidth/2; 
-		
 		
 		podDrive[0] = Math.sqrt(Math.pow(b, 2)+ Math.pow(c, 2));
 		podGear[0] = Math.atan2(b,c);
@@ -164,23 +118,46 @@ public class Drivetrain extends Subsystem {
 		podDrive[3] = Math.sqrt(Math.pow(a, 2)+ Math.pow(c, 2));
 		podGear[3] = Math.atan2(a,c);
 		
-		for(int idx = 0; idx < 4; idx++) {
+		for(int idx = 0; idx < Pods.size(); idx++) {
 			if(podDrive[idx]>rel_max_speed) {
-				
+				rel_max_speed = podDrive[idx];
 			}
 		}
+		
+		if(rel_max_speed > 1) {
+			for(int idx = 0; idx < Pods.size(); idx++) {
+				podDrive[idx] /= rel_max_speed;
+			}
+		}
+		
 		for(int idx = 0; idx < Pods.size(); idx++) {
 			(Pods.get(idx)).setPod(podDrive[idx],podGear[idx]); 
 		}
-		
-		
-		
 	}
 	
-//	public void vision_track(double avgX, double avgArea) {
-//		output = pidX.returnOutput(avgX, centerX);
-//		areaoutput = pidArea.returnOutput(avgArea, targetArea);
-//	}
+	public void swerve(double forwardCommand, double strafeCommand, double spinCommand, driveCoords Coords, driveType commandType){
+		if(Coords == driveCoords.ROBOTCENTRIC) {
+			this.forwardCommand = forwardCommand;
+			this.strafeCommand = strafeCommand;
+			this.spinCommand = spinCommand;
+			if(commandType == driveType.PERCENTPOWER) {
+				this.forwardCommand *= kMaxSpeed;
+				this.strafeCommand *= kMaxSpeed;
+				this.spinCommand *= kMaxRotation;
+			}
+		}
+		else {
+			final double temp = forwardCommand * Math.cos(angle) + strafeCommand * Math.sin(angle);
+		    this.strafeCommand = -forwardCommand * Math.sin(angle) + strafeCommand * Math.cos(angle);
+		    this.forwardCommand = temp;
+		    this.spinCommand = spinCommand;
+		    if(commandType == driveType.PERCENTPOWER) {
+				this.forwardCommand *= kMaxSpeed;
+				this.strafeCommand *= kMaxSpeed;
+				this.spinCommand *= kMaxRotation;
+			}
+		}
+	}
 	
 	@Override
 	public void zeroAllSensors() {
@@ -188,8 +165,6 @@ public class Drivetrain extends Subsystem {
 		{
 			Pods.get(idx).zeroAllSensors();
 		}
-		
-
 	}
 
 	@Override
@@ -197,42 +172,40 @@ public class Drivetrain extends Subsystem {
 		// TODO Auto-generated method stub
 		return false;
 	}
+	
 	public void setSystemState(systemStates wanted) {
 		requestedState = wanted;
 	}
 	
-	public void swerve(double forwardCommand, double strafeCommand, double spinCommand, driveCoords Coords, driveType commandType)
+	@Override
+	public void registerLoop()
 	{
-		if(Coords == driveCoords.ROBOTCENTRIC && commandType == driveType.VELOCITY)
-		{
-			this.forwardCommand = forwardCommand;
-			this.strafeCommand = strafeCommand;
-			this.spinCommand = spinCommand;
+		Loop_Manager.getInstance().addLoop(new Loop() {
+		@Override
+		public void onStart() {
+			currentState = systemStates.NEUTRAL;
+			requestedState = systemStates.NEUTRAL;		
 		}
-		if(Coords == driveCoords.FIELDCENTRIC && commandType == driveType.VELOCITY)
-		{
-			final double temp = forwardCommand * Math.cos(angle) + strafeCommand * Math.sin(angle);
-		    this.strafeCommand = -forwardCommand * Math.sin(angle) + strafeCommand * Math.cos(angle);
-		    this.forwardCommand = temp;
-		    this.spinCommand = spinCommand;
+		@Override
+		public void onloop() {
+			updateAngle();
+			switch(currentState) {
+				case NEUTRAL:
+					if(requestedState!=currentState)
+					{
+						currentState = requestedState;
+					}
+				case DRIVE:
+					manualDrive();
+				default:
+					break;			
+				}
+		}	
+		@Override
+		public void stop() {				
 		}
-		if(Coords == driveCoords.ROBOTCENTRIC && commandType == driveType.PERCENTPOWER)
-		{
-			this.forwardCommand = forwardCommand*Constants.DRIVETRAINMAXWHEELSPEED;
-			this.strafeCommand = strafeCommand*Constants.DRIVETRAINMAXWHEELSPEED;
-			this.spinCommand = spinCommand*Constants.DRIVETRAINMAXROTATIONSPEED;
-		}
-		if(Coords == driveCoords.FIELDCENTRIC && commandType == driveType.PERCENTPOWER)
-		{
-			final double temp = (forwardCommand * Math.cos(angle) + strafeCommand * Math.sin(angle))*Constants.DRIVETRAINMAXWHEELSPEED;
-		    this.strafeCommand = (-forwardCommand * Math.sin(angle) + strafeCommand * Math.cos(angle))*Constants.DRIVETRAINMAXWHEELSPEED;
-		    this.forwardCommand = temp;
-		    this.spinCommand = spinCommand*Constants.DRIVETRAINMAXROTATIONSPEED;
-		}
-		
+	});
 	}
-
-
 }
 	
 
