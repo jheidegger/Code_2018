@@ -20,7 +20,7 @@ public class Robot extends IterativeRobot {
 	private Loop_Manager myLoops = Loop_Manager.getInstance();
 	private Drivetrain driveTrain = Drivetrain.getInstance(); 
 	private PixyCam visionCam = PixyCam.getInstance();
-	private Driverstation driverStation = Driverstation.getInstance();
+	private Controllers controllers = Controllers.getInstance();
 
 	@Override
 	public void robotInit() {
@@ -41,12 +41,12 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		myLoops.runLoops();
-		if(driverStation.getVisionTrack()) {
+		if(controllers.getVisionTrack()) {
 			visionCam.setSystemState(PixyCam.systemStates.TRACKING_CUBE);
 			driveTrain.setSystemState(Drivetrain.systemStates.VISION_TRACK_TANK);
 		}
 		else {
-			driveTrain.swerve(driverStation.getForward(), driverStation.getStrafe(), driverStation.getRotation(), Drivetrain.driveCoords.FIELDCENTRIC, Drivetrain.driveType.PERCENTPOWER);
+			driveTrain.swerve(controllers.getForward(), controllers.getStrafe(), controllers.getRotation(), Drivetrain.driveCoords.FIELDCENTRIC, Drivetrain.driveType.PERCENTPOWER);
 		}
 	}
 

@@ -6,8 +6,8 @@ import Util.PurpleTrigger;
 import Vision.PixyException;
 import edu.wpi.first.wpilibj.Joystick;
 
-public class Driverstation extends Subsystem{
-	private static Driverstation instance = new Driverstation(); 
+public class Controllers extends Subsystem{
+	private static Controllers instance = new Controllers(); 
 	
 	private Joystick velocityStick;
 	private Joystick thetaStick;
@@ -15,13 +15,13 @@ public class Driverstation extends Subsystem{
 	
 	private PurpleTrigger ledTest;
 	
-	public Driverstation(){
+	public Controllers(){
 		velocityStick = new Joystick(Constants.DRIVE_JOYSTICK);
 		thetaStick = new Joystick(Constants.GEAR_JOYSTICK);
 		buttonMonkey = new Joystick(Constants.BUTTON_MONKEY);
 	}
 	
-	public static Driverstation getInstance() {
+	public static Controllers getInstance() {
 		return instance; 
 	}
 	
