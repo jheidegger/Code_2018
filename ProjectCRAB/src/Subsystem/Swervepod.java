@@ -20,8 +20,8 @@ public class Swervepod extends Subsystem {
 		this.driveMotor = driveMotor;
 		this.steerMotor = steerMotor;
 		direction = 1; 
-		this.driveMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 0);
-		this.steerMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute,0,0);
+		this.driveMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
+		this.steerMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative,0,10);
 	}
 	
 	public void setPod(double Speed, double Angle){
@@ -32,9 +32,9 @@ public class Swervepod extends Subsystem {
 		}
 		
 		double steerPosition = findSteerPosition(Angle) % 4096;
-		
-		steerMotor.set(ControlMode.Position, steerPosition);
-		driveMotor.set(ControlMode.Velocity, (Speed * direction));	
+		steerMotor.getSensorCollection().getPulseWidthPosition();
+		//steerMotor.set(ControlMode.Position, steerPosition);
+		//driveMotor.set(ControlMode.Velocity, (Speed * direction));	
 	}
 	
 	private double findSteerPosition(double wantedAngle){
