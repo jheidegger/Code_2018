@@ -64,6 +64,9 @@ public class Drivetrain extends Subsystem {
 		upperLeft = new Swervepod(1,driveTalon[1], gearTalon[1]);
 		lowerLeft = new Swervepod(2,driveTalon[2], gearTalon[2]);
 		lowerRight = new Swervepod(3,driveTalon[3], gearTalon[3]);
+		
+		//Instantiate the array list
+		Pods = new ArrayList<Swervepod>();
 				
 		//Add instantiated Pods to the array list
 		Pods.add(upperRight);
@@ -140,7 +143,7 @@ public class Drivetrain extends Subsystem {
 			this.forwardCommand = forwardCommand;
 			this.strafeCommand = strafeCommand;
 			this.spinCommand = spinCommand;
-			if(commandType == driveType.PERCENTPOWER) {
+			if(commandType == driveType.PERCENTPOWER) { //Else: Velocity Control
 				this.forwardCommand *= kMaxSpeed;
 				this.strafeCommand *= kMaxSpeed;
 				this.spinCommand *= kMaxRotation;
@@ -151,7 +154,7 @@ public class Drivetrain extends Subsystem {
 		    this.strafeCommand = -forwardCommand * Math.sin(angle) + strafeCommand * Math.cos(angle);
 		    this.forwardCommand = temp;
 		    this.spinCommand = spinCommand;
-		    if(commandType == driveType.PERCENTPOWER) {
+		    if(commandType == driveType.PERCENTPOWER) { //Else: Velocity Control
 				this.forwardCommand *= kMaxSpeed;
 				this.strafeCommand *= kMaxSpeed;
 				this.spinCommand *= kMaxRotation;
