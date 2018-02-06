@@ -5,7 +5,7 @@ import Subsystem.Drivetrain.systemStates;
 public class LED extends Subsystem{
 	private LED instance; 
 	
-	public LED() {
+	private LED() {
 	}
 	
 	public LED getInstance() {

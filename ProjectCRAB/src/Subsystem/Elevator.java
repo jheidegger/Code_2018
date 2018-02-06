@@ -7,15 +7,27 @@ import edu.wpi.first.wpilibj.*;
 public class Elevator extends Subsystem {
 	private Victor driveMotor;
 	private PIDLoop elevatorControlLoop; 
-	public Elevator() {
-		
+	private static Elevator instance = new Elevator();
+	
+	public enum systemStates{
+		NEUTRAL,
+		POSITION_FOLLOW,
+		OPEN_LOOP
+	}
+	
+	private systemStates currentState;
+	private systemStates requestedState;
+	
+	private Elevator() {
 		driveMotor = new Victor(Constants.ELEVATORMOTOR);
-		elevatorControlLoop = new PIDLoop(Constants.ELEVATOR_KP,
-											Constants.ELEVATOR_KI, 
-											Constants.ELEVATOR_KD,
-											1);
-		
-		
+		elevatorControlLoop = new PIDLoop(Constants.ELEVATOR_KP, //Proportional Gain
+											Constants.ELEVATOR_KI, //Integral Gain
+											Constants.ELEVATOR_KD, //Derivative Gain
+											1); //Max Speed
+	}
+	
+	public Elevator getInstance() {
+		return instance; 
 	}
 
 	@Override
@@ -37,14 +49,18 @@ public class Elevator extends Subsystem {
 
 			@Override
 			public void onStart() {
-				// TODO Auto-generated method stub
-				
+				currentState = systemStates.NEUTRAL;
+				requestedState = systemStates.NEUTRAL;				
 			}
 
 			@Override
 			public void onloop() {
-				// TODO Auto-generated method stub
-				
+				switch(currentState){
+					case NEUTRAL:
+						if(currentState!=requestedState) {
+							currentState=requestedState;
+						}
+				}
 			}
 
 			@Override

@@ -34,7 +34,7 @@ public class PixyCam extends Subsystem{
 	private double averageArea = 0;
 
 	
-	public PixyCam() {
+	private PixyCam() {
 		pixy = new I2C(Port.kOnboard, 0x54);
 		packets = new PixyPacket[7];
 		pExc = new PixyException(print);
