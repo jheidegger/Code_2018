@@ -10,8 +10,10 @@ public class Swervepod extends Subsystem {
 	
 	private TalonSRX driveMotor;
 	private TalonSRX steerMotor;
+	private Controllers controllers = Controllers.getInstance();
 	private int id;
 	private int direction;
+	private double lastAngle; 
 	private double currAngle;
 	private double angleError;
 	
@@ -33,7 +35,12 @@ public class Swervepod extends Subsystem {
 			Angle = Angle + 2 * Math.PI;
 		}
 		System.out.println("Angle: " + Angle);
+		
 		double steerPosition = ((Angle/(2*PI))*4096)%4096;
+		if(controllers.getForward() == 0 && controllers.getStrafe() ==0 && controllers.getRotation() == 0) {
+			steerPosition = lastAngle; 
+		}
+		lastAngle = steerPosition;
 		
 		//double steerPosition = findSteerPosition(Angle) % 4096;
 		System.out.println("Steer: " + steerPosition);
@@ -43,7 +50,7 @@ public class Swervepod extends Subsystem {
 		//SmartDashboard.putNumber("Steer", (steerMotor.getSelectedSensorPosition(0)%4096));
 		//SmartDashboard.putNumber("Absolute", driveMotor.getSelectedSensorVelocity(0));
 		steerMotor.set(ControlMode.Position, steerPosition);
-		driveMotor.set(ControlMode.Velocity, (Speed * direction));	
+		driveMotor.set(ControlMode.Velocity, Speed);	
 	}
 	
 	private double findSteerPosition(double wantedAngle){

@@ -26,13 +26,9 @@ public class Robot extends IterativeRobot {
 	private Drivetrain driveTrain = Drivetrain.getInstance(); 
 	//private PixyCam visionCam = PixyCam.getInstance();
 	private Controllers controllers = Controllers.getInstance();
-	private Joystick velocityStick;
-	private Joystick thetaStick;
-
 	@Override
 	public void robotInit() {
-		velocityStick = new Joystick(Constants.DRIVE_JOYSTICK);
-		thetaStick = new Joystick(Constants.GEAR_JOYSTICK);
+
 		//visionCam.registerLoop();
 		//driveTrain.swerve(0.0, 0.0, 0.0, Drivetrain.driveCoords.FIELDCENTRIC,Drivetrain.driveType.PERCENTPOWER );
 		driveTrain.registerLoop();
@@ -52,7 +48,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		myLoops.runLoops();
-		driveTrain.swerve(velocityStick.getY(), velocityStick.getX(), thetaStick.getX(), Drivetrain.driveCoords.ROBOTCENTRIC, Drivetrain.driveType.VELOCITY);
+		driveTrain.swerve(controllers.getForward(), controllers.getStrafe(), controllers.getRotation(), Drivetrain.driveCoords.ROBOTCENTRIC, Drivetrain.driveType.VELOCITY);
 	}
 
 	@Override
