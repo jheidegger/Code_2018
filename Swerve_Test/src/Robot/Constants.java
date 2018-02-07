@@ -25,8 +25,10 @@ public class Constants {
 	//Subsystem constants
 	
 	//Drive Train constants
+	//in.
 	public static double DRIVETRAINLENGTH = 5;
 	public static double DRIVETRAINWIDTH = 5;
+	public static final double WHEELDIAMETER = 4;
 	// ft/s
 	public static double DRIVETRAINMAXWHEELSPEED = 13.5;
 	// radians/s

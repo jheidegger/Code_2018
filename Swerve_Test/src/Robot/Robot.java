@@ -48,7 +48,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		myLoops.runLoops();
-		driveTrain.swerve(controllers.getForward(), controllers.getStrafe(), controllers.getRotation(), Drivetrain.driveCoords.ROBOTCENTRIC, Drivetrain.driveType.VELOCITY);
+		driveTrain.swerve(controllers.getForward(), controllers.getStrafe(), controllers.getRotation(), Drivetrain.driveCoords.ROBOTCENTRIC, Drivetrain.driveType.PERCENTPOWER);
 	}
 
 	@Override

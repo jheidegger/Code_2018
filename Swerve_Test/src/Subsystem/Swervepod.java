@@ -4,6 +4,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
+import Robot.Constants;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Swervepod extends Subsystem {
@@ -16,7 +17,8 @@ public class Swervepod extends Subsystem {
 	private double lastAngle; 
 	private double currAngle;
 	private double angleError;
-	
+	//ft/s to u/s
+	private double fps2ups = 4096.0 / (Constants.WHEELDIAMETER/12.0);
 	private double PI = Math.PI;
 	
 	Swervepod(int id,TalonSRX driveMotor,TalonSRX steerMotor) {
@@ -25,27 +27,28 @@ public class Swervepod extends Subsystem {
 		this.steerMotor = steerMotor;
 		direction = 1; 
 		this.driveMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative,0,0);
-		this.steerMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute,0,0);
+		this.steerMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative,0,0);
 	}
 	
 	public void setPod(double Speed, double Angle){
 		//convert Angle from -pi to pi into 0 to 2pi
-		if(Angle<0)
-		{
-			Angle = Angle + 2 * Math.PI;
-		}
+//		if(Angle<0)
+//		{
+//			Angle = Angle + 2 * Math.PI;
+//		}
 		System.out.println("Angle: " + Angle);
 		
-		double steerPosition = ((Angle/(2*PI))*4096)%4096;
+		//double steerPosition = ((Angle/(2*PI))*4096)%4096;
+		double steerPosition = findSteerPosition(Angle);
 		if(controllers.getForward() == 0 && controllers.getStrafe() ==0 && controllers.getRotation() == 0) {
 			steerPosition = lastAngle; 
 		}
 		lastAngle = steerPosition;
 		
-		//double steerPosition = findSteerPosition(Angle) % 4096;
+		
 		System.out.println("Steer: " + steerPosition);
 		//System.out.println("Speed: " + Speed);
-		Speed = Speed * 10000;
+		Speed *= fps2ups;
 		//System.out.println(Speed);
 		//SmartDashboard.putNumber("Steer", (steerMotor.getSelectedSensorPosition(0)%4096));
 		//SmartDashboard.putNumber("Absolute", driveMotor.getSelectedSensorVelocity(0));
@@ -54,15 +57,21 @@ public class Swervepod extends Subsystem {
 	}
 	
 	private double findSteerPosition(double wantedAngle){
-		currAngle = (((steerMotor.getSelectedSensorPosition(0))/4096) * (2*PI));
-		wantedAngle = (wantedAngle/(2*PI))*4096;
+		currAngle = (((steerMotor.getSelectedSensorPosition(0))/4096.0) * (2*PI));
 		angleError = Math.abs((wantedAngle - currAngle));
-		if(angleError < (PI/2) || angleError > (3*PI/2)) {
+		double targetAngle;
+		//check the two paths to the target point
+		double path1 = Math.abs(wantedAngle - currAngle);
+		double path2 = Math.abs(Math.PI - currAngle) + Math.abs(Math.PI - wantedAngle);
+		
+		if(angleError < (PI/2)) {
 			direction = 1;
-			return ((wantedAngle/(2*PI))*4096);
+			targetAngle = wantedAngle;
+			return targetAngle;
 		}
 		else {
 			direction = -1; 
+			targetAngle = wantedAngle+PI;
 			return (((wantedAngle+PI)/(2*PI))*4096);
 		}
 	}

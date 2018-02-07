@@ -126,21 +126,22 @@ public class Drivetrain extends Subsystem {
 		podDrive[3] = Math.sqrt(Math.pow(a, 2)+ Math.pow(c, 2));
 		podGear[3] = Math.atan2(a,c);
 		
-		for(int idx = 0; idx < 4; idx++) {
+		for(int idx = 0; idx < Pods.size(); idx++) {
 			if(podDrive[idx]>rel_max_speed) {
 				rel_max_speed = podDrive[idx];
 			}
 		}
 		
-		if(rel_max_speed > 1) {
-			for(int idx = 0; idx < 4; idx++) {
+		if(rel_max_speed > kMaxSpeed) {
+			for(int idx = 0; idx < Pods.size(); idx++) {
 				podDrive[idx] /= rel_max_speed;
 			}
 		}
 		
-		//for(int idx = 0; idx < 4; idx++) {
-			Pods.get(0).setPod(podDrive[0],podGear[0]); 
-		//}
+		for(int idx = 0; idx < Pods.size(); idx++) {
+			//sending power from 0 to 13.5 ft/s and position -pi to pi
+			Pods.get(idx).setPod(podDrive[0],podGear[0]); 
+		}
 	}
 	
 	public void swerve(double forwardCommand, double strafeCommand, double spinCommand, driveCoords Coords, driveType commandType){
