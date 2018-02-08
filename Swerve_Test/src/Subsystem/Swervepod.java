@@ -46,20 +46,45 @@ public class Swervepod extends Subsystem {
 	
 	private double findSteerPosition(double wantedAngle){
 		 currAngle = (steerMotor.getSelectedSensorPosition(0));
-		 if(wantedAngle < 0) {
-			 wantedAngle += (2*PI);
+		 currAngle = currAngle / 4096.0 * Math.PI;
+		 double continuousPath = Math.abs(currAngle - wantedAngle);
+		 double discontinuousPath = Math.abs(currAngle-Math.PI) + Math.abs(currAngle-Math.PI);
+		 if(Math.min(continuousPath, discontinuousPath)>Math.PI/2)
+		 {
+			 //reversing the angle
+			 direction = -1;
+			 if(wantedAngle>0)
+			 {
+				 wantedAngle-=Math.PI;
+			 }
+			 else
+			 {
+				 wantedAngle+=Math.PI;
+			 }
+			 continuousPath = Math.abs(currAngle - wantedAngle);
+			 discontinuousPath = Math.abs(currAngle-Math.PI) + Math.abs(currAngle-Math.PI);
 		 }
-		 wantedAngle = (wantedAngle/(2*PI)) * 4096;
-		 double angleError = (wantedAngle - currAngle) % (4096);
-		 if (Math.abs(angleError) > 0.25 * 4096) {
-		    angleError -= Math.copySign(0.5 * 4096, angleError);
-		    direction = -1;
-		 }
-		 else {
+		 else
+		 {
 			 direction = 1;
 		 }
-		 double angleSetpoint = currAngle + angleError;
-		 return angleSetpoint; 
+		 double targetAngleDisplacement;
+		 double targetPosition;
+		 if(continuousPath > discontinuousPath)
+		 {
+			 targetAngleDisplacement = discontinuousPath / Math.PI * 4096;
+		 }
+		 else
+		 {
+			 targetAngleDisplacement = continuousPath / Math.PI * 4096;
+		 }
+		 
+		 
+		 
+	}
+	private int radianToEncoderUnits(double Angle)
+	{
+		
 	}
 	
 	@Override
