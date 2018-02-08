@@ -31,49 +31,35 @@ public class Swervepod extends Subsystem {
 	}
 	
 	public void setPod(double Speed, double Angle){
-		//convert Angle from -pi to pi into 0 to 2pi
-//		if(Angle<0)
-//		{
-//			Angle = Angle + 2 * Math.PI;
-//		}
-		System.out.println("Angle: " + Angle);
 		
-		//double steerPosition = ((Angle/(2*PI))*4096)%4096;
 		double steerPosition = findSteerPosition(Angle);
-		if(controllers.getForward() == 0 && controllers.getStrafe() ==0 && controllers.getRotation() == 0) {
+		if(Speed == 0) {
 			steerPosition = lastAngle; 
 		}
 		lastAngle = steerPosition;
 		
-		
-		System.out.println("Steer: " + steerPosition);
-		//System.out.println("Speed: " + Speed);
 		Speed *= fps2ups;
-		//System.out.println(Speed);
-		//SmartDashboard.putNumber("Steer", (steerMotor.getSelectedSensorPosition(0)%4096));
-		//SmartDashboard.putNumber("Absolute", driveMotor.getSelectedSensorVelocity(0));
+		
 		steerMotor.set(ControlMode.Position, steerPosition);
 		driveMotor.set(ControlMode.Velocity, Speed);	
 	}
 	
 	private double findSteerPosition(double wantedAngle){
-		currAngle = (((steerMotor.getSelectedSensorPosition(0))/4096.0) * (2*PI));
-		angleError = Math.abs((wantedAngle - currAngle));
-		double targetAngle;
-		//check the two paths to the target point
-		double path1 = Math.abs(wantedAngle - currAngle);
-		double path2 = Math.abs(Math.PI - currAngle) + Math.abs(Math.PI - wantedAngle);
-		
-		if(angleError < (PI/2)) {
-			direction = 1;
-			targetAngle = wantedAngle;
-			return targetAngle;
-		}
-		else {
-			direction = -1; 
-			targetAngle = wantedAngle+PI;
-			return (((wantedAngle+PI)/(2*PI))*4096);
-		}
+		 currAngle = (steerMotor.getSelectedSensorPosition(0));
+		 if(wantedAngle < 0) {
+			 wantedAngle += (2*PI);
+		 }
+		 wantedAngle = (wantedAngle/(2*PI)) * 4096;
+		 double angleError = (wantedAngle - currAngle) % (4096);
+		 if (Math.abs(angleError) > 0.25 * 4096) {
+		    angleError -= Math.copySign(0.5 * 4096, angleError);
+		    direction = -1;
+		 }
+		 else {
+			 direction = 1;
+		 }
+		 double angleSetpoint = currAngle + angleError;
+		 return angleSetpoint; 
 	}
 	
 	@Override
