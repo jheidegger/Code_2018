@@ -89,7 +89,11 @@ public class Drivetrain extends Subsystem {
 		//instantiate the gyro
 		//gyro = new ADXRS450_Gyro();
 		//angle = (gyro.getAngle()* Math.PI/180.0) % (2*Math.PI);
-		
+		//home all the pods
+		for(Swervepod pod:Pods)
+		{
+			pod.homePod();
+		}
 		//initialize the commands
 		forwardCommand = 0.0;
 		strafeCommand = 0.0;
