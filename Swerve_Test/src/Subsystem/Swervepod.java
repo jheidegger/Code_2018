@@ -60,7 +60,7 @@ public class Swervepod extends Subsystem {
 		 double rawAngle = (steerMotor.getSelectedSensorPosition(0)) + offset;
 		 currAngle = encoderUnitsToRadian(rawAngle);
 		 double continuousPath = Math.abs(currAngle - wantedAngle);
-		 double discontinuousPath = Math.abs(currAngle-Math.PI) + Math.abs(currAngle-Math.PI);
+		 double discontinuousPath = Math.abs(currAngle-Math.PI) + Math.abs(wantedAngle-Math.PI);
 		 if(Math.min(continuousPath, discontinuousPath)>Math.PI/2)
 		 {
 			 //reversing the angle
@@ -74,7 +74,7 @@ public class Swervepod extends Subsystem {
 				 wantedAngle+=Math.PI;
 			 }
 			 continuousPath = Math.abs(currAngle - wantedAngle);
-			 discontinuousPath = Math.abs(currAngle-Math.PI) + Math.abs(currAngle-Math.PI);
+			 discontinuousPath = Math.abs(currAngle-Math.PI) + Math.abs(wantedAngle-Math.PI);
 		 }
 		 else
 		 {
@@ -82,7 +82,7 @@ public class Swervepod extends Subsystem {
 		 }
 		 double targetAngleDisplacement;
 		 double targetPosition;
-		 if(continuousPath > discontinuousPath)
+		 if(discontinuousPath < continuousPath)
 		 {
 			 targetAngleDisplacement = discontinuousPath / (Math.PI*2.0) * 4096;
 			 if(currAngle > 0)
