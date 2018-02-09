@@ -22,8 +22,8 @@ public class Drivetrain extends Subsystem {
 	private Swervepod lowerLeft;
 	private Swervepod lowerRight;
 	
-	public TalonSRX[] driveTalon = {new TalonSRX(1)};//, new TalonSRX(2), new TalonSRX(4), new TalonSRX(6)}; 
-	public TalonSRX[] gearTalon = {new TalonSRX(0)};//, new TalonSRX(3), new TalonSRX(5), new TalonSRX(7)};
+	public TalonSRX[] driveTalon = {new TalonSRX(1), new TalonSRX(2), new TalonSRX(3), new TalonSRX(4)}; 
+	public TalonSRX[] gearTalon = {new TalonSRX(11), new TalonSRX(12), new TalonSRX(13), new TalonSRX(14)};
 	
 	private double kLength;
 	private double kWidth;
@@ -62,22 +62,18 @@ public class Drivetrain extends Subsystem {
 	private Drivetrain(){
 		//instantiate the pods
 		upperRight = new Swervepod(0,driveTalon[0], gearTalon[0]);
-		//upperLeft = new Swervepod(1,driveTalon[1], gearTalon[1]);
-		//lowerLeft = new Swervepod(2,driveTalon[2], gearTalon[2]);
-		//lowerRight = new Swervepod(3,driveTalon[3], gearTalon[3]);
+		upperLeft = new Swervepod(1,driveTalon[1], gearTalon[1]);
+		lowerLeft = new Swervepod(2,driveTalon[2], gearTalon[2]);
+		lowerRight = new Swervepod(3,driveTalon[3], gearTalon[3]);
 		
 		//Instantiate array list
 		Pods = new ArrayList<Swervepod>();
 				
 		//Add instantiated Pods to the array list
-		//Pods[0] = upperRight;
-		//Pods[1] = upperLeft;
-		//Pods[2] = lowerLeft;
-		//Pods[3] = lowerRight;
 		Pods.add(upperRight);
-		//Pods.add(upperLeft);
-		//Pods.add(lowerLeft);
-		//Pods.add(lowerRight);
+		Pods.add(upperLeft);
+		Pods.add(lowerLeft);
+		Pods.add(lowerRight);
 		
 		//setting constants
 		kLength = Constants.DRIVETRAINLENGTH;
