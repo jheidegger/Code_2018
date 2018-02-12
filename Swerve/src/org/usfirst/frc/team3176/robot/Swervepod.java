@@ -81,6 +81,9 @@ public class Swervepod extends Subsystem {
 		
 	}
 	private double findSteerPosition(double wantedAngle){
+		/*
+		 * test statement by statement  
+		 */
 		 double rawAngle = (steerMotor.getSelectedSensorPosition(0));// + Constants.OFFSETS[id];
 		 currAngle = encoderUnitsToRadian(rawAngle);
 		 deltaPhi = wantedAngle - currAngle; 
@@ -103,7 +106,7 @@ public class Swervepod extends Subsystem {
 			 direction = 1;
 			 deltaPhi = deltaPhi - (2*PI);
 		 }
-		 steerFinal = ((deltaPhi /(2*PI))*4096)+ 2048;
+		 steerFinal = ((deltaPhi /(2*PI))*4096);
 		 return (rawAngle + steerFinal);
 		 /*
 		 double continuousPath = Math.abs(currAngle - wantedAngle);
@@ -173,6 +176,10 @@ public class Swervepod extends Subsystem {
 	private double encoderUnitsToRadian(double EncoderUnits)
 	{
 		EncoderUnits = EncoderUnits % 4096;
+		if(EncoderUnits < 0)
+		{
+			EncoderUnits+= 4096;
+		}
 		EncoderUnits -= 2048;
 		double Angle = (EncoderUnits/4096.0) * 2 * Math.PI;
 		return Angle;
