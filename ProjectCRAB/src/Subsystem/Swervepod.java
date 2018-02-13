@@ -4,7 +4,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
-import org.usfirst.frc.team3176.robot.*;
+import Robot.Constants;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Swervepod extends Subsystem {
@@ -106,10 +106,20 @@ public class Swervepod extends Subsystem {
 		double Angle = (EncoderUnits/kEncoderUnits) * (2 * Math.PI);
 		return Angle;
 	}
-	
+	//returns between 0 - 4096 absolute 
 	public double getPosition()
 	{
-		return (steerMotor.getSelectedSensorPosition(0) % kEncoderUnits);
+		return (steerMotor.getSelectedSensorPosition(0)-Constants.OFFSETS[id] % kEncoderUnits);
+	}
+	//encoder units traveled total
+	public double getWheelDisplacment()
+	{
+		return(driveMotor.getSelectedSensorPosition(0));
+	}
+	// encoder units per second
+	public double getWheelSpeed()
+	{
+		return (driveMotor.getSelectedSensorVelocity(0));
 	}
 	
 	public void outputToSmartDashboard(Controllers.driveStationStates type) {
