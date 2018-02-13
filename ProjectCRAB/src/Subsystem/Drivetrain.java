@@ -1,5 +1,4 @@
 package Subsystem;
-import org.usfirst.frc.team3176.robot.*;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -8,6 +7,8 @@ import java.util.ArrayList;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
+import Robot.Constants;
 
 public class Drivetrain extends Subsystem {
 
