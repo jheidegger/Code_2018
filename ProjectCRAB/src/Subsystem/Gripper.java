@@ -1,12 +1,26 @@
 package Subsystem;
 
 import Robot.Constants;
+import Subsystem.Elevator.systemStates;
 import edu.wpi.first.wpilibj.Solenoid;
 
 public class Gripper extends Subsystem {
 	private Solenoid gripSolenoid;
 	private Solenoid flipperSolenoid;
 	private static Gripper instance = new Gripper();
+	
+	public enum systemStates{
+		NEUTRAL,
+		RELEASE_CUBE,
+		GRIP_CUBE,
+		OPEN_LOOP,
+		FLIP_UP,
+		FLIP_DOWN
+	}
+	
+	private systemStates currentState;
+	private systemStates requestedState;
+	
 	private Gripper()
 	{
 		gripSolenoid = new Solenoid(Constants.GRIPSOLENOID);
@@ -27,8 +41,32 @@ public class Gripper extends Subsystem {
 
 	@Override
 	public void registerLoop() {
-		// TODO Auto-generated method stub
+		Loop_Manager.getInstance().addLoop(new Loop()
+		{
 
+			@Override
+			public void onStart() {
+				currentState = systemStates.NEUTRAL;
+				requestedState = systemStates.NEUTRAL;				
+			}
+
+			@Override
+			public void onloop() {
+				switch(currentState){
+					case NEUTRAL:
+						if(currentState!=requestedState) {
+							currentState=requestedState;
+						}
+				}
+			}
+
+			@Override
+			public void stop() {
+				// TODO Auto-generated method stub
+				
+			}
+	
+		});
 	}
 
 }

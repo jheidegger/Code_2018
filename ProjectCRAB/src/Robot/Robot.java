@@ -8,9 +8,7 @@
 package Robot;
 
 import Subsystem.*;
-import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -19,12 +17,10 @@ public class Robot extends IterativeRobot {
 	private SendableChooser<String> m_chooser = new SendableChooser<>();
 	private Loop_Manager myLoops = Loop_Manager.getInstance();
 	private Drivetrain driveTrain = Drivetrain.getInstance(); 
-	private PixyCam visionCam = PixyCam.getInstance();
 	private Controllers controllers = Controllers.getInstance();
-
+	
 	@Override
 	public void robotInit() {
-		visionCam.registerLoop();
 		driveTrain.registerLoop();
 		myLoops.startLoops();
 	}
@@ -41,13 +37,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		myLoops.runLoops();
-		if(controllers.getVisionTrack()) {
-			visionCam.setSystemState(PixyCam.systemStates.TRACKING_CUBE);
-			driveTrain.setSystemState(Drivetrain.systemStates.VISION_TRACK_TANK);
-		}
-		else {
-			driveTrain.swerve(controllers.getForward(), controllers.getStrafe(), controllers.getRotation(), Drivetrain.driveCoords.FIELDCENTRIC, Drivetrain.driveType.PERCENTPOWER);
-		}
+		driveTrain.swerve(controllers.getForward(), controllers.getStrafe(), controllers.getRotation(), Drivetrain.driveCoords.FIELDCENTRIC, Drivetrain.driveType.VELOCITY);
 	}
 
 	@Override

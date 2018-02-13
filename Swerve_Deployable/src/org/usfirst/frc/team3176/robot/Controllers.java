@@ -21,6 +21,12 @@ public class Controllers extends Subsystem{
 		//buttonMonkey = new Joystick(Constants.BUTTON_MONKEY);
 	}
 	
+	public enum driveStationStates{
+		All,
+		Driver,
+		Programming
+	}
+	
 	public static Controllers getInstance() {
 		return instance; 
 	}
@@ -42,7 +48,7 @@ public class Controllers extends Subsystem{
 			return velocityStick.getX();
 		}
 	}
-	public boolean getButton1() {
+	public boolean getGyroReset() {
 		return velocityStick.getRawButton(1);
 	}
 	public boolean getButton2() {
@@ -60,16 +66,7 @@ public class Controllers extends Subsystem{
 	{
 		return velocityStick.getTrigger();
 	}
-	/*
-	public boolean getVisionTrack() {
-		if(buttonMonkey.getRawButton(1)) {
-			return true; 
-		}
-		else {
-			return false;
-		}
-	}
-	*/
+
 	public void checkTriggers() {
 		
 	}

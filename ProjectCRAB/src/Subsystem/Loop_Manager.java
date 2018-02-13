@@ -3,10 +3,9 @@ package Subsystem;
 import java.util.ArrayList;
 
 public class Loop_Manager {
-	private ArrayList<Loop> Loops;
-	
 	private static Loop_Manager instance = new Loop_Manager();
-	
+	private ArrayList<Loop> Loops;
+	//private Loop[] Loops = {null};
 	//private constructor
 	private Loop_Manager()
 	{

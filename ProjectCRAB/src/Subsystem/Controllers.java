@@ -1,9 +1,9 @@
 package Subsystem;
 
-import Robot.Constants;
-import Subsystem.PixyCam.systemStates;
-import Util.PurpleTrigger;
-import Vision.PixyException;
+ import org.usfirst.frc.team3176.robot.*;
+//import Subsystem.PixyCam.systemStates;
+//import Util.PurpleTrigger;
+//import Vision.PixyException;
 import edu.wpi.first.wpilibj.Joystick;
 
 public class Controllers extends Subsystem{
@@ -11,14 +11,20 @@ public class Controllers extends Subsystem{
 	
 	private Joystick velocityStick;
 	private Joystick thetaStick;
-	private Joystick buttonMonkey;
+	//private Joystick buttonMonkey;
 	
-	private PurpleTrigger ledTest;
+	//private PurpleTrigger ledTest;
 	
 	public Controllers(){
 		velocityStick = new Joystick(Constants.DRIVE_JOYSTICK);
 		thetaStick = new Joystick(Constants.GEAR_JOYSTICK);
-		buttonMonkey = new Joystick(Constants.BUTTON_MONKEY);
+		//buttonMonkey = new Joystick(Constants.BUTTON_MONKEY);
+	}
+	
+	public enum driveStationStates{
+		ALL,
+		DRIVER,
+		PROGRAMMING
 	}
 	
 	public static Controllers getInstance() {
@@ -42,7 +48,12 @@ public class Controllers extends Subsystem{
 			return velocityStick.getX();
 		}
 	}
-	
+	public boolean getGyroReset() {
+		return velocityStick.getRawButton(1);
+	}
+	public boolean getButton2() {
+		return velocityStick.getRawButton(2);
+	}
 	public double getRotation() {
 		if(Math.abs(thetaStick.getX())<.08) {
 			return 0;
@@ -51,15 +62,11 @@ public class Controllers extends Subsystem{
 			return thetaStick.getX();
 		}
 	}
-	public boolean getVisionTrack() {
-		if(buttonMonkey.getRawButton(1)) {
-			return true; 
-		}
-		else {
-			return false;
-		}
+	public boolean alignButton()
+	{
+		return velocityStick.getTrigger();
 	}
-	
+
 	public void checkTriggers() {
 		
 	}

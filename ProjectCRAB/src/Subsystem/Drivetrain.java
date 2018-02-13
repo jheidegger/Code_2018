@@ -1,9 +1,8 @@
 package Subsystem;
-import Robot.Constants;
-import Robot.Robot;
-import Util.PIDLoop;
+import org.usfirst.frc.team3176.robot.*;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import java.util.ArrayList;
 
@@ -12,7 +11,12 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 public class Drivetrain extends Subsystem {
 
-	private static Drivetrain instance;
+	private static Drivetrain instance = new Drivetrain();
+
+	private Loop_Manager loopMan = Loop_Manager.getInstance();
+	
+	private Controllers controller = Controllers.getInstance(); 
+	
 	private ADXRS450_Gyro gyro;
 	
 	private ArrayList<Swervepod> Pods;
@@ -21,8 +25,8 @@ public class Drivetrain extends Subsystem {
 	private Swervepod lowerLeft;
 	private Swervepod lowerRight;
 	
-	public TalonSRX[] driveTalon = {new TalonSRX(0), new TalonSRX(2), new TalonSRX(4), new TalonSRX(6)}; 
-	public TalonSRX[] gearTalon = {new TalonSRX(1), new TalonSRX(3), new TalonSRX(5), new TalonSRX(7)};
+	public TalonSRX[] driveTalon = {new TalonSRX(1), new TalonSRX(2), new TalonSRX(3), new TalonSRX(4)}; 
+	public TalonSRX[] gearTalon = {new TalonSRX(11), new TalonSRX(22), new TalonSRX(33), new TalonSRX(44)};
 	
 	private double kLength;
 	private double kWidth;
@@ -65,7 +69,7 @@ public class Drivetrain extends Subsystem {
 		lowerLeft = new Swervepod(2,driveTalon[2], gearTalon[2]);
 		lowerRight = new Swervepod(3,driveTalon[3], gearTalon[3]);
 		
-		//Instantiate the array list
+		//Instantiate array list
 		Pods = new ArrayList<Swervepod>();
 				
 		//Add instantiated Pods to the array list
@@ -84,7 +88,7 @@ public class Drivetrain extends Subsystem {
 		//instantiate the gyro
 		gyro = new ADXRS450_Gyro();
 		angle = (gyro.getAngle()* Math.PI/180.0) % (2*Math.PI);
-		
+
 		//initialize the commands
 		forwardCommand = 0.0;
 		strafeCommand = 0.0;
@@ -96,7 +100,7 @@ public class Drivetrain extends Subsystem {
 	}
 
 	private void updateAngle(){
-		angle = (gyro.getAngle()* Math.PI/180.0) % (2*Math.PI);
+		angle = -(gyro.getAngle()* Math.PI/180.0) % (2*Math.PI);
 	}
 	
 	private void manualDrive() {
@@ -104,8 +108,8 @@ public class Drivetrain extends Subsystem {
 		double[] podGear = new double[4];
 		
 		//Calculating components
-		double a = strafeCommand - spinCommand * kLength/2; 
-		double b = strafeCommand + spinCommand * kLength/2; 
+		double a = strafeCommand + spinCommand * kLength/2; 
+		double b = strafeCommand - spinCommand * kLength/2; 
 		double c = forwardCommand - spinCommand * kWidth/2; 
 		double d = forwardCommand + spinCommand * kWidth/2; 
 		
@@ -132,18 +136,31 @@ public class Drivetrain extends Subsystem {
 				podDrive[idx] /= rel_max_speed;
 			}
 		}
-		
+				
 		for(int idx = 0; idx < Pods.size(); idx++) {
-			(Pods.get(idx)).setPod(podDrive[idx],podGear[idx]); 
+			//sending power from 0 to 13.5 ft/s and position -pi to pi
+			Pods.get(idx).setPod(podDrive[idx],podGear[idx]); 
 		}
 	}
 	
+	public void setPod(double angle, double speed, Swervepod[] pods)
+	{
+		for(int idx = 0; idx < pods.length; idx++) {
+			//Give angle from -PI to PI and power of 0 to 13.5 ft/s
+			Pods.get(idx).setPod(speed,angle); 
+		}
+	}
+	
+	public void resetGyro() {
+		gyro.reset();
+	}
+
 	public void swerve(double forwardCommand, double strafeCommand, double spinCommand, driveCoords Coords, driveType commandType){
 		if(Coords == driveCoords.ROBOTCENTRIC) {
 			this.forwardCommand = forwardCommand;
 			this.strafeCommand = strafeCommand;
-			this.spinCommand = spinCommand;
-			if(commandType == driveType.PERCENTPOWER) { //Else: Velocity Control
+			this.spinCommand = spinCommand/5.0;
+			if(commandType == driveType.PERCENTPOWER) {
 				this.forwardCommand *= kMaxSpeed;
 				this.strafeCommand *= kMaxSpeed;
 				this.spinCommand *= kMaxRotation;
@@ -153,8 +170,8 @@ public class Drivetrain extends Subsystem {
 			final double temp = forwardCommand * Math.cos(angle) + strafeCommand * Math.sin(angle);
 		    this.strafeCommand = -forwardCommand * Math.sin(angle) + strafeCommand * Math.cos(angle);
 		    this.forwardCommand = temp;
-		    this.spinCommand = spinCommand;
-		    if(commandType == driveType.PERCENTPOWER) { //Else: Velocity Control
+		    this.spinCommand = -spinCommand/3;
+		    if(commandType == driveType.PERCENTPOWER) {
 				this.forwardCommand *= kMaxSpeed;
 				this.strafeCommand *= kMaxSpeed;
 				this.spinCommand *= kMaxRotation;
@@ -164,7 +181,7 @@ public class Drivetrain extends Subsystem {
 	
 	@Override
 	public void zeroAllSensors() {
-		for(int idx = 0; idx < Pods.size(); idx++)
+		for(int idx = 0; idx < 4; idx++)
 		{
 			Pods.get(idx).zeroAllSensors();
 		}
@@ -183,14 +200,17 @@ public class Drivetrain extends Subsystem {
 	@Override
 	public void registerLoop()
 	{
-		Loop_Manager.getInstance().addLoop(new Loop() {
+		loopMan.addLoop(new Loop() {
 		@Override
 		public void onStart() {
-			currentState = systemStates.NEUTRAL;
-			requestedState = systemStates.NEUTRAL;		
+			currentState = systemStates.DRIVE;
+			requestedState = systemStates.DRIVE;		
 		}
 		@Override
 		public void onloop() {
+			if(controller.getGyroReset()) {
+				resetGyro();
+			}
 			updateAngle();
 			switch(currentState) {
 				case NEUTRAL:

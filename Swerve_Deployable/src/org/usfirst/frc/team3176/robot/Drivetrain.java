@@ -12,10 +12,14 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 public class Drivetrain extends Subsystem {
 
 	private static Drivetrain instance = new Drivetrain();
-	
-	//private ArrayList<Swervepod> Pods;
+
 	private Loop_Manager loopMan = Loop_Manager.getInstance();
-	private ArrayList<Swervepod> Pods;// = {null,null,null,null};
+	
+	private Controllers controller = Controllers.getInstance(); 
+	
+	private ADXRS450_Gyro gyro;
+	
+	private ArrayList<Swervepod> Pods;
 	private Swervepod upperRight;
 	private Swervepod upperLeft;
 	private Swervepod lowerLeft;
@@ -25,7 +29,6 @@ public class Drivetrain extends Subsystem {
 	public TalonSRX[] gearTalon = {new TalonSRX(11), new TalonSRX(22), new TalonSRX(33), new TalonSRX(44)};
 	
 	private double kLength;
-	private Controllers controller = Controllers.getInstance(); 
 	private double kWidth;
 	private double kRadius;
 	
@@ -37,8 +40,6 @@ public class Drivetrain extends Subsystem {
 	private double forwardCommand;
 	private double strafeCommand;
 	private double spinCommand;
-	
-	private ADXRS450_Gyro gyro;
 	
 	public enum systemStates{
 		NEUTRAL,
@@ -87,11 +88,7 @@ public class Drivetrain extends Subsystem {
 		//instantiate the gyro
 		gyro = new ADXRS450_Gyro();
 		angle = (gyro.getAngle()* Math.PI/180.0) % (2*Math.PI);
-		//home all the pods
-		//for(Swervepod pod:Pods)
-		//{
-		//	pod.homePod();
-		//}
+
 		//initialize the commands
 		forwardCommand = 0.0;
 		strafeCommand = 0.0;
@@ -139,40 +136,25 @@ public class Drivetrain extends Subsystem {
 				podDrive[idx] /= rel_max_speed;
 			}
 		}
-		
-
-		SmartDashboard.putNumber("pod 1 position", Pods.get(0).getPosition());
-		SmartDashboard.putNumber("pod 2 position", Pods.get(1).getPosition());
-		SmartDashboard.putNumber("pod 3 position", Pods.get(2).getPosition());
-		SmartDashboard.putNumber("pod 4 position", Pods.get(3).getPosition());
-		
+				
 		for(int idx = 0; idx < Pods.size(); idx++) {
 			//sending power from 0 to 13.5 ft/s and position -pi to pi
 			Pods.get(idx).setPod(podDrive[idx],podGear[idx]); 
 		}
-		//Pods.get(0).setPod(podDrive[0],podGear[0]); 
 	}
-	public void Align()
+	
+	public void setPod(double angle, double speed, Swervepod[] pods)
 	{
-		for(Swervepod pod:Pods)
-		{
-			pod.homePod();
+		for(int idx = 0; idx < pods.length; idx++) {
+			//Give angle from -PI to PI and power of 0 to 13.5 ft/s
+			Pods.get(idx).setPod(speed,angle); 
 		}
-		/*
-		for(int idx = 0; idx < Pods.size(); idx++) {
-			//sending power from 0 to 13.5 ft/s and position -pi to pi
-			Pods.get(idx).setPod(0.0,0.0); 
-		}*/
 	}
+	
 	public void resetGyro() {
 		gyro.reset();
 	}
-	public void home() {
-		for(Swervepod pod:Pods)
-		{
-			pod.homePod();
-		}
-	}
+
 	public void swerve(double forwardCommand, double strafeCommand, double spinCommand, driveCoords Coords, driveType commandType){
 		if(Coords == driveCoords.ROBOTCENTRIC) {
 			this.forwardCommand = forwardCommand;
@@ -226,7 +208,7 @@ public class Drivetrain extends Subsystem {
 		}
 		@Override
 		public void onloop() {
-			if(controller.getButton1()) {
+			if(controller.getGyroReset()) {
 				resetGyro();
 			}
 			updateAngle();
