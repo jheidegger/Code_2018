@@ -88,7 +88,7 @@ public class Drivetrain extends Subsystem {
 		
 		//instantiate the gyro
 		gyro = new ADXRS450_Gyro();
-		angle = (gyro.getAngle()* Math.PI/180.0) % (2*Math.PI);
+		updateAngle();
 
 		//initialize the commands
 		forwardCommand = 0.0;
@@ -101,7 +101,8 @@ public class Drivetrain extends Subsystem {
 	}
 
 	private void updateAngle(){
-		angle = -(gyro.getAngle()* Math.PI/180.0) % (2*Math.PI);
+		//-pi to pi 0 = straight ahead
+		angle = ((gyro.getAngle()* Math.PI/180.0) - Math.PI)% (2*Math.PI);
 	}
 	
 	private void manualDrive() {
@@ -155,7 +156,10 @@ public class Drivetrain extends Subsystem {
 	public void resetGyro() {
 		gyro.reset();
 	}
-
+	public double getAngle()
+	{
+		return angle;
+	}
 	public void swerve(double forwardCommand, double strafeCommand, double spinCommand, driveCoords Coords, driveType commandType){
 		if(Coords == driveCoords.ROBOTCENTRIC) {
 			this.forwardCommand = forwardCommand;
@@ -168,8 +172,8 @@ public class Drivetrain extends Subsystem {
 			}
 		}
 		else {
-			final double temp = forwardCommand * Math.cos(angle) + strafeCommand * Math.sin(angle);
-		    this.strafeCommand = -forwardCommand * Math.sin(angle) + strafeCommand * Math.cos(angle);
+			final double temp = forwardCommand * Math.sin(angle) + strafeCommand * Math.cos(angle);
+		    this.strafeCommand = -forwardCommand * Math.cos(angle) + strafeCommand * Math.sin(angle);
 		    this.forwardCommand = temp;
 		    this.spinCommand = -spinCommand/3;
 		    if(commandType == driveType.PERCENTPOWER) {

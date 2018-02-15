@@ -113,7 +113,7 @@ public class Swervepod extends Subsystem {
 	//returns between 0 - 4096 absolute 
 	public double getPosition()
 	{
-		return (steerMotor.getSelectedSensorPosition(0)-Constants.OFFSETS[id] % kEncoderUnits);
+		return encoderUnitsToRadian((steerMotor.getSelectedSensorPosition(0)-Constants.OFFSETS[id]) % kEncoderUnits);
 	}
 	//encoder units traveled total
 	public double getWheelDisplacment()
