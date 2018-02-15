@@ -26,13 +26,17 @@ public class Constants {
 	
 	//Drive Train constants
 	public static double OFFSETS[] = {2041.0,2049.0,3481.0,574.0};
-	public static double DRIVETRAINLENGTH = 5;
-	public static double DRIVETRAINWIDTH = 5;
+	public static double DRIVETRAINLENGTH = 32;
+	public static double DRIVETRAINWIDTH = 28;
 	public static final double WHEELDIAMETER = 4;
 	public static double DRIVETRAINMAXWHEELSPEED = 13.5; // ft/s
 	public static double DRIVETRAINMAXROTATIONSPEED = 5; // radians/s
 	public static double ENCODER_UNITS = 4096.0;
-	
+	//Swerve Pod constants
+	public static final double SWERVE_kP = 2.0;
+	public static final double SWERVE_kI = 0.0;
+	public static final double SWERVE_kD = 0.0;
+	public static final int SWERVE_ALLOWABLE_ERROR = 10;
 	//vision constants
 	public static int AVG_LIST_SIZE = 10;
 	public static int PIXY_CENTER_X = 160; 

@@ -36,6 +36,10 @@ public class Swervepod extends Subsystem {
 		this.steerMotor = steerMotor;
 		this.driveMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative,0,0);
 		this.steerMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute,0,0);
+		this.steerMotor.config_kP(0, Constants.SWERVE_kP, 0);
+		this.steerMotor.config_kI(0, Constants.SWERVE_kI, 0);
+		this.steerMotor.config_kD(0, Constants.SWERVE_kD, 0);
+		this.steerMotor.configAllowableClosedloopError(0, Constants.SWERVE_ALLOWABLE_ERROR, 0);
 	}
 	
 	public void setPod(double Speed, double Angle){
