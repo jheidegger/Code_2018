@@ -126,7 +126,7 @@ public class Swervepod extends Subsystem {
 		return (driveMotor.getSelectedSensorVelocity(0));
 	}
 	
-	public void outputToSmartDashboard(Controllers.driveStationStates type) {
+	public void outputToSmartDashboard(Controller.driveStationStates type) {
 		switch(type) {
 		case ALL:
 			

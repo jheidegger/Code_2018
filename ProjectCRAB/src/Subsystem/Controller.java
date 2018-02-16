@@ -6,19 +6,19 @@ import Robot.Constants;
 //import Vision.PixyException;
 import edu.wpi.first.wpilibj.Joystick;
 
-public class Controllers extends Subsystem{
-	private static Controllers instance = new Controllers(); 
+public class Controller extends Subsystem{
+	private static Controller instance = new Controller(); 
 	
 	private Joystick velocityStick;
 	private Joystick thetaStick;
-	//private Joystick buttonMonkey;
+	private Joystick buttonMonkey;
 	
 	//private PurpleTrigger ledTest;
 	
-	public Controllers(){
+	public Controller(){
 		velocityStick = new Joystick(Constants.DRIVE_JOYSTICK);
 		thetaStick = new Joystick(Constants.GEAR_JOYSTICK);
-		//buttonMonkey = new Joystick(Constants.BUTTON_MONKEY);
+		buttonMonkey = new Joystick(Constants.BUTTON_MONKEY);
 	}
 	
 	public enum driveStationStates{
@@ -27,7 +27,7 @@ public class Controllers extends Subsystem{
 		PROGRAMMING
 	}
 	
-	public static Controllers getInstance() {
+	public static Controller getInstance() {
 		return instance; 
 	}
 	
@@ -48,12 +48,15 @@ public class Controllers extends Subsystem{
 			return velocityStick.getX();
 		}
 	}
+	
 	public boolean getGyroReset() {
 		return velocityStick.getRawButton(1);
 	}
+	
 	public boolean getButton2() {
 		return velocityStick.getRawButton(2);
 	}
+	
 	public double getRotation() {
 		if(Math.abs(thetaStick.getX())<.08) {
 			return 0;
@@ -62,9 +65,14 @@ public class Controllers extends Subsystem{
 			return thetaStick.getX();
 		}
 	}
+	
 	public boolean alignButton()
 	{
 		return velocityStick.getTrigger();
+	}
+	
+	public double getElevatorDrive() {
+		return (buttonMonkey.getY()+1)/2;
 	}
 
 	public void checkTriggers() {

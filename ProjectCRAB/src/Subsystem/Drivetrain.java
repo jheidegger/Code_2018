@@ -16,7 +16,7 @@ public class Drivetrain extends Subsystem {
 
 	private Loop_Manager loopMan = Loop_Manager.getInstance();
 	
-	private Controllers controller = Controllers.getInstance(); 
+	private Controller controller = Controller.getInstance(); 
 	
 	private ADXRS450_Gyro gyro;
 	

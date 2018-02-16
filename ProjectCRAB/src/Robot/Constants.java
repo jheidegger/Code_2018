@@ -37,12 +37,11 @@ public class Constants {
 	//vision constants
 	public static int AVG_LIST_SIZE = 10;
 	public static int PIXY_CENTER_X = 160; 
-	
 	//Elevator control loop
 	public static double ELEVATOR_KP = 0;
 	public static double ELEVATOR_KI = 0;
 	public static double ELEVATOR_KD = 0;
-	
+	public static double MAX_HEIGHT_ENCODER_TICKS = 10000; 
 	//intake constants
 	public static final double INTAKESPEED = 0;
 	public static final double INTAKESCORESPEED = 0;
