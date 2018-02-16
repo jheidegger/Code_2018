@@ -5,10 +5,14 @@ import Util.PIDLoop;
 import edu.wpi.first.wpilibj.*;
 
 public class Elevator extends Subsystem {
+	private static Elevator instance = new Elevator();
+	
 	private Victor driveMotor;
 	private PIDLoop elevatorControlLoop; 
 	private Encoder encoder;
-	private static Elevator instance = new Elevator();
+	private Controller controller; 
+	
+	private double throttleValue; 
 	
 	public enum systemStates{
 		NEUTRAL,
@@ -22,6 +26,7 @@ public class Elevator extends Subsystem {
 	private Elevator() {
 		encoder = new Encoder(0, 1, false, Encoder.EncodingType.k4X);
 		driveMotor = new Victor(Constants.ELEVATORMOTOR);
+		controller = controller.getInstance();
 		elevatorControlLoop = new PIDLoop(Constants.ELEVATOR_KP, //Proportional Gain
 											Constants.ELEVATOR_KI, //Integral Gain
 											Constants.ELEVATOR_KD, //Derivative Gain
@@ -33,7 +38,7 @@ public class Elevator extends Subsystem {
 	}
 	
 	public void setFloor(double height) {
-		double liftSpeed = elevatorControlLoop.returnOutput(encoder.getDistance(), height);
+		double liftSpeed = elevatorControlLoop.returnOutput(encoder.getRaw(), height);
 		
 		if(liftSpeed > 1) { liftSpeed = 1; }
 		else if(liftSpeed < -1) { liftSpeed = -1; }
@@ -68,6 +73,9 @@ public class Elevator extends Subsystem {
 						if(currentState!=requestedState) {
 							currentState=requestedState;
 						}
+					case OPEN_LOOP:
+					
+					case POSITION_FOLLOW:
 				}
 			}
 

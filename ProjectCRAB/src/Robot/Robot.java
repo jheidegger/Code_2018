@@ -17,7 +17,7 @@ public class Robot extends IterativeRobot {
 	private SendableChooser<String> m_chooser = new SendableChooser<>();
 	private Loop_Manager myLoops = Loop_Manager.getInstance();
 	private Drivetrain driveTrain = Drivetrain.getInstance(); 
-	private Controllers controllers = Controllers.getInstance();
+	private Controller controllers = Controller.getInstance();
 	
 	@Override
 	public void robotInit() {
