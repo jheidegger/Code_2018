@@ -10,7 +10,7 @@ public class Elevator extends Subsystem {
 	private Victor driveMotor;
 	private PIDLoop elevatorControlLoop; 
 	private Encoder encoder;
-	private Controller controller; 
+	private Controller joystick; 
 	
 	private double throttleValue; 
 	private double kMaxHeight = Constants.MAX_HEIGHT_ENCODER_TICKS;
@@ -27,7 +27,7 @@ public class Elevator extends Subsystem {
 	private Elevator() {
 		encoder = new Encoder(0, 1, false, Encoder.EncodingType.k4X);
 		driveMotor = new Victor(Constants.ELEVATORMOTOR);
-		controller = controller.getInstance();
+		joystick = Controller.getInstance();
 		elevatorControlLoop = new PIDLoop(Constants.ELEVATOR_KP, //Proportional Gain
 											Constants.ELEVATOR_KI, //Integral Gain
 											Constants.ELEVATOR_KD, //Derivative Gain
@@ -79,7 +79,7 @@ public class Elevator extends Subsystem {
 							currentState=requestedState;
 						}
 					case OPEN_LOOP:
-						throttleValue = controller.getElevatorDrive() * kMaxHeight; 
+						throttleValue = joystick.getElevatorDrive() * kMaxHeight; 
 						setFloor(throttleValue);
 					case POSITION_FOLLOW:
 						setFloor(throttleValue);
