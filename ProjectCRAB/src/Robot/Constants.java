@@ -12,10 +12,7 @@ public class Constants {
 	
 	public static final int INTAKERIGHTSIDE = 1;
 	public static final int INTAKELEFTSIDE = 2;
-	public static final int INTAKESOLENOID = 0;
-	
-	public static final int GRIPSOLENOID = 0;
-	public static final int FLIPPERSOLENOID = 0;
+
 	
 	//Driverstation constants
 	public static int DRIVE_JOYSTICK = 0; 
