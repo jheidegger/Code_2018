@@ -5,6 +5,5 @@ public class Superstructure{
 	
 	Elevator kElevator;
 	Intake kIntake;
-	Gripper kGripper;
 	
 }
