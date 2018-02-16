@@ -1,8 +1,11 @@
-package Subsystem;
+package Vision;
 
 import java.util.ArrayList;
 
 import Robot.Constants;
+import Subsystem.Loop;
+import Subsystem.Loop_Manager;
+import Subsystem.Subsystem;
 import Subsystem.Drivetrain.systemStates;
 import Vision.*;
 import edu.wpi.first.wpilibj.I2C;
