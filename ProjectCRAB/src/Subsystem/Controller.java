@@ -48,12 +48,15 @@ public class Controller extends Subsystem{
 			return velocityStick.getX();
 		}
 	}
+	
 	public boolean getGyroReset() {
 		return velocityStick.getRawButton(1);
 	}
+	
 	public boolean getButton2() {
 		return velocityStick.getRawButton(2);
 	}
+	
 	public double getRotation() {
 		if(Math.abs(thetaStick.getX())<.08) {
 			return 0;
@@ -62,13 +65,14 @@ public class Controller extends Subsystem{
 			return thetaStick.getX();
 		}
 	}
+	
 	public boolean alignButton()
 	{
 		return velocityStick.getTrigger();
 	}
 	
 	public double getElevatorDrive() {
-		return buttonMonkey.getY();
+		return (buttonMonkey.getY()+1)/2;
 	}
 
 	public void checkTriggers() {

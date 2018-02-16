@@ -13,6 +13,7 @@ public class Elevator extends Subsystem {
 	private Controller controller; 
 	
 	private double throttleValue; 
+	private double kMaxHeight = Constants.MAX_HEIGHT_ENCODER_TICKS;
 	
 	public enum systemStates{
 		NEUTRAL,
@@ -37,13 +38,17 @@ public class Elevator extends Subsystem {
 		return instance; 
 	}
 	
-	public void setFloor(double height) {
+	private void setFloor(double height) {
 		double liftSpeed = elevatorControlLoop.returnOutput(encoder.getRaw(), height);
 		
 		if(liftSpeed > 1) { liftSpeed = 1; }
 		else if(liftSpeed < -1) { liftSpeed = -1; }
 		
 		driveMotor.set(liftSpeed);
+	}
+	
+	public void setThrottleValue(double throttleValue) {
+		this.throttleValue = throttleValue;
 	}
 
 	@Override
@@ -74,8 +79,10 @@ public class Elevator extends Subsystem {
 							currentState=requestedState;
 						}
 					case OPEN_LOOP:
-					
+						throttleValue = controller.getElevatorDrive() * kMaxHeight; 
+						setFloor(throttleValue);
 					case POSITION_FOLLOW:
+						setFloor(throttleValue);
 				}
 			}
 
