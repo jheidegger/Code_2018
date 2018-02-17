@@ -1,8 +1,9 @@
 package Subsystem;
  
- import com.ctre.phoenix.motorcontrol.NeutralMode;
+ import org.usfirst.frc.team6713.robot.Constants;
 
-import Robot.Constants;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Timer;

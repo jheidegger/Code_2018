@@ -1,10 +1,11 @@
 package Subsystem;
+import org.usfirst.frc.team6713.robot.Constants;
+
 import com.ctre.phoenix.CTREJNIWrapper;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
-import Robot.Constants;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Swervepod extends Subsystem {
@@ -39,7 +40,12 @@ public class Swervepod extends Subsystem {
 		this.steerMotor.config_kP(0, Constants.SWERVE_kP, 0);
 		this.steerMotor.config_kI(0, Constants.SWERVE_kI, 0);
 		this.steerMotor.config_kD(0, Constants.SWERVE_kD, 0);
+		this.driveMotor.config_kP(0, Constants.DRIVE_kP, 0);
+		this.driveMotor.config_kI(0, Constants.DRIVE_kI, 0);
+		this.driveMotor.config_kD(0, Constants.DRIVE_kD, 0);
+		this.driveMotor.config_kF(0, Constants.DRIVE_kF, 0);
 		this.steerMotor.configAllowableClosedloopError(0, Constants.SWERVE_ALLOWABLE_ERROR, 0);
+		this.steerMotor.configAllowableClosedloopError(0, Constants.DRIVE_ALLOWABLE_ERROR, 0);
 	}
 	
 	public void setPod(double Speed, double Angle){
@@ -52,7 +58,8 @@ public class Swervepod extends Subsystem {
 			positionSetpoint = lastAngle; 
 		}
 		lastAngle = positionSetpoint;
-		
+		SmartDashboard.putNumber(id+ " velocity", driveMotor.getSelectedSensorVelocity(0));
+		//SmartDashboard.putNumber(id + " velocity", velocitySetpoint);
 		driveMotor.set(ControlMode.Velocity, -velocitySetpoint);
 		steerMotor.set(ControlMode.Position, positionSetpoint);
 	}
@@ -86,7 +93,7 @@ public class Swervepod extends Subsystem {
 	}
 	
 	public double getCur() {
-		return radianPosition;
+		return encoderPosition;
 	}
 	
 	public double getSpeed() {
@@ -113,7 +120,7 @@ public class Swervepod extends Subsystem {
 	//returns between 0 - 4096 absolute 
 	public double getPosition()
 	{
-		return encoderUnitsToRadian((steerMotor.getSelectedSensorPosition(0)-Constants.OFFSETS[id]) % kEncoderUnits);
+		return (steerMotor.getSelectedSensorPosition(0)-Constants.OFFSETS[id]) % kEncoderUnits;
 	}
 	//encoder units traveled total
 	public double getWheelDisplacment()

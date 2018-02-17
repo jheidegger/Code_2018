@@ -1,9 +1,7 @@
 package Subsystem;
 
-import Robot.Constants;
-//import Subsystem.PixyCam.systemStates;
-//import Util.PurpleTrigger;
-//import Vision.PixyException;
+import org.usfirst.frc.team6713.robot.*;
+
 import edu.wpi.first.wpilibj.Joystick;
 
 public class Controller extends Subsystem{
@@ -11,6 +9,8 @@ public class Controller extends Subsystem{
 	
 	private Joystick velocityStick;
 	private Joystick thetaStick;
+	
+	//private PurpleTrigger trigger; 
 	private Joystick buttonMonkey;
 	
 	//private PurpleTrigger ledTest;
@@ -18,6 +18,7 @@ public class Controller extends Subsystem{
 	public Controller(){
 		velocityStick = new Joystick(Constants.DRIVE_JOYSTICK);
 		thetaStick = new Joystick(Constants.GEAR_JOYSTICK);
+		
 		buttonMonkey = new Joystick(Constants.BUTTON_MONKEY);
 	}
 	
@@ -32,47 +33,39 @@ public class Controller extends Subsystem{
 	}
 	
 	public double getForward() {
-		if(Math.abs(velocityStick.getY())<.08) {
+		if(Math.abs(velocityStick.getY())<.3) {
 			return 0;
 		}
 		else {
-			return velocityStick.getY();
+			return velocityStick.getY()/2;
 		}
 	}
 	
 	public double getStrafe() {
-		if(Math.abs(velocityStick.getX())<.08) {
+		if(Math.abs(velocityStick.getX())<.09) {
 			return 0;
 		}
 		else {
 			return velocityStick.getX();
 		}
 	}
-	
 	public boolean getGyroReset() {
 		return velocityStick.getRawButton(1);
 	}
-	
 	public boolean getButton2() {
 		return velocityStick.getRawButton(2);
 	}
-	
 	public double getRotation() {
-		if(Math.abs(thetaStick.getX())<.08) {
+		if(Math.abs(thetaStick.getX())<.09) {
 			return 0;
 		}
 		else {
-			return thetaStick.getX();
+			return thetaStick.getX()/1.2;
 		}
 	}
-	
 	public boolean alignButton()
 	{
 		return velocityStick.getTrigger();
-	}
-	
-	public double getElevatorDrive() {
-		return (buttonMonkey.getY()+1)/2;
 	}
 
 	public void checkTriggers() {
@@ -113,3 +106,4 @@ public class Controller extends Subsystem{
 		
 	}
 }
+

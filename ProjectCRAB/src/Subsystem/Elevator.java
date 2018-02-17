@@ -1,6 +1,7 @@
 package Subsystem;
 
-import Robot.Constants;
+import org.usfirst.frc.team6713.robot.Constants;
+
 import Util.PIDLoop;
 import edu.wpi.first.wpilibj.*;
 
@@ -79,7 +80,7 @@ public class Elevator extends Subsystem {
 							currentState=requestedState;
 						}
 					case OPEN_LOOP:
-						throttleValue = joystick.getElevatorDrive() * kMaxHeight; 
+						//throttleValue = joystick.getElevatorDrive() * kMaxHeight; 
 						setFloor(throttleValue);
 					case POSITION_FOLLOW:
 						setFloor(throttleValue);

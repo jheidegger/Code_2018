@@ -5,10 +5,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import java.util.ArrayList;
 
+import org.usfirst.frc.team6713.robot.Constants;
+
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
-import Robot.Constants;
+import Util.PIDLoop;
+import Vision.PixyException;
 
 public class Drivetrain extends Subsystem {
 
@@ -17,6 +20,7 @@ public class Drivetrain extends Subsystem {
 	private Loop_Manager loopMan = Loop_Manager.getInstance();
 	
 	private Controller controller = Controller.getInstance(); 
+	private PixyCam cam = PixyCam.getInstance();
 	
 	private ADXRS450_Gyro gyro;
 	
@@ -33,6 +37,9 @@ public class Drivetrain extends Subsystem {
 	private double kWidth;
 	private double kRadius;
 	
+	private PIDLoop pidLoop;
+	private PIDLoop pidForward;
+	
 	private double kMaxSpeed;
 	private double kMaxRotation;
 	
@@ -47,7 +54,7 @@ public class Drivetrain extends Subsystem {
 		HOMING,
 		DRIVE,
 		PARK,
-		VISION_TRACK_TANK
+		VISION
 	}
 	
 	public enum driveCoords{
@@ -72,6 +79,9 @@ public class Drivetrain extends Subsystem {
 		
 		//Instantiate array list
 		Pods = new ArrayList<Swervepod>();
+		
+		pidLoop = new PIDLoop(0.0007,0,0);
+		pidForward = new PIDLoop(0.001,0,0);
 				
 		//Add instantiated Pods to the array list
 		Pods.add(upperRight);
@@ -88,6 +98,7 @@ public class Drivetrain extends Subsystem {
 		
 		//instantiate the gyro
 		gyro = new ADXRS450_Gyro();
+		gyro.calibrate();
 		updateAngle();
 
 		//initialize the commands
@@ -102,7 +113,8 @@ public class Drivetrain extends Subsystem {
 
 	private void updateAngle(){
 		//-pi to pi 0 = straight ahead
-		angle = ((gyro.getAngle()* Math.PI/180.0) - Math.PI)% (2*Math.PI);
+		angle = -((gyro.getAngle()* Math.PI/180.0))% (2*Math.PI);
+		SmartDashboard.putNumber("Angle", angle);
 	}
 	
 	private void manualDrive() {
@@ -114,6 +126,8 @@ public class Drivetrain extends Subsystem {
 		double b = strafeCommand - spinCommand * kLength/2; 
 		double c = forwardCommand - spinCommand * kWidth/2; 
 		double d = forwardCommand + spinCommand * kWidth/2; 
+		
+		
 		
 		podDrive[0] = Math.sqrt(Math.pow(b, 2)+ Math.pow(c, 2));
 		podGear[0] = Math.atan2(b,c);
@@ -162,9 +176,9 @@ public class Drivetrain extends Subsystem {
 	}
 	public void swerve(double forwardCommand, double strafeCommand, double spinCommand, driveCoords Coords, driveType commandType){
 		if(Coords == driveCoords.ROBOTCENTRIC) {
-			this.forwardCommand = forwardCommand;
+			this.forwardCommand = forwardCommand * 1.5;
 			this.strafeCommand = strafeCommand;
-			this.spinCommand = spinCommand/5.0;
+			this.spinCommand = -spinCommand/12.0;
 			if(commandType == driveType.PERCENTPOWER) {
 				this.forwardCommand *= kMaxSpeed;
 				this.strafeCommand *= kMaxSpeed;
@@ -172,10 +186,10 @@ public class Drivetrain extends Subsystem {
 			}
 		}
 		else {
-			final double temp = forwardCommand * Math.sin(angle) + strafeCommand * Math.cos(angle);
-		    this.strafeCommand = -forwardCommand * Math.cos(angle) + strafeCommand * Math.sin(angle);
+			final double temp = forwardCommand * Math.cos(angle) + strafeCommand * Math.sin(angle);
+		    this.strafeCommand = (-forwardCommand * Math.sin(angle) + strafeCommand * Math.cos(angle))*1.5;
 		    this.forwardCommand = temp;
-		    this.spinCommand = -spinCommand/3;
+		    this.spinCommand = -spinCommand/12.0;
 		    if(commandType == driveType.PERCENTPOWER) {
 				this.forwardCommand *= kMaxSpeed;
 				this.strafeCommand *= kMaxSpeed;
@@ -208,8 +222,8 @@ public class Drivetrain extends Subsystem {
 		loopMan.addLoop(new Loop() {
 		@Override
 		public void onStart() {
-			currentState = systemStates.DRIVE;
-			requestedState = systemStates.DRIVE;		
+			currentState = systemStates.VISION;
+			requestedState = systemStates.VISION;		
 		}
 		@Override
 		public void onloop() {
@@ -225,6 +239,16 @@ public class Drivetrain extends Subsystem {
 					}
 				case DRIVE:
 					manualDrive();
+				case VISION:
+					spinCommand = -pidLoop.returnOutput(cam.getAvgX(), 160);
+					forwardCommand = pidForward.returnOutput(cam.getAvgArea(), 5000);
+					if(forwardCommand < -.2) {
+						forwardCommand = 0; 
+					}
+					SmartDashboard.putNumber("Area", cam.getAvgArea());
+					SmartDashboard.putNumber("Camera", cam.getAvgX());
+					manualDrive();
+					
 				default:
 					break;			
 				}
