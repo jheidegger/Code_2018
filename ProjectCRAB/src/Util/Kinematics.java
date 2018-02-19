@@ -14,6 +14,7 @@ public class Kinematics {
 	public Kinematics(ArrayList<Swervepod> Pods) {
 		podList = Pods;
 	}
+	
 	public void update()
 	{
 		double A[] = {podList.get(2).getWheelSpeed() * Math.cos(podList.get(2).getPosition()),
@@ -40,6 +41,7 @@ public class Kinematics {
 		position[2] = Drivetrain.getInstance().getAngle();
 		
 	}
+	
 	private double getPosition() {
 		return 0.0;
 	}

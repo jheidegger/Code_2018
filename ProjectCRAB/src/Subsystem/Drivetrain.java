@@ -144,12 +144,8 @@ public class Drivetrain extends Subsystem {
 		
 		podDrive[3] = Math.sqrt(Math.pow(a, 2)+ Math.pow(c, 2));
 		podGear[3] = Math.atan2(a,c);
-		rel_max_speed = 1;
-		for(int idx = 0; idx < Pods.size(); idx++) {
-			if(podDrive[idx]>rel_max_speed) {
-				rel_max_speed = podDrive[idx];
-			}
-		}
+		
+		rel_max_speed = Math.max(Math.max(podDrive[0],podDrive[1]),Math.max(podDrive[2], podDrive[3]));
 		
 		if(rel_max_speed > 1) {
 			for(int idx = 0; idx < Pods.size(); idx++) {

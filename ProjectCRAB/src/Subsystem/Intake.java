@@ -12,13 +12,16 @@ import edu.wpi.first.wpilibj.Victor;
  public class Intake extends Subsystem {
  
  	public static Intake instance = new Intake();
+ 	
  	private Victor rightSideWheel;
  	private Victor leftSideWheel;
  	private Timer unJamTimer;
  	private DigitalInput isCubeIn;
+ 	
  	private systemStates currState;
  	private systemStates lastState;
  	private systemStates wantedState;
+ 	
  	enum systemStates{
  		Intaking,
  		Scoring,
@@ -32,7 +35,6 @@ import edu.wpi.first.wpilibj.Victor;
  		leftSideWheel = new Victor(Constants.INTAKELEFTSIDE);
  		isCubeIn = new DigitalInput(0);
  		unJamTimer = new Timer();
- 		
  	}
  	public void setWantedState(systemStates wantedState)
  	{
@@ -53,8 +55,6 @@ import edu.wpi.first.wpilibj.Victor;
  	@Override
  	public void registerLoop() {
  		Loop_Manager.getInstance().addLoop(new Loop() {
-
-			
 
 			@Override
 			public void onStart() {
