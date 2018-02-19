@@ -1,10 +1,9 @@
 package org.usfirst.frc.team6713.robot;
 
-import edu.wpi.first.wpilibj.Timer;
-
-/*
- * All constants are stored in this file as static constant variables
+/**
+ * Important static variables
  */
+
 public class Constants {
 	//Robot Port Map NOTE: only change if the robot is rewired
 	
@@ -13,7 +12,6 @@ public class Constants {
 	public static final int INTAKERIGHTSIDE = 1;
 	public static final int INTAKELEFTSIDE = 2;
 
-	
 	//Driverstation constants
 	public static int DRIVE_JOYSTICK = 0; 
 	public static int GEAR_JOYSTICK = 1;

@@ -21,10 +21,6 @@ public class Robot extends IterativeRobot {
 	private Loop_Manager myLoops = Loop_Manager.getInstance();
 	private Drivetrain driveTrain = Drivetrain.getInstance(); 
 	private Controller controllers = Controller.getInstance();
-	private PixyCam pixyCam = PixyCam.getInstance();
-	private PIDLoop pidVision;
-	private double error;
-	private double output;
 	
 	@Override
 	public void robotInit() {
@@ -45,7 +41,7 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 		myLoops.runLoops();
 		//pixyCam.track_cube();
-		driveTrain.swerve(-controllers.getForward(), -controllers.getStrafe(), -controllers.getRotation(), Drivetrain.driveCoords.FIELDCENTRIC, Drivetrain.driveType.VELOCITY);
+		driveTrain.swerve(controllers.getForward(), controllers.getStrafe(), controllers.getRotation(), Drivetrain.driveCoords.FIELDCENTRIC, Drivetrain.driveType.VELOCITY);
 
 	}
 

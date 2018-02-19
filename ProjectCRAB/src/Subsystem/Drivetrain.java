@@ -1,18 +1,17 @@
 package Subsystem;
+
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 import java.util.ArrayList;
-
 import org.usfirst.frc.team6713.robot.Constants;
-
-import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-
 import Util.PIDLoop;
-import Vision.PixyException;
+
+/** 
+ * Handles crab drive states and manages individual swervepods, see {@link Swervepod}
+ * @author Harrison McCarty, Jonathan Heidegger, and Matt Halsmer
+ */
 
 public class Drivetrain extends Subsystem {
 
@@ -106,7 +105,7 @@ public class Drivetrain extends Subsystem {
 		updateAngle();
 
 		//initialize the commands
-		forwardCommand = 0.0000000000000001;
+		forwardCommand = 0.000000000000000000000001;
 		strafeCommand = 0.0;
 		spinCommand = 0.0;
 	}
@@ -121,7 +120,7 @@ public class Drivetrain extends Subsystem {
 		SmartDashboard.putNumber("Angle", angle);
 	}
 	
-	private void manualDrive() {
+	private void crabDrive() {
 		double[] podDrive = new double[4];
 		double[] podGear = new double[4];
 		
@@ -167,13 +166,22 @@ public class Drivetrain extends Subsystem {
 		}
 	}
 	
-	public void resetGyro() {
+	private void resetGyro() {
 		gyro.reset();
 	}
 	public double getAngle()
 	{
 		return angle;
 	}
+	
+	/**
+	 * Determines the settings of swerve drive, and the current commands
+	 * @param forwardCommand magnitude on the Y-Axis 
+	 * @param strafeCommand magnitude on the X-Axis 
+	 * @param spinCommand magnitude on the Omega Axis 
+	 * @param Coords determines whether swerve is in Robot-Centric or Field-Centric
+	 * @param commandType determines whether commanding values are in percent power (-1 to 1) or their intended velocity values (in ft/s)
+	 */
 	public void swerve(double forwardCommand, double strafeCommand, double spinCommand, driveCoords Coords, driveType commandType){
 		if(Coords == driveCoords.ROBOTCENTRIC) {
 			this.forwardCommand = forwardCommand;
@@ -238,7 +246,7 @@ public class Drivetrain extends Subsystem {
 						currentState = requestedState;
 					}
 				case DRIVE:
-					manualDrive();
+					crabDrive();
 				case AUTON:
 				
 				case VISION:
