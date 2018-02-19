@@ -10,6 +10,7 @@ public class PurpleTrigger {
 	public PurpleTrigger(Joystick joyStick, int buttonID) {
 		this.joyStick = joyStick; 
 		this.buttonID = buttonID;
+		lastActivated = false;
 	}
 	
 	public boolean getTrigger() {
@@ -18,10 +19,15 @@ public class PurpleTrigger {
 				lastActivated = true; 
 				return true; 
 			}
+			else
+			{
+				return false;
+			}
 		}
 		else {
 			lastActivated = false;
+			return false;
 		}
-		return false;
+		
 	}
 }
