@@ -8,9 +8,13 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Victor;
- 
- public class Intake extends Subsystem {
- 
+/**
+ * Intake class for 2018 FRC robot 
+ * @author Jonathan Heidegger
+ *
+ */
+public class Intake extends Subsystem {
+	//the static instance of the intake so that it is not double instantiated. 
  	public static Intake instance = new Intake();
  	
  	private Victor rightSideWheel;
@@ -28,7 +32,6 @@ import edu.wpi.first.wpilibj.Victor;
  		UnJamming,
  		Neutral
  	};
- 	
  	private Intake()
  	{
  		rightSideWheel = new Victor(Constants.INTAKERIGHTSIDE);
@@ -36,19 +39,22 @@ import edu.wpi.first.wpilibj.Victor;
  		isCubeIn = new DigitalInput(0);
  		unJamTimer = new Timer();
  	}
+ 	/**
+ 	 * Main control of the intake through the state based logic
+ 	 * @param wantedState requested state for the system to switch into
+ 	 */
  	public void setWantedState(systemStates wantedState)
  	{
  		this.wantedState = wantedState;
  	}
  	@Override
  	public void zeroAllSensors() {
- 		// TODO Auto-generated method stub
+ 		// N/A
  
  	}
  
  	@Override
  	public boolean checkSystem() {
- 		// TODO Auto-generated method stub
  		return false;
  	}
  
@@ -67,6 +73,7 @@ import edu.wpi.first.wpilibj.Victor;
  			public void onloop() {
  				switch(currState)
  				{
+ 				//idle and wait for commands
  				case Neutral:
  					rightSideWheel.set(0.0);
  					leftSideWheel.set(0.0);
@@ -76,6 +83,7 @@ import edu.wpi.first.wpilibj.Victor;
  						currState = wantedState;
  					}
  					break;
+ 				//spins wheels in to intake the Power Cube
  				case Intaking:
  					if(!isCubeIn.get())
  					{
@@ -92,6 +100,7 @@ import edu.wpi.first.wpilibj.Victor;
  						currState = systemStates.Neutral;
  					}
  					break;
+ 				//spins the wheels outward to score
  				case Scoring:
  					rightSideWheel.set(Constants.INTAKESCORESPEED);
  					leftSideWheel.set(Constants.INTAKESCORESPEED);
@@ -101,6 +110,7 @@ import edu.wpi.first.wpilibj.Victor;
  						currState = wantedState;
  					}
  					break;
+ 				//Spins the wheels out then in to right the Power Cubes
  				case UnJamming:
  					if(lastState != systemStates.UnJamming)
  					{
@@ -134,7 +144,8 @@ import edu.wpi.first.wpilibj.Victor;
  			@Override
  			public void stop() {
  				// TODO Auto-generated method stub
- 				
+ 				rightSideWheel.set(0.0);
+				leftSideWheel.set(0.0);
  			}
  			
  		});
