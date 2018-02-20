@@ -23,7 +23,7 @@ public class Drivetrain extends Subsystem {
 	private Loop_Manager loopMan = Loop_Manager.getInstance();
 	
 	private Controller controller = Controller.getInstance(); 
-	//private PixyCam cam = PixyCam.getInstance();
+	private PixyCam cam = PixyCam.getInstance();
 	
 	private ADXRS450_Gyro gyro;
 	
@@ -37,6 +37,9 @@ public class Drivetrain extends Subsystem {
 	private Swervepod lowerLeft;
 	private Swervepod lowerRight;
 	
+	private driveCoords Coords;
+	private driveType commandType;
+	
 	private double currTime; 
 	private double lastTime = Timer.getFPGATimestamp();
 	
@@ -47,7 +50,7 @@ public class Drivetrain extends Subsystem {
 	private double kWidth;
 	private double kRadius;
 	
-	int idCount = 0; 
+	private int idCount = 0; 
 	
 	private PIDLoop pidLoop;
 	private PIDLoop pidForward;
@@ -67,12 +70,13 @@ public class Drivetrain extends Subsystem {
 		HOMING,
 		DRIVE,
 		PARK,
-		VISION, AUTON
+		VISION, 
+		AUTON
 	}
 	
 	public enum driveCoords{
 		ROBOTCENTRIC,
-		FIELDCENTRIC,
+		FIELDCENTRIC
 	}
 	
 	public enum driveType{
@@ -83,6 +87,7 @@ public class Drivetrain extends Subsystem {
 	private systemStates currentState;
 	private systemStates requestedState;
 	private systemStates lastState;
+	
 	private Drivetrain(){
 		//instantiate the pods
 		upperRight = new Swervepod(0,driveTalon[0], gearTalon[0]);
@@ -128,10 +133,10 @@ public class Drivetrain extends Subsystem {
 	private void updateAngle(){
 		//-pi to pi 0 = straight ahead
 		angle = -((gyro.getAngle()* Math.PI/180.0))% (2*Math.PI);
-		SmartDashboard.putNumber("Angle", angle);
 	}
 	
 	private void crabDrive() {
+		//Create arrays with the speed and angle of each pod
 		double[] podDrive = new double[4];
 		double[] podGear = new double[4];
 		
@@ -141,8 +146,7 @@ public class Drivetrain extends Subsystem {
 		double c = forwardCommand - spinCommand * kWidth/2; 
 		double d = forwardCommand + spinCommand * kWidth/2; 
 		
-		
-		
+		//Calculating the speed and angle of each pod
 		podDrive[0] = Math.sqrt(Math.pow(b, 2)+ Math.pow(c, 2));
 		podGear[0] = Math.atan2(b,c);
 		
@@ -155,14 +159,18 @@ public class Drivetrain extends Subsystem {
 		podDrive[3] = Math.sqrt(Math.pow(a, 2)+ Math.pow(c, 2));
 		podGear[3] = Math.atan2(a,c);
 		
+		//Finding the highest commanded velocity between the pods
 		rel_max_speed = Math.max(Math.max(podDrive[0],podDrive[1]),Math.max(podDrive[2], podDrive[3]));
 		
+		//Reducing pods by the relative max speed
 		if(rel_max_speed > 1) {
 			for(int idx = 0; idx < Pods.size(); idx++) {
 				podDrive[idx] /= rel_max_speed;
 			}
 		}
-				
+		
+		
+		// Sending each pod their respective commands
 		for(int idx = 0; idx < Pods.size(); idx++) {
 			//sending power from 0 to 13.5 ft/s and position -pi to pi
 			Pods.get(idx).setPod(podDrive[idx],podGear[idx]); 
@@ -170,35 +178,11 @@ public class Drivetrain extends Subsystem {
 	}
 	
 	public void recordAuton (){
-		/*PrintWriter pw = null;
-		try {
-		    pw = new PrintWriter(new File("NewData.csv"));
-		} catch (FileNotFoundException e) {
-		    e.printStackTrace();
-		}
-        StringBuilder sb = new StringBuilder();*/
-		
+		//Captures the commands of a driver and puts them into an array for Auton usage
 		recordedValuesY.add(-controller.getForward());
 		recordedValuesX.add(-controller.getStrafe());
 		recordedValuesOmega.add(controller.getRotation());
 		recordedValuesGyro.add(getAngle());
-			
-
-				//sb.append(Double.toString(recordedValuesY.get(idx)));
-				//sb.append(Double.toString(recordedValuesX.get(idx)));
-				//System.out.println(recordedValuesY.get(idx));
-				//System.out.println(recordedValuesX.get(idx));
-	
-			//pw.close();
-		
-	}
-	
-	public void setPod(double angle, double speed, Swervepod[] pods)
-	{
-		for(int idx = 0; idx < pods.length; idx++) {
-			//Give angle from -PI to PI and power of 0 to 13.5 ft/s
-			Pods.get(idx).setPod(speed,angle); 
-		}
 	}
 	
 	private void resetGyro() {
@@ -217,7 +201,7 @@ public class Drivetrain extends Subsystem {
 	 * @param Coords determines whether swerve is in Robot-Centric or Field-Centric
 	 * @param commandType determines whether commanding values are in percent power (-1 to 1) or their intended velocity values (in ft/s)
 	 */
-	public void swerve(double forwardCommand, double strafeCommand, double spinCommand, driveCoords Coords, driveType commandType){
+	public void swerve(double forwardCommand, double strafeCommand, double spinCommand) {
 		if(Coords == driveCoords.ROBOTCENTRIC) {
 			this.forwardCommand = forwardCommand;
 			this.strafeCommand = strafeCommand;
@@ -241,6 +225,34 @@ public class Drivetrain extends Subsystem {
 			}
 		}
 	}
+	public void swerve(double forwardCommand, double strafeCommand, double spinCommand, driveCoords Coords, driveType commandType){
+		this.Coords = Coords;
+		this.commandType = commandType;
+		
+		if(Coords == driveCoords.ROBOTCENTRIC) {
+			this.forwardCommand = forwardCommand;
+			this.strafeCommand = strafeCommand;
+			this.spinCommand = spinCommand/6.0;
+			if(commandType == driveType.PERCENTPOWER) {
+				this.forwardCommand *= kMaxSpeed;
+				this.strafeCommand *= kMaxSpeed;
+				this.spinCommand *= kMaxRotation;
+			}
+		}
+		else {
+			final double temp = forwardCommand * Math.cos(angle) + strafeCommand * Math.sin(angle);
+		    this.strafeCommand = (-forwardCommand * Math.sin(angle) + strafeCommand * Math.cos(angle));
+		    this.forwardCommand = temp;
+		    this.spinCommand = spinCommand/6.0;
+		    //this.spinCommand = this.spinCommand + gyroFix.returnOutput(angle, 0);
+		    if(commandType == driveType.PERCENTPOWER) {
+				this.forwardCommand *= kMaxSpeed;
+				this.strafeCommand *= kMaxSpeed;
+				this.spinCommand *= kMaxRotation;
+			}
+		}
+	}
+
 	
 	@Override
 	public void zeroAllSensors() {
@@ -289,14 +301,13 @@ public class Drivetrain extends Subsystem {
 				case DRIVE:
 					crabDrive();
 					recordAuton();
-					
 					lastState = systemStates.DRIVE;
 					checkState();
 					break;
 				case AUTON:
 					if(lastState != systemStates.AUTON) {
 						idCount = 0;
-						//resetGyro();
+						resetGyro();
 					}
 					forwardCommand = recordedValuesY.get(idCount);
 					strafeCommand = recordedValuesX.get(idCount);
@@ -313,16 +324,15 @@ public class Drivetrain extends Subsystem {
 					checkState();
 					break;
 				case VISION:
-					/*
 					spinCommand = -pidLoop.returnOutput(cam.getAvgX(), 160);
 					forwardCommand = pidForward.returnOutput(cam.getAvgArea(), 5000);
 					if(forwardCommand < -.2) {
 						forwardCommand = 0; 
 					}
-					SmartDashboard.putNumber("Area", cam.getAvgArea());
-					SmartDashboard.putNumber("Camera", cam.getAvgX());
-					manualDrive();
-					*/
+					crabDrive();
+					lastState = systemStates.VISION;
+					checkState();
+					break;
 				default:
 					break;			
 				}
