@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import org.usfirst.frc.team6713.robot.Constants;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import Util.PIDLoop;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 
 /** 
  * Handles crab drive states and manages individual swervepods, see {@link Swervepod}
@@ -25,6 +28,10 @@ public class Drivetrain extends Subsystem {
 	private ADXRS450_Gyro gyro;
 	
 	private ArrayList<Swervepod> Pods;
+	private ArrayList<Double> recordedValuesY = new ArrayList<Double>();
+	private ArrayList<Double> recordedValuesX = new ArrayList<Double>();
+	private ArrayList<Double> recordedValuesOmega = new ArrayList<Double>();
+	private ArrayList<Double> recordedValuesGyro = new ArrayList<Double>();
 	private Swervepod upperRight;
 	private Swervepod upperLeft;
 	private Swervepod lowerLeft;
@@ -40,8 +47,11 @@ public class Drivetrain extends Subsystem {
 	private double kWidth;
 	private double kRadius;
 	
+	int idCount = 0; 
+	
 	private PIDLoop pidLoop;
 	private PIDLoop pidForward;
+	private PIDLoop gyroFix;
 	
 	private double kMaxSpeed;
 	private double kMaxRotation;
@@ -72,7 +82,7 @@ public class Drivetrain extends Subsystem {
 	
 	private systemStates currentState;
 	private systemStates requestedState;
-	
+	private systemStates lastState;
 	private Drivetrain(){
 		//instantiate the pods
 		upperRight = new Swervepod(0,driveTalon[0], gearTalon[0]);
@@ -85,6 +95,7 @@ public class Drivetrain extends Subsystem {
 		
 		pidLoop = new PIDLoop(0.0007,0,0);
 		pidForward = new PIDLoop(0.001,0,0);
+		gyroFix = new PIDLoop(0.01,0,0);
 				
 		//Add instantiated Pods to the array list
 		Pods.add(upperRight);
@@ -158,6 +169,30 @@ public class Drivetrain extends Subsystem {
 		}
 	}
 	
+	public void recordAuton (){
+		/*PrintWriter pw = null;
+		try {
+		    pw = new PrintWriter(new File("NewData.csv"));
+		} catch (FileNotFoundException e) {
+		    e.printStackTrace();
+		}
+        StringBuilder sb = new StringBuilder();*/
+		
+		recordedValuesY.add(-controller.getForward());
+		recordedValuesX.add(-controller.getStrafe());
+		recordedValuesOmega.add(controller.getRotation());
+		recordedValuesGyro.add(getAngle());
+			
+
+				//sb.append(Double.toString(recordedValuesY.get(idx)));
+				//sb.append(Double.toString(recordedValuesX.get(idx)));
+				//System.out.println(recordedValuesY.get(idx));
+				//System.out.println(recordedValuesX.get(idx));
+	
+			//pw.close();
+		
+	}
+	
 	public void setPod(double angle, double speed, Swervepod[] pods)
 	{
 		for(int idx = 0; idx < pods.length; idx++) {
@@ -198,6 +233,7 @@ public class Drivetrain extends Subsystem {
 		    this.strafeCommand = (-forwardCommand * Math.sin(angle) + strafeCommand * Math.cos(angle));
 		    this.forwardCommand = temp;
 		    this.spinCommand = spinCommand/6.0;
+		    //this.spinCommand = this.spinCommand + gyroFix.returnOutput(angle, 0);
 		    if(commandType == driveType.PERCENTPOWER) {
 				this.forwardCommand *= kMaxSpeed;
 				this.strafeCommand *= kMaxSpeed;
@@ -224,14 +260,21 @@ public class Drivetrain extends Subsystem {
 		requestedState = wanted;
 	}
 	
+	public void checkState() {
+		if(requestedState!=currentState)
+		{
+			currentState = requestedState;
+		}
+	}
+	
 	@Override
 	public void registerLoop()
 	{
 		loopMan.addLoop(new Loop() {
 		@Override
 		public void onStart() {
-			currentState = systemStates.DRIVE;
-			requestedState = systemStates.DRIVE;		
+			currentState = systemStates.NEUTRAL;
+			requestedState = systemStates.NEUTRAL;		
 		}
 		@Override
 		public void onloop() {
@@ -241,14 +284,34 @@ public class Drivetrain extends Subsystem {
 			updateAngle();
 			switch(currentState) {
 				case NEUTRAL:
-					if(requestedState!=currentState)
-					{
-						currentState = requestedState;
-					}
+					checkState();
+					lastState = systemStates.NEUTRAL;
 				case DRIVE:
 					crabDrive();
+					recordAuton();
+					
+					lastState = systemStates.DRIVE;
+					checkState();
+					break;
 				case AUTON:
-				
+					if(lastState != systemStates.AUTON) {
+						idCount = 0;
+						//resetGyro();
+					}
+					forwardCommand = recordedValuesY.get(idCount);
+					strafeCommand = recordedValuesX.get(idCount);
+					spinCommand = recordedValuesOmega.get(idCount);
+					angle = recordedValuesGyro.get(idCount);
+					System.out.println(forwardCommand);
+					if(idCount < recordedValuesX.size()-1)
+					{
+						idCount++;
+					}
+					swerve(forwardCommand, strafeCommand, spinCommand, Drivetrain.driveCoords.FIELDCENTRIC, Drivetrain.driveType.VELOCITY);
+					crabDrive();
+					lastState = systemStates.AUTON;
+					checkState();
+					break;
 				case VISION:
 					/*
 					spinCommand = -pidLoop.returnOutput(cam.getAvgX(), 160);

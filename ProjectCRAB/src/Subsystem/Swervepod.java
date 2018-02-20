@@ -29,7 +29,7 @@ public class Swervepod extends Subsystem {
 	private double radianCommand;
 	
 	private double velocitySetpoint; //Wanted velocity in ft/s
-	private double fps2ups = 10000;//4096.0 / (Constants.WHEELDIAMETER/12.0);
+	private double fps2ups = 17000;//4096.0 / (Constants.WHEELDIAMETER/12.0);
 
 	private boolean forwardPath = false;
 	
@@ -52,18 +52,17 @@ public class Swervepod extends Subsystem {
 	
 	public void setPod(double Speed, double Angle){
 		
-		velocitySetpoint  = Speed * fps2ups * 1.5;
+		velocitySetpoint  = Speed * fps2ups;
 
 		positionSetpoint = findSteerPosition(Angle); 
 		
-		if(Speed == 0) {
-			positionSetpoint = lastAngle; 
+		if(Speed != 0) {
+			steerMotor.set(ControlMode.Position, positionSetpoint);
 		}
-		lastAngle = positionSetpoint;
 		SmartDashboard.putNumber(id+ " position", getPosition());
 		//SmartDashboard.putNumber(id + " velocity", velocitySetpoint);
-		driveMotor.set(ControlMode.Velocity, -velocitySetpoint);
-		steerMotor.set(ControlMode.Position, positionSetpoint);
+		driveMotor.set(ControlMode.Velocity, velocitySetpoint);
+		
 	}
 	
 	

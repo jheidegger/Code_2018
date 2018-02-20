@@ -1,3 +1,4 @@
+
 package org.usfirst.frc.team6713.robot;
 
 /**
@@ -20,7 +21,7 @@ public class Constants {
 	//Subsystem constants
 	
 	//Drive Train constants
-	public static double OFFSETS[] = {1506.0,2258.0,3532.0,583.0};
+	public static double OFFSETS[] = {1389.0,2357.0,3691.0,562.0};
 	public static double DRIVETRAINLENGTH = 13;
 	public static double DRIVETRAINWIDTH = 17.5;
 	public static final double WHEELDIAMETER = 4;
@@ -28,10 +29,10 @@ public class Constants {
 	public static double DRIVETRAINMAXROTATIONSPEED = 5; // radians/s
 	public static double ENCODER_UNITS = 4096.0;
 	//Swerve Pod constants
-	public static final double SWERVE_kP = 2.4;
-	public static final double SWERVE_kI = 0.0021;
+	public static final double SWERVE_kP = 12.5;
+	public static final double SWERVE_kI = 0.0023;
 	public static final double SWERVE_kD = 210.0;
-	public static final int SWERVE_ALLOWABLE_ERROR = 10;
+	public static final int SWERVE_ALLOWABLE_ERROR = 8;
 	//vision constants
 	public static int AVG_LIST_SIZE = 10;
 	public static int PIXY_CENTER_X = 160; 
