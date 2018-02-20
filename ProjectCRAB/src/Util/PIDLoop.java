@@ -4,8 +4,11 @@ import org.usfirst.frc.team6713.robot.*;
 
 import edu.wpi.first.wpilibj.Timer;
 
+/**
+ * Custom PID Loop Class
+ * @author Harrison McCarty
+ */
 public class PIDLoop {
-	
 	private double kP; 
 	private double kI;
 	private double kD;
@@ -15,7 +18,6 @@ public class PIDLoop {
 	private double currTime; 
 	private double lastTime = Timer.getFPGATimestamp();
 	private double deltaTime;
-	
 	
 	public PIDLoop(double pG, double iG, double dG){
 		kP = pG; 
@@ -37,6 +39,7 @@ public class PIDLoop {
 		max_speed = mS; 
 		integralMax = iMax;
 	}
+	
 	public PIDLoop(double pG, double iG, double dG, double mS, double iMax, double f){
 		kP = pG; 
 		kI = iG;
@@ -45,6 +48,7 @@ public class PIDLoop {
 		integralMax = iMax;
 		kF = f;
 	}
+	
 	public double returnOutput(double current, double setpoint) {
 		currTime = Timer.getFPGATimestamp();
 		deltaTime = currTime-lastTime;
@@ -78,6 +82,7 @@ public class PIDLoop {
 		
 		return output;
 	}
+	
 	public double returnOutput(double error) {
 		currTime = Timer.getFPGATimestamp();
 		deltaTime = currTime-lastTime;
@@ -110,6 +115,7 @@ public class PIDLoop {
 		
 		return output;
 	}
+	
 	//getters and setters for everything
 	public double getkP() {
 		return kP;
