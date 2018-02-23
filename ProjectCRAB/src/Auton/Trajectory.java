@@ -1,5 +1,7 @@
 package Auton;
 
+import java.util.ArrayList;
+
 import edu.wpi.first.wpilibj.Timer;
 
 public class Trajectory {
@@ -14,16 +16,22 @@ public class Trajectory {
 	private double wantedAngle;
 	private double currentVelocity;
 	private double wantedVelocity;
-	
-	public Trjectory() {
+	private ArrayList<Waypoint>  points;
+	public Trajectory() {
+		points = new ArrayList<Waypoint>();
+	}
+	public void addWaypoint(Waypoint w)
+	{
+		points.add(w);
+	}
+	public void calculateTrajectory()
+	{
 		
 	}
 	public void setWantedPos() {
-		wantedX = path.getWantedX(Timer.getFPGATimestamp()+.5);
-		wantedY = path.getWantedY(Timer.getFPGATimestamp()+.5);
-		wantedAngle = path.getWantedAngle(Timer.getFPGATimestamp()+.5);
+		
 	}
 	
 }
 
-}
+
