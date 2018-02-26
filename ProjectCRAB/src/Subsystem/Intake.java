@@ -57,7 +57,13 @@ public class Intake extends Subsystem {
  	public boolean checkSystem() {
  		return false;
  	}
- 
+ 	private void checkState()
+ 	{
+ 		if(wantedState != systemStates.UnJamming)
+		{
+			currState = wantedState;
+		}
+ 	}
  	@Override
  	public void registerLoop() {
  		Loop_Manager.getInstance().addLoop(new Loop() {
@@ -78,10 +84,7 @@ public class Intake extends Subsystem {
  					rightSideWheel.set(0.0);
  					leftSideWheel.set(0.0);
  					lastState = systemStates.Neutral;
- 					if(wantedState != systemStates.Neutral)
- 					{
- 						currState = wantedState;
- 					}
+ 					checkState();
  					break;
  				//spins wheels in to intake the Power Cube
  				case Intaking:
@@ -90,10 +93,7 @@ public class Intake extends Subsystem {
 	 					rightSideWheel.set(Constants.INTAKESPEED);
 	 					leftSideWheel.set(Constants.INTAKESPEED);
 	 					lastState = systemStates.Intaking;
-	 					if(wantedState != systemStates.Intaking)
-	 					{
-	 						currState = wantedState;
-	 					}
+	 					checkState();
  					}
  					else
  					{
@@ -105,10 +105,7 @@ public class Intake extends Subsystem {
  					rightSideWheel.set(Constants.INTAKESCORESPEED);
  					leftSideWheel.set(Constants.INTAKESCORESPEED);
  					lastState = systemStates.Scoring;
- 					if(wantedState != systemStates.Scoring)
- 					{
- 						currState = wantedState;
- 					}
+ 					checkState();
  					break;
  				//Spins the wheels out then in to right the Power Cubes
  				case UnJamming:
@@ -130,10 +127,7 @@ public class Intake extends Subsystem {
  					}
  					else
  					{
- 						if(wantedState != systemStates.UnJamming)
- 	 					{
- 	 						currState = wantedState;
- 	 					}
+ 						checkState();
  					}
  					lastState = systemStates.UnJamming;
  					break;
