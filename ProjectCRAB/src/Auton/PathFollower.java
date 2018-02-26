@@ -37,8 +37,10 @@ public class PathFollower {
 	}
 	
 	private void setWantedCoords() {
+		/*
 		wantedX = Trajectory.getWantedX();
 		wantedY = Trajectory.getWantedY(); 
 		wantedAngle = Trajectory.getWantedAngle();
+		*/
 	}
 }
