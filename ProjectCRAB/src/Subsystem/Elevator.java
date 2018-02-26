@@ -41,10 +41,6 @@ public class Elevator extends Subsystem {
 	
 	private void setFloor(double height) {
 		double liftSpeed = elevatorControlLoop.returnOutput(encoder.getRaw(), height);
-		
-		if(liftSpeed > 1) { liftSpeed = 1; }
-		else if(liftSpeed < -1) { liftSpeed = -1; }
-		
 		driveMotor.set(liftSpeed);
 	}
 	
