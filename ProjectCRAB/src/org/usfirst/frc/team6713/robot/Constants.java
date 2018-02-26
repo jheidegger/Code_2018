@@ -58,6 +58,8 @@ public class Constants {
 
 	public static final double DRIVE_kF = 0.000;
 
+	public static final double MAXSLOWPERCENTSPEED = .5;
+
 	
 	
 

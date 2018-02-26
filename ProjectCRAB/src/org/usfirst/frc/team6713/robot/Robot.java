@@ -41,13 +41,37 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 		myLoops.runLoops();
 		//pixyCam.track_cube();
-		if(controllers.getButton2()) {
+		if(controllers.executeAutoButton()) {
 			driveTrain.setSystemState(Drivetrain.systemStates.AUTON);
 		}
 		else {
 			driveTrain.setSystemState(Drivetrain.systemStates.DRIVE);
 		}
-			driveTrain.swerve(-controllers.getForward(), -controllers.getStrafe(), controllers.getRotation(), Drivetrain.driveCoords.FIELDCENTRIC, Drivetrain.driveType.VELOCITY);
+		if(controllers.getSlowFieldCentricButton() == true)
+		{
+			driveTrain.swerve(-controllers.getForward()*Constants.MAXSLOWPERCENTSPEED,
+					-controllers.getStrafe()*Constants.MAXSLOWPERCENTSPEED, 
+					controllers.getRotation()*Constants.MAXSLOWPERCENTSPEED, 
+					Drivetrain.driveCoords.FIELDCENTRIC, 
+					Drivetrain.driveType.PERCENTPOWER);
+		}
+		else if(controllers.getSlowRobotCentricButton() == true)
+		{
+			driveTrain.swerve(-controllers.getForward()*Constants.MAXSLOWPERCENTSPEED, 
+					-controllers.getStrafe()*Constants.MAXSLOWPERCENTSPEED, 
+					controllers.getRotation()*Constants.MAXSLOWPERCENTSPEED, 
+					Drivetrain.driveCoords.ROBOTCENTRIC, 
+					Drivetrain.driveType.PERCENTPOWER);
+		}
+		else
+		{
+			driveTrain.swerve(-controllers.getForward(), 
+					-controllers.getStrafe(), 
+					controllers.getRotation(), 
+					Drivetrain.driveCoords.FIELDCENTRIC, 
+					Drivetrain.driveType.PERCENTPOWER);
+		}
+		
 		
 
 	}

@@ -290,7 +290,7 @@ public class Drivetrain extends Subsystem {
 		}
 		@Override
 		public void onloop() {
-			if(controller.getGyroReset()) {
+			if(controller.getGyroResetButton()) {
 				resetGyro();
 			}
 			updateAngle();

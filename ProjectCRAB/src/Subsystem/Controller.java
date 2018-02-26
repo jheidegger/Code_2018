@@ -31,17 +31,20 @@ public class Controller extends Subsystem{
 	public static Controller getInstance() {
 		return instance; 
 	}
-	
+	/** 
+	 * @return double deadbanded Y axis
+	 */
 	public double getForward() {
 		if(Math.abs(velocityStick.getY())<.09) {
-			return 0;
+			return 0.0;
 		}
 		else {
-			return velocityStick.getY()
-					;
+			return velocityStick.getY();
 		}
 	}
-	
+	/** 
+	 * @return double deadbanded X axis
+	 */
 	public double getStrafe() {
 		if(Math.abs(velocityStick.getX())<.09) {
 			return 0;
@@ -50,12 +53,9 @@ public class Controller extends Subsystem{
 			return velocityStick.getX();
 		}
 	}
-	public boolean getGyroReset() {
-		return velocityStick.getRawButton(1);
-	}
-	public boolean getButton2() {
-		return velocityStick.getRawButton(2);
-	}
+	/**
+	 * @return double deadbanded X axis
+	 */
 	public double getRotation() {
 		if(Math.abs(thetaStick.getX())<.09) {
 			return 0;
@@ -64,13 +64,19 @@ public class Controller extends Subsystem{
 			return thetaStick.getX()/1.2;
 		}
 	}
-	public boolean alignButton()
-	{
-		return velocityStick.getTrigger();
+	public boolean getGyroResetButton() {
+		return velocityStick.getRawButton(8);
 	}
-
-	public void checkTriggers() {
-		
+	public boolean getSlowFieldCentricButton()
+	{
+		return velocityStick.getRawButton(1);
+	}
+	public boolean getSlowRobotCentricButton()
+	{
+		return thetaStick.getRawButton(1);
+	}
+	public boolean executeAutoButton() {
+		return velocityStick.getRawButton(2);
 	}
 
 	@Override
@@ -87,24 +93,9 @@ public class Controller extends Subsystem{
 
 	@Override
 	public void registerLoop() {
-		Loop_Manager.getInstance().addLoop(new Loop()
-		{
-
-			@Override
-			public void onStart() {
-			}
-
-			@Override
-			public void onloop() {
-				checkTriggers();
-			}
-
-			@Override
-			public void stop() {
-			}
-	
-		});
+		//N/A
 		
 	}
+	
 }
 
