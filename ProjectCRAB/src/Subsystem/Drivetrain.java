@@ -54,7 +54,7 @@ public class Drivetrain extends Subsystem {
 	
 	private PIDLoop pidLoop;
 	private PIDLoop pidForward;
-	private PIDLoop gyroFix;
+	private PIDLoop autoHeadingControl;
 	
 	private double kMaxSpeed;
 	private double kMaxRotation;
@@ -100,7 +100,7 @@ public class Drivetrain extends Subsystem {
 		
 		pidLoop = new PIDLoop(0.0007,0,0);
 		pidForward = new PIDLoop(0.001,0,0);
-		gyroFix = new PIDLoop(0.01,0,0);
+		autoHeadingControl = new PIDLoop(0.01,0,0);
 				
 		//Add instantiated Pods to the array list
 		Pods.add(upperRight);
@@ -132,7 +132,7 @@ public class Drivetrain extends Subsystem {
 
 	private void updateAngle(){
 		//-pi to pi 0 = straight ahead
-		angle = -((gyro.getAngle()* Math.PI/180.0))% (2*Math.PI);
+		angle = (-((gyro.getAngle()* Math.PI/180.0))% (2*Math.PI)) - Math.PI;
 	}
 	
 	private void crabDrive() {
@@ -183,6 +183,13 @@ public class Drivetrain extends Subsystem {
 		recordedValuesX.add(-controller.getStrafe());
 		recordedValuesOmega.add(controller.getRotation());
 		recordedValuesGyro.add(getAngle());
+	}
+	public void clearAuton()
+	{
+		recordedValuesX.clear();
+		recordedValuesY.clear();
+		recordedValuesOmega.clear();
+		recordedValuesGyro.clear();
 	}
 	
 	private void resetGyro() {
@@ -309,10 +316,18 @@ public class Drivetrain extends Subsystem {
 						idCount = 0;
 						resetGyro();
 					}
+					double error;
+					if(Math.abs(recordedValuesGyro.get(idCount) - angle) > Math.PI)
+					{
+						error = ((recordedValuesGyro.get(idCount) - angle) + 2*Math.PI) % (2*Math.PI);
+					}
+					else
+					{
+						error = recordedValuesGyro.get(idCount) - angle;
+					}
 					forwardCommand = recordedValuesY.get(idCount);
 					strafeCommand = recordedValuesX.get(idCount);
-					spinCommand = recordedValuesOmega.get(idCount);
-					angle = recordedValuesGyro.get(idCount);
+					spinCommand = autoHeadingControl.returnOutput(error);
 					System.out.println(forwardCommand);
 					if(idCount < recordedValuesX.size()-1)
 					{

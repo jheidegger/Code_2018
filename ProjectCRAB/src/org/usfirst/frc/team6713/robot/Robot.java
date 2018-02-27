@@ -71,9 +71,6 @@ public class Robot extends IterativeRobot {
 					Drivetrain.driveCoords.FIELDCENTRIC, 
 					Drivetrain.driveType.PERCENTPOWER);
 		}
-		
-		
-
 	}
 
 	@Override
