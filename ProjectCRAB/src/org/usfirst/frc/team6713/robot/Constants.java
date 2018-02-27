@@ -60,6 +60,8 @@ public class Constants {
 
 	public static final double MAXSLOWPERCENTSPEED = .5;
 
+	public static final double DRIVE_RAMPRATE = 1;
+
 	
 	
 
