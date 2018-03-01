@@ -26,8 +26,8 @@ public class Robot extends IterativeRobot {
 	
 	@Override
 	public void robotInit() {
-		driveTrain.registerLoop();
-		intake.registerLoop();
+		driveTrain.registerLoop(); //First in array list
+		intake.registerLoop(); //Second in array list
 		myLoops.startLoops();
 	}
 	

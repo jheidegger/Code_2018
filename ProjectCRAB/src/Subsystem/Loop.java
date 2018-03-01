@@ -8,4 +8,8 @@ public abstract class Loop {
 	public abstract void onStart();
 	public abstract void onloop();
 	public abstract void stop();
+	public void test() {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -88,6 +88,11 @@ public class Elevator extends Subsystem {
 				// TODO Auto-generated method stub
 				
 			}
+			
+			@Override
+			public void test() {
+				
+			}
 	
 		});
 	}

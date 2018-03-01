@@ -18,7 +18,6 @@ public class Controller extends Subsystem{
 	public Controller(){
 		velocityStick = new Joystick(Constants.DRIVE_JOYSTICK);
 		thetaStick = new Joystick(Constants.GEAR_JOYSTICK);
-		
 		buttonMonkey = new Joystick(Constants.BUTTON_MONKEY);
 	}
 	
@@ -87,6 +86,15 @@ public class Controller extends Subsystem{
 	public boolean executeAutoButton() {
 		return velocityStick.getRawButton(2);
 	}
+	/*public boolean testElevator() {
+		return buttonMonkey.get
+	}
+	public boolean testIntake() {
+		
+	}
+	public boolean testDrivetrain() {
+		
+	}*/
 
 	@Override
 	public void zeroAllSensors() {
