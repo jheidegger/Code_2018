@@ -8,6 +8,7 @@
 package org.usfirst.frc.team6713.robot;
 
 import Subsystem.*;
+import Subsystem.Intake.systemStates;
 import Util.PIDLoop;
 import Vision.PixyException;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -21,10 +22,12 @@ public class Robot extends IterativeRobot {
 	private Loop_Manager myLoops = Loop_Manager.getInstance();
 	private Drivetrain driveTrain = Drivetrain.getInstance(); 
 	private Controller controllers = Controller.getInstance();
+	private Intake intake = Intake.getInstance();
 	
 	@Override
 	public void robotInit() {
 		driveTrain.registerLoop();
+		intake.registerLoop();
 		myLoops.startLoops();
 	}
 	
@@ -49,27 +52,39 @@ public class Robot extends IterativeRobot {
 		}
 		if(controllers.getSlowFieldCentricButton() == true)
 		{
-			driveTrain.swerve(-controllers.getForward()*Constants.MAXSLOWPERCENTSPEED,
-					-controllers.getStrafe()*Constants.MAXSLOWPERCENTSPEED, 
-					controllers.getRotation()*Constants.MAXSLOWPERCENTSPEED, 
+			driveTrain.swerve(controllers.getForward()*Constants.MAXSLOWPERCENTSPEED,
+					controllers.getStrafe()*Constants.MAXSLOWPERCENTSPEED, 
+					-controllers.getRotation()*Constants.MAXSLOWPERCENTSPEED, 
 					Drivetrain.driveCoords.FIELDCENTRIC, 
-					Drivetrain.driveType.PERCENTPOWER);
+					Drivetrain.driveType.VELOCITY);
 		}
 		else if(controllers.getSlowRobotCentricButton() == true)
 		{
-			driveTrain.swerve(-controllers.getForward()*Constants.MAXSLOWPERCENTSPEED, 
-					-controllers.getStrafe()*Constants.MAXSLOWPERCENTSPEED, 
-					controllers.getRotation()*Constants.MAXSLOWPERCENTSPEED, 
+			driveTrain.swerve(controllers.getForward()*Constants.MAXSLOWPERCENTSPEED, 
+					controllers.getStrafe()*Constants.MAXSLOWPERCENTSPEED, 
+					-controllers.getRotation()*Constants.MAXSLOWPERCENTSPEED, 
 					Drivetrain.driveCoords.ROBOTCENTRIC, 
-					Drivetrain.driveType.PERCENTPOWER);
+					Drivetrain.driveType.VELOCITY);
 		}
 		else
 		{
-			driveTrain.swerve(-controllers.getForward(), 
-					-controllers.getStrafe(), 
-					controllers.getRotation(), 
+			driveTrain.swerve(controllers.getForward(), 
+					controllers.getStrafe(), 
+					-controllers.getRotation(), 
 					Drivetrain.driveCoords.FIELDCENTRIC, 
-					Drivetrain.driveType.PERCENTPOWER);
+					Drivetrain.driveType.VELOCITY);
+		}
+		if(controllers.getIntakeButton()) {
+			intake.setWantedState(systemStates.Intaking);
+		}
+		else if(controllers.getOuttakeButton()) {
+			intake.setWantedState(systemStates.Scoring);
+		}
+		else if(controllers.unjamButton()) {
+			intake.setWantedState(systemStates.UnJamming);
+		}
+		else {
+			intake.setWantedState(systemStates.Neutral);
 		}
 	}
 

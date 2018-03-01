@@ -1,6 +1,7 @@
 package Subsystem;
 
-import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import com.kauailabs.navx.frc.AHRS;
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import java.util.ArrayList;
@@ -25,7 +26,7 @@ public class Drivetrain extends Subsystem {
 	private Controller controller = Controller.getInstance(); 
 	private PixyCam cam = PixyCam.getInstance();
 	
-	private ADXRS450_Gyro gyro;
+	private AHRS gyro;
 	
 	private ArrayList<Swervepod> Pods;
 	private ArrayList<Double> recordedValuesY = new ArrayList<Double>();
@@ -116,8 +117,7 @@ public class Drivetrain extends Subsystem {
 		kMaxRotation = Constants.DRIVETRAINMAXROTATIONSPEED;
 		
 		//instantiate the gyro
-		gyro = new ADXRS450_Gyro();
-		gyro.calibrate();
+		gyro = new AHRS(SPI.Port.kMXP);
 		updateAngle();
 
 		//initialize the commands
@@ -132,7 +132,18 @@ public class Drivetrain extends Subsystem {
 
 	private void updateAngle(){
 		//-pi to pi 0 = straight ahead
-		angle = (-((gyro.getAngle()* Math.PI/180.0))% (2*Math.PI)) - Math.PI;
+		angle = ((((gyro.getAngle()+180.0)* Math.PI/180.0)) % (2*Math.PI));
+		if(angle>0)
+		{
+			angle -= Math.PI;
+		}
+		else
+		{
+			angle += Math.PI;
+		}
+	
+		SmartDashboard.putNumber("Angle", angle);
+		SmartDashboard.putNumber("rawGyro", gyro.getAngle());
 	}
 	
 	private void crabDrive() {
@@ -220,8 +231,8 @@ public class Drivetrain extends Subsystem {
 			}
 		}
 		else {
-			final double temp = forwardCommand * Math.cos(angle) + strafeCommand * Math.sin(angle);
-		    this.strafeCommand = (-forwardCommand * Math.sin(angle) + strafeCommand * Math.cos(angle));
+			final double temp = forwardCommand * Math.sin(angle) + strafeCommand * Math.cos(angle);
+		    this.strafeCommand = (-forwardCommand * Math.cos(angle) + strafeCommand * Math.sin(angle));
 		    this.forwardCommand = temp;
 		    this.spinCommand = spinCommand/6.0;
 		    //this.spinCommand = this.spinCommand + gyroFix.returnOutput(angle, 0);
@@ -247,8 +258,8 @@ public class Drivetrain extends Subsystem {
 			}
 		}
 		else {
-			final double temp = forwardCommand * Math.cos(angle) + strafeCommand * Math.sin(angle);
-		    this.strafeCommand = (-forwardCommand * Math.sin(angle) + strafeCommand * Math.cos(angle));
+			final double temp = forwardCommand * Math.sin(angle) + strafeCommand * Math.cos(angle);
+		    this.strafeCommand = (-forwardCommand * Math.cos(angle) + strafeCommand * Math.sin(angle));
 		    this.forwardCommand = temp;
 		    this.spinCommand = spinCommand/6.0;
 		    //this.spinCommand = this.spinCommand + gyroFix.returnOutput(angle, 0);

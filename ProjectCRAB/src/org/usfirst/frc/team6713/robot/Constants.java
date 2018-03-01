@@ -10,8 +10,8 @@ public class Constants {
 	
 	public static int ELEVATORMOTOR = 4;
 	
-	public static final int INTAKERIGHTSIDE = 1;
-	public static final int INTAKELEFTSIDE = 2;
+	public static final int INTAKERIGHTSIDE = 0;
+	public static final int INTAKELEFTSIDE = 1;
 
 	//Driverstation constants
 	public static int DRIVE_JOYSTICK = 0; 
@@ -21,7 +21,7 @@ public class Constants {
 	//Subsystem constants
 	
 	//Drive Train constants
-	public static double OFFSETS[] = {1389.0,2357.0,3691.0,562.0};
+	public static double OFFSETS[] = {3358.0,60.0,1442.0,2322.0};
 	public static double DRIVETRAINLENGTH = 13;
 	public static double DRIVETRAINWIDTH = 17.5;
 	public static final double WHEELDIAMETER = 4;
@@ -29,7 +29,7 @@ public class Constants {
 	public static double DRIVETRAINMAXROTATIONSPEED = 5; // radians/s
 	public static double ENCODER_UNITS = 4096.0;
 	//Swerve Pod constants
-	public static final double SWERVE_kP = 12.5;
+	public static final double SWERVE_kP = 6.0;
 	public static final double SWERVE_kI = 0.0023;
 	public static final double SWERVE_kD = 210.0;
 	public static final int SWERVE_ALLOWABLE_ERROR = 8;
@@ -42,8 +42,8 @@ public class Constants {
 	public static double ELEVATOR_KD = 0;
 	public static double MAX_HEIGHT_ENCODER_TICKS = 10000; 
 	//intake constants
-	public static final double INTAKESPEED = 0;
-	public static final double INTAKESCORESPEED = 0;
+	public static final double INTAKESPEED = 1.0;
+	public static final double INTAKESCORESPEED = -1.0;
 	public static final double INTAKEHANDOFFSPEED = 0;
 
 	public static final double SWERVE_kF = 0.0;
@@ -60,7 +60,7 @@ public class Constants {
 
 	public static final double MAXSLOWPERCENTSPEED = .5;
 
-	public static final double DRIVE_RAMPRATE = 1;
+	public static final double DRIVE_RAMPRATE = .1;
 
 	
 	

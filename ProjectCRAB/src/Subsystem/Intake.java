@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Victor;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  * Intake class for 2018 FRC robot 
  * @author Jonathan Heidegger
@@ -25,13 +26,16 @@ public class Intake extends Subsystem {
  	private systemStates currState;
  	private systemStates lastState;
  	private systemStates wantedState;
- 	
- 	enum systemStates{
+ 	private Loop_Manager loopMan = Loop_Manager.getInstance();
+ 	public enum systemStates{
  		Intaking,
  		Scoring,
  		UnJamming,
  		Neutral
  	};
+ 	public static Intake getInstance() {
+ 		return instance;
+ 	}
  	private Intake()
  	{
  		rightSideWheel = new Victor(Constants.INTAKERIGHTSIDE);
@@ -59,14 +63,14 @@ public class Intake extends Subsystem {
  	}
  	private void checkState()
  	{
- 		if(wantedState != systemStates.UnJamming)
+ 		if(wantedState != currState)
 		{
 			currState = wantedState;
 		}
  	}
  	@Override
  	public void registerLoop() {
- 		Loop_Manager.getInstance().addLoop(new Loop() {
+ 		loopMan.addLoop(new Loop() {
 
 			@Override
 			public void onStart() {
@@ -77,6 +81,8 @@ public class Intake extends Subsystem {
 
  			@Override
  			public void onloop() {
+ 				SmartDashboard.putString("intakeState", currState.toString());
+ 				//System.out.print("imworking");
  				switch(currState)
  				{
  				//idle and wait for commands
@@ -88,22 +94,22 @@ public class Intake extends Subsystem {
  					break;
  				//spins wheels in to intake the Power Cube
  				case Intaking:
- 					if(!isCubeIn.get())
- 					{
+ 					//if(!isCubeIn.get())
+ 					//{
 	 					rightSideWheel.set(Constants.INTAKESPEED);
-	 					leftSideWheel.set(Constants.INTAKESPEED);
+	 					leftSideWheel.set(-Constants.INTAKESPEED);
 	 					lastState = systemStates.Intaking;
 	 					checkState();
- 					}
- 					else
- 					{
- 						currState = systemStates.Neutral;
- 					}
+ 					//}
+ 					//else
+ 					//{
+ 					//	currState = systemStates.Neutral;
+ 					//}
  					break;
  				//spins the wheels outward to score
  				case Scoring:
  					rightSideWheel.set(Constants.INTAKESCORESPEED);
- 					leftSideWheel.set(Constants.INTAKESCORESPEED);
+ 					leftSideWheel.set(-Constants.INTAKESCORESPEED);
  					lastState = systemStates.Scoring;
  					checkState();
  					break;
@@ -114,16 +120,16 @@ public class Intake extends Subsystem {
  						unJamTimer.start();
  						unJamTimer.reset();
  					}
- 					if(unJamTimer.get()<.2)
+ 					if(unJamTimer.get()<.05)
  					{
- 						rightSideWheel.set(-Constants.INTAKESPEED);
+ 						rightSideWheel.set(Constants.INTAKESPEED);
  	 					leftSideWheel.set(-Constants.INTAKESPEED);
  					}
  					else if(unJamTimer.get() < .4)
  					{
- 						rightSideWheel.set(Constants.INTAKESPEED);
+ 						rightSideWheel.set(-Constants.INTAKESPEED);
  	 					leftSideWheel.set(Constants.INTAKESPEED);
- 	 					currState = systemStates.Neutral;
+ 	 					//currState = systemStates.Neutral;
  					}
  					else
  					{
