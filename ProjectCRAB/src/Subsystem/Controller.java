@@ -57,10 +57,10 @@ public class Controller extends Subsystem{
 	 */
 	public double getRotation() {
 		if(Math.abs(thetaStick.getX())<.09) {
-			return 0;
+			return 0.0;
 		}
 		else {
-			return thetaStick.getX()/1.2;
+			return thetaStick.getX()/3.0;
 		}
 	}
 	public boolean getGyroResetButton() {
@@ -85,6 +85,10 @@ public class Controller extends Subsystem{
 	}
 	public boolean executeAutoButton() {
 		return velocityStick.getRawButton(2);
+	}
+	public boolean resetAutoButton()
+	{
+		return velocityStick.getRawButton(3);
 	}
 	/*public boolean testElevator() {
 		return buttonMonkey.get

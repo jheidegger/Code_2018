@@ -101,7 +101,7 @@ public class Drivetrain extends Subsystem {
 		
 		pidLoop = new PIDLoop(0.0007,0,0);
 		pidForward = new PIDLoop(0.001,0,0);
-		autoHeadingControl = new PIDLoop(0.01,0,0);
+		autoHeadingControl = new PIDLoop(.5,0,0);
 				
 		//Add instantiated Pods to the array list
 		Pods.add(upperRight);
@@ -132,15 +132,7 @@ public class Drivetrain extends Subsystem {
 
 	private void updateAngle(){
 		//-pi to pi 0 = straight ahead
-		angle = ((((gyro.getAngle()+180.0)* Math.PI/180.0)) % (2*Math.PI));
-		if(angle>0)
-		{
-			angle -= Math.PI;
-		}
-		else
-		{
-			angle += Math.PI;
-		}
+		angle = ((((gyro.getAngle()+90)* Math.PI/180.0)) % (2*Math.PI));
 	
 		SmartDashboard.putNumber("Angle", angle);
 		SmartDashboard.putNumber("rawGyro", gyro.getAngle());
@@ -323,28 +315,34 @@ public class Drivetrain extends Subsystem {
 					checkState();
 					break;
 				case AUTON:
+					
 					if(lastState != systemStates.AUTON) {
 						idCount = 0;
 						resetGyro();
 					}
 					double error;
-					if(Math.abs(recordedValuesGyro.get(idCount) - angle) > Math.PI)
+					if(Math.abs(recordedValuesGyro.get(idCount)- angle) > Math.PI)
 					{
-						error = ((recordedValuesGyro.get(idCount) - angle) + 2*Math.PI) % (2*Math.PI);
+						error = ((recordedValuesGyro.get(idCount) - angle) + Math.PI*2.0) % (2*Math.PI);
 					}
 					else
 					{
 						error = recordedValuesGyro.get(idCount) - angle;
 					}
+					SmartDashboard.putNumber("error", error);
+					SmartDashboard.putNumber("recordedValue for Gyro", recordedValuesGyro.get(idCount));
+					SmartDashboard.putNumber("actual", angle);
 					forwardCommand = recordedValuesY.get(idCount);
 					strafeCommand = recordedValuesX.get(idCount);
 					spinCommand = autoHeadingControl.returnOutput(error);
+					SmartDashboard.putNumber("spinCommand", spinCommand);
 					System.out.println(forwardCommand);
 					if(idCount < recordedValuesX.size()-1)
 					{
 						idCount++;
 					}
-					swerve(forwardCommand, strafeCommand, spinCommand, Drivetrain.driveCoords.FIELDCENTRIC, Drivetrain.driveType.VELOCITY);
+					swerve(-forwardCommand, -strafeCommand, -spinCommand, Drivetrain.driveCoords.FIELDCENTRIC, Drivetrain.driveType.VELOCITY);
+//					swerve(0.0, 0.0, -spinCommand, Drivetrain.driveCoords.FIELDCENTRIC, Drivetrain.driveType.VELOCITY);
 					crabDrive();
 					lastState = systemStates.AUTON;
 					checkState();

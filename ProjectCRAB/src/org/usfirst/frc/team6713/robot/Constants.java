@@ -21,7 +21,7 @@ public class Constants {
 	//Subsystem constants
 	
 	//Drive Train constants
-	public static double OFFSETS[] = {3358.0,60.0,1442.0,2322.0};
+	public static double OFFSETS[] = {3289.0,274.0,1576.0,2413.0};
 	public static double DRIVETRAINLENGTH = 13;
 	public static double DRIVETRAINWIDTH = 17.5;
 	public static final double WHEELDIAMETER = 4;

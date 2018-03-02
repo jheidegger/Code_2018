@@ -47,6 +47,10 @@ public class Robot extends IterativeRobot {
 		if(controllers.executeAutoButton()) {
 			driveTrain.setSystemState(Drivetrain.systemStates.AUTON);
 		}
+		else if(controllers.resetAutoButton())
+		{
+			driveTrain.clearAuton();
+		}
 		else {
 			driveTrain.setSystemState(Drivetrain.systemStates.DRIVE);
 		}
