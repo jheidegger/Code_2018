@@ -136,9 +136,6 @@ public class Drivetrain extends Subsystem {
 	private void updateAngle(){
 		//-pi to pi 0 = straight ahead
 		angle = ((((gyro.getAngle()+90)* Math.PI/180.0)) % (2*Math.PI));
-	
-		SmartDashboard.putNumber("Angle", angle);
-		SmartDashboard.putNumber("rawGyro", gyro.getAngle());
 	}
 	
 	private void crabDrive() {
