@@ -21,7 +21,7 @@ public class Constants {
 	//Subsystem constants
 	
 	//Drive Train constants
-	public static double OFFSETS[] = {3289.0,274.0,1576.0,2413.0};
+	public static double OFFSETS[] = {3252.0,340.0,1549.0,2372.0};
 	public static double DRIVETRAINLENGTH = 13;
 	public static double DRIVETRAINWIDTH = 17.5;
 	public static final double WHEELDIAMETER = 4;
@@ -29,10 +29,10 @@ public class Constants {
 	public static double DRIVETRAINMAXROTATIONSPEED = 5; // radians/s
 	public static double ENCODER_UNITS = 4096.0;
 	//Swerve Pod constants
-	public static final double SWERVE_kP = 6.0;
+	public static final double SWERVE_kP = 5.0;
 	public static final double SWERVE_kI = 0.0023;
 	public static final double SWERVE_kD = 210.0;
-	public static final int SWERVE_ALLOWABLE_ERROR = 8;
+	public static final int SWERVE_ALLOWABLE_ERROR = 12;
 	//vision constants
 	public static int AVG_LIST_SIZE = 10;
 	public static int PIXY_CENTER_X = 160; 
@@ -48,7 +48,7 @@ public class Constants {
 
 	public static final double SWERVE_kF = 0.0;
 
-	public static final double DRIVE_kP = .085;
+	public static final double DRIVE_kP = .073;
 
 	public static final double DRIVE_kI = 0.0000;
 
@@ -56,11 +56,11 @@ public class Constants {
 
 	public static final int DRIVE_ALLOWABLE_ERROR = 10;
 
-	public static final double DRIVE_kF = 0.000;
+	public static final double DRIVE_kF = 0.08571429;
 
 	public static final double MAXSLOWPERCENTSPEED = .5;
 
-	public static final double DRIVE_RAMPRATE = .1;
+	public static final double DRIVE_RAMPRATE = .15;
 
 	
 	

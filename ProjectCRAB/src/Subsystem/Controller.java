@@ -90,6 +90,9 @@ public class Controller extends Subsystem{
 	{
 		return velocityStick.getRawButton(3);
 	}
+	public boolean forwardTest() {
+		return velocityStick.getRawButton(4);
+	}
 	/*public boolean testElevator() {
 		return buttonMonkey.get
 	}

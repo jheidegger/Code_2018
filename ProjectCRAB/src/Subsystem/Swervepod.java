@@ -13,6 +13,7 @@ public class Swervepod extends Subsystem {
 	private TalonSRX driveMotor;
 	private TalonSRX steerMotor;
 	private int id;
+	private Controller controller = Controller.getInstance();
 
 	private double PI = Math.PI;
 	private double kEncoderUnits = Constants.ENCODER_UNITS; //# of ticks on Mag Encoder
@@ -42,7 +43,8 @@ public class Swervepod extends Subsystem {
 		this.steerMotor.config_kP(0, Constants.SWERVE_kP, 0);
 		this.steerMotor.config_kI(0, Constants.SWERVE_kI, 0);
 		this.steerMotor.config_kD(0, Constants.SWERVE_kD, 0);
-		this.driveMotor.config_kP(0, Constants.DRIVE_kP, 0);
+			this.driveMotor.config_kP(0, Constants.DRIVE_kP, 0);
+		
 		this.driveMotor.config_kI(0, Constants.DRIVE_kI, 0);
 		this.driveMotor.config_kD(0, Constants.DRIVE_kD, 0);
 		this.driveMotor.config_kF(0, Constants.DRIVE_kF, 0);
@@ -54,14 +56,15 @@ public class Swervepod extends Subsystem {
 	public void setPod(double Speed, double Angle){
 		
 		velocitySetpoint  = Speed * fps2ups;
-
+		
 		positionSetpoint = findSteerPosition(Angle); 
 		
 		if(Speed != 0) {
 			steerMotor.set(ControlMode.Position, positionSetpoint);
 		}
-		SmartDashboard.putNumber(id+ " position", getPosition());
-		//SmartDashboard.putNumber(id + " velocity", velocitySetpoint);
+		SmartDashboard.putNumber(id+ " position", steerMotor.getSelectedSensorPosition(0));
+		SmartDashboard.putNumber(id + " velocity", driveMotor.getSelectedSensorVelocity(0));
+		
 		driveMotor.set(ControlMode.Velocity, velocitySetpoint);
 	}
 	

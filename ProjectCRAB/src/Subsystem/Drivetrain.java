@@ -37,6 +37,7 @@ public class Drivetrain extends Subsystem {
 	private Swervepod upperLeft;
 	private Swervepod lowerLeft;
 	private Swervepod lowerRight;
+	double lastAngle = 0;
 	
 	private driveCoords Coords;
 	private driveType commandType;
@@ -101,7 +102,7 @@ public class Drivetrain extends Subsystem {
 		
 		pidLoop = new PIDLoop(0.0007,0,0);
 		pidForward = new PIDLoop(0.001,0,0);
-		autoHeadingControl = new PIDLoop(.5,0,0);
+		autoHeadingControl = new PIDLoop(.6,.1,.01);
 				
 		//Add instantiated Pods to the array list
 		Pods.add(upperRight);
@@ -227,7 +228,10 @@ public class Drivetrain extends Subsystem {
 		    this.strafeCommand = (-forwardCommand * Math.cos(angle) + strafeCommand * Math.sin(angle));
 		    this.forwardCommand = temp;
 		    this.spinCommand = spinCommand/6.0;
-		    //this.spinCommand = this.spinCommand + gyroFix.returnOutput(angle, 0);
+		    if(spinCommand == 0) {
+		    //this.spinCommand = this.spinCommand +autoHeadingControl.returnOutput(angle, lastAngle);
+		    }
+		    lastAngle = angle;
 		    if(commandType == driveType.PERCENTPOWER) {
 				this.forwardCommand *= kMaxSpeed;
 				this.strafeCommand *= kMaxSpeed;
@@ -250,11 +254,15 @@ public class Drivetrain extends Subsystem {
 			}
 		}
 		else {
+
 			final double temp = forwardCommand * Math.sin(angle) + strafeCommand * Math.cos(angle);
 		    this.strafeCommand = (-forwardCommand * Math.cos(angle) + strafeCommand * Math.sin(angle));
 		    this.forwardCommand = temp;
 		    this.spinCommand = spinCommand/6.0;
-		    //this.spinCommand = this.spinCommand + gyroFix.returnOutput(angle, 0);
+		    if(spinCommand == 0) {
+			   // this.spinCommand = this.spinCommand + autoHeadingControl.returnOutput(angle, lastAngle);
+			}
+			    lastAngle = angle;
 		    if(commandType == driveType.PERCENTPOWER) {
 				this.forwardCommand *= kMaxSpeed;
 				this.strafeCommand *= kMaxSpeed;
