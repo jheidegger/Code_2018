@@ -21,7 +21,7 @@ public class Constants {
 	//Subsystem constants
 	
 	//Drive Train constants
-	public static double OFFSETS[] = {3252.0,340.0,1549.0,2372.0};
+	public static double OFFSETS[] = {3252.0,340.0,912.0,2372.0};
 	public static double DRIVETRAINLENGTH = 13;
 	public static double DRIVETRAINWIDTH = 17.5;
 	public static final double WHEELDIAMETER = 4;
@@ -42,7 +42,7 @@ public class Constants {
 	public static double ELEVATOR_KD = 0;
 	public static double MAX_HEIGHT_ENCODER_TICKS = 10000; 
 	//intake constants
-	public static final double INTAKESPEED = 1.0;
+	public static final double INTAKESPEED = .6;
 	public static final double INTAKESCORESPEED = -1.0;
 	public static final double INTAKEHANDOFFSPEED = 0;
 
@@ -60,7 +60,7 @@ public class Constants {
 
 	public static final double MAXSLOWPERCENTSPEED = .5;
 
-	public static final double DRIVE_RAMPRATE = .15;
+	public static final double DRIVE_RAMPRATE = .24;
 
 	
 	

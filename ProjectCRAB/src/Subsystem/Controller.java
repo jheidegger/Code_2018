@@ -34,33 +34,36 @@ public class Controller extends Subsystem{
 	 * @return double deadbanded Y axis
 	 */
 	public double getForward() {
-		if(Math.abs(velocityStick.getY())<.09) {
+		if(Math.abs(velocityStick.getY())<.06) {
 			return 0.0;
 		}
 		else {
-			return velocityStick.getY();
+			return Math.pow(velocityStick.getY(),1);
 		}
 	}
 	/** 
 	 * @return double deadbanded X axis
 	 */
 	public double getStrafe() {
-		if(Math.abs(velocityStick.getX())<.09) {
+		if(Math.abs(velocityStick.getX())<.06) {
 			return 0;
 		}
 		else {
-			return velocityStick.getX();
+			return Math.pow(velocityStick.getX(),1);
 		}
+	}
+	public double elevatorOpenLoop() {
+		return -buttonMonkey.getY()*.6;
 	}
 	/**
 	 * @return double deadbanded X axis
 	 */
 	public double getRotation() {
-		if(Math.abs(thetaStick.getX())<.09) {
+		if(Math.abs(thetaStick.getX())<.06) {
 			return 0.0;
 		}
 		else {
-			return thetaStick.getX()/3.0;
+			return Math.pow(thetaStick.getX(),1)/3.5;
 		}
 	}
 	public boolean getGyroResetButton() {
@@ -70,10 +73,10 @@ public class Controller extends Subsystem{
 		return buttonMonkey.getRawButton(4);
 	}
 	public boolean getIntakeButton() {
-		return buttonMonkey.getRawButton(1);
+		return buttonMonkey.getRawButton(2);
 	}
 	public boolean unjamButton() {
-		return buttonMonkey.getRawButton(3);
+		return buttonMonkey.getRawButton(1);
 	}
 	public boolean getSlowFieldCentricButton()
 	{

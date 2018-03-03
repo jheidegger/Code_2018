@@ -13,6 +13,7 @@ import Util.PIDLoop;
 import Vision.PixyException;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -23,9 +24,11 @@ public class Robot extends IterativeRobot {
 	private Drivetrain driveTrain = Drivetrain.getInstance(); 
 	private Controller controllers = Controller.getInstance();
 	private Intake intake = Intake.getInstance();
+	private Victor elevator;
 	
 	@Override
 	public void robotInit() {
+		elevator = new Victor(2);
 		driveTrain.registerLoop(); //First in array list
 		intake.registerLoop(); //Second in array list
 		myLoops.startLoops();
@@ -90,6 +93,7 @@ public class Robot extends IterativeRobot {
 		else {
 			intake.setWantedState(systemStates.Neutral);
 		}
+		elevator.set(controllers.elevatorOpenLoop());
 	}
 
 	@Override

@@ -57,6 +57,7 @@ public class Drivetrain extends Subsystem {
 	private PIDLoop pidLoop;
 	private PIDLoop pidForward;
 	private PIDLoop autoHeadingControl;
+	private PIDLoop antiTip; 
 	
 	private double kMaxSpeed;
 	private double kMaxRotation;
@@ -103,6 +104,7 @@ public class Drivetrain extends Subsystem {
 		pidLoop = new PIDLoop(0.0007,0,0);
 		pidForward = new PIDLoop(0.001,0,0);
 		autoHeadingControl = new PIDLoop(.6,.1,.01);
+		antiTip = new PIDLoop(.05,0,0);
 				
 		//Add instantiated Pods to the array list
 		Pods.add(upperRight);
