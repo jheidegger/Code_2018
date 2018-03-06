@@ -34,7 +34,7 @@ public class Elevator extends Subsystem {
 											1); //Max Speed
 	}
 	
-	public Elevator getInstance() {
+	public static Elevator getInstance() {
 		return instance; 
 	}
 	

@@ -12,6 +12,7 @@ public class Constants {
 	
 	public static final int INTAKERIGHTSIDE = 0;
 	public static final int INTAKELEFTSIDE = 1;
+	public static final int INTAKESTOWINGMOTOR = 3;
 
 	//Driverstation constants
 	public static int DRIVE_JOYSTICK = 0; 
@@ -46,6 +47,8 @@ public class Constants {
 	public static final double INTAKESPEED = .6;
 	public static final double INTAKESCORESPEED = -1.0;
 	public static final double INTAKEHANDOFFSPEED = 0;
+	public static final double UNSTOWINGTIME = .5;
+	public static final double STOWINGTIME = .5;
 
 	public static final double SWERVE_kF = 0.0;
 
@@ -62,6 +65,12 @@ public class Constants {
 	public static final double MAXSLOWPERCENTSPEED = .5;
 
 	public static final double DRIVE_RAMPRATE = .3;
+
+	
+
+	
+
+	
 	
 	//public static double getKF(int id) {
 		//return DRIVE_kF[id];

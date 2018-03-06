@@ -16,12 +16,15 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Intake extends Subsystem {
 	//the static instance of the intake so that it is not double instantiated. 
- 	public static Intake instance = new Intake();
+ 	private static Intake instance = new Intake();
  	
  	private Victor rightSideWheel;
  	private Victor leftSideWheel;
+ 	private Victor stowingMotor;
  	private Timer unJamTimer;
+ 	private Timer stowingTimer;
  	private DigitalInput isCubeIn;
+ 	private DigitalInput isIntakeStowed;
  	
  	private systemStates currState;
  	private systemStates lastState;
@@ -31,6 +34,9 @@ public class Intake extends Subsystem {
  		Intaking,
  		Scoring,
  		UnJamming,
+ 		Stowing,
+ 		unStowing,
+ 		Stowed,
  		Neutral
  	};
  	public static Intake getInstance() {
@@ -40,8 +46,11 @@ public class Intake extends Subsystem {
  	{
  		rightSideWheel = new Victor(Constants.INTAKERIGHTSIDE);
  		leftSideWheel = new Victor(Constants.INTAKELEFTSIDE);
+ 		stowingMotor = new Victor(Constants.INTAKESTOWINGMOTOR);
  		isCubeIn = new DigitalInput(0);
+ 		isIntakeStowed = new DigitalInput(1);
  		unJamTimer = new Timer();
+ 		stowingTimer = new Timer();
  	}
  	/**
  	 * Main control of the intake through the state based logic
@@ -137,6 +146,59 @@ public class Intake extends Subsystem {
  					}
  					lastState = systemStates.UnJamming;
  					break;
+				case Stowed:
+					//move to any state through unStowing
+					if(wantedState != currState)
+					{
+						currState = systemStates.unStowing;
+					}
+					lastState = systemStates.Stowed;
+					stowingMotor.set(0.0);
+					break;
+				case Stowing:
+					if(lastState != systemStates.Stowing)
+					{
+						stowingTimer.start();
+						stowingTimer.reset();
+					}
+					if(stowingTimer.get()<Constants.STOWINGTIME)
+					{
+						stowingMotor.set(1.0);
+					}
+					else
+					{
+						stowingMotor.set(0.0);
+						currState = systemStates.Neutral;
+					}
+					if(wantedState != currState)
+					{
+						currState = wantedState;
+						stowingMotor.set(0.0);
+					}
+					break;
+				case unStowing:
+					if(lastState != systemStates.unStowing)
+					{
+						stowingTimer.start();
+						stowingTimer.reset();
+					}
+					if(stowingTimer.get()<Constants.UNSTOWINGTIME)
+					{
+						stowingMotor.set(-1.0);
+					}
+					else
+					{
+						stowingMotor.set(0.0);
+						currState = systemStates.Neutral;
+					}
+					if(wantedState != currState)
+					{
+						currState = wantedState;
+						stowingMotor.set(0.0);
+					}
+					break;
+				default:
+					break;
  				}
  				
  			}
