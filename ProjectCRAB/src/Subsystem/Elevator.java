@@ -12,7 +12,6 @@ public class Elevator extends Subsystem {
 	private PIDLoop elevatorControlLoop; 
 	private Encoder encoder;
 	private Controller joystick; 
-	
 	private double throttleValue; 
 	private double kMaxHeight = Constants.MAX_HEIGHT_ENCODER_TICKS;
 	

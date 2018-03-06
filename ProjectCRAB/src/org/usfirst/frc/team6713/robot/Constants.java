@@ -21,7 +21,8 @@ public class Constants {
 	//Subsystem constants
 	
 	//Drive Train constants
-	public static double OFFSETS[] = {1571.0,3763.0,1664.0,1386.0};
+	public static double OFFSETS[] = {3248.0,284.0,899.0,2347.0};
+	//public static double OFFSETS[] = {1571.0,3763.0,1664.0,1386.0};
 	public static double DRIVETRAINLENGTH = 13;
 	public static double DRIVETRAINWIDTH = 17.5;
 	public static final double WHEELDIAMETER = 4;
@@ -56,11 +57,15 @@ public class Constants {
 
 	public static final int DRIVE_ALLOWABLE_ERROR = 10;
 
-	public static final double DRIVE_kF = 0.08571429;
-
+	//public static final double[] DRIVE_kF = {0.09399982,0.09588528,0.09201295,.09662794};
+	public static final double DRIVE_kF = 0.0;//0.08571429;
 	public static final double MAXSLOWPERCENTSPEED = .5;
 
-	public static final double DRIVE_RAMPRATE = .24;
+	public static final double DRIVE_RAMPRATE = .3;
+	
+	//public static double getKF(int id) {
+		//return DRIVE_kF[id];
+	//}
 
 	
 	

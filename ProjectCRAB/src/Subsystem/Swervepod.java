@@ -40,15 +40,18 @@ public class Swervepod extends Subsystem {
 		this.steerMotor = steerMotor;
 		this.driveMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative,0,0);
 		this.steerMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute,0,0);
+		
 		this.steerMotor.config_kP(0, Constants.SWERVE_kP, 0);
 		this.steerMotor.config_kI(0, Constants.SWERVE_kI, 0);
 		this.steerMotor.config_kD(0, Constants.SWERVE_kD, 0);
-			this.driveMotor.config_kP(0, Constants.DRIVE_kP, 0);
 		
-		this.driveMotor.config_kI(0, Constants.DRIVE_kI, 0);
-		this.driveMotor.config_kD(0, Constants.DRIVE_kD, 0);
-		this.driveMotor.config_kF(0, Constants.DRIVE_kF, 0);
+		
+		this.driveMotor.config_kP(0,Constants.DRIVE_kP, 0);
+		this.driveMotor.config_kI(0,  Constants.DRIVE_kI, 0);
+		this.driveMotor.config_kD(0,Constants.DRIVE_kD, 0);
+		this.driveMotor.config_kF(0, Constants.DRIVE_kF,0);//DRIVE_kF, 0);
 		this.driveMotor.configClosedloopRamp(Constants.DRIVE_RAMPRATE, 0);
+		
 		this.steerMotor.configAllowableClosedloopError(0, Constants.SWERVE_ALLOWABLE_ERROR, 0);
 		this.steerMotor.configAllowableClosedloopError(0, Constants.DRIVE_ALLOWABLE_ERROR, 0);
 	}
@@ -65,7 +68,7 @@ public class Swervepod extends Subsystem {
 		SmartDashboard.putNumber(id+ " position", steerMotor.getSelectedSensorPosition(0));
 		SmartDashboard.putNumber(id + " velocity", driveMotor.getSelectedSensorVelocity(0));
 		
-		driveMotor.set(ControlMode.Velocity, velocitySetpoint);
+		driveMotor.set(ControlMode.PercentOutput, velocitySetpoint);
 	}
 	
 	private double findSteerPosition(double wantedAngle){
