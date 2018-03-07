@@ -24,18 +24,21 @@ public class Elevator extends Subsystem {
 	
 	private systemStates currentState;
 	private systemStates wantedState;
+	private systemStates lastState;
 	
 	private Elevator() {
 		encoder = new Encoder(0, 1, false, Encoder.EncodingType.k4X);
 		driveMotor = new Victor(Constants.ELEVATORMOTOR);
 		elevatorControlLoop = new PIDLoop(Constants.ELEVATOR_KP, //Proportional Gain
 											Constants.ELEVATOR_KI, //Integral Gain
-											Constants.ELEVATOR_KD); //Max Speed
+											Constants.ELEVATOR_KD,
+											1); //Max Speed
 	}
 	
 	public static Elevator getInstance() {
 		return instance; 
 	}
+	
 	
 	private void setFloor(double height) {
 		double liftSpeed = elevatorControlLoop.returnOutput(encoder.getRaw(),height);
@@ -44,11 +47,14 @@ public class Elevator extends Subsystem {
 	
 	public void setThrottleValue(double throttleValue) {
 		this.throttleValue = throttleValue;
+		//throttleValue *= (Encoder Ticks) / (Circumference of drum) 
+		//
 	}
+	
 	public double getHeight() {
 		return 0;
 	}
-
+	
 	@Override
 	public void zeroAllSensors() {
 	}
@@ -57,10 +63,18 @@ public class Elevator extends Subsystem {
 	public boolean checkSystem() {
 		return false;
 	}
+	
  	public void setWantedState(systemStates wantedState)
  	{
  		this.currentState = wantedState;
  	}
+ 	
+ 	private void checkState() {
+ 		if(currentState!=wantedState) {
+			currentState=wantedState;
+		}
+ 	}
+ 	
 	@Override
 	public void registerLoop() {
 		Loop_Manager.getInstance().addLoop(new Loop()
@@ -74,30 +88,34 @@ public class Elevator extends Subsystem {
 
 			@Override
 			public void onloop() {
-				
 				switch(currentState){
 					case NEUTRAL:
-						if(currentState!=wantedState) {
-							currentState=wantedState;
-						}
+						lastState = systemStates.NEUTRAL;
+						checkState();
+						break;
 					case OPEN_LOOP:
 						System.out.println(encoder.getRaw());
 						throttleValue = joystick.elevatorOpenLoop() * kMaxHeight; 
 						setFloor(throttleValue);
+						lastState = systemStates.OPEN_LOOP;
+						checkState();
+						break;
 					case POSITION_FOLLOW:
 						setFloor(throttleValue);
+						lastState = systemStates.POSITION_FOLLOW;
+						checkState();
+						break;
 				}
 			}
 
 			@Override
 			public void stop() {
-				// TODO Auto-generated method stub
-				
+				driveMotor.set(0);
 			}
 			
 			@Override
 			public void test() {
-				
+				Smartdashboard.putNumber("Encoder Units", encoder.getRaw());
 			}
 	
 		});
