@@ -1,5 +1,7 @@
 package Subsystem;
 
+import org.usfirst.frc.team6713.robot.Constants;
+
 import Subsystem.Intake.systemStates;
 
 public class Superstructure {
@@ -10,6 +12,7 @@ public class Superstructure {
  	private systemStates lastState;
  	private wantedStates wantedState;
  	private Loop_Manager loopMan = Loop_Manager.getInstance();
+ 	private double elevatorCommandedHeight = 0.0; 
  	public enum systemStates{
  		Intaking,
  		UnJamming,
@@ -25,6 +28,7 @@ public class Superstructure {
  		ScaleMid,
  		ScaleHigh,
  		Score,
+ 		Down,
  		Unjamming,
  		Neutral
  	}
@@ -53,6 +57,7 @@ public class Superstructure {
 				switch(currState)
 				{
 				case Intaking:
+					elevator.setWantedState(Elevator.systemStates.POSITION_FOLLOW);
 					if(elevator.getHeight() > .1)
 					{
 						elevator.setThrottleValue(0.0);
@@ -65,15 +70,34 @@ public class Superstructure {
 					checkState();
 					break;
 				case MovingToPosition:
+					intake.setWantedState(Intake.systemStates.Stowing);
+					elevator.setWantedState(Elevator.systemStates.POSITION_FOLLOW);
+					if(Math.abs(elevator.getHeight()-elevatorCommandedHeight)<Constants.ELEVATORACCEPTEDERROR)
+					{
+						elevator.setThrottleValue(elevatorCommandedHeight);
+						checkState();
+					}
+					else
+					{
+						currState = systemStates.Holding;
+					}
+					lastState = systemStates.MovingToPosition;
 					break;
 				case Holding:
+					checkState();
+					lastState = systemStates.Holding;
 					break;
 				case Neutral:
 					break;
 				case UnJamming:
+					intake.setWantedState(Intake.systemStates.UnJamming);
+					checkState();
+					lastState = systemStates.UnJamming;
 					break;
-				default:
+				case Scoring:
+					intake.setWantedState(Intake.systemStates.Scoring);
 					break;
+			
 				
 				}
 				
@@ -97,21 +121,30 @@ public class Superstructure {
 		case Neutral:
 			break;
 		case ScaleHigh:
+			elevatorCommandedHeight = Constants.SCALEHIGHHEIGHT;
 			break;
 		case ScaleLow:
+			elevatorCommandedHeight = Constants.SCALELOWHEIGHT;
 			break;
 		case ScaleMid:
+			elevatorCommandedHeight = Constants.SCALEMIDHEIGHT;
 			break;
 		case Score:
 			currState = systemStates.Scoring;
 			break;
 		case Switch:
+			elevatorCommandedHeight = Constants.SWITCHHEIGHT;
 			break;
 		case Unjamming:
+			currState = systemStates.UnJamming;
 			break;
-		default:
+		case Down:
+			elevatorCommandedHeight = 0.0;
 			break;
-		
+		}
+		if(Math.abs(elevator.getHeight()-elevatorCommandedHeight)<Constants.ELEVATORACCEPTEDERROR)
+		{
+			currState = systemStates.MovingToPosition;
 		}
 	}
 }

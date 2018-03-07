@@ -66,6 +66,16 @@ public class Constants {
 
 	public static final double DRIVE_RAMPRATE = .3;
 
+	public static final double SCALEHIGHHEIGHT = 0;
+
+	public static final double SCALELOWHEIGHT = 0;
+
+	public static final double SCALEMIDHEIGHT = 0;
+
+	public static final double SWITCHHEIGHT = 0;
+
+	public static final double ELEVATORACCEPTEDERROR = 0.1;
+
 	
 
 	
