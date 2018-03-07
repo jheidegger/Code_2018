@@ -53,7 +53,10 @@ public class Controller extends Subsystem{
 		}
 	}
 	public double elevatorOpenLoop() {
-		return -buttonMonkey.getY()*.6;
+		return -buttonMonkey.getY();
+	}
+	public double actuatorOpenLoop() {
+		return buttonMonkey.getThrottle();
 	}
 	/**
 	 * @return double deadbanded X axis

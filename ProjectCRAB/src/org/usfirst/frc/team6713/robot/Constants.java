@@ -8,7 +8,7 @@ package org.usfirst.frc.team6713.robot;
 public class Constants {
 	//Robot Port Map NOTE: only change if the robot is rewired
 	
-	public static int ELEVATORMOTOR = 4;
+	public static int ELEVATORMOTOR = 2;
 	
 	public static final int INTAKERIGHTSIDE = 0;
 	public static final int INTAKELEFTSIDE = 1;
@@ -39,12 +39,12 @@ public class Constants {
 	public static int AVG_LIST_SIZE = 10;
 	public static int PIXY_CENTER_X = 160; 
 	//Elevator control loop
-	public static double ELEVATOR_KP = 0;
+	public static double ELEVATOR_KP = 0.0004;
 	public static double ELEVATOR_KI = 0;
 	public static double ELEVATOR_KD = 0;
-	public static double MAX_HEIGHT_ENCODER_TICKS = 10000; 
+	public static double MAX_HEIGHT_ENCODER_TICKS = 2000; 
 	//intake constants
-	public static final double INTAKESPEED = .6;
+	public static final double INTAKESPEED = .9;
 	public static final double INTAKESCORESPEED = -1.0;
 	public static final double INTAKEHANDOFFSPEED = 0;
 	public static final double UNSTOWINGTIME = .5;

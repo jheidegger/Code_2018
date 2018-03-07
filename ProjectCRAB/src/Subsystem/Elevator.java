@@ -2,6 +2,7 @@ package Subsystem;
 
 import org.usfirst.frc.team6713.robot.Constants;
 
+import Subsystem.Intake.systemStates;
 import Util.PIDLoop;
 import edu.wpi.first.wpilibj.*;
 
@@ -11,7 +12,7 @@ public class Elevator extends Subsystem {
 	private Victor driveMotor;
 	private PIDLoop elevatorControlLoop; 
 	private Encoder encoder;
-	private Controller joystick; 
+	private Controller joystick = Controller.getInstance(); 
 	private double throttleValue; 
 	private double kMaxHeight = Constants.MAX_HEIGHT_ENCODER_TICKS;
 	
@@ -22,16 +23,14 @@ public class Elevator extends Subsystem {
 	}
 	
 	private systemStates currentState;
-	private systemStates requestedState;
+	private systemStates wantedState;
 	
 	private Elevator() {
 		encoder = new Encoder(0, 1, false, Encoder.EncodingType.k4X);
 		driveMotor = new Victor(Constants.ELEVATORMOTOR);
-		joystick = Controller.getInstance();
 		elevatorControlLoop = new PIDLoop(Constants.ELEVATOR_KP, //Proportional Gain
 											Constants.ELEVATOR_KI, //Integral Gain
-											Constants.ELEVATOR_KD, //Derivative Gain
-											1); //Max Speed
+											Constants.ELEVATOR_KD); //Max Speed
 	}
 	
 	public static Elevator getInstance() {
@@ -39,8 +38,8 @@ public class Elevator extends Subsystem {
 	}
 	
 	private void setFloor(double height) {
-		double liftSpeed = elevatorControlLoop.returnOutput(encoder.getRaw(), height);
-		driveMotor.set(liftSpeed);
+		double liftSpeed = elevatorControlLoop.returnOutput(encoder.getRaw(),height);
+		driveMotor.set(-liftSpeed);
 	}
 	
 	public void setThrottleValue(double throttleValue) {
@@ -55,7 +54,10 @@ public class Elevator extends Subsystem {
 	public boolean checkSystem() {
 		return false;
 	}
-
+ 	public void setWantedState(systemStates wantedState)
+ 	{
+ 		this.currentState = wantedState;
+ 	}
 	@Override
 	public void registerLoop() {
 		Loop_Manager.getInstance().addLoop(new Loop()
@@ -64,18 +66,20 @@ public class Elevator extends Subsystem {
 			@Override
 			public void onStart() {
 				currentState = systemStates.NEUTRAL;
-				requestedState = systemStates.NEUTRAL;				
+				wantedState = systemStates.NEUTRAL;				
 			}
 
 			@Override
 			public void onloop() {
+				
 				switch(currentState){
 					case NEUTRAL:
-						if(currentState!=requestedState) {
-							currentState=requestedState;
+						if(currentState!=wantedState) {
+							currentState=wantedState;
 						}
 					case OPEN_LOOP:
-						//throttleValue = joystick.getElevatorDrive() * kMaxHeight; 
+						System.out.println(encoder.getRaw());
+						throttleValue = joystick.elevatorOpenLoop() * kMaxHeight; 
 						setFloor(throttleValue);
 					case POSITION_FOLLOW:
 						setFloor(throttleValue);
