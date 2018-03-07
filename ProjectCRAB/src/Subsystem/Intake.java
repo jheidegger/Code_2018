@@ -60,6 +60,17 @@ public class Intake extends Subsystem {
  	{
  		this.wantedState = wantedState;
  	}
+ 	public boolean isStowed()
+ 	{
+ 		if(currState == systemStates.Stowed)
+ 		{
+ 			return true;
+ 		}
+ 		else
+ 		{
+ 			return false;
+ 		}
+ 	}
  	@Override
  	public void zeroAllSensors() {
  		// N/A

@@ -14,7 +14,9 @@ public class Superstructure {
  		Intaking,
  		UnJamming,
  		MovingToPosition,
- 		Neutral
+ 		Neutral, 
+ 		Holding,
+ 		Scoring
  	};
  	public enum wantedStates{
  		Intaking,
@@ -35,23 +37,36 @@ public class Superstructure {
 	{
 		return instance;
 	}
+	
 	public void registerLoop() {
  		loopMan.addLoop(new Loop() {
-
+ 			
 			@Override
 			public void onStart() {
 				currState = systemStates.Neutral;
 			 	lastState = systemStates.Neutral;
 			 	wantedState = wantedStates.Neutral;
 			}
-
+			
 			@Override
 			public void onloop() {
 				switch(currState)
 				{
 				case Intaking:
+					if(elevator.getHeight() > .1)
+					{
+						elevator.setThrottleValue(0.0);
+					}
+					else
+					{
+						intake.setWantedState(Intake.systemStates.Intaking);
+					}
+					lastState = systemStates.Intaking;
+					checkState();
 					break;
 				case MovingToPosition:
+					break;
+				case Holding:
 					break;
 				case Neutral:
 					break;
@@ -72,4 +87,31 @@ public class Superstructure {
 		});
 
  		}
+	private void checkState()
+	{
+		switch(wantedState)
+		{
+		case Intaking:
+			currState = systemStates.Intaking;
+			break;
+		case Neutral:
+			break;
+		case ScaleHigh:
+			break;
+		case ScaleLow:
+			break;
+		case ScaleMid:
+			break;
+		case Score:
+			currState = systemStates.Scoring;
+			break;
+		case Switch:
+			break;
+		case Unjamming:
+			break;
+		default:
+			break;
+		
+		}
+	}
 }

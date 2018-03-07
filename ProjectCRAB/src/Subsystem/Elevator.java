@@ -45,6 +45,9 @@ public class Elevator extends Subsystem {
 	public void setThrottleValue(double throttleValue) {
 		this.throttleValue = throttleValue;
 	}
+	public double getHeight() {
+		return 0;
+	}
 
 	@Override
 	public void zeroAllSensors() {
@@ -99,4 +102,6 @@ public class Elevator extends Subsystem {
 	
 		});
 	}
+
+	
 }
