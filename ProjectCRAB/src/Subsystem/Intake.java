@@ -179,7 +179,7 @@ public class Intake extends Subsystem {
 					else
 					{
 						stowingMotor.set(0.0);
-						currState = systemStates.Neutral;
+						currState = systemStates.Stowed;
 					}
 					if(wantedState != currState)
 					{
