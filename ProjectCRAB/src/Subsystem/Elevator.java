@@ -100,7 +100,6 @@ public class Elevator extends Subsystem {
 						break;
 					case OPEN_LOOP:
 						System.out.println(encoder.getRaw());
-						//throttleValue = joystick.elevatorOpenLoop() * kMaxHeight; 
 						if(joystick.elevatorHigh()) {
 							setFloor(7);
 							lastHeight=7;
