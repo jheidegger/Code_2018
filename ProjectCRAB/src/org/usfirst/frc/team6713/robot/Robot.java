@@ -26,12 +26,11 @@ public class Robot extends IterativeRobot {
 	private Elevator elevator = Elevator.getInstance();
 	private Intake intake = Intake.getInstance();
 	//private Victor elevator;
-	private Victor actuator;
+
 	
 	@Override
 	public void robotInit() {
 		//elevator = new Victor(2);
-		actuator = new Victor(4);
 		driveTrain.registerLoop(); //First in array list
 		intake.registerLoop(); //Second in array list
 		elevator.registerLoop();
@@ -62,7 +61,7 @@ public class Robot extends IterativeRobot {
 		else {
 			driveTrain.setSystemState(Drivetrain.systemStates.DRIVE);
 		}
-		actuator.set(controllers.actuatorOpenLoop());
+
 		if(controllers.getSlowFieldCentricButton() == true)
 		{
 			driveTrain.swerve(controllers.getForward()*Constants.MAXSLOWPERCENTSPEED,
