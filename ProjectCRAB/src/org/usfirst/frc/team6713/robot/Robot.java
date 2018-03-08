@@ -23,8 +23,9 @@ public class Robot extends IterativeRobot {
 	private Loop_Manager myLoops = Loop_Manager.getInstance();
 	private Drivetrain driveTrain = Drivetrain.getInstance(); 
 	private Controller controllers = Controller.getInstance();
-	private Elevator elevator = Elevator.getInstance();
-	private Intake intake = Intake.getInstance();
+	private Superstructure superStructure = Superstructure.getInstance();
+	//private Elevator elevator = Elevator.getInstance();
+	//private Intake intake = Intake.getInstance();
 	//private Victor elevator;
 
 	
@@ -32,8 +33,9 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		//elevator = new Victor(2);
 		driveTrain.registerLoop(); //First in array list
-		intake.registerLoop(); //Second in array list
-		elevator.registerLoop();
+		superStructure.registerLoop();
+		//intake.registerLoop(); //Second in array list
+		//elevator.registerLoop();
 		myLoops.startLoops();
 	}
 	
@@ -49,7 +51,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		myLoops.runLoops();
-		elevator.setWantedState(Elevator.systemStates.OPEN_LOOP);
+		//elevator.setWantedState(Elevator.systemStates.OPEN_LOOP);
 		//pixyCam.track_cube();
 		if(controllers.executeAutoButton()) {
 			driveTrain.setSystemState(Drivetrain.systemStates.AUTON);
@@ -87,16 +89,20 @@ public class Robot extends IterativeRobot {
 					Drivetrain.driveType.VELOCITY);
 		}
 		if(controllers.getIntakeButton()) {
-			intake.setWantedState(systemStates.Intaking);
+			superStructure.setWantedState(Superstructure.wantedStates.Intaking);
+			//intake.setWantedState(systemStates.Intaking);
 		}
 		else if(controllers.getOuttakeButton()) {
-			intake.setWantedState(systemStates.Scoring);
+			superStructure.setWantedState(Superstructure.wantedStates.Intaking);
+			//intake.setWantedState(systemStates.Scoring);
 		}
 		else if(controllers.unjamButton()) {
-			intake.setWantedState(systemStates.UnJamming);
+			superStructure.setWantedState(Superstructure.wantedStates.Intaking);
+			//intake.setWantedState(systemStates.UnJamming);
 		}
 		else {
-			intake.setWantedState(systemStates.Neutral);
+			superStructure.setWantedState(Superstructure.wantedStates.Neutral);
+			//intake.setWantedState(systemStates.Neutral);
 		}
 		//elevator.set(controllers.elevatorOpenLoop());
 	}

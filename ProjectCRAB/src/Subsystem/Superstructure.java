@@ -41,6 +41,9 @@ public class Superstructure {
 	{
 		return instance;
 	}
+	public void setWantedState(Superstructure.wantedStates wantedState) {
+		this.wantedState = wantedState;
+	}
 	
 	public void registerLoop() {
  		loopMan.addLoop(new Loop() {
@@ -89,6 +92,9 @@ public class Superstructure {
 					lastState = systemStates.Holding;
 					break;
 				case Neutral:
+					intake.setWantedState(Intake.systemStates.Neutral);
+					checkState();
+					lastState = systemStates.Holding;
 					break;
 				case UnJamming:
 					intake.setWantedState(Intake.systemStates.UnJamming);
