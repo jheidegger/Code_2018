@@ -24,16 +24,16 @@ public class Robot extends IterativeRobot {
 	private Drivetrain driveTrain = Drivetrain.getInstance(); 
 	private Controller controllers = Controller.getInstance();
 	private Elevator elevator = Elevator.getInstance();
-	//private Intake intake = Intake.getInstance();
+	private Intake intake = Intake.getInstance();
 	//private Victor elevator;
 	private Victor actuator;
 	
 	@Override
 	public void robotInit() {
 		//elevator = new Victor(2);
-		//actuator = new Victor(4);
+		actuator = new Victor(4);
 		driveTrain.registerLoop(); //First in array list
-		//intake.registerLoop(); //Second in array list
+		intake.registerLoop(); //Second in array list
 		elevator.registerLoop();
 		myLoops.startLoops();
 	}
@@ -62,7 +62,7 @@ public class Robot extends IterativeRobot {
 		else {
 			driveTrain.setSystemState(Drivetrain.systemStates.DRIVE);
 		}
-		//actuator.set(controllers.actuatorOpenLoop());
+		actuator.set(controllers.actuatorOpenLoop());
 		if(controllers.getSlowFieldCentricButton() == true)
 		{
 			driveTrain.swerve(controllers.getForward()*Constants.MAXSLOWPERCENTSPEED,
@@ -88,16 +88,16 @@ public class Robot extends IterativeRobot {
 					Drivetrain.driveType.VELOCITY);
 		}
 		if(controllers.getIntakeButton()) {
-			//intake.setWantedState(systemStates.Intaking);
+			intake.setWantedState(systemStates.Intaking);
 		}
 		else if(controllers.getOuttakeButton()) {
-			//intake.setWantedState(systemStates.Scoring);
+			intake.setWantedState(systemStates.Scoring);
 		}
 		else if(controllers.unjamButton()) {
-			//intake.setWantedState(systemStates.UnJamming);
+			intake.setWantedState(systemStates.UnJamming);
 		}
 		else {
-			//intake.setWantedState(systemStates.Neutral);
+			intake.setWantedState(systemStates.Neutral);
 		}
 		//elevator.set(controllers.elevatorOpenLoop());
 	}

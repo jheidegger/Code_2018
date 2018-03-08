@@ -47,8 +47,8 @@ public class Intake extends Subsystem {
  		rightSideWheel = new Victor(Constants.INTAKERIGHTSIDE);
  		leftSideWheel = new Victor(Constants.INTAKELEFTSIDE);
  		stowingMotor = new Victor(Constants.INTAKESTOWINGMOTOR);
- 		isCubeIn = new DigitalInput(0);
- 		isIntakeStowed = new DigitalInput(1);
+ 		//isCubeIn = new DigitalInput(0);
+ 		//isIntakeStowed = new DigitalInput(1);
  		unJamTimer = new Timer();
  		stowingTimer = new Timer();
  	}

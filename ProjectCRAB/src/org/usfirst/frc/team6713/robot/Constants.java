@@ -22,7 +22,7 @@ public class Constants {
 	//Subsystem constants
 	
 	//Drive Train constants
-	public static double OFFSETS[] = {3248.0,284.0,899.0,2347.0};
+	public static double OFFSETS[] = {3633.0,1720.0,3752.0,3387.0};//Practice Values {3248.0,284.0,899.0,2347.0};
 	//public static double OFFSETS[] = {1571.0,3763.0,1664.0,1386.0};
 	public static double DRIVETRAINLENGTH = 13;
 	public static double DRIVETRAINWIDTH = 17.5;
@@ -39,7 +39,7 @@ public class Constants {
 	public static int AVG_LIST_SIZE = 10;
 	public static int PIXY_CENTER_X = 160; 
 	//Elevator control loop
-	public static double ELEVATOR_KP = 0.0005;
+	public static double ELEVATOR_KP = .0005;//Practice Value 0.0005;
 	public static double ELEVATOR_KI = 0;
 	public static double ELEVATOR_KD = 0;//8.0;
 	public static double MAX_HEIGHT_ENCODER_TICKS = 2000; 
@@ -52,15 +52,15 @@ public class Constants {
 
 	public static final double SWERVE_kF = 0.0;
 
-	public static final double DRIVE_kP = .433333;
+	public static final double DRIVE_kP = .096;//Practice Values .096;
 
-	public static final double DRIVE_kI = 0.0000;
+	public static final double DRIVE_kI = 0.0;//Practice Values 0.0;
 
-	public static final double DRIVE_kD = 28.33;//8.5;
+	public static final double DRIVE_kD = 9.33;//Practice Values: 9.33;
 
-	public static final int DRIVE_ALLOWABLE_ERROR = 75;
+	public static final int DRIVE_ALLOWABLE_ERROR = 50;
 
-	public static final double DRIVE_kF = 0;//0.09254611;//0.08571429;
+	public static final double DRIVE_kF = 0.100654611;//Practice Value 0.09654611
 	public static final double MAXSLOWPERCENTSPEED = .5;
 
 	public static final double DRIVE_RAMPRATE = .3;
