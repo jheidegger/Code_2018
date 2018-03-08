@@ -84,6 +84,7 @@ public class Superstructure {
 					lastState = systemStates.MovingToPosition;
 					break;
 				case Holding:
+					intake.setWantedState(Intake.systemStates.Neutral);
 					checkState();
 					lastState = systemStates.Holding;
 					break;
@@ -97,8 +98,6 @@ public class Superstructure {
 				case Scoring:
 					intake.setWantedState(Intake.systemStates.Scoring);
 					break;
-			
-				
 				}
 				
 			}

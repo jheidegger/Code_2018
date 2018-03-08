@@ -9,10 +9,14 @@ public class Constants {
 	//Robot Port Map NOTE: only change if the robot is rewired
 	
 	public static int ELEVATORMOTOR = 2;
-	
+	public static final double SCALEHIGHHEIGHT = 0;
+	public static final double SCALELOWHEIGHT = 0;
+	public static final double SCALEMIDHEIGHT = 0;
+	public static final double SWITCHHEIGHT = 0;
+	public static final double ELEVATORACCEPTEDERROR = 0.1;
 	public static final int INTAKERIGHTSIDE = 0;
 	public static final int INTAKELEFTSIDE = 1;
-	public static final int INTAKESTOWINGMOTOR = 3;
+	public static final int INTAKESTOWINGMOTOR = 4;
 
 	//Driverstation constants
 	public static int DRIVE_JOYSTICK = 0; 
@@ -34,7 +38,16 @@ public class Constants {
 	public static final double SWERVE_kP = 5.0;
 	public static final double SWERVE_kI = 0.0023;
 	public static final double SWERVE_kD = 210.0;
+	public static final double SWERVE_kF = 0.0;
 	public static final int SWERVE_ALLOWABLE_ERROR = 12;
+	
+	public static final double DRIVE_kP = .096;//Practice Values .096;
+	public static final double DRIVE_kI = 0.0;//Practice Values 0.0;
+	public static final double DRIVE_kD = 9.33;//Practice Values: 9.33;
+	public static final double DRIVE_kF = 0.100654611;//Practice Value 0.09654611
+	public static final int DRIVE_ALLOWABLE_ERROR = 50;
+	public static final double MAXSLOWPERCENTSPEED = .5;
+	public static final double DRIVE_RAMPRATE = .3;
 	//vision constants
 	public static int AVG_LIST_SIZE = 10;
 	public static int PIXY_CENTER_X = 160; 
@@ -49,43 +62,4 @@ public class Constants {
 	public static final double INTAKEHANDOFFSPEED = 0;
 	public static final double UNSTOWINGTIME = .5;
 	public static final double STOWINGTIME = .5;
-
-	public static final double SWERVE_kF = 0.0;
-
-	public static final double DRIVE_kP = .096;//Practice Values .096;
-
-	public static final double DRIVE_kI = 0.0;//Practice Values 0.0;
-
-	public static final double DRIVE_kD = 9.33;//Practice Values: 9.33;
-
-	public static final int DRIVE_ALLOWABLE_ERROR = 50;
-
-	public static final double DRIVE_kF = 0.100654611;//Practice Value 0.09654611
-	public static final double MAXSLOWPERCENTSPEED = .5;
-
-	public static final double DRIVE_RAMPRATE = .3;
-
-	public static final double SCALEHIGHHEIGHT = 0;
-
-	public static final double SCALELOWHEIGHT = 0;
-
-	public static final double SCALEMIDHEIGHT = 0;
-
-	public static final double SWITCHHEIGHT = 0;
-
-	public static final double ELEVATORACCEPTEDERROR = 0.1;
-
-	
-
-	
-
-	
-	
-	//public static double getKF(int id) {
-		//return DRIVE_kF[id];
-	//}
-
-	
-	
-
 }

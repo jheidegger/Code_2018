@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Intake extends Subsystem {
 	//the static instance of the intake so that it is not double instantiated. 
  	private static Intake instance = new Intake();
+ 	private Controller controller = Controller.getInstance();
  	
  	private Victor rightSideWheel;
  	private Victor leftSideWheel;
@@ -30,6 +31,10 @@ public class Intake extends Subsystem {
  	private systemStates lastState;
  	private systemStates wantedState;
  	private Loop_Manager loopMan = Loop_Manager.getInstance();
+ 	
+ 	private double kStowingTime = Constants.STOWINGTIME;
+ 	private double kUnStowingTime = Constants.UNSTOWINGTIME;
+ 	
  	public enum systemStates{
  		Intaking,
  		Scoring,
@@ -102,13 +107,13 @@ public class Intake extends Subsystem {
  			@Override
  			public void onloop() {
  				SmartDashboard.putString("intakeState", currState.toString());
- 				//System.out.print("imworking");
  				switch(currState)
  				{
  				//idle and wait for commands
  				case Neutral:
  					rightSideWheel.set(0.0);
  					leftSideWheel.set(0.0);
+ 					stowingMotor.set(controller.actuatorOpenLoop());
  					lastState = systemStates.Neutral;
  					checkState();
  					break;
@@ -172,8 +177,7 @@ public class Intake extends Subsystem {
 						stowingTimer.start();
 						stowingTimer.reset();
 					}
-					if(stowingTimer.get()<Constants.STOWINGTIME)
-					{
+					if(stowingTimer.get()<kStowingTime){
 						stowingMotor.set(1.0);
 					}
 					else
@@ -193,7 +197,7 @@ public class Intake extends Subsystem {
 						stowingTimer.start();
 						stowingTimer.reset();
 					}
-					if(stowingTimer.get()<Constants.UNSTOWINGTIME)
+					if(stowingTimer.get()<kUnStowingTime)
 					{
 						stowingMotor.set(-1.0);
 					}
