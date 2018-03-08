@@ -55,6 +55,15 @@ public class Controller extends Subsystem{
 	public double elevatorOpenLoop() {
 		return -buttonMonkey.getY();
 	}
+	public boolean elevatorHigh() {
+		return buttonMonkey.getRawButton(8);
+	}
+	public boolean elevatorMid() {
+		return buttonMonkey.getRawButton(6);
+	}
+	public boolean elevatorLow() {
+		return buttonMonkey.getRawButton(3);
+	}
 	public double actuatorOpenLoop() {
 		return buttonMonkey.getThrottle();
 	}

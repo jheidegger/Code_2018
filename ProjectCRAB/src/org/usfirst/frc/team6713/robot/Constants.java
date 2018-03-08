@@ -39,9 +39,9 @@ public class Constants {
 	public static int AVG_LIST_SIZE = 10;
 	public static int PIXY_CENTER_X = 160; 
 	//Elevator control loop
-	public static double ELEVATOR_KP = 0.0004;
+	public static double ELEVATOR_KP = 0.0005;
 	public static double ELEVATOR_KI = 0;
-	public static double ELEVATOR_KD = 0;
+	public static double ELEVATOR_KD = 0;//8.0;
 	public static double MAX_HEIGHT_ENCODER_TICKS = 2000; 
 	//intake constants
 	public static final double INTAKESPEED = .9;
@@ -52,16 +52,15 @@ public class Constants {
 
 	public static final double SWERVE_kF = 0.0;
 
-	public static final double DRIVE_kP = .073;
+	public static final double DRIVE_kP = .433333;
 
 	public static final double DRIVE_kI = 0.0000;
 
-	public static final double DRIVE_kD = 8.5;
+	public static final double DRIVE_kD = 28.33;//8.5;
 
-	public static final int DRIVE_ALLOWABLE_ERROR = 10;
+	public static final int DRIVE_ALLOWABLE_ERROR = 75;
 
-	//public static final double[] DRIVE_kF = {0.09399982,0.09588528,0.09201295,.09662794};
-	public static final double DRIVE_kF = 0.0;//0.08571429;
+	public static final double DRIVE_kF = 0;//0.09254611;//0.08571429;
 	public static final double MAXSLOWPERCENTSPEED = .5;
 
 	public static final double DRIVE_RAMPRATE = .3;

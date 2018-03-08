@@ -47,7 +47,7 @@ public class Swervepod extends Subsystem {
 		
 		
 		this.driveMotor.config_kP(0,Constants.DRIVE_kP, 0);
-		this.driveMotor.config_kI(0,  Constants.DRIVE_kI, 0);
+		this.driveMotor.config_kI(0,Constants.DRIVE_kI, 0);
 		this.driveMotor.config_kD(0,Constants.DRIVE_kD, 0);
 		this.driveMotor.config_kF(0, Constants.DRIVE_kF,0);//DRIVE_kF, 0);
 		this.driveMotor.configClosedloopRamp(Constants.DRIVE_RAMPRATE, 0);

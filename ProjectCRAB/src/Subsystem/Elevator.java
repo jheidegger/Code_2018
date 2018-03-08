@@ -5,6 +5,7 @@ import org.usfirst.frc.team6713.robot.Constants;
 import Subsystem.Intake.systemStates;
 import Util.PIDLoop;
 import edu.wpi.first.wpilibj.*;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Elevator extends Subsystem {
 	private static Elevator instance = new Elevator();
@@ -14,7 +15,8 @@ public class Elevator extends Subsystem {
 	private Encoder encoder;
 	private Controller joystick = Controller.getInstance(); 
 	private double throttleValue; 
-	private double kMaxHeight = Constants.MAX_HEIGHT_ENCODER_TICKS;
+	double lastHeight = 0; 
+	private double kMaxHeight = 7;//Constants.MAX_HEIGHT_ENCODER_TICKS;
 	
 	public enum systemStates{
 		NEUTRAL,
@@ -40,8 +42,11 @@ public class Elevator extends Subsystem {
 	}
 	
 	
-	private void setFloor(double height) {
-		double liftSpeed = elevatorControlLoop.returnOutput(encoder.getRaw(),height);
+	private void setFloor(double wantedHeight) {
+		wantedHeight = wantedHeight / .17 * Math.PI * 2048;
+
+		double liftSpeed = elevatorControlLoop.returnOutput(encoder.getRaw(),wantedHeight);
+		SmartDashboard.putNumber("Enc", encoder.getRaw());
 		driveMotor.set(-liftSpeed);
 	}
 	
@@ -95,8 +100,22 @@ public class Elevator extends Subsystem {
 						break;
 					case OPEN_LOOP:
 						System.out.println(encoder.getRaw());
-						throttleValue = joystick.elevatorOpenLoop() * kMaxHeight; 
-						setFloor(throttleValue);
+						//throttleValue = joystick.elevatorOpenLoop() * kMaxHeight; 
+						if(joystick.elevatorHigh()) {
+							setFloor(7);
+							lastHeight=7;
+						}
+						else if(joystick.elevatorMid()) {
+							setFloor(3.5);
+							lastHeight=3.5;
+						}
+						else if(joystick.elevatorLow()) {
+							setFloor(0);
+							lastHeight = 0;
+						}
+						else {
+							setFloor(lastHeight);
+						}
 						lastState = systemStates.OPEN_LOOP;
 						checkState();
 						break;
@@ -115,7 +134,7 @@ public class Elevator extends Subsystem {
 			
 			@Override
 			public void test() {
-				Smartdashboard.putNumber("Encoder Units", encoder.getRaw());
+				//Smartdashboard.putNumber("Encoder Units", encoder.getRaw());
 			}
 	
 		});
