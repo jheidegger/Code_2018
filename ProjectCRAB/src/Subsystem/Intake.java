@@ -194,7 +194,7 @@ public class Intake extends Subsystem {
 					}*/
 					stowingMotor.set(actuatorPID.returnOutput(encoder.getRaw(), 0));
 					if(encoder.getRaw() > -10 && encoder.getRaw() < 10) {
-						currState = systemStates.Stowed;
+						wantedState = systemStates.Stowed;
 					}
 					if(wantedState != currState)
 					{
@@ -235,7 +235,6 @@ public class Intake extends Subsystem {
  
  			@Override
  			public void stop() {
- 				// TODO Auto-generated method stub
  				rightSideWheel.set(0.0);
 				leftSideWheel.set(0.0);
  			}

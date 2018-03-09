@@ -7,12 +7,13 @@ import Subsystem.Intake.systemStates;
 public class Superstructure {
 	private static Superstructure instance = new Superstructure();
 	private Intake intake = Intake.getInstance();
-
 	private Elevator elevator = Elevator.getInstance();
+ 	private Loop_Manager loopMan = Loop_Manager.getInstance();
+	
 	private systemStates currState;
  	private systemStates lastState;
  	private wantedStates wantedState;
- 	private Loop_Manager loopMan = Loop_Manager.getInstance();
+
  	private double elevatorCommandedHeight = 0.0; 
  	
  	public enum systemStates{
