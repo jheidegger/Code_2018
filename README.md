@@ -5,4 +5,7 @@ This is the first year the team has written in java, and will start many of the 
 
 # Code Highlights
 
-- 
+- Omnidirectional drive
+- Pixy Cam integration, with automatic tracking
+- Custom PID class
+- Superstructure state-based logic
