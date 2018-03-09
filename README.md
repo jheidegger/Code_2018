@@ -11,6 +11,6 @@ This is the first year the team has written in java, and will start many of the 
 - Superstructure state-based logic
 - Talon SRX controlled pods, with MagEncoders for precise and accurate feedback
 - PID controlled elevator
-- Communicates to arduino over I2C for LED control
+- Communication with arduino for LED control
 - Custom smartdashboard interface
 
