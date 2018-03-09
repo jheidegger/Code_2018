@@ -1,7 +1,6 @@
 package Subsystem;
 
 import org.usfirst.frc.team6713.robot.*;
-
 import edu.wpi.first.wpilibj.Joystick;
 
 public class Controller extends Subsystem{

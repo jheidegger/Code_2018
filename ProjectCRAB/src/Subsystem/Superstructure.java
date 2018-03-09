@@ -14,6 +14,7 @@ public class Superstructure {
  	private wantedStates wantedState;
  	private Loop_Manager loopMan = Loop_Manager.getInstance();
  	private double elevatorCommandedHeight = 0.0; 
+ 	
  	public enum systemStates{
  		Intaking,
  		UnJamming,
