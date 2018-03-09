@@ -19,18 +19,16 @@ public class Robot extends IterativeRobot {
 	private Drivetrain driveTrain = Drivetrain.getInstance(); 
 	private Controller controllers = Controller.getInstance();
 	private Superstructure superStructure = Superstructure.getInstance();
-	//private Elevator elevator = Elevator.getInstance();
-	//private Intake intake = Intake.getInstance();
-	//private Victor elevator;
-
+	private Elevator elevator = Elevator.getInstance();
+	private Intake intake = Intake.getInstance();
+	int testID = 0;
 	
 	@Override
 	public void robotInit() {
-		//elevator = new Victor(2);
-		driveTrain.registerLoop(); //First in array list
+		driveTrain.registerLoop();
 		superStructure.registerLoop();
-		//intake.registerLoop(); //Second in array list
-		//elevator.registerLoop();
+		intake.registerLoop();
+		elevator.registerLoop();
 		myLoops.startLoops();
 	}
 	
@@ -95,7 +93,32 @@ public class Robot extends IterativeRobot {
 	}
 
 	@Override
-	public void testPeriodic() {
+	public void testPeriodic() { 
+		myLoops.runLoops();
+		if(controllers.getSlowFieldCentricButton()) {testID++;}
+		switch(testID) {
+		case 1:
+			driveTrain.swerve(1.0, 0, 0, 
+					Drivetrain.driveCoords.FIELDCENTRIC, 
+					Drivetrain.driveType.PERCENTPOWER);
+		case 2:
+			driveTrain.swerve(-1.0, 0.0, 0.0);
+		case 3:
+			driveTrain.swerve(0.0, 1.0, 0.0);
+		case 4:
+			driveTrain.swerve(0.0, -1.0, 0.0);
+		case 5:
+			driveTrain.swerve(0.0, 0.0, 0.5);
+		case 6:
+			driveTrain.swerve(0.0, 0.0, -0.5);
+		case 7:
+			intake.setWantedState(Intake.systemStates.Intaking);
+		case 8:
+			intake.setWantedState(Intake.systemStates.Scoring);
+		case 9:
+			intake.setWantedState(Intake.systemStates.Stowing);
+		case 10: 
+			intake.setWantedState(Intake.systemStates.unStowing);
+		}	
 	}
-	
 }
