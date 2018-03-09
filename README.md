@@ -5,4 +5,12 @@ This is the first year the team has written in java, and will start many of the 
 
 # Code Highlights
 
-- 
+- Omnidirectional drivetrain (Swerve Drive)
+- Pixy Cam integration, with automatic tracking
+- Custom PID class
+- Superstructure state-based logic
+- Talon SRX controlled pods, with MagEncoders for precise and accurate feedback
+- PID controlled elevator
+- Communication with arduino for LED control
+- Custom smartdashboard interface
+

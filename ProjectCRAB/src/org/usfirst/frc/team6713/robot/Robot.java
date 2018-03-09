@@ -8,15 +8,9 @@
 package org.usfirst.frc.team6713.robot;
 
 import Subsystem.*;
-import Subsystem.Intake.systemStates;
-import Util.PIDLoop;
-import Vision.PixyException;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends IterativeRobot {
 	
