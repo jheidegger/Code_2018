@@ -11,6 +11,7 @@ import Subsystem.*;
 import Subsystem.Intake.systemStates;
 import Util.PIDLoop;
 import Vision.PixyException;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Victor;
@@ -23,7 +24,7 @@ public class Robot extends IterativeRobot {
 	private Loop_Manager myLoops = Loop_Manager.getInstance();
 	private Drivetrain driveTrain = Drivetrain.getInstance(); 
 	private Controller controllers = Controller.getInstance();
-	private Superstructure superStructure = Superstructure.getInstance();
+	//private Superstructure superStructure = Superstructure.getInstance();
 	//private Elevator elevator = Elevator.getInstance();
 	//private Intake intake = Intake.getInstance();
 	//private Victor elevator;
@@ -33,7 +34,7 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		//elevator = new Victor(2);
 		driveTrain.registerLoop(); //First in array list
-		superStructure.registerLoop();
+		//superStructure.registerLoop();
 		//intake.registerLoop(); //Second in array list
 		//elevator.registerLoop();
 		myLoops.startLoops();
@@ -41,6 +42,7 @@ public class Robot extends IterativeRobot {
 	
 	@Override
 	public void autonomousInit() {
+		String gameData = DriverStation.getInstance().getGameSpecificMessage();
 	}
 	
 	@Override
@@ -70,7 +72,7 @@ public class Robot extends IterativeRobot {
 					controllers.getStrafe()*Constants.MAXSLOWPERCENTSPEED, 
 					-controllers.getRotation()*Constants.MAXSLOWPERCENTSPEED, 
 					Drivetrain.driveCoords.FIELDCENTRIC, 
-					Drivetrain.driveType.VELOCITY);
+					Drivetrain.driveType.PERCENTPOWER);
 		}
 		else if(controllers.getSlowRobotCentricButton() == true)
 		{
@@ -78,7 +80,7 @@ public class Robot extends IterativeRobot {
 					controllers.getStrafe()*Constants.MAXSLOWPERCENTSPEED, 
 					-controllers.getRotation()*Constants.MAXSLOWPERCENTSPEED, 
 					Drivetrain.driveCoords.ROBOTCENTRIC, 
-					Drivetrain.driveType.VELOCITY);
+					Drivetrain.driveType.PERCENTPOWER);
 		}
 		else
 		{
@@ -86,8 +88,12 @@ public class Robot extends IterativeRobot {
 					controllers.getStrafe(), 
 					-controllers.getRotation(), 
 					Drivetrain.driveCoords.FIELDCENTRIC, 
-					Drivetrain.driveType.VELOCITY);
+					Drivetrain.driveType.PERCENTPOWER);
+			
+
+
 		}
+		/*
 		if(controllers.getIntakeButton()) {
 			superStructure.setWantedState(Superstructure.wantedStates.Intaking);
 			//intake.setWantedState(systemStates.Intaking);
@@ -103,7 +109,7 @@ public class Robot extends IterativeRobot {
 		else {
 			superStructure.setWantedState(Superstructure.wantedStates.Neutral);
 			//intake.setWantedState(systemStates.Neutral);
-		}
+		}*/
 		//elevator.set(controllers.elevatorOpenLoop());
 	}
 

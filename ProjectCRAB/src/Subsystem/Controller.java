@@ -75,7 +75,7 @@ public class Controller extends Subsystem{
 			return 0.0;
 		}
 		else {
-			return Math.pow(thetaStick.getX(),1)/3.5;
+			return Math.pow(thetaStick.getX(),1)/6.0;
 		}
 	}
 	public boolean getGyroResetButton() {

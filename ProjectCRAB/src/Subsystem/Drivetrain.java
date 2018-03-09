@@ -166,12 +166,13 @@ public class Drivetrain extends Subsystem {
 		rel_max_speed = Math.max(Math.max(podDrive[0],podDrive[1]),Math.max(podDrive[2], podDrive[3]));
 		
 		//Reducing pods by the relative max speed
-		if(rel_max_speed > 1) {
+		if(rel_max_speed > kMaxSpeed) {
 			for(int idx = 0; idx < Pods.size(); idx++) {
-				podDrive[idx] /= rel_max_speed;
+				podDrive[idx] /= rel_max_speed/kMaxSpeed;
 			}
 		}
-		
+		SmartDashboard.putNumber("rel_max_speed", rel_max_speed);
+		SmartDashboard.putNumber("Angle", getAngle());
 		
 		// Sending each pod their respective commands
 		for(int idx = 0; idx < Pods.size(); idx++) {
@@ -215,58 +216,47 @@ public class Drivetrain extends Subsystem {
 		if(Coords == driveCoords.ROBOTCENTRIC) {
 			this.forwardCommand = forwardCommand;
 			this.strafeCommand = strafeCommand;
-			this.spinCommand = spinCommand/6.0;
-			if(commandType == driveType.PERCENTPOWER) {
-				this.forwardCommand *= kMaxSpeed;
-				this.strafeCommand *= kMaxSpeed;
-				this.spinCommand *= kMaxRotation;
-			}
+			this.spinCommand = spinCommand;
 		}
 		else {
 			final double temp = forwardCommand * Math.sin(angle) + strafeCommand * Math.cos(angle);
 		    this.strafeCommand = (-forwardCommand * Math.cos(angle) + strafeCommand * Math.sin(angle));
 		    this.forwardCommand = temp;
-		    this.spinCommand = spinCommand/6.0;
+		    this.spinCommand = spinCommand;
 		    if(spinCommand == 0) {
 		    //this.spinCommand = this.spinCommand +autoHeadingControl.returnOutput(angle, lastAngle);
 		    }
 		    lastAngle = angle;
-		    if(commandType == driveType.PERCENTPOWER) {
+		}
+		if(commandType == driveType.PERCENTPOWER) {
 				this.forwardCommand *= kMaxSpeed;
 				this.strafeCommand *= kMaxSpeed;
 				this.spinCommand *= kMaxRotation;
 			}
-		}
 	}
 	public void swerve(double forwardCommand, double strafeCommand, double spinCommand, driveCoords Coords, driveType commandType){
 		this.Coords = Coords;
-		this.commandType = commandType;
-		
+		this.commandType = commandType;	
 		if(Coords == driveCoords.ROBOTCENTRIC) {
 			this.forwardCommand = forwardCommand;
 			this.strafeCommand = strafeCommand;
-			this.spinCommand = spinCommand/6.0;
-			if(commandType == driveType.PERCENTPOWER) {
-				this.forwardCommand *= kMaxSpeed;
-				this.strafeCommand *= kMaxSpeed;
-				this.spinCommand *= kMaxRotation;
-			}
+			this.spinCommand = spinCommand;
 		}
 		else {
 
 			final double temp = forwardCommand * Math.sin(angle) + strafeCommand * Math.cos(angle);
 		    this.strafeCommand = (-forwardCommand * Math.cos(angle) + strafeCommand * Math.sin(angle));
 		    this.forwardCommand = temp;
-		    this.spinCommand = spinCommand/6.0;
+		    this.spinCommand = spinCommand;
 		    if(spinCommand == 0) {
 			   // this.spinCommand = this.spinCommand + autoHeadingControl.returnOutput(angle, lastAngle);
 			}
 			    lastAngle = angle;
-		    if(commandType == driveType.PERCENTPOWER) {
-				this.forwardCommand *= kMaxSpeed;
-				this.strafeCommand *= kMaxSpeed;
-				this.spinCommand *= kMaxRotation;
-			}
+		}
+		if(commandType == driveType.PERCENTPOWER) {
+			this.forwardCommand *= kMaxSpeed;
+			this.strafeCommand *= kMaxSpeed;
+			this.spinCommand *= kMaxRotation;
 		}
 	}
 
@@ -338,7 +328,7 @@ public class Drivetrain extends Subsystem {
 					}
 					SmartDashboard.putNumber("error", error);
 					SmartDashboard.putNumber("recordedValue for Gyro", recordedValuesGyro.get(idCount));
-					SmartDashboard.putNumber("actual", angle);
+					//SmartDashboard.putNumber("actual", angle);
 					forwardCommand = recordedValuesY.get(idCount);
 					strafeCommand = recordedValuesX.get(idCount);
 					spinCommand = autoHeadingControl.returnOutput(error);

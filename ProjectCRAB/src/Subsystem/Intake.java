@@ -4,7 +4,9 @@ package Subsystem;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
+import Util.PIDLoop;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Victor;
@@ -31,6 +33,8 @@ public class Intake extends Subsystem {
  	private systemStates lastState;
  	private systemStates wantedState;
  	private Loop_Manager loopMan = Loop_Manager.getInstance();
+ 	private Encoder encoder;
+ 	private PIDLoop actuatorPID;
  	
  	private double kStowingTime = Constants.STOWINGTIME;
  	private double kUnStowingTime = Constants.UNSTOWINGTIME;
@@ -49,9 +53,11 @@ public class Intake extends Subsystem {
  	}
  	private Intake()
  	{
+ 		actuatorPID = new PIDLoop(.2,0,0);
  		rightSideWheel = new Victor(Constants.INTAKERIGHTSIDE);
  		leftSideWheel = new Victor(Constants.INTAKELEFTSIDE);
  		stowingMotor = new Victor(Constants.INTAKESTOWINGMOTOR);
+ 		encoder = new Encoder(0, 1, false, Encoder.EncodingType.k4X);
  		//isCubeIn = new DigitalInput(0);
  		//isIntakeStowed = new DigitalInput(1);
  		unJamTimer = new Timer();
@@ -172,7 +178,7 @@ public class Intake extends Subsystem {
 					stowingMotor.set(0.0);
 					break;
 				case Stowing:
-					if(lastState != systemStates.Stowing)
+					/*if(lastState != systemStates.Stowing)
 					{
 						stowingTimer.start();
 						stowingTimer.reset();
@@ -184,6 +190,10 @@ public class Intake extends Subsystem {
 					{
 						stowingMotor.set(0.0);
 						currState = systemStates.Stowed;
+					}*/
+					stowingMotor.set(actuatorPID.returnOutput(encoder.getRaw(), 0));
+					if(encoder.getRaw() > -10 && encoder.getRaw() < 10) {
+						currState = systemStates.Stowed;
 					}
 					if(wantedState != currState)
 					{
@@ -192,7 +202,7 @@ public class Intake extends Subsystem {
 					}
 					break;
 				case unStowing:
-					if(lastState != systemStates.unStowing)
+					/*if(lastState != systemStates.unStowing)
 					{
 						stowingTimer.start();
 						stowingTimer.reset();
@@ -204,6 +214,10 @@ public class Intake extends Subsystem {
 					else
 					{
 						stowingMotor.set(0.0);
+						currState = systemStates.Neutral;
+					}*/
+					stowingMotor.set(actuatorPID.returnOutput(encoder.getRaw(), 409.0));
+					if(encoder.getRaw() > -399 && encoder.getRaw() < 419) {
 						currState = systemStates.Neutral;
 					}
 					if(wantedState != currState)

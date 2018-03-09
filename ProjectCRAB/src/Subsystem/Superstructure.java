@@ -6,8 +6,9 @@ import Subsystem.Intake.systemStates;
 
 public class Superstructure {
 	private static Superstructure instance = new Superstructure();
-	private Intake intake;
-	private Elevator elevator;
+	private Intake intake = Intake.getInstance();
+
+	private Elevator elevator = Elevator.getInstance();
 	private systemStates currState;
  	private systemStates lastState;
  	private wantedStates wantedState;
@@ -34,8 +35,7 @@ public class Superstructure {
  	}
 	private Superstructure()
 	{
-		intake = Intake.getInstance();
-		elevator = Elevator.getInstance();
+		
 	}
 	public static Superstructure getInstance()
 	{
