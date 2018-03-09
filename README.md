@@ -9,3 +9,6 @@ This is the first year the team has written in java, and will start many of the 
 - Pixy Cam integration, with automatic tracking
 - Custom PID class
 - Superstructure state-based logic
+- Talon SRX controlled pods, with MagEncoders for precise and accurate feedback
+- PID controlled elevator
+- Communicates to arduino over I2C for LED control
