@@ -20,23 +20,24 @@ import java.io.PrintWriter;
 public class Drivetrain extends Subsystem {
 
 	private static Drivetrain instance = new Drivetrain();
-
 	private Loop_Manager loopMan = Loop_Manager.getInstance();
-	
 	private Controller controller = Controller.getInstance(); 
 	private PixyCam cam = PixyCam.getInstance();
 	
 	private AHRS gyro;
 	
 	private ArrayList<Swervepod> Pods;
+	
 	private ArrayList<Double> recordedValuesY = new ArrayList<Double>();
 	private ArrayList<Double> recordedValuesX = new ArrayList<Double>();
 	private ArrayList<Double> recordedValuesOmega = new ArrayList<Double>();
 	private ArrayList<Double> recordedValuesGyro = new ArrayList<Double>();
+	
 	private Swervepod upperRight;
 	private Swervepod upperLeft;
 	private Swervepod lowerLeft;
 	private Swervepod lowerRight;
+	
 	double lastAngle = 0;
 	
 	private driveCoords Coords;
@@ -57,7 +58,6 @@ public class Drivetrain extends Subsystem {
 	private PIDLoop pidLoop;
 	private PIDLoop pidForward;
 	private PIDLoop autoHeadingControl;
-	private PIDLoop antiTip; 
 	
 	private double kMaxSpeed;
 	private double kMaxRotation;
@@ -104,7 +104,6 @@ public class Drivetrain extends Subsystem {
 		pidLoop = new PIDLoop(0.0007,0,0);
 		pidForward = new PIDLoop(0.001,0,0);
 		autoHeadingControl = new PIDLoop(.6,.1,.01);
-		antiTip = new PIDLoop(.05,0,0);
 				
 		//Add instantiated Pods to the array list
 		Pods.add(upperRight);
@@ -171,9 +170,7 @@ public class Drivetrain extends Subsystem {
 				podDrive[idx] /= rel_max_speed/kMaxSpeed;
 			}
 		}
-		SmartDashboard.putNumber("rel_max_speed", rel_max_speed);
-		SmartDashboard.putNumber("Angle", getAngle());
-		
+
 		// Sending each pod their respective commands
 		for(int idx = 0; idx < Pods.size(); idx++) {
 			//sending power from 0 to 13.5 ft/s and position -pi to pi
@@ -326,20 +323,14 @@ public class Drivetrain extends Subsystem {
 					{
 						error = recordedValuesGyro.get(idCount) - angle;
 					}
-					SmartDashboard.putNumber("error", error);
-					SmartDashboard.putNumber("recordedValue for Gyro", recordedValuesGyro.get(idCount));
-					//SmartDashboard.putNumber("actual", angle);
 					forwardCommand = recordedValuesY.get(idCount);
 					strafeCommand = recordedValuesX.get(idCount);
 					spinCommand = autoHeadingControl.returnOutput(error);
-					SmartDashboard.putNumber("spinCommand", spinCommand);
-					System.out.println(forwardCommand);
 					if(idCount < recordedValuesX.size()-1)
 					{
 						idCount++;
 					}
 					swerve(-forwardCommand, -strafeCommand, -spinCommand, Drivetrain.driveCoords.FIELDCENTRIC, Drivetrain.driveType.VELOCITY);
-//					swerve(0.0, 0.0, -spinCommand, Drivetrain.driveCoords.FIELDCENTRIC, Drivetrain.driveType.VELOCITY);
 					crabDrive();
 					lastState = systemStates.AUTON;
 					checkState();

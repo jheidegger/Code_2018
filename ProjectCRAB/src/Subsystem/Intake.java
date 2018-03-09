@@ -1,13 +1,9 @@
 package Subsystem;
  
- import org.usfirst.frc.team6713.robot.Constants;
-
-import com.ctre.phoenix.motorcontrol.NeutralMode;
-
+import org.usfirst.frc.team6713.robot.Constants;
 import Util.PIDLoop;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -48,9 +44,11 @@ public class Intake extends Subsystem {
  		Stowed,
  		Neutral
  	};
+ 	
  	public static Intake getInstance() {
  		return instance;
  	}
+ 	
  	private Intake()
  	{
  		actuatorPID = new PIDLoop(.2,0,0);
@@ -71,6 +69,7 @@ public class Intake extends Subsystem {
  	{
  		this.wantedState = wantedState;
  	}
+ 	
  	public boolean isStowed()
  	{
  		if(currState == systemStates.Stowed)
@@ -82,6 +81,7 @@ public class Intake extends Subsystem {
  			return false;
  		}
  	}
+ 	
  	@Override
  	public void zeroAllSensors() {
  		// N/A
@@ -92,6 +92,7 @@ public class Intake extends Subsystem {
  	public boolean checkSystem() {
  		return false;
  	}
+ 	
  	private void checkState()
  	{
  		if(wantedState != currState)
@@ -99,10 +100,10 @@ public class Intake extends Subsystem {
 			currState = wantedState;
 		}
  	}
+ 	
  	@Override
  	public void registerLoop() {
  		loopMan.addLoop(new Loop() {
-
 			@Override
 			public void onStart() {
 				currState = systemStates.Neutral;
@@ -238,9 +239,6 @@ public class Intake extends Subsystem {
  				rightSideWheel.set(0.0);
 				leftSideWheel.set(0.0);
  			}
- 			
  		});
- 
  	}
- 
  }

@@ -24,7 +24,7 @@ public class Robot extends IterativeRobot {
 	private Loop_Manager myLoops = Loop_Manager.getInstance();
 	private Drivetrain driveTrain = Drivetrain.getInstance(); 
 	private Controller controllers = Controller.getInstance();
-	//private Superstructure superStructure = Superstructure.getInstance();
+	private Superstructure superStructure = Superstructure.getInstance();
 	//private Elevator elevator = Elevator.getInstance();
 	//private Intake intake = Intake.getInstance();
 	//private Victor elevator;
@@ -34,7 +34,7 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		//elevator = new Victor(2);
 		driveTrain.registerLoop(); //First in array list
-		//superStructure.registerLoop();
+		superStructure.registerLoop();
 		//intake.registerLoop(); //Second in array list
 		//elevator.registerLoop();
 		myLoops.startLoops();
@@ -53,19 +53,11 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		myLoops.runLoops();
-		//elevator.setWantedState(Elevator.systemStates.OPEN_LOOP);
-		//pixyCam.track_cube();
-		if(controllers.executeAutoButton()) {
-			driveTrain.setSystemState(Drivetrain.systemStates.AUTON);
-		}
-		else if(controllers.resetAutoButton())
-		{
-			driveTrain.clearAuton();
-		}
-		else {
-			driveTrain.setSystemState(Drivetrain.systemStates.DRIVE);
-		}
-
+		
+		if(controllers.executeAutoButton()) { driveTrain.setSystemState(Drivetrain.systemStates.AUTON);}
+		else if(controllers.resetAutoButton()) { driveTrain.clearAuton();}
+		else { driveTrain.setSystemState(Drivetrain.systemStates.DRIVE);}
+		
 		if(controllers.getSlowFieldCentricButton() == true)
 		{
 			driveTrain.swerve(controllers.getForward()*Constants.MAXSLOWPERCENTSPEED,
@@ -89,11 +81,7 @@ public class Robot extends IterativeRobot {
 					-controllers.getRotation(), 
 					Drivetrain.driveCoords.FIELDCENTRIC, 
 					Drivetrain.driveType.PERCENTPOWER);
-			
-
-
 		}
-		/*
 		if(controllers.getIntakeButton()) {
 			superStructure.setWantedState(Superstructure.wantedStates.Intaking);
 			//intake.setWantedState(systemStates.Intaking);
@@ -109,8 +97,7 @@ public class Robot extends IterativeRobot {
 		else {
 			superStructure.setWantedState(Superstructure.wantedStates.Neutral);
 			//intake.setWantedState(systemStates.Neutral);
-		}*/
-		//elevator.set(controllers.elevatorOpenLoop());
+		}
 	}
 
 	@Override

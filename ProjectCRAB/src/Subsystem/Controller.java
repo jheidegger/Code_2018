@@ -52,21 +52,6 @@ public class Controller extends Subsystem{
 			return Math.pow(velocityStick.getX(),1);
 		}
 	}
-	public double elevatorOpenLoop() {
-		return -buttonMonkey.getY();
-	}
-	public boolean elevatorHigh() {
-		return buttonMonkey.getRawButton(8);
-	}
-	public boolean elevatorMid() {
-		return buttonMonkey.getRawButton(6);
-	}
-	public boolean elevatorLow() {
-		return buttonMonkey.getRawButton(3);
-	}
-	public double actuatorOpenLoop() {
-		return buttonMonkey.getThrottle();
-	}
 	/**
 	 * @return double deadbanded X axis
 	 */
@@ -78,45 +63,23 @@ public class Controller extends Subsystem{
 			return Math.pow(thetaStick.getX(),1)/6.0;
 		}
 	}
-	public boolean getGyroResetButton() {
-		return velocityStick.getRawButton(8);
-	}
-	public boolean getOuttakeButton() {
-		return buttonMonkey.getRawButton(4);
-	}
-	public boolean getIntakeButton() {
-		return buttonMonkey.getRawButton(2);
-	}
-	public boolean unjamButton() {
-		return buttonMonkey.getRawButton(1);
-	}
-	public boolean getSlowFieldCentricButton()
-	{
-		return velocityStick.getRawButton(1);
-	}
-	public boolean getSlowRobotCentricButton()
-	{
-		return thetaStick.getRawButton(1);
-	}
-	public boolean executeAutoButton() {
-		return velocityStick.getRawButton(2);
-	}
-	public boolean resetAutoButton()
-	{
-		return velocityStick.getRawButton(3);
-	}
-	public boolean forwardTest() {
-		return velocityStick.getRawButton(4);
-	}
-	/*public boolean testElevator() {
-		return buttonMonkey.get
-	}
-	public boolean testIntake() {
-		
-	}
-	public boolean testDrivetrain() {
-		
-	}*/
+	public double elevatorOpenLoop() {return -buttonMonkey.getY();}
+	public boolean elevatorHigh() {return buttonMonkey.getRawButton(8);}
+	public boolean elevatorMid() {return buttonMonkey.getRawButton(6);}
+	public boolean elevatorLow() {return buttonMonkey.getRawButton(3);}
+	
+	public double actuatorOpenLoop() {return buttonMonkey.getThrottle();}
+	public boolean getOuttakeButton() {return buttonMonkey.getRawButton(4);}
+	public boolean getIntakeButton() {return buttonMonkey.getRawButton(2);}
+	public boolean unjamButton() {return buttonMonkey.getRawButton(1);}
+	
+	public boolean getGyroResetButton() {return velocityStick.getRawButton(8);}
+	public boolean getSlowFieldCentricButton() {return velocityStick.getRawButton(1);}
+	public boolean getSlowRobotCentricButton() {return thetaStick.getRawButton(1);}
+	
+	public boolean executeAutoButton() {return velocityStick.getRawButton(2);}
+	public boolean resetAutoButton() {return velocityStick.getRawButton(3);}
+	public boolean forwardTest() {return velocityStick.getRawButton(4);}
 
 	@Override
 	public void zeroAllSensors() {

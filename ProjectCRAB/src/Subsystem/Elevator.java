@@ -1,20 +1,19 @@
 package Subsystem;
 
 import org.usfirst.frc.team6713.robot.Constants;
-
-import Subsystem.Intake.systemStates;
 import Util.PIDLoop;
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Elevator extends Subsystem {
 	private static Elevator instance = new Elevator();
+	private Controller joystick = Controller.getInstance(); 
 	
 	private Victor driveMotor;
 	private PIDLoop elevatorControlLoop; 
 	private Encoder encoder;
-	private Controller joystick = Controller.getInstance(); 
-	private double throttleValue; 
+	
+	double throttleValue; 
 	double lastHeight = 0; 
 	private double kMaxHeight = 7;//Constants.MAX_HEIGHT_ENCODER_TICKS;
 	
@@ -41,7 +40,6 @@ public class Elevator extends Subsystem {
 		return instance; 
 	}
 	
-	
 	private void setFloor(double wantedHeight) {
 		wantedHeight = wantedHeight / .17 * Math.PI * 2048;
 
@@ -52,8 +50,6 @@ public class Elevator extends Subsystem {
 	
 	public void setThrottleValue(double throttleValue) {
 		this.throttleValue = throttleValue;
-		//throttleValue *= (Encoder Ticks) / (Circumference of drum) 
-		//
 	}
 	
 	public double getHeight() {
