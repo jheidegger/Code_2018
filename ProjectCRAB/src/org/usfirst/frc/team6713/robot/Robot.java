@@ -7,6 +7,7 @@
 
 package org.usfirst.frc.team6713.robot;
 
+import Auton.Autos.middleSwitch;
 import Subsystem.*;
 import Subsystem.Intake.systemStates;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -24,6 +25,7 @@ public class Robot extends IterativeRobot {
 	private Intake intake = Intake.getInstance();
 	//private Victor elevator;
 	int testID = 0;
+	String gameData;
 	
 	@Override
 	public void robotInit() {
@@ -37,12 +39,13 @@ public class Robot extends IterativeRobot {
 	
 	@Override
 	public void autonomousInit() {
-		String gameData = DriverStation.getInstance().getGameSpecificMessage();
+		gameData = DriverStation.getInstance().getGameSpecificMessage();
 	}
 	
 	@Override
 	public void autonomousPeriodic() {
 		myLoops.runLoops();
+		middleSwitch.main.run(gameData);
 	}
 
 	@Override
