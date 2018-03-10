@@ -91,7 +91,7 @@ public class Robot extends IterativeRobot {
 		}
 		else {
 			//superStructure.setWantedState(Superstructure.wantedStates.Neutral);
-			intake.setWantedState(systemStates.Stowing);
+			intake.setWantedState(systemStates.Neutral);
 		}
 		//elevator.setWantedState(Elevator.systemStates.OPEN_LOOP);
 		

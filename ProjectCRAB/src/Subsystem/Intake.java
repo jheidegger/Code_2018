@@ -21,7 +21,6 @@ public class Intake extends Subsystem {
  	private Victor leftSideWheel;
  	private Victor stowingMotor;
  	private Timer unJamTimer;
- 	private Timer stowingTimer;
  	private DigitalInput isCubeIn;
  	private DigitalInput isIntakeStowed;
  	
@@ -31,9 +30,6 @@ public class Intake extends Subsystem {
  	private Loop_Manager loopMan = Loop_Manager.getInstance();
  	private Encoder encoder;
  	private PIDLoop actuatorPID;
- 	
- 	private double kStowingTime = Constants.STOWINGTIME;
- 	private double kUnStowingTime = Constants.UNSTOWINGTIME;
  	
  	public enum systemStates{
  		Intaking,
@@ -59,7 +55,6 @@ public class Intake extends Subsystem {
  		//isCubeIn = new DigitalInput(0);
  		isIntakeStowed = new DigitalInput(5);
  		unJamTimer = new Timer();
- 		stowingTimer = new Timer();
  	}
  	/**
  	 * Main control of the intake through the state based logic
@@ -93,6 +88,10 @@ public class Intake extends Subsystem {
  		return false;
  	}
  	
+ 	public void setPosition(double position) {
+ 		
+ 	}
+ 	
  	private void checkState()
  	{
  		if(wantedState != currState)
@@ -113,7 +112,7 @@ public class Intake extends Subsystem {
 
  			@Override
  			public void onloop() {
- 				//SmartDashboard.putString("intakeState", currState.toString());
+ 				//SmartDashboard.putString({"intakeState", currState.toString());
  				//System.out.println(currState.toString());
  				System.out.println(encoder.getRaw());
  				switch(currState)
