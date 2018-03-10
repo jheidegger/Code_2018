@@ -8,6 +8,7 @@
 package org.usfirst.frc.team6713.robot;
 
 import Subsystem.*;
+import Subsystem.Intake.systemStates;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -21,9 +22,8 @@ public class Robot extends IterativeRobot {
 	//private Superstructure superStructure = Superstructure.getInstance();
 	private Elevator elevator = Elevator.getInstance();
 	private Intake intake = Intake.getInstance();
-<<<<<<< HEAD
 	//private Victor elevator;
-
+	int testID = 0;
 	
 	@Override
 	public void robotInit() {
@@ -31,7 +31,6 @@ public class Robot extends IterativeRobot {
 		driveTrain.registerLoop(); //First in array list
 		//superStructure.registerLoop();
 		intake.registerLoop(); //Second in array list
-		int testID = 0;
 		elevator.registerLoop();
 		myLoops.startLoops();
 	}
@@ -89,12 +88,6 @@ public class Robot extends IterativeRobot {
 		else if(controllers.unjamButton()) {
 			//superStructure.setWantedState(Superstructure.wantedStates.Unjamming);
 			intake.setWantedState(systemStates.UnJamming);
-		}
-		else if(controllers.Stow()) {
-			intake.setWantedState(systemStates.Stowing);
-		}
-		else if(controllers.unStow()) {
-			//intake.setWantedState(systemStates.unStowing);
 		}
 		else {
 			//superStructure.setWantedState(Superstructure.wantedStates.Neutral);
