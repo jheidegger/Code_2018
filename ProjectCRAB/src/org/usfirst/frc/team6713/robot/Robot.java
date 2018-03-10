@@ -8,15 +8,9 @@
 package org.usfirst.frc.team6713.robot;
 
 import Subsystem.*;
-import Subsystem.Intake.systemStates;
-import Util.PIDLoop;
-import Vision.PixyException;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends IterativeRobot {
 	
@@ -24,9 +18,10 @@ public class Robot extends IterativeRobot {
 	private Loop_Manager myLoops = Loop_Manager.getInstance();
 	private Drivetrain driveTrain = Drivetrain.getInstance(); 
 	private Controller controllers = Controller.getInstance();
-	private Superstructure superStructure = Superstructure.getInstance();
+	//private Superstructure superStructure = Superstructure.getInstance();
 	private Elevator elevator = Elevator.getInstance();
 	private Intake intake = Intake.getInstance();
+<<<<<<< HEAD
 	//private Victor elevator;
 
 	
@@ -36,6 +31,7 @@ public class Robot extends IterativeRobot {
 		driveTrain.registerLoop(); //First in array list
 		//superStructure.registerLoop();
 		intake.registerLoop(); //Second in array list
+		int testID = 0;
 		elevator.registerLoop();
 		myLoops.startLoops();
 	}
@@ -102,16 +98,40 @@ public class Robot extends IterativeRobot {
 		}
 		else {
 			//superStructure.setWantedState(Superstructure.wantedStates.Neutral);
-			intake.setWantedState(systemStates.Neutral);
+			intake.setWantedState(systemStates.Stowing);
 		}
-		intake.setWantedState(systemStates.Stowing);
 		//elevator.setWantedState(Elevator.systemStates.OPEN_LOOP);
 		
 
 	}
 
 	@Override
-	public void testPeriodic() {
+	public void testPeriodic() { 
+		myLoops.runLoops();
+		if(controllers.getSlowFieldCentricButton()) {testID++;}
+		switch(testID) {
+		case 1:
+			driveTrain.swerve(1.0, 0, 0, 
+					Drivetrain.driveCoords.FIELDCENTRIC, 
+					Drivetrain.driveType.PERCENTPOWER);
+		case 2:
+			driveTrain.swerve(-1.0, 0.0, 0.0);
+		case 3:
+			driveTrain.swerve(0.0, 1.0, 0.0);
+		case 4:
+			driveTrain.swerve(0.0, -1.0, 0.0);
+		case 5:
+			driveTrain.swerve(0.0, 0.0, 0.5);
+		case 6:
+			driveTrain.swerve(0.0, 0.0, -0.5);
+		case 7:
+			intake.setWantedState(Intake.systemStates.Intaking);
+		case 8:
+			intake.setWantedState(Intake.systemStates.Scoring);
+		case 9:
+			intake.setWantedState(Intake.systemStates.Stowing);
+		case 10: 
+			intake.setWantedState(Intake.systemStates.unStowing);
+		}	
 	}
-	
 }
