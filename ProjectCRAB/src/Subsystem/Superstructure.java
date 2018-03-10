@@ -3,6 +3,7 @@ package Subsystem;
 import org.usfirst.frc.team6713.robot.Constants;
 
 import Subsystem.Intake.systemStates;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Superstructure {
 	private static Superstructure instance = new Superstructure();
@@ -120,12 +121,14 @@ public class Superstructure {
  		}
 	private void checkState()
 	{
+		SmartDashboard.putString("Super State", wantedState.toString());
 		switch(wantedState)
 		{
 		case Intaking:
 			currState = systemStates.Intaking;
 			break;
 		case Neutral:
+			elevatorCommandedHeight = 0;
 			break;
 		case ScaleHigh:
 			elevatorCommandedHeight = Constants.SCALEHIGHHEIGHT;

@@ -25,8 +25,8 @@ public class Robot extends IterativeRobot {
 	private Drivetrain driveTrain = Drivetrain.getInstance(); 
 	private Controller controllers = Controller.getInstance();
 	private Superstructure superStructure = Superstructure.getInstance();
-	//private Elevator elevator = Elevator.getInstance();
-	//private Intake intake = Intake.getInstance();
+	private Elevator elevator = Elevator.getInstance();
+	private Intake intake = Intake.getInstance();
 	//private Victor elevator;
 
 	
@@ -34,9 +34,9 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		//elevator = new Victor(2);
 		driveTrain.registerLoop(); //First in array list
-		superStructure.registerLoop();
-		//intake.registerLoop(); //Second in array list
-		//elevator.registerLoop();
+		//superStructure.registerLoop();
+		intake.registerLoop(); //Second in array list
+		elevator.registerLoop();
 		myLoops.startLoops();
 	}
 	
@@ -83,21 +83,31 @@ public class Robot extends IterativeRobot {
 					Drivetrain.driveType.PERCENTPOWER);
 		}
 		if(controllers.getIntakeButton()) {
-			superStructure.setWantedState(Superstructure.wantedStates.Intaking);
-			//intake.setWantedState(systemStates.Intaking);
+			//superStructure.setWantedState(Superstructure.wantedStates.Intaking);
+			intake.setWantedState(systemStates.Intaking);
 		}
 		else if(controllers.getOuttakeButton()) {
-			superStructure.setWantedState(Superstructure.wantedStates.Intaking);
-			//intake.setWantedState(systemStates.Scoring);
+			//superStructure.setWantedState(Superstructure.wantedStates.Score);
+			intake.setWantedState(systemStates.Scoring);
 		}
 		else if(controllers.unjamButton()) {
-			superStructure.setWantedState(Superstructure.wantedStates.Intaking);
-			//intake.setWantedState(systemStates.UnJamming);
+			//superStructure.setWantedState(Superstructure.wantedStates.Unjamming);
+			intake.setWantedState(systemStates.UnJamming);
+		}
+		else if(controllers.Stow()) {
+			intake.setWantedState(systemStates.Stowing);
+		}
+		else if(controllers.unStow()) {
+			//intake.setWantedState(systemStates.unStowing);
 		}
 		else {
-			superStructure.setWantedState(Superstructure.wantedStates.Neutral);
-			//intake.setWantedState(systemStates.Neutral);
+			//superStructure.setWantedState(Superstructure.wantedStates.Neutral);
+			intake.setWantedState(systemStates.Neutral);
 		}
+		intake.setWantedState(systemStates.Stowing);
+		//elevator.setWantedState(Elevator.systemStates.OPEN_LOOP);
+		
+
 	}
 
 	@Override

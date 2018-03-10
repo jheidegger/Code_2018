@@ -14,7 +14,8 @@ public class Elevator extends Subsystem {
 	private Encoder encoder;
 	
 	double throttleValue; 
-	double lastHeight = 0; 
+	double lastHeight = 0;
+	int idx = 0;
 	private double kMaxHeight = 7;//Constants.MAX_HEIGHT_ENCODER_TICKS;
 	
 	public enum systemStates{
@@ -41,11 +42,11 @@ public class Elevator extends Subsystem {
 	}
 	
 	private void setFloor(double wantedHeight) {
-		wantedHeight = wantedHeight / .17 * Math.PI * 2048;
+		//wantedHeight = wantedHeight / .17 * Math.PI * 2048;
 
 		double liftSpeed = elevatorControlLoop.returnOutput(encoder.getRaw(),wantedHeight);
 		SmartDashboard.putNumber("Enc", encoder.getRaw());
-		driveMotor.set(-liftSpeed);
+		driveMotor.set(liftSpeed);
 	}
 	
 	public void setThrottleValue(double throttleValue) {
@@ -96,12 +97,15 @@ public class Elevator extends Subsystem {
 						break;
 					case OPEN_LOOP:
 						System.out.println(encoder.getRaw());
+						
 						if(joystick.elevatorHigh()) {
-							setFloor(7);
+							//idx = 3;
+							setFloor(80000);//7);
 							lastHeight=7;
 						}
 						else if(joystick.elevatorMid()) {
-							setFloor(3.5);
+							//idx = 2;
+							setFloor(46666);//3.5);
 							lastHeight=3.5;
 						}
 						else if(joystick.elevatorLow()) {
@@ -111,6 +115,7 @@ public class Elevator extends Subsystem {
 						else {
 							setFloor(lastHeight);
 						}
+						//driveMotor.set(.3);
 						lastState = systemStates.OPEN_LOOP;
 						checkState();
 						break;
