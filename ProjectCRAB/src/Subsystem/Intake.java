@@ -91,6 +91,7 @@ public class Intake extends Subsystem {
  	}
  	
  	public void setPosition(double position) {wantedPosition = degreesToEncoder(position);}
+ 	public double getCurrPosition() {return currPosition;}
  	private void findCurrPosition() {currPosition = (encoderToDegrees(-encoder.getRaw()));}
  	private double encoderToDegrees(double encoderTicks) {return (encoderTicks/2048.0*360.0);}
  	private double degreesToEncoder(double degrees) {return (degrees/360.0*2048);}
@@ -178,83 +179,7 @@ public class Intake extends Subsystem {
  					}
  					lastState = systemStates.UnJamming;
  					break;
- 				/*/
-				case Stowed:
-					//move to any state through unStowing
-					if(wantedState != currState)
-					{
-						currState = systemStates.unStowing;
-					}
-					lastState = systemStates.Stowed;
-					stowingMotor.set(0.0);
-					break;
-				case Stowing:
-					
-	 				if(isIntakeStowed.get()||controller.actuatorOpenLoop()>0) {
-						stowingMotor.set(controller.actuatorOpenLoop()*.4);
-				
-					else {
-						stowingMotor.set(0);
-					}
-	 				rightSideWheel.set(0.0);
- 					leftSideWheel.set(0.0);
-	 				checkState();
-	 				break;
-					if(lastState != systemStates.Stowing)
-					{
-						stowingTimer.start();
-						stowingTimer.reset();
-					}
-					if(stowingTimer.get()<kStowingTime){
-						stowingMotor.set(1.0);
-					}
-					else
-					{
-						stowingMotor.set(0.0);
-						currState = systemStates.Stowed;
-					}
-					
-					if(!isIntakeStowed){
-						stowingMotor.set(actuatorPID.returnOutput(encoder.getRaw(), 0));
-					}
-					else{
-						wantedState = systemStates.Stowed;
-					}
-					//if(encoder.getRaw() > -10 && encoder.getRaw() < 10) {
-					//	wantedState = systemStates.Stowed;
-					//}
-					if(wantedState != currState)
-					{
-						currState = wantedState;
-						stowingMotor.set(0.0);
-					}
-					
-				case unStowing:
-					/*if(lastState != systemStates.unStowing)
-					{
-						stowingTimer.start();
-						stowingTimer.reset();
-					}
-					if(stowingTimer.get()<kUnStowingTime)
-					{
-						stowingMotor.set(-1.0);
-					}
-					else
-					{
-						stowingMotor.set(0.0);
-						currState = systemStates.Neutral;
-					}
-					stowingMotor.set(actuatorPID.returnOutput(encoder.getRaw(), 409.0));
-					if(encoder.getRaw() > -399 && encoder.getRaw() < 419) {
-						currState = systemStates.Neutral;
-					}
-					if(wantedState != currState)
-					{
-						currState = wantedState;
-						stowingMotor.set(0.0);
-					}
-					break;*/
-				default:
+ 				default:
 					break;
  				}
 

@@ -19,20 +19,16 @@ public class Robot extends IterativeRobot {
 	private SendableChooser<String> m_chooser = new SendableChooser<>();
 	private Loop_Manager myLoops = Loop_Manager.getInstance();
 	private Drivetrain driveTrain = Drivetrain.getInstance(); 
-	private Controller controllers = Controller.getInstance();
-	//private Superstructure superStructure = Superstructure.getInstance();
+	private Controller controller = Controller.getInstance();
 	private Elevator elevator = Elevator.getInstance();
 	private Intake intake = Intake.getInstance();
-	//private Victor elevator;
 	int testID = 0;
 	String gameData;
 	
 	@Override
 	public void robotInit() {
-		//elevator = new Victor(2);
-		driveTrain.registerLoop(); //First in array list
-		//superStructure.registerLoop();
-		intake.registerLoop(); //Second in array list
+		driveTrain.registerLoop();
+		intake.registerLoop(); 
 		elevator.registerLoop();
 		myLoops.startLoops();
 	}
@@ -52,48 +48,55 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 		myLoops.runLoops();
 		
-		if(controllers.executeAutoButton()) { driveTrain.setSystemState(Drivetrain.systemStates.AUTON);}
-		else if(controllers.resetAutoButton()) { driveTrain.clearAuton();}
+		if(controller.executeAutoButton()) { driveTrain.setSystemState(Drivetrain.systemStates.AUTON);}
+		else if(controller.resetAutoButton()) { driveTrain.clearAuton();}
 		else { driveTrain.setSystemState(Drivetrain.systemStates.DRIVE);}
-		
-		if(controllers.getSlowFieldCentricButton() == true)
+		/**
+		 * Drive Train States
+		 */
+		if(controller.getSlowFieldCentricButton() == true)
 		{
-			driveTrain.swerve(controllers.getForward()*Constants.MAXSLOWPERCENTSPEED,
-					controllers.getStrafe()*Constants.MAXSLOWPERCENTSPEED, 
-					-controllers.getRotation()*Constants.MAXSLOWPERCENTSPEED, 
+			driveTrain.swerve(controller.getForward()*Constants.MAXSLOWPERCENTSPEED,
+					controller.getStrafe()*Constants.MAXSLOWPERCENTSPEED, 
+					-controller.getRotation()*Constants.MAXSLOWPERCENTSPEED, 
 					Drivetrain.driveCoords.FIELDCENTRIC, 
 					Drivetrain.driveType.PERCENTPOWER);
 		}
-		else if(controllers.getSlowRobotCentricButton() == true)
+		else if(controller.getSlowRobotCentricButton() == true)
 		{
-			driveTrain.swerve(controllers.getForward()*Constants.MAXSLOWPERCENTSPEED, 
-					controllers.getStrafe()*Constants.MAXSLOWPERCENTSPEED, 
-					-controllers.getRotation()*Constants.MAXSLOWPERCENTSPEED, 
+			driveTrain.swerve(controller.getForward()*Constants.MAXSLOWPERCENTSPEED, 
+					controller.getStrafe()*Constants.MAXSLOWPERCENTSPEED, 
+					-controller.getRotation()*Constants.MAXSLOWPERCENTSPEED, 
 					Drivetrain.driveCoords.ROBOTCENTRIC, 
 					Drivetrain.driveType.PERCENTPOWER);
 		}
 		else
 		{
-			driveTrain.swerve(controllers.getForward(), 
-					controllers.getStrafe(), 
-					-controllers.getRotation(), 
+			driveTrain.swerve(controller.getForward(), 
+					controller.getStrafe(), 
+					-controller.getRotation(), 
 					Drivetrain.driveCoords.FIELDCENTRIC, 
 					Drivetrain.driveType.PERCENTPOWER);
 		}
-		if(controllers.getIntakeButton()) {intake.setWantedState(systemStates.Intaking);}
-		else if(controllers.getOuttakeButton()) {intake.setWantedState(systemStates.Scoring);}
-		else if(controllers.unjamButton()) {intake.setWantedState(systemStates.UnJamming);}
-		else {intake.setWantedState(systemStates.Neutral);
-		}
-		//elevator.setWantedState(Elevator.systemStates.OPEN_LOOP);
+		/**
+		 * Intake States
+		 */
+		if(controller.getIntakeButton()) {intake.setWantedState(systemStates.Intaking);} 
+		else if(controller.getOuttakeButton()) {intake.setWantedState(systemStates.Scoring);}
+		else if(controller.unjamButton()) {intake.setWantedState(systemStates.UnJamming);}
+		else {intake.setWantedState(systemStates.Neutral);}
 		
-
+		if(controller.Stow()) {intake.setPosition(0);}
+		else if(controller.unStow()) {intake.setPosition(80);}
+		else {intake.setPosition(intake.getCurrPosition()+(controller.actuatorOpenLoop()*20.0));}
+		
+		//elevator.setWantedState(Elevator.systemStates.OPEN_LOOP);
 	}
 
 	@Override
 	public void testPeriodic() { 
 		myLoops.runLoops();
-		if(controllers.getSlowFieldCentricButton()) {testID++;}
+		if(controller.getSlowFieldCentricButton()) {testID++;}
 		switch(testID) {
 		case 1:
 			driveTrain.swerve(1.0, 0, 0, 
