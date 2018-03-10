@@ -16,10 +16,12 @@ public class Intake extends Subsystem {
 	//the static instance of the intake so that it is not double instantiated. 
  	private static Intake instance = new Intake();
  	private Controller controller = Controller.getInstance();
+ 	private Loop_Manager loopMan = Loop_Manager.getInstance();
  	
  	private Victor rightSideWheel;
  	private Victor leftSideWheel;
  	private Victor stowingMotor;
+ 	
  	private Timer unJamTimer;
  	private DigitalInput isCubeIn;
  	private DigitalInput isIntakeStowed;
@@ -27,9 +29,11 @@ public class Intake extends Subsystem {
  	private systemStates currState;
  	private systemStates lastState;
  	private systemStates wantedState;
- 	private Loop_Manager loopMan = Loop_Manager.getInstance();
+
  	private Encoder encoder;
  	private PIDLoop actuatorPID;
+ 	private double wantedPosition;
+ 	private double currPosition;
  	
  	public enum systemStates{
  		Intaking,
@@ -47,7 +51,7 @@ public class Intake extends Subsystem {
  	
  	private Intake()
  	{
- 		actuatorPID = new PIDLoop(.2,0,0);
+ 		actuatorPID = new PIDLoop(.2,0,0,.5);
  		rightSideWheel = new Victor(Constants.INTAKERIGHTSIDE);
  		leftSideWheel = new Victor(Constants.INTAKELEFTSIDE);
  		stowingMotor = new Victor(Constants.INTAKESTOWINGMOTOR);
@@ -79,8 +83,6 @@ public class Intake extends Subsystem {
  	
  	@Override
  	public void zeroAllSensors() {
- 		// N/A
- 
  	}
  
  	@Override
@@ -88,9 +90,10 @@ public class Intake extends Subsystem {
  		return false;
  	}
  	
- 	public void setPosition(double position) {
- 		
- 	}
+ 	public void setPosition(double position) {wantedPosition = degreesToEncoder(position);}
+ 	private void findCurrPosition() {currPosition = (encoderToDegrees(-encoder.getRaw()));}
+ 	private double encoderToDegrees(double encoderTicks) {return (encoderTicks/2048.0*360.0);}
+ 	private double degreesToEncoder(double degrees) {return (degrees/360.0*2048);}
  	
  	private void checkState()
  	{
@@ -112,9 +115,13 @@ public class Intake extends Subsystem {
 
  			@Override
  			public void onloop() {
- 				//SmartDashboard.putString({"intakeState", currState.toString());
- 				//System.out.println(currState.toString());
- 				System.out.println(encoder.getRaw());
+ 				findCurrPosition();
+ 				if(isIntakeStowed.get()||(wantedPosition > 0 && wantedPosition < 90)) {
+ 					stowingMotor.set(actuatorPID.returnOutput(currPosition, wantedPosition));
+ 				}
+ 				else {
+					stowingMotor.set(0);
+				}
  				switch(currState)
  				{
  				
@@ -159,7 +166,7 @@ public class Intake extends Subsystem {
  						rightSideWheel.set(Constants.INTAKESPEED);
  	 					leftSideWheel.set(-Constants.INTAKESPEED);
  					}
- 					else if(unJamTimer.get() < .4)
+ 					else if(unJamTimer.get() < .1)
  					{
  						rightSideWheel.set(-Constants.INTAKESPEED);
  	 					leftSideWheel.set(Constants.INTAKESPEED);
@@ -171,6 +178,7 @@ public class Intake extends Subsystem {
  					}
  					lastState = systemStates.UnJamming;
  					break;
+ 				/*/
 				case Stowed:
 					//move to any state through unStowing
 					if(wantedState != currState)
@@ -181,9 +189,10 @@ public class Intake extends Subsystem {
 					stowingMotor.set(0.0);
 					break;
 				case Stowing:
+					
 	 				if(isIntakeStowed.get()||controller.actuatorOpenLoop()>0) {
 						stowingMotor.set(controller.actuatorOpenLoop()*.4);
-					}
+				
 					else {
 						stowingMotor.set(0);
 					}
@@ -191,7 +200,7 @@ public class Intake extends Subsystem {
  					leftSideWheel.set(0.0);
 	 				checkState();
 	 				break;
-					/*if(lastState != systemStates.Stowing)
+					if(lastState != systemStates.Stowing)
 					{
 						stowingTimer.start();
 						stowingTimer.reset();
@@ -203,8 +212,8 @@ public class Intake extends Subsystem {
 					{
 						stowingMotor.set(0.0);
 						currState = systemStates.Stowed;
-					}*/
-					/*
+					}
+					
 					if(!isIntakeStowed){
 						stowingMotor.set(actuatorPID.returnOutput(encoder.getRaw(), 0));
 					}
@@ -219,11 +228,7 @@ public class Intake extends Subsystem {
 						currState = wantedState;
 						stowingMotor.set(0.0);
 					}
-					*/
-					//SmartDashboard.putBoolean("DO", isIntakeStowed.get());
 					
-
-					//break;
 				case unStowing:
 					/*if(lastState != systemStates.unStowing)
 					{
@@ -238,7 +243,7 @@ public class Intake extends Subsystem {
 					{
 						stowingMotor.set(0.0);
 						currState = systemStates.Neutral;
-					}*/
+					}
 					stowingMotor.set(actuatorPID.returnOutput(encoder.getRaw(), 409.0));
 					if(encoder.getRaw() > -399 && encoder.getRaw() < 419) {
 						currState = systemStates.Neutral;
@@ -248,7 +253,7 @@ public class Intake extends Subsystem {
 						currState = wantedState;
 						stowingMotor.set(0.0);
 					}
-					break;
+					break;*/
 				default:
 					break;
  				}

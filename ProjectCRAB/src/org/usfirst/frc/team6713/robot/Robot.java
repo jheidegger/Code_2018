@@ -77,21 +77,10 @@ public class Robot extends IterativeRobot {
 					Drivetrain.driveCoords.FIELDCENTRIC, 
 					Drivetrain.driveType.PERCENTPOWER);
 		}
-		if(controllers.getIntakeButton()) {
-			//superStructure.setWantedState(Superstructure.wantedStates.Intaking);
-			intake.setWantedState(systemStates.Intaking);
-		}
-		else if(controllers.getOuttakeButton()) {
-			//superStructure.setWantedState(Superstructure.wantedStates.Score);
-			intake.setWantedState(systemStates.Scoring);
-		}
-		else if(controllers.unjamButton()) {
-			//superStructure.setWantedState(Superstructure.wantedStates.Unjamming);
-			intake.setWantedState(systemStates.UnJamming);
-		}
-		else {
-			//superStructure.setWantedState(Superstructure.wantedStates.Neutral);
-			intake.setWantedState(systemStates.Neutral);
+		if(controllers.getIntakeButton()) {intake.setWantedState(systemStates.Intaking);}
+		else if(controllers.getOuttakeButton()) {intake.setWantedState(systemStates.Scoring);}
+		else if(controllers.unjamButton()) {intake.setWantedState(systemStates.UnJamming);}
+		else {intake.setWantedState(systemStates.Neutral);
 		}
 		//elevator.setWantedState(Elevator.systemStates.OPEN_LOOP);
 		
