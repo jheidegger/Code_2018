@@ -256,6 +256,34 @@ public class Drivetrain extends Subsystem {
 			this.spinCommand *= kMaxRotation;
 		}
 	}
+	public void swerve(double speed, double angle, driveCoords Coords, driveType commandType, double spinCommand)
+	{
+		this.Coords = Coords;
+		this.commandType = commandType;	
+		double forwardCommand = speed * Math.sin(angle);
+		double strafeCommand = speed * Math.cos(angle);
+		if(Coords == driveCoords.ROBOTCENTRIC) {
+			this.forwardCommand = forwardCommand;
+			this.strafeCommand = strafeCommand;
+			this.spinCommand = spinCommand;
+		}
+		else {
+
+			final double temp = forwardCommand * Math.sin(angle) + strafeCommand * Math.cos(angle);
+		    this.strafeCommand = (-forwardCommand * Math.cos(angle) + strafeCommand * Math.sin(angle));
+		    this.forwardCommand = temp;
+		    this.spinCommand = spinCommand;
+		    if(spinCommand == 0) {
+			   // this.spinCommand = this.spinCommand + autoHeadingControl.returnOutput(angle, lastAngle);
+			}
+			    lastAngle = angle;
+		}
+		if(commandType == driveType.PERCENTPOWER) {
+			this.forwardCommand *= kMaxSpeed;
+			this.strafeCommand *= kMaxSpeed;
+			this.spinCommand *= kMaxRotation;
+		}
+	}
 
 	
 	@Override
