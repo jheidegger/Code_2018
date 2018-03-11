@@ -51,11 +51,12 @@ public class Intake extends Subsystem {
  	
  	private Intake()
  	{
- 		actuatorPID = new PIDLoop(.2,0,0,.5);
+ 		actuatorPID = new PIDLoop(.0015,0,0,.3);
  		rightSideWheel = new Victor(Constants.INTAKERIGHTSIDE);
  		leftSideWheel = new Victor(Constants.INTAKELEFTSIDE);
  		stowingMotor = new Victor(Constants.INTAKESTOWINGMOTOR);
  		encoder = new Encoder(2, 3, false, Encoder.EncodingType.k4X);
+ 		encoder.reset();
  		//isCubeIn = new DigitalInput(0);
  		isIntakeStowed = new DigitalInput(5);
  		unJamTimer = new Timer();
@@ -90,9 +91,9 @@ public class Intake extends Subsystem {
  		return false;
  	}
  	
- 	public void setPosition(double position) {wantedPosition = degreesToEncoder(position);}
+ 	public void setPosition(double position) {wantedPosition = position;}//degreesToEncoder(position);}
  	public double getCurrPosition() {return currPosition;}
- 	private void findCurrPosition() {currPosition = (encoderToDegrees(-encoder.getRaw()));}
+ 	private void findCurrPosition() {currPosition = encoder.getRaw();}
  	private double encoderToDegrees(double encoderTicks) {return (encoderTicks/2048.0*360.0);}
  	private double degreesToEncoder(double degrees) {return (degrees/360.0*2048);}
  	
@@ -116,12 +117,29 @@ public class Intake extends Subsystem {
 
  			@Override
  			public void onloop() {
- 				findCurrPosition();
- 				if(isIntakeStowed.get()||(wantedPosition > 0 && wantedPosition < 90)) {
+ 				//findCurrPosition();
+ 				SmartDashboard.putBoolean("Stowed",isIntakeStowed.get());
+ 				currPosition = encoder.getRaw();
+ 				if(isIntakeStowed.get()&&(wantedPosition > 0 && wantedPosition < 19000)) {
  					stowingMotor.set(actuatorPID.returnOutput(currPosition, wantedPosition));
+ 					SmartDashboard.putNumber("currposition", currPosition);
+ 					SmartDashboard.putNumber("wantedPosition", wantedPosition);
  				}
  				else {
-					stowingMotor.set(0);
+ 					if(wantedPosition > 19000)
+ 					{
+ 						wantedPosition = 19000;
+ 					}
+ 					if(actuatorPID.returnOutput(currPosition, wantedPosition)<0)
+ 					{
+ 						stowingMotor.set(actuatorPID.returnOutput(currPosition, wantedPosition));
+ 					}
+ 					else
+ 					{
+ 						stowingMotor.set(0.0);
+ 					}
+ 					
+					//stowingMotor.set(0);
 				}
  				switch(currState)
  				{
@@ -130,7 +148,7 @@ public class Intake extends Subsystem {
  				case Neutral:
  					rightSideWheel.set(0.0);
  					leftSideWheel.set(0.0);
- 					stowingMotor.set(controller.actuatorOpenLoop());
+ 					//stowingMotor.set(controller.actuatorOpenLoop());
  					lastState = systemStates.Neutral;
  					checkState();
  					break;

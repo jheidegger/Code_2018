@@ -37,7 +37,7 @@ public class Controller extends Subsystem{
 			return 0.0;
 		}
 		else {
-			return Math.pow(velocityStick.getY(),1);
+			return Math.pow(velocityStick.getY(),3);
 		}
 	}
 	/** 
@@ -48,7 +48,7 @@ public class Controller extends Subsystem{
 			return 0;
 		}
 		else {
-			return Math.pow(velocityStick.getX(),1);
+			return Math.pow(velocityStick.getX(),3);
 		}
 	}
 	/**

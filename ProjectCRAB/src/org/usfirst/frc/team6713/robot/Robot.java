@@ -7,16 +7,25 @@
 
 package org.usfirst.frc.team6713.robot;
 
+import Auton.Autos.driveStraight;
+import Auton.Autos.leftSwitch;
 import Auton.Autos.middleSwitch;
 import Subsystem.*;
 import Subsystem.Intake.systemStates;
+import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.PWM;
+import edu.wpi.first.wpilibj.hal.DIOJNI;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends IterativeRobot {
-	
 	private SendableChooser<String> m_chooser = new SendableChooser<>();
+	private static final String auto1 = "middle switch";
+	private static final String auto2 = "left switch";
+	private static final String auto3 = "right switch";
+	private static final String auto4 = "drive straight";
 	private Loop_Manager myLoops = Loop_Manager.getInstance();
 	private Drivetrain driveTrain = Drivetrain.getInstance(); 
 	private Controller controller = Controller.getInstance();
@@ -24,6 +33,7 @@ public class Robot extends IterativeRobot {
 	private Intake intake = Intake.getInstance();
 	int testID = 0;
 	String gameData;
+
 	
 	@Override
 	public void robotInit() {
@@ -31,17 +41,60 @@ public class Robot extends IterativeRobot {
 		intake.registerLoop(); 
 		elevator.registerLoop();
 		myLoops.startLoops();
+		m_chooser.addObject("middle switch", auto1);
+		m_chooser.addObject("left switch", auto2);
+		m_chooser.addObject("right switch", auto3);
+		m_chooser.addObject("drive straight", auto4);
+		m_chooser.addDefault("default", "default");
+		SmartDashboard.putData("Auto choices", m_chooser);
 	}
 	
 	@Override
 	public void autonomousInit() {
 		gameData = DriverStation.getInstance().getGameSpecificMessage();
+		middleSwitch.setGameData(gameData);
+		String selected = m_chooser.getSelected();
+		switch(selected)
+		{
+		case auto1:
+			middleSwitch.setGameData(gameData);
+			break;
+		case auto2:
+			driveStraight.setGameData(gameData);
+			break;
+		case auto3:
+			leftSwitch.setGameData(gameData);
+			break;
+		case auto4:
+			leftSwitch.setGameData(gameData);
+			break;
+		default:
+			break;
+		}
+		
+		
 	}
 	
 	@Override
 	public void autonomousPeriodic() {
 		myLoops.runLoops();
-		middleSwitch.main.run(gameData);
+		String selected = m_chooser.getSelected();
+		switch(selected)
+		{
+		case auto1:
+			middleSwitch.run();
+			break;
+		case auto2:
+			driveStraight.run();
+			break;
+		case auto3:
+			leftSwitch.run();
+			break;
+		case auto4:
+			leftSwitch.run();
+			break;
+		}
+		//middleSwitch.run();
 	}
 
 	@Override
@@ -56,9 +109,9 @@ public class Robot extends IterativeRobot {
 		 */
 		if(controller.getSlowFieldCentricButton() == true)
 		{
-			driveTrain.swerve(controller.getForward()*Constants.MAXSLOWPERCENTSPEED,
-					controller.getStrafe()*Constants.MAXSLOWPERCENTSPEED, 
-					-controller.getRotation()*Constants.MAXSLOWPERCENTSPEED, 
+			driveTrain.swerve(controller.getForward(), 
+					controller.getStrafe(), 
+					-controller.getRotation(), 
 					Drivetrain.driveCoords.FIELDCENTRIC, 
 					Drivetrain.driveType.PERCENTPOWER);
 		}
@@ -72,9 +125,9 @@ public class Robot extends IterativeRobot {
 		}
 		else
 		{
-			driveTrain.swerve(controller.getForward(), 
-					controller.getStrafe(), 
-					-controller.getRotation(), 
+			driveTrain.swerve(controller.getForward()*Constants.MAXSLOWPERCENTSPEED,
+					controller.getStrafe()*Constants.MAXSLOWPERCENTSPEED, 
+					-controller.getRotation()*Constants.MAXSLOWPERCENTSPEED * 1.4, 
 					Drivetrain.driveCoords.FIELDCENTRIC, 
 					Drivetrain.driveType.PERCENTPOWER);
 		}
@@ -87,8 +140,12 @@ public class Robot extends IterativeRobot {
 		else {intake.setWantedState(systemStates.Neutral);}
 		
 		if(controller.Stow()) {intake.setPosition(0);}
-		else if(controller.unStow()) {intake.setPosition(80);}
-		else {intake.setPosition(intake.getCurrPosition()+(controller.actuatorOpenLoop()*20.0));}
+		else if(controller.unStow()) {intake.setPosition(-18000);}
+		else {
+			intake.setPosition(intake.getCurrPosition()+(controller.actuatorOpenLoop()*2000.0) );
+		}
+
+	
 		
 		//elevator.setWantedState(Elevator.systemStates.OPEN_LOOP);
 	}

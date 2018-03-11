@@ -9,34 +9,45 @@ import Subsystem.Intake;
 import Subsystem.Loop;
 import Subsystem.Swervepod;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class middleSwitch extends Auto {
+public class middleSwitch {
 	public static middleSwitch main = new middleSwitch();
 	public static String gameData;
-	private static double driveTime = 2.0;
-	private static double scoringTime = 1.0;
+	private static double driveTime = 1.5;
+	private static double driveTime2 = 1.0;
+	private static double scoringTime = 2.0;
+	private static boolean firstTime = true;
+	private static double startTime;
 	private static Loop loop = new Loop()
 			{
 				@Override
 				public void onStart() {
-										
+					startTime = Timer.getFPGATimestamp();
 				}
 
 				@Override
 				public void onloop() {
-					if(Timer.getFPGATimestamp()<driveTime)
+					SmartDashboard.putNumber("timer", Timer.getFPGATimestamp());
+					if(Timer.getFPGATimestamp()-startTime<driveTime)
 					{
+						SmartDashboard.putBoolean("in drive", true);
 						if(gameData.substring(0,1).equals("R"))
 						{
-							Drivetrain.getInstance().swerve(.3, Math.PI/4.0, driveCoords.FIELDCENTRIC, driveType.PERCENTPOWER, 0.0);
+							Drivetrain.getInstance().swerve(-.3, 0.27,((Drivetrain.getInstance().getAngle()-Math.PI/2)*.1), driveCoords.FIELDCENTRIC, driveType.PERCENTPOWER);
 						}
 						else
 						{
-							Drivetrain.getInstance().swerve(.3, 3.0*Math.PI/4.0, driveCoords.FIELDCENTRIC, driveType.PERCENTPOWER, 0.0);
+							Drivetrain.getInstance().swerve(-.3, -0.3,((Drivetrain.getInstance().getAngle()-Math.PI/2)*.1), driveCoords.FIELDCENTRIC, driveType.PERCENTPOWER);
 						}
 					}
-					else if(Timer.getFPGATimestamp()<driveTime+scoringTime)
+					else if(Timer.getFPGATimestamp()-startTime<driveTime+driveTime2)
 					{
+						Drivetrain.getInstance().swerve(-.3, 0.0,0.0, driveCoords.FIELDCENTRIC, driveType.PERCENTPOWER);
+					}
+					else if(Timer.getFPGATimestamp()-startTime<driveTime+scoringTime+driveTime2)
+					{
+						SmartDashboard.putBoolean("in drive", false);
 						Intake.getInstance().setWantedState(Subsystem.Intake.systemStates.Scoring);
 						Drivetrain.getInstance().swerve(0.0, 0.0, driveCoords.FIELDCENTRIC, driveType.PERCENTPOWER, 0.0);
 					}
@@ -55,8 +66,23 @@ public class middleSwitch extends Auto {
 		
 			};
 	public middleSwitch() {
-		super(loop);
-		gameData = super.gameData;
+	
 	}
+	public static void setGameData(String game)
+	{
+		gameData = game;
+	}
+	public static void run()
+	{
+		if(firstTime)
+		{
+			loop.onStart();
+			firstTime = false;
+		}
+		else
+		{
+			loop.onloop();
+		}
+	}	
 
 }

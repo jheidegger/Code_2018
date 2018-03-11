@@ -24,7 +24,7 @@ public class Constants {
 	 * Subsystem Constants *
 	 */
 	//Drive Train constants
-	public static double OFFSETS[] = {3248.0,284.0,899.0,2347.0};
+	public static double OFFSETS[] = {3316.0,1694.0,3707.0,3392.0};
 	public static double OFFSETS_P[] = {3633.0,1720.0,3752.0,3387.0};
 	public static double DRIVETRAINLENGTH = 17.5;
 	public static double DRIVETRAINWIDTH = 13.0;
@@ -67,8 +67,8 @@ public class Constants {
 	public static final double ELEVATORACCEPTEDERROR = 0.1;
 	
 	//intake constants
-	public static final double INTAKESPEED = .9;
-	public static final double INTAKESCORESPEED = -1.0;
+	public static final double INTAKESPEED = .75;
+	public static final double INTAKESCORESPEED = -7.5;
 	public static final double INTAKEHANDOFFSPEED = 0;
 	public static final double UNSTOWINGTIME = .5;
 	public static final double STOWINGTIME = .5;
