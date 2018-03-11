@@ -141,9 +141,7 @@ public class Robot extends IterativeRobot {
 		
 		if(controller.Stow()) {intake.setPosition(0);}
 		else if(controller.unStow()) {intake.setPosition(-18000);}
-		else {
-			intake.setPosition(intake.getCurrPosition()+(controller.actuatorOpenLoop()*2000.0) );
-		}
+		else {intake.setPosition(intake.getCurrPosition()+(controller.actuatorOpenLoop()*2000.0) );}
 
 	
 		
