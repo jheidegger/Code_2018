@@ -139,8 +139,8 @@ public class Robot extends IterativeRobot {
 		else if(controller.unjamButton()) {intake.setWantedState(systemStates.UnJamming);}
 		else {intake.setWantedState(systemStates.Neutral);}
 		
-		if(controller.Stow()) {intake.setPosition(0);}
-		else if(controller.unStow()) {intake.setPosition(-18000);}
+		if(controller.Stow()) {intake.setPosition(0.0);}
+		else if(controller.unStow()) {intake.setPosition(intake.downPosition);}
 		else {intake.setPosition(intake.getCurrPosition()+(controller.actuatorOpenLoop()*2000.0) );}
 
 	

@@ -34,6 +34,7 @@ public class Intake extends Subsystem {
  	private PIDLoop actuatorPID;
  	private double wantedPosition;
  	private double currPosition;
+ 	public final double downPosition = -19000;
  	
  	public enum systemStates{
  		Intaking,
@@ -41,7 +42,9 @@ public class Intake extends Subsystem {
  		UnJamming,
  		Stowing,
  		unStowing,
+ 		unStowed,
  		Stowed,
+ 		Homing,
  		Neutral
  	};
  	
@@ -104,43 +107,55 @@ public class Intake extends Subsystem {
 			currState = wantedState;
 		}
  	}
+ 	private void closedLoopControl()
+ 	{
+ 		SmartDashboard.putBoolean("Stowed",isIntakeStowed.get());
+		currPosition = encoder.getRaw();
+		if(wantedPosition < downPosition)
+		{
+			wantedPosition = downPosition;
+		}
+		if(wantedPosition > 0.0)
+		{
+			wantedPosition = 0.0;
+		}
+		if(isIntakeStowed.get()) {
+			stowingMotor.set(actuatorPID.returnOutput(currPosition, wantedPosition));
+			SmartDashboard.putNumber("currposition", currPosition);
+			SmartDashboard.putNumber("wantedPosition", wantedPosition);
+		}
+		else {
+			//encoder.reset();
+			if(actuatorPID.returnOutput(currPosition, wantedPosition)<0)
+			{
+				stowingMotor.set(actuatorPID.returnOutput(currPosition, wantedPosition));
+			}
+			else
+			{
+				stowingMotor.set(actuatorPID.returnOutput(currPosition, 0.0));
+			}
+		}
+ 	}
  	
  	@Override
  	public void registerLoop() {
  		loopMan.addLoop(new Loop() {
+			
+
 			@Override
 			public void onStart() {
-				currState = systemStates.Neutral;
-				lastState = systemStates.Neutral;
+				currState = systemStates.Homing;
+				lastState = systemStates.Homing;
 				wantedState = systemStates.Neutral;
 			}
 
  			@Override
  			public void onloop() {
  				//findCurrPosition();
- 				SmartDashboard.putBoolean("Stowed",isIntakeStowed.get());
- 				currPosition = encoder.getRaw();
- 				if(isIntakeStowed.get()&&(wantedPosition > 0 && wantedPosition < 19000)) {
- 					stowingMotor.set(actuatorPID.returnOutput(currPosition, wantedPosition));
- 					SmartDashboard.putNumber("currposition", currPosition);
- 					SmartDashboard.putNumber("wantedPosition", wantedPosition);
- 				}
- 				else {
- 					if(wantedPosition > 19000)
- 					{
- 						wantedPosition = 19000;
- 					}
- 					if(actuatorPID.returnOutput(currPosition, wantedPosition)<0)
- 					{
- 						stowingMotor.set(actuatorPID.returnOutput(currPosition, wantedPosition));
- 					}
- 					else
- 					{
- 						stowingMotor.set(0.0);
- 					}
+ 				
  					
 					//stowingMotor.set(0);
-				}
+				
  				switch(currState)
  				{
  				
@@ -150,15 +165,37 @@ public class Intake extends Subsystem {
  					leftSideWheel.set(0.0);
  					//stowingMotor.set(controller.actuatorOpenLoop());
  					lastState = systemStates.Neutral;
+ 					closedLoopControl();
  					checkState();
  					break;
- 				//spins wheels in to intake the Power Cube
+ 				case Stowed:
+ 					wantedPosition = 0.0;
+ 					checkState();
+ 					break;
+ 				case unStowed:
+ 					wantedPosition = downPosition;
+ 					checkState();
+ 					break;
+ 				case Homing:
+ 					if(!isIntakeStowed.get())
+ 					{
+ 						stowingMotor.set(.2);
+ 					}
+ 					else
+ 					{
+ 						stowingMotor.set(0.0);
+ 						encoder.reset();
+ 						currState = systemStates.Neutral;
+ 					}
+ 					//spins wheels in to intake the Power Cube
  				case Intaking:
  					//if(!isCubeIn.get())
  					//{
 	 					rightSideWheel.set(Constants.INTAKESPEED);
 	 					leftSideWheel.set(-Constants.INTAKESPEED);
 	 					lastState = systemStates.Intaking;
+	 					wantedPosition = downPosition;
+	 					closedLoopControl();
 	 					checkState();
  					//}
  					//else
@@ -171,6 +208,7 @@ public class Intake extends Subsystem {
  					rightSideWheel.set(Constants.INTAKESCORESPEED);
  					leftSideWheel.set(-Constants.INTAKESCORESPEED);
  					lastState = systemStates.Scoring;
+ 					closedLoopControl();
  					checkState();
  					break;
  				//Spins the wheels out then in to right the Power Cubes
@@ -195,6 +233,7 @@ public class Intake extends Subsystem {
  					{
  						checkState();
  					}
+ 					closedLoopControl();
  					lastState = systemStates.UnJamming;
  					break;
  				default:
