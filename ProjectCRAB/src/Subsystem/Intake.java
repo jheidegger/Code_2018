@@ -211,7 +211,7 @@ public class Intake extends Subsystem {
 	 					rightSideWheel.set(Constants.INTAKESPEED);
 	 					leftSideWheel.set(-Constants.INTAKESPEED);
 	 					lastState = systemStates.Intaking;
-	 					//wantedPosition = downPosition;
+	 					wantedPosition = downPosition;
 	 					//closedLoopControl();
 	 					checkState();
  					//}

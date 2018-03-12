@@ -198,9 +198,10 @@ public class Robot extends IterativeRobot {
 		case 8:
 			intake.setWantedState(Intake.systemStates.Scoring);
 		case 9:
-			intake.setWantedState(Intake.systemStates.Stowing);
+			intake.setWantedState(Intake.systemStates.Neutral);
+			intake.setPosition(0.0);
 		case 10: 
-			intake.setWantedState(Intake.systemStates.unStowing);
+			intake.setPosition(intake.downPosition);
 		}	
 	}
 }
