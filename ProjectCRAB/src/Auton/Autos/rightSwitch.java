@@ -16,7 +16,7 @@ public class rightSwitch {
 		public static rightSwitch main = new rightSwitch();
 		public static String gameData;
 		private static double driveTime = 2.0;
-		private static double driveTime2 = 1.0;
+		private static double turnTime = 1.0;
 		private static double scoringTime = 2.0;
 		private static boolean firstTime = true;
 		private static double startTime;
@@ -34,17 +34,22 @@ public class rightSwitch {
 						{
 							
 							SmartDashboard.putBoolean("in drive", true);
-							Drivetrain.getInstance().swerve(-.3, 0.0,0.0, driveCoords.FIELDCENTRIC, driveType.PERCENTPOWER);
+							Intake.getInstance().setPosition(-2000);
+							Drivetrain.getInstance().swerve(-.3, 0.0,((Drivetrain.getInstance().getAngle()-Math.PI/2)*.1), driveCoords.FIELDCENTRIC, driveType.PERCENTPOWER);
 							
 						}
-						else if(gameData.substring(0,1).equals("R") && Timer.getFPGATimestamp()-startTime < driveTime +2.0)
+						else if(gameData.substring(0,1).equals("R") && Timer.getFPGATimestamp()-startTime<driveTime + turnTime)
 						{
+							Drivetrain.getInstance().swerve(0.0, 0.0,((Drivetrain.getInstance().getAngle()+Math.PI)*.1), driveCoords.FIELDCENTRIC, driveType.PERCENTPOWER);
+						}
+						else if(gameData.substring(0,1).equals("R") && Timer.getFPGATimestamp()-startTime<driveTime + turnTime)
+						{
+							Drivetrain.getInstance().swerve(0.0, 0.0, 0.0, driveCoords.FIELDCENTRIC, driveType.PERCENTPOWER);
 							Intake.getInstance().setWantedState(Subsystem.Intake.systemStates.Scoring);
-							Drivetrain.getInstance().swerve(0.0, 0.0, driveCoords.FIELDCENTRIC, driveType.PERCENTPOWER, 0.0);
 						}
 						else
 						{
-							Drivetrain.getInstance().swerve(0.0, 0.0, driveCoords.FIELDCENTRIC, driveType.PERCENTPOWER, 0.0);
+							Drivetrain.getInstance().swerve(0.0, 0.0, 0.0, driveCoords.FIELDCENTRIC, driveType.PERCENTPOWER);
 							Intake.getInstance().setWantedState(Subsystem.Intake.systemStates.Neutral);
 						}
 						

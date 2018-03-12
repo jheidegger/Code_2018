@@ -4,6 +4,7 @@ import java.awt.geom.Arc2D;
 import java.util.ArrayList;
 
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Trajectory {
 	private double kMaxVelocity = 1;
@@ -39,7 +40,7 @@ public class Trajectory {
 		double currY = points.get(0).getY();
 		double currAngle = 0.0;
 		int waypointIdx = 1;
-		while(simTime < 1.0)
+		while(simTime < 4.0)
 		{
 			double stoppingDistance = Math.pow(currSpeed,2)/(2.0*kMaxAcceleration);
 			double distanceToWaypoint = Math.sqrt(Math.pow(currX-points.get(waypointIdx).getX(), 2)+ Math.pow(currY - points.get(waypointIdx).getY(),2));
@@ -62,11 +63,15 @@ public class Trajectory {
 			simTime+= timeStep;
 		}
 	}
+	public double getSpeed(double Time)
+	{
+		return speed.get((int)(Time/timeStep));
+	}
 	public void print()
 	{
 	    for (double s:speed)
 	    {
-	        System.out.println(s);
+	    	SmartDashboard.putNumber("auto speed", s);
 	     }
 	   }
 	public void setWantedPos() {

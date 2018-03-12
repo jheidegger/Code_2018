@@ -15,7 +15,7 @@ package Auton.Autos;
 public class driveStraight {
 		public static driveStraight main = new driveStraight();
 		public static String gameData;
-		private static double driveTime = 2.0;
+		private static double driveTime = 2.7;
 		private static double driveTime2 = 1.0;
 		private static double scoringTime = 2.0;
 		private static boolean firstTime = true;

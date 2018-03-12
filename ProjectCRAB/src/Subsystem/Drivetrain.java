@@ -170,12 +170,26 @@ public class Drivetrain extends Subsystem {
 				podDrive[idx] /= rel_max_speed/kMaxSpeed;
 			}
 		}
-
-		// Sending each pod their respective commands
-		for(int idx = 0; idx < Pods.size(); idx++) {
-			//sending power from 0 to 13.5 ft/s and position -pi to pi
-			Pods.get(idx).setPod(podDrive[idx],podGear[idx]); 
+		if(strafeCommand==0.0&&forwardCommand ==0.0&&spinCommand==0.0)
+		{
+			// Sending each pod their respective commands
+			
+				Pods.get(0).setPod(0.0,-1.0*Math.PI/4.0);
+				Pods.get(1).setPod(0.0, 1.0*Math.PI/4.0);
+				Pods.get(2).setPod(0.0, 3.0*Math.PI/4.0);
+				Pods.get(3).setPod(0.0, -3.0* Math.PI/4.0);
+				
 		}
+		else
+		{
+			// Sending each pod their respective commands
+			for(int idx = 0; idx < Pods.size(); idx++) {
+				//sending power from 0 to 13.5 ft/s and position -pi to pi
+				Pods.get(idx).setPod(podDrive[idx],podGear[idx]); 
+			}
+		}
+		
+		
 	}
 	
 	public void recordAuton (){

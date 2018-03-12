@@ -45,7 +45,8 @@ public class Intake extends Subsystem {
  		unStowed,
  		Stowed,
  		Homing,
- 		Neutral
+ 		OpenLoop,
+ 		Neutral, openNeutral
  	};
  	
  	public static Intake getInstance() {
@@ -54,7 +55,7 @@ public class Intake extends Subsystem {
  	
  	private Intake()
  	{
- 		actuatorPID = new PIDLoop(.0015,0,0,.3);
+ 		actuatorPID = new PIDLoop(.0003,0,0,.5);
  		rightSideWheel = new Victor(Constants.INTAKERIGHTSIDE);
  		leftSideWheel = new Victor(Constants.INTAKELEFTSIDE);
  		stowingMotor = new Victor(Constants.INTAKESTOWINGMOTOR);
@@ -63,6 +64,7 @@ public class Intake extends Subsystem {
  		//isCubeIn = new DigitalInput(0);
  		isIntakeStowed = new DigitalInput(5);
  		unJamTimer = new Timer();
+ 		currState = systemStates.Homing;
  	}
  	/**
  	 * Main control of the intake through the state based logic
@@ -110,7 +112,10 @@ public class Intake extends Subsystem {
  	private void closedLoopControl()
  	{
  		SmartDashboard.putBoolean("Stowed",isIntakeStowed.get());
+ 		
 		currPosition = encoder.getRaw();
+		SmartDashboard.putNumber("currposition", currPosition);
+		SmartDashboard.putNumber("wantedPosition", wantedPosition);
 		if(wantedPosition < downPosition)
 		{
 			wantedPosition = downPosition;
@@ -121,8 +126,7 @@ public class Intake extends Subsystem {
 		}
 		if(isIntakeStowed.get()) {
 			stowingMotor.set(actuatorPID.returnOutput(currPosition, wantedPosition));
-			SmartDashboard.putNumber("currposition", currPosition);
-			SmartDashboard.putNumber("wantedPosition", wantedPosition);
+			
 		}
 		else {
 			//encoder.reset();
@@ -146,19 +150,26 @@ public class Intake extends Subsystem {
 			public void onStart() {
 				currState = systemStates.Homing;
 				lastState = systemStates.Homing;
-				wantedState = systemStates.Neutral;
+				wantedState = systemStates.Homing;
 			}
 
  			@Override
  			public void onloop() {
  				//findCurrPosition();
- 				
+ 				SmartDashboard.putString("intake state", currState.toString());
  					
 					//stowingMotor.set(0);
 				
  				switch(currState)
  				{
- 				
+ 				case openNeutral:
+ 					rightSideWheel.set(0.0);
+ 					leftSideWheel.set(0.0);
+ 					//stowingMotor.set(controller.actuatorOpenLoop());
+ 					lastState = systemStates.Neutral;
+ 					//closedLoopControl();
+ 					checkState();
+ 					break;
  				//idle and wait for commands
  				case Neutral:
  					rightSideWheel.set(0.0);
@@ -177,16 +188,22 @@ public class Intake extends Subsystem {
  					checkState();
  					break;
  				case Homing:
- 					if(!isIntakeStowed.get())
+ 					if(isIntakeStowed.get())
  					{
  						stowingMotor.set(.2);
+ 						rightSideWheel.set(0.0);
+	 					leftSideWheel.set(0.0);
  					}
  					else
  					{
  						stowingMotor.set(0.0);
+ 						rightSideWheel.set(0.0);
+	 					leftSideWheel.set(0.0);
  						encoder.reset();
  						currState = systemStates.Neutral;
  					}
+ 					lastState = systemStates.Homing;
+ 					break;
  					//spins wheels in to intake the Power Cube
  				case Intaking:
  					//if(!isCubeIn.get())
@@ -194,8 +211,8 @@ public class Intake extends Subsystem {
 	 					rightSideWheel.set(Constants.INTAKESPEED);
 	 					leftSideWheel.set(-Constants.INTAKESPEED);
 	 					lastState = systemStates.Intaking;
-	 					wantedPosition = downPosition;
-	 					closedLoopControl();
+	 					//wantedPosition = downPosition;
+	 					//closedLoopControl();
 	 					checkState();
  					//}
  					//else
@@ -208,7 +225,7 @@ public class Intake extends Subsystem {
  					rightSideWheel.set(Constants.INTAKESCORESPEED);
  					leftSideWheel.set(-Constants.INTAKESCORESPEED);
  					lastState = systemStates.Scoring;
- 					closedLoopControl();
+ 					//closedLoopControl();
  					checkState();
  					break;
  				//Spins the wheels out then in to right the Power Cubes
@@ -233,9 +250,30 @@ public class Intake extends Subsystem {
  					{
  						checkState();
  					}
- 					closedLoopControl();
+ 					//closedLoopControl();
  					lastState = systemStates.UnJamming;
  					break;
+ 				case OpenLoop:
+ 					rightSideWheel.set(0.0);
+ 					leftSideWheel.set(0.0);
+ 					if(!isIntakeStowed.get())
+ 					{
+ 						if(controller.actuatorOpenLoop()<0)
+ 						{
+ 							stowingMotor.set(controller.actuatorOpenLoop()*.3);
+ 						}
+ 						else
+ 						{
+ 							stowingMotor.set(0.0);
+ 						}
+ 					}
+ 					else
+ 					{
+ 						stowingMotor.set(controller.actuatorOpenLoop()*.3);
+ 					}
+ 					checkState();
+ 					break;
+ 				
  				default:
 					break;
  				}

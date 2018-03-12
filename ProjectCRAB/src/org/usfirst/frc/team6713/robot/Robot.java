@@ -7,15 +7,19 @@
 
 package org.usfirst.frc.team6713.robot;
 
+import Auton.Trajectory;
+import Auton.Waypoint;
 import Auton.Autos.driveStraight;
 import Auton.Autos.leftSwitch;
 import Auton.Autos.middleSwitch;
+import Auton.Autos.rightSwitch;
 import Subsystem.*;
 import Subsystem.Intake.systemStates;
 import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.PWM;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.hal.DIOJNI;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -33,7 +37,7 @@ public class Robot extends IterativeRobot {
 	private Intake intake = Intake.getInstance();
 	int testID = 0;
 	String gameData;
-
+	private boolean isIntakeOpenLoop = false;
 	
 	@Override
 	public void robotInit() {
@@ -41,36 +45,41 @@ public class Robot extends IterativeRobot {
 		intake.registerLoop(); 
 		elevator.registerLoop();
 		myLoops.startLoops();
-		m_chooser.addObject("middle switch", auto1);
-		m_chooser.addObject("left switch", auto2);
-		m_chooser.addObject("right switch", auto3);
-		m_chooser.addObject("drive straight", auto4);
-		m_chooser.addDefault("default", "default");
-		SmartDashboard.putData("Auto choices", m_chooser);
+//		m_chooser.addObject("middle switch", auto1);
+//		m_chooser.addObject("left switch", auto2);
+//		m_chooser.addObject("right switch", auto3);
+//		m_chooser.addObject("drive straight", auto4);
+//		m_chooser.addDefault("default", "default");
+//		SmartDashboard.putData("Auto choices", m_chooser);
 	}
-	
+	public Trajectory t = new Trajectory();
+	private double startTime;
 	@Override
 	public void autonomousInit() {
 		gameData = DriverStation.getInstance().getGameSpecificMessage();
-		middleSwitch.setGameData(gameData);
-		String selected = m_chooser.getSelected();
-		switch(selected)
-		{
-		case auto1:
-			middleSwitch.setGameData(gameData);
-			break;
-		case auto2:
-			driveStraight.setGameData(gameData);
-			break;
-		case auto3:
-			leftSwitch.setGameData(gameData);
-			break;
-		case auto4:
-			leftSwitch.setGameData(gameData);
-			break;
-		default:
-			break;
-		}
+		startTime = Timer.getFPGATimestamp();
+		t.addWaypoint(new Waypoint(0.0, 0.0, 0.0));
+		t.addWaypoint(new Waypoint(0.0, 1.0, 0.0));
+		t.calculateTrajectory();
+		//rightSwitch.setGameData(gameData);
+//		String selected = m_chooser.getSelected();
+//		switch(selected)
+//		{
+//		case auto1:
+//			middleSwitch.setGameData(gameData);
+//			break;
+//		case auto2:
+//			driveStraight.setGameData(gameData);
+//			break;
+//		case auto3:
+//			leftSwitch.setGameData(gameData);
+//			break;
+//		case auto4:
+//			leftSwitch.setGameData(gameData);
+//			break;
+//		default:
+//			break;
+//		}
 		
 		
 	}
@@ -78,23 +87,26 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousPeriodic() {
 		myLoops.runLoops();
-		String selected = m_chooser.getSelected();
-		switch(selected)
-		{
-		case auto1:
-			middleSwitch.run();
-			break;
-		case auto2:
-			driveStraight.run();
-			break;
-		case auto3:
-			leftSwitch.run();
-			break;
-		case auto4:
-			leftSwitch.run();
-			break;
-		}
+		SmartDashboard.putNumber("auto speed", t.getSpeed(Timer.getFPGATimestamp()-startTime));
+//		String selected = m_chooser.getSelected();
+//		switch(selected)
+//		{
+//		case auto1:
+//			middleSwitch.run();
+//			break;
+//		case auto2:
+//			driveStraight.run();
+//			break;
+//		case auto3:
+//			leftSwitch.run();
+//			break;
+//		case auto4:
+//			leftSwitch.run();
+//			break;
+//		}
 		//middleSwitch.run();
+		//rightSwitch.run();
+		driveStraight.run();
 	}
 
 	@Override
@@ -134,18 +146,32 @@ public class Robot extends IterativeRobot {
 		/**
 		 * Intake States
 		 */
-		if(controller.getIntakeButton()) {intake.setWantedState(systemStates.Intaking);} 
-		else if(controller.getOuttakeButton()) {intake.setWantedState(systemStates.Scoring);}
-		else if(controller.unjamButton()) {intake.setWantedState(systemStates.UnJamming);}
-		else {intake.setWantedState(systemStates.Neutral);}
-		
-		if(controller.Stow()) {intake.setPosition(0.0);}
-		else if(controller.unStow()) {intake.setPosition(intake.downPosition);}
-		else {intake.setPosition(intake.getCurrPosition()+(controller.actuatorOpenLoop()*2000.0) );}
+		if((controller.actuatorOpenLoop()>.05) || (controller.actuatorOpenLoop()<-.05))
+		{
+			isIntakeOpenLoop = true;
+		}
+		if(isIntakeOpenLoop)
+		{
+			intake.setWantedState(systemStates.OpenLoop);
+			if(controller.getIntakeButton()) {intake.setWantedState(systemStates.Intaking);} 
+			else if(controller.getOuttakeButton()) {intake.setWantedState(systemStates.Scoring);}
+			else if(controller.unjamButton()) {intake.setWantedState(systemStates.UnJamming);}
+			//else {intake.setWantedState(systemStates.openNeutral);}
+			if(controller.Stow()) {isIntakeOpenLoop = false;}
+			else if(controller.unStow()) {isIntakeOpenLoop = false;}
+		}
+		else
+		{
+			if(controller.getIntakeButton()) {intake.setWantedState(systemStates.Intaking);} 
+			else if(controller.getOuttakeButton()) {intake.setWantedState(systemStates.Scoring);}
+			else if(controller.unjamButton()) {intake.setWantedState(systemStates.UnJamming);}
+			else {intake.setWantedState(systemStates.Neutral);}
+			if(controller.Stow()) {intake.setPosition(0.0);}
+			else if(controller.unStow()) {intake.setPosition(intake.downPosition);}
+			
+		}
 
-	
-		
-		//elevator.setWantedState(Elevator.systemStates.OPEN_LOOP);
+		elevator.setWantedState(Elevator.systemStates.POSITION_FOLLOW);
 	}
 
 	@Override

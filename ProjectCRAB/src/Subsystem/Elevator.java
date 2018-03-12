@@ -90,38 +90,43 @@ public class Elevator extends Subsystem {
 
 			@Override
 			public void onloop() {
+				double openLoopAdjust = joystick.elevatorOpenLoop() * 2000.0 +lastHeight;
+				if(joystick.elevatorResetEncoder()) {encoder.reset();}
 				switch(currentState){
 					case NEUTRAL:
 						lastState = systemStates.NEUTRAL;
 						checkState();
 						break;
 					case OPEN_LOOP:
-						System.out.println(encoder.getRaw());
-						
+						setFloor(throttleValue);
+						lastState = systemStates.POSITION_FOLLOW;
+						checkState();
+						break;
+					case POSITION_FOLLOW:
 						if(joystick.elevatorHigh()) {
-							//idx = 3;
-							setFloor(80000);//7);
-							lastHeight=7;
+							idx = 3;
+							throttleValue = 90000+openLoopAdjust;
+							setFloor(throttleValue);//7);
+							lastHeight=throttleValue;
 						}
 						else if(joystick.elevatorMid()) {
-							//idx = 2;
-							setFloor(46666);//3.5);
-							lastHeight=3.5;
+							throttleValue = 46666+openLoopAdjust;
+							setFloor(throttleValue);//3.5);
+							lastHeight=throttleValue;
 						}
 						else if(joystick.elevatorLow()) {
-							setFloor(0);
-							lastHeight = 0;
+							throttleValue = 0+openLoopAdjust;
+							if(throttleValue <0) {
+								throttleValue =0;
+							}
+							setFloor(throttleValue);
+							lastHeight = throttleValue;
 						}
 						else {
 							setFloor(lastHeight);
 						}
 						//driveMotor.set(.3);
 						lastState = systemStates.OPEN_LOOP;
-						checkState();
-						break;
-					case POSITION_FOLLOW:
-						setFloor(throttleValue);
-						lastState = systemStates.POSITION_FOLLOW;
 						checkState();
 						break;
 				}

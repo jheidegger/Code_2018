@@ -64,9 +64,8 @@ public class Swervepod extends Subsystem {
 		
 		positionSetpoint = findSteerPosition(Angle); 
 		
-		if(Speed != 0) {
-			steerMotor.set(ControlMode.Position, positionSetpoint);
-		}
+		steerMotor.set(ControlMode.Position, positionSetpoint);
+		
 		SmartDashboard.putNumber("ups", fps2ups);
 		SmartDashboard.putNumber(id+ " position", steerMotor.getSelectedSensorPosition(0));
 		SmartDashboard.putNumber(id + " velocity", driveMotor.getSelectedSensorVelocity(0));

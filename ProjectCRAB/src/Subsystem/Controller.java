@@ -62,17 +62,18 @@ public class Controller extends Subsystem{
 			return Math.pow(thetaStick.getX(),1)/6.0;
 		}
 	}
-	public double elevatorOpenLoop() {return -buttonMonkey.getY();}
+	public double elevatorOpenLoop() {return -buttonMonkey.getThrottle();}
+	public boolean elevatorResetEncoder() {return buttonMonkey.getRawButton(12);};
 	public boolean elevatorHigh() {return buttonMonkey.getRawButton(8);}
 	public boolean elevatorMid() {return buttonMonkey.getRawButton(6);}
 	public boolean elevatorLow() {return buttonMonkey.getRawButton(3);}
 	
-	public double actuatorOpenLoop() {return buttonMonkey.getThrottle();}
+	public double actuatorOpenLoop() {return buttonMonkey.getY();}
 	public boolean getOuttakeButton() {return buttonMonkey.getRawButton(4);}
 	public boolean getIntakeButton() {return buttonMonkey.getRawButton(2);}
 	public boolean unjamButton() {return buttonMonkey.getRawButton(1);}
-	public boolean Stow() {return buttonMonkey.getRawButton(7);}
-	public boolean unStow() {return buttonMonkey.getRawButton(5);}
+	public boolean Stow() {return buttonMonkey.getRawButton(5);}
+	public boolean unStow() {return buttonMonkey.getRawButton(7);}
 	
 	public boolean getGyroResetButton() {return velocityStick.getRawButton(8);}
 	public boolean getSlowFieldCentricButton() {return velocityStick.getRawButton(1);}
