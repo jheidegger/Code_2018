@@ -74,7 +74,7 @@ public class Swervepod extends Subsystem {
 	}
 	
 	private double findSteerPosition(double wantedAngle){
-		 encoderPosition = steerMotor.getSelectedSensorPosition(0) -Constants.OFFSETS[id];
+		 encoderPosition = steerMotor.getSelectedSensorPosition(0) -Constants.OFFSETS_P[id];
 		 SmartDashboard.putNumber(id + " enc pos", encoderPosition);
 		 radianPosition = encoderUnitsToRadian(encoderPosition);
 		radianError = wantedAngle - radianPosition;
@@ -95,7 +95,7 @@ public class Swervepod extends Subsystem {
 			 }
 		}
 		 encoderError = radianToEncoderUnits(radianError);
-		 driveCommand = encoderError + encoderPosition+Constants.OFFSETS[id];
+		 driveCommand = encoderError + encoderPosition+Constants.OFFSETS_P[id];
 		 //driveCommand = driveCommand  + encoderError + Constants.OFFSETS[id];
 		 return (driveCommand);
 	}
