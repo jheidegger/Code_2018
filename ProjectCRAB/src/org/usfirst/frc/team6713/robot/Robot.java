@@ -42,8 +42,8 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		driveTrain.registerLoop();
-		intake.registerLoop(); 
-		elevator.registerLoop();
+		//intake.registerLoop(); 
+		//elevator.registerLoop();
 		myLoops.startLoops();
 //		m_chooser.addObject("middle switch", auto1);
 //		m_chooser.addObject("left switch", auto2);
@@ -123,7 +123,7 @@ public class Robot extends IterativeRobot {
 		{
 			driveTrain.swerve(controller.getForward(), 
 					controller.getStrafe(), 
-					-controller.getRotation(), 
+					controller.getRotation(), 
 					Drivetrain.driveCoords.FIELDCENTRIC, 
 					Drivetrain.driveType.PERCENTPOWER);
 		}
@@ -131,7 +131,7 @@ public class Robot extends IterativeRobot {
 		{
 			driveTrain.swerve(controller.getForward()*Constants.MAXSLOWPERCENTSPEED, 
 					controller.getStrafe()*Constants.MAXSLOWPERCENTSPEED, 
-					-controller.getRotation()*Constants.MAXSLOWPERCENTSPEED, 
+					controller.getRotation()*Constants.MAXSLOWPERCENTSPEED, 
 					Drivetrain.driveCoords.ROBOTCENTRIC, 
 					Drivetrain.driveType.PERCENTPOWER);
 		}
@@ -139,13 +139,14 @@ public class Robot extends IterativeRobot {
 		{
 			driveTrain.swerve(controller.getForward()*Constants.MAXSLOWPERCENTSPEED,
 					controller.getStrafe()*Constants.MAXSLOWPERCENTSPEED, 
-					-controller.getRotation()*Constants.MAXSLOWPERCENTSPEED * 1.4, 
+					controller.getRotation()*Constants.MAXSLOWPERCENTSPEED * 1.4, 
 					Drivetrain.driveCoords.FIELDCENTRIC, 
 					Drivetrain.driveType.PERCENTPOWER);
 		}
 		/**
 		 * Intake States
 		 */
+		/*
 		if((controller.actuatorOpenLoop()>.05) || (controller.actuatorOpenLoop()<-.05))
 		{
 			isIntakeOpenLoop = true;
@@ -172,6 +173,7 @@ public class Robot extends IterativeRobot {
 		}
 
 		elevator.setWantedState(Elevator.systemStates.POSITION_FOLLOW);
+		*/
 	}
 
 	@Override
