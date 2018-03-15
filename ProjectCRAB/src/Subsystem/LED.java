@@ -1,12 +1,22 @@
 package Subsystem;
 
-import Subsystem.Drivetrain.systemStates;
+import edu.wpi.first.wpilibj.I2C;
 
 public class LED extends Subsystem{
-	private LED instance; 
+	private static LED instance = new LED(); 
+	private I2C arduino;
 	
 	private LED() {
+		arduino = new I2C();
 	}
+	
+	public enum ledStates{
+		CUBE_INTAKED,
+		INTAKING,
+		LIGHTSHOW
+	}
+	
+	private ledStates wantedState; 
 	
 	public LED getInstance() {
 		return instance; 
@@ -32,6 +42,12 @@ public class LED extends Subsystem{
 			}
 			@Override
 			public void onloop() {
+				switch(wantedState) {
+				case CUBE_INTAKED:
+				case INTAKING:
+				case LIGHTSHOW:
+				}
+				
 			}	
 			@Override
 			public void stop() {				
