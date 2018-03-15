@@ -8,16 +8,6 @@ import java.util.ArrayList;
 public class Trajectory {
 	private double kMaxVelocity = 4.0;
 	private double kMaxAcceleration=5.0; 
-	
-	private double currentX;
-	private double currentY;
-	private double currentAngle;
-	private double currentTime;
-	private double wantedX;
-	private double wantedY;
-	private double wantedAngle;
-	private double currentVelocity;
-	private double wantedVelocity;
 	private double timeStep = .01;
 	private double simTime = 0.0;
 	private ArrayList<Waypoint>  points;
