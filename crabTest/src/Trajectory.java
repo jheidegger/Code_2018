@@ -40,7 +40,7 @@ public class Trajectory {
 		double currAngle = 0.0;
 		int waypointIdx = 1;
 		boolean isSlowing = false;
-		while(simTime < 6.0)
+		while(simTime < 8.0)
 		{
 			
 			double stoppingDistance = (Math.pow(endSpeed, 2)-Math.pow(currSpeed,2))/(-2.0*kMaxAcceleration);
@@ -71,6 +71,7 @@ public class Trajectory {
 					if(waypointIdx < points.size()-1)
 					{
 						waypointIdx++;
+						isSlowing = false;
 						endSpeed = points.get(waypointIdx).getSpeed();
 					}
 				}		
@@ -84,13 +85,17 @@ public class Trajectory {
 			//System.out.println("stop: " + stoppingDistance);
 			//System.out.println("dtw " + distanceToWaypoint);
 			//System.out.println(currSpeed);
-			System.out.println("x: "+  currX  + " y: " +currY + " sp: " + currSpeed + "currway" + waypointIdx);
+			//System.out.println("x: "+  currX  + " y: " +currY + " sp: " + currSpeed +" angle " + (currAngle * 180.0/Math.PI) +  " currway " + waypointIdx );
 			simTime+= timeStep;
 		}
 	}
 	public double getSpeed(double Time)
 	{
 		return speed.get((int)(Time/timeStep));
+	}
+	public double getWheelAngle(double Time)
+	{
+		return angle.get((int)(Time/timeStep));
 	}
 	public void print()
 	{
