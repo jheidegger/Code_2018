@@ -1,5 +1,4 @@
 package Auton.Autos;
-
 import Auton.PathFollower;
 import Auton.Trajectory;
 import Auton.Waypoint;
@@ -10,32 +9,40 @@ import Subsystem.Drivetrain.driveType;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class TrajectoryTest {
-		
+public class TrajectoryTest extends Auto {
+		public static TrajectoryTest main = new TrajectoryTest();
 		private static Trajectory t;
 		private static PathFollower p;
-		private boolean firstTime = true;
 		public TrajectoryTest() {
-			t = new Trajectory();
-			t.addWaypoint(new Waypoint(0.0, 0.0, 0.0));
-			t.addWaypoint(new Waypoint(0.0, 2.0, 0.0));
-			t.calculateTrajectory();
-			p = new PathFollower(t);
+			super(loop);
 		}
-
-		public void run()
+		private static Loop loop = new Loop()
 		{
-			if(firstTime)
-			{
+
+			@Override
+			public void onStart() {
+				t = new Trajectory();
+				t.addWaypoint(new Waypoint(0.0, 0.0, 0.0));
+				t.addWaypoint(new Waypoint(0.0, 2.0, 0.0));
+				t.calculateTrajectory();
+				p = new PathFollower(t);
 				p.init();
 				p.run();
-				firstTime = false;
 			}
-			else
-			{
+
+			@Override
+			public void onloop() {
 				p.run();
 			}
-		}	
+
+			@Override
+			public void stop() {
+				// TODO Auto-generated method stub
+				
+			}
+	
+		};
+		
 
 }
 
