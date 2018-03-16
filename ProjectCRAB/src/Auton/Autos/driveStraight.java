@@ -37,7 +37,7 @@ public class driveStraight extends Auto {
 						}
 						else
 						{
-							Drivetrain.getInstance().swerve(0.0, 0.0, driveCoords.FIELDCENTRIC, driveType.PERCENTPOWER, 0.0);
+							Drivetrain.getInstance().swerve(0.0,0.0, 0.0, driveCoords.FIELDCENTRIC, driveType.PERCENTPOWER);
 						}
 						
 					}
