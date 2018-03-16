@@ -74,10 +74,12 @@ public class Controller extends Subsystem{
 	public boolean unjamButton() {return buttonMonkey.getRawButton(1);}
 	public boolean Stow() {return buttonMonkey.getRawButton(5);}
 	public boolean unStow() {return buttonMonkey.getRawButton(7);}
+	public boolean solenoidOut() {return buttonMonkey.getRawButton(9);}
 	
 	public boolean getGyroResetButton() {return velocityStick.getRawButton(8);}
 	public boolean getSlowFieldCentricButton() {return velocityStick.getRawButton(1);}
 	public boolean getSlowRobotCentricButton() {return thetaStick.getRawButton(1);}
+	
 	
 	public boolean executeAutoButton() {return velocityStick.getRawButton(2);}
 	public boolean resetAutoButton() {return velocityStick.getRawButton(3);}

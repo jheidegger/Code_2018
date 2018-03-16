@@ -9,12 +9,14 @@ package org.usfirst.frc.team6713.robot;
 
 import Auton.Trajectory;
 import Auton.Waypoint;
+import Auton.Autos.TrajectoryTest;
 import Auton.Autos.driveStraight;
 import Auton.Autos.leftSwitch;
 import Auton.Autos.middleSwitch;
 import Auton.Autos.rightSwitch;
 import Subsystem.*;
 import Subsystem.Intake.systemStates;
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -35,15 +37,17 @@ public class Robot extends IterativeRobot {
 	private Controller controller = Controller.getInstance();
 	private Elevator elevator = Elevator.getInstance();
 	private Intake intake = Intake.getInstance();
+	private Pneumatics pneumatics = Pneumatics.getInstance();
 	int testID = 0;
 	String gameData;
 	private boolean isIntakeOpenLoop = false;
-	
+	TrajectoryTest testAuto = new TrajectoryTest();
 	@Override
 	public void robotInit() {
 		driveTrain.registerLoop();
-		//intake.registerLoop(); 
+		intake.registerLoop(); 
 		//elevator.registerLoop();
+		pneumatics.registerLoop();
 		myLoops.startLoops();
 //		m_chooser.addObject("middle switch", auto1);
 //		m_chooser.addObject("left switch", auto2);
@@ -58,9 +62,7 @@ public class Robot extends IterativeRobot {
 	public void autonomousInit() {
 		gameData = DriverStation.getInstance().getGameSpecificMessage();
 		startTime = Timer.getFPGATimestamp();
-		t.addWaypoint(new Waypoint(0.0, 0.0, 0.0));
-		t.addWaypoint(new Waypoint(0.0, 1.0, 0.0));
-		t.calculateTrajectory();
+		
 		//rightSwitch.setGameData(gameData);
 //		String selected = m_chooser.getSelected();
 //		switch(selected)
@@ -87,7 +89,8 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousPeriodic() {
 		myLoops.runLoops();
-		SmartDashboard.putNumber("auto speed", t.getSpeed(Timer.getFPGATimestamp()-startTime));
+		driveTrain.swerve(.2, 0.0, 0.0, Drivetrain.driveCoords.FIELDCENTRIC,Drivetrain.driveType.PERCENTPOWER);
+		//SmartDashboard.putNumber("auto speed", t.getSpeed(Timer.getFPGATimestamp()-startTime));
 //		String selected = m_chooser.getSelected();
 //		switch(selected)
 //		{
@@ -106,7 +109,8 @@ public class Robot extends IterativeRobot {
 //		}
 		//middleSwitch.run();
 		//rightSwitch.run();
-		driveStraight.run();
+		//testAuto.run();
+		//driveStraight.run();
 	}
 
 	@Override
@@ -146,7 +150,7 @@ public class Robot extends IterativeRobot {
 		/**
 		 * Intake States
 		 */
-		/*
+		
 		if((controller.actuatorOpenLoop()>.05) || (controller.actuatorOpenLoop()<-.05))
 		{
 			isIntakeOpenLoop = true;
@@ -173,7 +177,8 @@ public class Robot extends IterativeRobot {
 		}
 
 		elevator.setWantedState(Elevator.systemStates.POSITION_FOLLOW);
-		*/
+		
+		//p.pressurize();
 	}
 
 	@Override

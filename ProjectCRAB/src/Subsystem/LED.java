@@ -7,7 +7,7 @@ public class LED extends Subsystem{
 	private I2C arduino;
 	
 	private LED() {
-		arduino = new I2C();
+		//arduino = new I2C();
 	}
 	
 	public enum ledStates{

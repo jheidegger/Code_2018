@@ -39,10 +39,13 @@ public class PathFollower {
 				public void onloop() {
 					double Time = Timer.getFPGATimestamp()-startTime;
 					double speed = t.getSpeed(Time);
+					//double speed = 0.0;
 					double wheelAngle = t.getWheelAngle(Time);
 					double strafeCommand = speed*Math.cos(wheelAngle);
 					double forwardCommand = speed*Math.sin(wheelAngle);
-					Drivetrain.getInstance().swerve(strafeCommand, forwardCommand, 0.0);
+					System.out.println("speed: "+ speed);
+					Drivetrain.getInstance().swerve(forwardCommand, strafeCommand, 0.0,Drivetrain.driveCoords.FIELDCENTRIC, 
+							Drivetrain.driveType.VELOCITY);
 				}
 
 				@Override

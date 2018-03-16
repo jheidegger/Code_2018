@@ -188,7 +188,7 @@ public class Drivetrain extends Subsystem {
 				Pods.get(idx).setPod(podDrive[idx],podGear[idx]); 
 			}
 		}
-		
+		SmartDashboard.putNumber("angle", getAngle());
 		
 	}
 	

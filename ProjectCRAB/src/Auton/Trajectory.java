@@ -82,11 +82,26 @@ public class Trajectory {
 	}
 	public double getSpeed(double Time)
 	{
-		return speed.get((int)(Time/timeStep));
+		if(Time/timeStep < speed.size())
+		{
+			return speed.get((int)(Time/timeStep));
+		}
+		else
+		{
+			return 0.0;
+		}
 	}
 	public double getWheelAngle(double Time)
 	{
-		return angle.get((int)(Time/timeStep));
+		
+		if(Time/timeStep < speed.size())
+		{
+			return angle.get((int)(Time/timeStep));
+		}
+		else
+		{
+			return 0.0;
+		}
 	}
 	public void print()
 	{
