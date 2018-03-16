@@ -1,22 +1,29 @@
-package Auton;
+package Auton.Autos;
 
 import Subsystem.Loop;
 
 public class Auto {
 	private Loop autoLoop;
-	public String gameData;
-	boolean firstTime = true;
+	public static String gameData;
+	private  boolean firstTime = true;
 	public Auto(Loop l)
 	{
 		autoLoop = l;
 	}
-	public void run(String gameData)
+	public void setGameData(String gD)
+	{
+		gameData = gD;
+	}
+	public static String getGameData()
+	{
+		return gameData;
+	}
+	public void run()
 	{
 		if(firstTime)
 		{
 			autoLoop.onStart();
 			firstTime = false;
-			this.gameData = gameData;
 		}
 		else
 		{
