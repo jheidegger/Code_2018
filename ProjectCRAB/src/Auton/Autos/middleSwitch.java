@@ -46,7 +46,7 @@ public class middleSwitch extends Auto {
 					{
 						SmartDashboard.putBoolean("in drive", false);
 						Intake.getInstance().setWantedState(Subsystem.Intake.systemStates.Scoring);
-						Drivetrain.getInstance().swerve(0.0, 0.0, driveCoords.FIELDCENTRIC, driveType.PERCENTPOWER, 0.0);
+						Drivetrain.getInstance().swerve(0.0, 0.0, 0.0, driveCoords.FIELDCENTRIC, driveType.PERCENTPOWER);
 					}
 					else
 					{

@@ -223,28 +223,6 @@ public class Drivetrain extends Subsystem {
 	 * @param Coords determines whether swerve is in Robot-Centric or Field-Centric
 	 * @param commandType determines whether commanding values are in percent power (-1 to 1) or their intended velocity values (in ft/s)
 	 */
-	public void swerve(double forwardCommand, double strafeCommand, double spinCommand) {
-		if(Coords == driveCoords.ROBOTCENTRIC) {
-			this.forwardCommand = forwardCommand;
-			this.strafeCommand = strafeCommand;
-			this.spinCommand = spinCommand;
-		}
-		else {
-			final double temp = forwardCommand * Math.sin(angle) + strafeCommand * Math.cos(angle);
-		    this.strafeCommand = (-forwardCommand * Math.cos(angle) + strafeCommand * Math.sin(angle));
-		    this.forwardCommand = temp;
-		    this.spinCommand = spinCommand;
-		    if(spinCommand == 0) {
-		    //this.spinCommand = this.spinCommand +autoHeadingControl.returnOutput(angle, lastAngle);
-		    }
-		    lastAngle = angle;
-		}
-		if(commandType == driveType.PERCENTPOWER) {
-				this.forwardCommand *= kMaxSpeed;
-				this.strafeCommand *= kMaxSpeed;
-				this.spinCommand *= kMaxRotation;
-			}
-	}
 	public void swerve(double forwardCommand, double strafeCommand, double spinCommand, driveCoords Coords, driveType commandType){
 		this.Coords = Coords;
 		this.commandType = commandType;	
@@ -270,34 +248,29 @@ public class Drivetrain extends Subsystem {
 			this.spinCommand *= kMaxRotation;
 		}
 	}
-	public void swerve(double speed, double angle, driveCoords Coords, driveType commandType, double spinCommand)
-	{
-		this.Coords = Coords;
-		this.commandType = commandType;	
-		double forwardCommand = speed * Math.sin(angle);
-		double strafeCommand = speed * Math.cos(angle);
+	public void swerve(double forwardCommand, double strafeCommand, double spinCommand) {
 		if(Coords == driveCoords.ROBOTCENTRIC) {
 			this.forwardCommand = forwardCommand;
 			this.strafeCommand = strafeCommand;
 			this.spinCommand = spinCommand;
 		}
 		else {
-
 			final double temp = forwardCommand * Math.sin(angle) + strafeCommand * Math.cos(angle);
 		    this.strafeCommand = (-forwardCommand * Math.cos(angle) + strafeCommand * Math.sin(angle));
 		    this.forwardCommand = temp;
 		    this.spinCommand = spinCommand;
 		    if(spinCommand == 0) {
-			   // this.spinCommand = this.spinCommand + autoHeadingControl.returnOutput(angle, lastAngle);
-			}
-			    lastAngle = angle;
+		    //this.spinCommand = this.spinCommand +autoHeadingControl.returnOutput(angle, lastAngle);
+		    }
+		    lastAngle = angle;
 		}
 		if(commandType == driveType.PERCENTPOWER) {
-			this.forwardCommand *= kMaxSpeed;
-			this.strafeCommand *= kMaxSpeed;
-			this.spinCommand *= kMaxRotation;
-		}
+				this.forwardCommand *= kMaxSpeed;
+				this.strafeCommand *= kMaxSpeed;
+				this.spinCommand *= kMaxRotation;
+			}
 	}
+	
 
 	
 	@Override

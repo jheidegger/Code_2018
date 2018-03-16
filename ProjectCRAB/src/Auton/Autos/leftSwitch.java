@@ -42,11 +42,11 @@ public class leftSwitch extends Auto {
 						else if(gameData.substring(0,1).equals("L") && Timer.getFPGATimestamp()-startTime < driveTime +spinTime+2.0)
 						{
 							Intake.getInstance().setWantedState(Subsystem.Intake.systemStates.Scoring);
-							Drivetrain.getInstance().swerve(0.0, 0.0, driveCoords.FIELDCENTRIC, driveType.PERCENTPOWER, 0.0);
+							Drivetrain.getInstance().swerve(0.0,0.0, 0.0, driveCoords.FIELDCENTRIC, driveType.PERCENTPOWER);
 						}
 						else
 						{
-							Drivetrain.getInstance().swerve(0.0, 0.0, driveCoords.FIELDCENTRIC, driveType.PERCENTPOWER, 0.0);
+							Drivetrain.getInstance().swerve(0.0,0.0, 0.0, driveCoords.FIELDCENTRIC, driveType.PERCENTPOWER);
 							Intake.getInstance().setWantedState(Subsystem.Intake.systemStates.Neutral);
 						}
 						
