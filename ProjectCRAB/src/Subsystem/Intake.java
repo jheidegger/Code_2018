@@ -70,10 +70,9 @@ public class Intake extends Subsystem {
  	 * Main control of the intake through the state based logic
  	 * @param wantedState requested state for the system to switch into
  	 */
- 	public void setWantedState(systemStates wantedState)
- 	{
- 		this.wantedState = wantedState;
- 	}
+ 	public void setWantedState(systemStates wantedState) {this.wantedState = wantedState;}
+ 	@Override public void zeroAllSensors() {}
+ 	@Override public boolean checkSystem() {return false;}
  	
  	public boolean isStowed()
  	{
@@ -85,15 +84,6 @@ public class Intake extends Subsystem {
  		{
  			return false;
  		}
- 	}
- 	
- 	@Override
- 	public void zeroAllSensors() {
- 	}
- 
- 	@Override
- 	public boolean checkSystem() {
- 		return false;
  	}
  	
  	public void setPosition(double position) {wantedPosition = position;}//degreesToEncoder(position);}
@@ -109,6 +99,7 @@ public class Intake extends Subsystem {
 			currState = wantedState;
 		}
  	}
+ 	
  	private void closedLoopControl()
  	{
  		SmartDashboard.putBoolean("Stowed",isIntakeStowed.get());
@@ -144,37 +135,26 @@ public class Intake extends Subsystem {
  	@Override
  	public void registerLoop() {
  		loopMan.addLoop(new Loop() {
-			
-
 			@Override
 			public void onStart() {
 				currState = systemStates.Homing;
 				lastState = systemStates.Homing;
 				wantedState = systemStates.Homing;
 			}
-
  			@Override
  			public void onloop() {
- 				//findCurrPosition();
- 				SmartDashboard.putString("intake state", currState.toString());
- 					
-					//stowingMotor.set(0);
-				
  				switch(currState)
  				{
  				case openNeutral:
  					rightSideWheel.set(0.0);
  					leftSideWheel.set(0.0);
- 					//stowingMotor.set(controller.actuatorOpenLoop());
  					lastState = systemStates.Neutral;
- 					//closedLoopControl();
  					checkState();
  					break;
  				//idle and wait for commands
  				case Neutral:
  					rightSideWheel.set(0.0);
  					leftSideWheel.set(0.0);
- 					//stowingMotor.set(controller.actuatorOpenLoop());
  					lastState = systemStates.Neutral;
  					closedLoopControl();
  					checkState();
@@ -244,13 +224,11 @@ public class Intake extends Subsystem {
  					{
  						rightSideWheel.set(-Constants.INTAKESPEED);
  	 					leftSideWheel.set(Constants.INTAKESPEED);
- 	 					//currState = systemStates.Neutral;
  					}
  					else
  					{
  						checkState();
  					}
- 					//closedLoopControl();
  					lastState = systemStates.UnJamming;
  					break;
  				case OpenLoop:
@@ -258,8 +236,7 @@ public class Intake extends Subsystem {
  					leftSideWheel.set(0.0);
  					if(!isIntakeStowed.get())
  					{
- 						if(controller.actuatorOpenLoop()<0)
- 						{
+ 						if(controller.actuatorOpenLoop()<0) {
  							stowingMotor.set(controller.actuatorOpenLoop()*.3);
  						}
  						else
@@ -273,14 +250,10 @@ public class Intake extends Subsystem {
  					}
  					checkState();
  					break;
- 				
  				default:
 					break;
  				}
-
- 				
  			}
- 
  			@Override
  			public void stop() {
  				rightSideWheel.set(0.0);
