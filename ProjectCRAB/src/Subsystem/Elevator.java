@@ -13,10 +13,11 @@ public class Elevator extends Subsystem {
 	private PIDLoop elevatorControlLoop; 
 	private Encoder encoder;
 	
-	double throttleValue; 
-	double lastHeight = 0;
-	int idx = 0;
-	private double kMaxHeight = 7;//Constants.MAX_HEIGHT_ENCODER_TICKS;
+	private double wantedFloor;
+	private double currentHeight;
+	private double kMaxHeight = Constants.MAX_HEIGHT_ENCODER_TICKS;
+	private double kMidHeight = Constants.MID_HEIGHT_ENCODER_TICKS;
+	private double kLowHeight = Constants.LOW_HEIGHT_ENCODER_TICKS;
 	
 	public enum systemStates{
 		NEUTRAL,
@@ -43,33 +44,15 @@ public class Elevator extends Subsystem {
 	
 	private void setFloor(double wantedHeight) {
 		//wantedHeight = wantedHeight / .17 * Math.PI * 2048;
-
 		double liftSpeed = elevatorControlLoop.returnOutput(encoder.getRaw(),wantedHeight);
-		SmartDashboard.putNumber("Enc", encoder.getRaw());
 		driveMotor.set(liftSpeed);
 	}
-	
-	public void setThrottleValue(double throttleValue) {
-		this.throttleValue = throttleValue;
-	}
-	
-	public double getHeight() {
-		return 0;
-	}
-	
-	@Override
-	public void zeroAllSensors() {
-	}
 
-	@Override
-	public boolean checkSystem() {
-		return false;
-	}
-	
- 	public void setWantedState(systemStates wantedState)
- 	{
- 		this.currentState = wantedState;
- 	}
+	public void setWantedFloor(double wantedFloor) {this.wantedFloor = wantedFloor;}
+	public double getHeight() {return 0;}
+ 	public void setWantedState(systemStates wantedState) {this.currentState = wantedState;}
+	@Override public void zeroAllSensors() {}
+	@ Override public boolean checkSystem() {return false;}
  	
  	private void checkState() {
  		if(currentState!=wantedState) {
@@ -81,69 +64,55 @@ public class Elevator extends Subsystem {
 	public void registerLoop() {
 		Loop_Manager.getInstance().addLoop(new Loop()
 		{
-
 			@Override
 			public void onStart() {
 				currentState = systemStates.NEUTRAL;
 				wantedState = systemStates.NEUTRAL;				
 			}
-
 			@Override
 			public void onloop() {
-				double openLoopAdjust = joystick.elevatorOpenLoop() * 2000.0 +lastHeight;
+				double openLoopAdjust = joystick.elevatorOpenLoop()*2000.0;
 				if(joystick.elevatorResetEncoder()) {encoder.reset();}
 				switch(currentState){
 					case NEUTRAL:
 						lastState = systemStates.NEUTRAL;
 						checkState();
-						break;
+						break;		
 					case OPEN_LOOP:
-						setFloor(throttleValue);
+						setFloor(wantedFloor);
 						lastState = systemStates.POSITION_FOLLOW;
 						checkState();
 						break;
 					case POSITION_FOLLOW:
 						if(joystick.elevatorHigh()) {
-							idx = 3;
-							throttleValue = 90000+openLoopAdjust;
-							setFloor(throttleValue);//7);
-							lastHeight=throttleValue;
+							wantedFloor = kMaxHeight;
+							currentHeight=wantedFloor;
 						}
 						else if(joystick.elevatorMid()) {
-							throttleValue = 46666+openLoopAdjust;
-							setFloor(throttleValue);//3.5);
-							lastHeight=throttleValue;
+							wantedFloor = kMidHeight;
+							currentHeight=wantedFloor;
 						}
 						else if(joystick.elevatorLow()) {
-							throttleValue = 0+openLoopAdjust;
-							if(throttleValue <0) {
-								throttleValue =0;
-							}
-							setFloor(throttleValue);
-							lastHeight = throttleValue;
+							wantedFloor = kLowHeight;
+							currentHeight = wantedFloor;
 						}
-						else {
-							setFloor(lastHeight);
-						}
-						//driveMotor.set(.3);
+						currentHeight += openLoopAdjust;
+						if(currentHeight < 0) {currentHeight = 0;}
+						else if(currentHeight > 90000) {currentHeight = 90000;}
+						setFloor(currentHeight);
 						lastState = systemStates.OPEN_LOOP;
 						checkState();
 						break;
 				}
 			}
-
 			@Override
 			public void stop() {
 				driveMotor.set(0);
 			}
-			
 			@Override
 			public void test() {
 				//Smartdashboard.putNumber("Encoder Units", encoder.getRaw());
 			}
-	
 		});
 	}
-
-	
 }

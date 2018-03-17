@@ -8,6 +8,7 @@ public class Constants {
 	/**
 	 * Port Map *
 	 */
+	
 	public static int ELEVATORMOTOR = 2;
 	public static final int INTAKERIGHTSIDE = 0;
 	public static final int INTAKELEFTSIDE = 1;
@@ -16,6 +17,7 @@ public class Constants {
 	/**
 	 * Driver Station Constants *
 	 */
+	
 	public static int DRIVE_JOYSTICK = 0; 
 	public static int GEAR_JOYSTICK = 1;
 	public static int BUTTON_MONKEY = 2;
@@ -23,6 +25,7 @@ public class Constants {
 	/**
 	 * Subsystem Constants *
 	 */
+	
 	//Drive Train constants
 	public static double OFFSETS[] = {3316.0,1694.0,3707.0,3392.0};
 	public static double OFFSETS_P[] = {(907.0+2048)%4096,(2357.0+2048)%4096,(3219.0+2048)%4096,(200.0+2048)%4096};
@@ -50,7 +53,7 @@ public class Constants {
 	public static final double DRIVEGEARREDUCTION = 30.0/48.0;
 	public static final double DRIVEMAXENCODERSPEED = 10000.0;
 	
-	//vision constants
+	//Vision constants
 	public static int AVG_LIST_SIZE = 10;
 	public static int PIXY_CENTER_X = 160; 
 	
@@ -59,14 +62,16 @@ public class Constants {
 	public static double ELEVATOR_KP_P = .0005;
 	public static double ELEVATOR_KI = 0;
 	public static double ELEVATOR_KD = 0;
-	public static double MAX_HEIGHT_ENCODER_TICKS = 2000; 
+	public static final double MAX_HEIGHT_ENCODER_TICKS = 90000;
+	public static final double MID_HEIGHT_ENCODER_TICKS = 46666;
+	public static final double LOW_HEIGHT_ENCODER_TICKS = 0;
 	public static final double SCALEHIGHHEIGHT = 0;
 	public static final double SCALELOWHEIGHT = 0;
 	public static final double SCALEMIDHEIGHT = 0;
 	public static final double SWITCHHEIGHT = 0;
 	public static final double ELEVATORACCEPTEDERROR = 0.1;
 	
-	//intake constants
+	//Intake constants
 	public static final double INTAKESPEED = .75;
 	public static final double INTAKESCORESPEED = -7.5;
 	public static final double INTAKEHANDOFFSPEED = 0;

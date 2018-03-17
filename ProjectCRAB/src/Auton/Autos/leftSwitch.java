@@ -1,7 +1,6 @@
 package Auton.Autos;
 
 
-	import Auton.Auto;
 	import Subsystem.Drivetrain;
 	import Subsystem.Drivetrain.driveCoords;
 	import Subsystem.Drivetrain.driveType;
@@ -12,14 +11,12 @@ package Auton.Autos;
 	import edu.wpi.first.wpilibj.Timer;
 	import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class leftSwitch {
+public class leftSwitch extends Auto {
 		public static leftSwitch main = new leftSwitch();
-		public static String gameData;
 		private static double driveTime = 2.0;
 		private static double driveTime2 = 1.0;
 		private static double scoringTime = 2.0;
 		private static double spinTime = 1.0;
-		private static boolean firstTime = true;
 		private static double startTime;
 		private static Loop loop = new Loop()
 				{
@@ -45,11 +42,11 @@ public class leftSwitch {
 						else if(gameData.substring(0,1).equals("L") && Timer.getFPGATimestamp()-startTime < driveTime +spinTime+2.0)
 						{
 							Intake.getInstance().setWantedState(Subsystem.Intake.systemStates.Scoring);
-							Drivetrain.getInstance().swerve(0.0, 0.0, driveCoords.FIELDCENTRIC, driveType.PERCENTPOWER, 0.0);
+							Drivetrain.getInstance().swerve(0.0,0.0, 0.0, driveCoords.FIELDCENTRIC, driveType.PERCENTPOWER);
 						}
 						else
 						{
-							Drivetrain.getInstance().swerve(0.0, 0.0, driveCoords.FIELDCENTRIC, driveType.PERCENTPOWER, 0.0);
+							Drivetrain.getInstance().swerve(0.0,0.0, 0.0, driveCoords.FIELDCENTRIC, driveType.PERCENTPOWER);
 							Intake.getInstance().setWantedState(Subsystem.Intake.systemStates.Neutral);
 						}
 						
@@ -63,24 +60,8 @@ public class leftSwitch {
 			
 				};
 		public leftSwitch() {
-		
-		}
-		public static void setGameData(String game)
-		{
-			gameData = game;
+			super(loop);
 		}
 		
-		public static void run()
-		{
-			if(firstTime)
-			{
-				loop.onStart();
-				firstTime = false;
-			}
-			else
-			{
-				loop.onloop();
-			}
-		}	
 
 }

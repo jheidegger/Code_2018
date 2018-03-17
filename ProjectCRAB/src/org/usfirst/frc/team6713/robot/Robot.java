@@ -9,6 +9,7 @@ package org.usfirst.frc.team6713.robot;
 
 import Auton.Trajectory;
 import Auton.Waypoint;
+import Auton.Autos.Auto;
 import Auton.Autos.TrajectoryTest;
 import Auton.Autos.driveStraight;
 import Auton.Autos.leftSwitch;
@@ -41,7 +42,6 @@ public class Robot extends IterativeRobot {
 	int testID = 0;
 	String gameData;
 	private boolean isIntakeOpenLoop = false;
-	TrajectoryTest testAuto = new TrajectoryTest();
 	@Override
 	public void robotInit() {
 		driveTrain.registerLoop();
@@ -56,7 +56,6 @@ public class Robot extends IterativeRobot {
 //		m_chooser.addDefault("default", "default");
 //		SmartDashboard.putData("Auto choices", m_chooser);
 	}
-	public Trajectory t = new Trajectory();
 	private double startTime;
 	@Override
 	public void autonomousInit() {
@@ -109,7 +108,8 @@ public class Robot extends IterativeRobot {
 //		}
 		//middleSwitch.run();
 		//rightSwitch.run();
-		//testAuto.run();
+		TrajectoryTest.main.run();
+		
 		//driveStraight.run();
 	}
 
