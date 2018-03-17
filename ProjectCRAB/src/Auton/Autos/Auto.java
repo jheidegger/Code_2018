@@ -6,9 +6,13 @@ public class Auto {
 	private Loop autoLoop;
 	public static String gameData;
 	private  boolean firstTime = true;
-	public Auto(Loop l)
+	public Auto()
 	{
-		autoLoop = l;
+		
+	}
+	public void registerLoop(Loop loop)
+	{
+		autoLoop = loop;
 	}
 	public void setGameData(String gD)
 	{

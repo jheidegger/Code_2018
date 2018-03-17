@@ -120,6 +120,7 @@ public class Drivetrain extends Subsystem {
 		
 		//instantiate the gyro
 		gyro = new AHRS(SPI.Port.kMXP);
+		resetGyro();
 		updateAngle();
 
 		//initialize the commands
@@ -170,7 +171,7 @@ public class Drivetrain extends Subsystem {
 				podDrive[idx] /= rel_max_speed/kMaxSpeed;
 			}
 		}
-		if(strafeCommand==0.0&&forwardCommand ==0.0&&spinCommand==0.0)
+		/*if(strafeCommand==0.0&&forwardCommand ==0.0&&spinCommand==0.0)
 		{
 			// Sending each pod their respective commands
 			
@@ -181,13 +182,13 @@ public class Drivetrain extends Subsystem {
 				
 		}
 		else
-		{
+		{*/
 			// Sending each pod their respective commands
 			for(int idx = 0; idx < Pods.size(); idx++) {
 				//sending power from 0 to 13.5 ft/s and position -pi to pi
 				Pods.get(idx).setPod(podDrive[idx],podGear[idx]); 
 			}
-		}
+		//}
 		SmartDashboard.putNumber("angle", getAngle());
 		
 	}
@@ -212,7 +213,7 @@ public class Drivetrain extends Subsystem {
 	}
 	public double getAngle()
 	{
-		return angle;
+		return ((((gyro.getAngle())* Math.PI/180.0)) % (2*Math.PI));
 	}
 	
 	/**
@@ -229,14 +230,14 @@ public class Drivetrain extends Subsystem {
 		if(Coords == driveCoords.ROBOTCENTRIC) {
 			this.forwardCommand = forwardCommand;
 			this.strafeCommand = strafeCommand;
-			this.spinCommand = spinCommand;
+			this.spinCommand = -spinCommand;
 		}
 		else {
 
 			final double temp = forwardCommand * Math.sin(angle) + strafeCommand * Math.cos(angle);
 		    this.strafeCommand = (-forwardCommand * Math.cos(angle) + strafeCommand * Math.sin(angle));
 		    this.forwardCommand = temp;
-		    this.spinCommand = spinCommand;
+		    this.spinCommand = -spinCommand;
 		    if(spinCommand == 0) {
 			   // this.spinCommand = this.spinCommand + autoHeadingControl.returnOutput(angle, lastAngle);
 			}
@@ -252,13 +253,13 @@ public class Drivetrain extends Subsystem {
 		if(Coords == driveCoords.ROBOTCENTRIC) {
 			this.forwardCommand = forwardCommand;
 			this.strafeCommand = strafeCommand;
-			this.spinCommand = spinCommand;
+			this.spinCommand = -spinCommand;
 		}
 		else {
 			final double temp = forwardCommand * Math.sin(angle) + strafeCommand * Math.cos(angle);
 		    this.strafeCommand = (-forwardCommand * Math.cos(angle) + strafeCommand * Math.sin(angle));
 		    this.forwardCommand = temp;
-		    this.spinCommand = spinCommand;
+		    this.spinCommand = -spinCommand;
 		    if(spinCommand == 0) {
 		    //this.spinCommand = this.spinCommand +autoHeadingControl.returnOutput(angle, lastAngle);
 		    }

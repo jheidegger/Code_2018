@@ -18,7 +18,7 @@ public class PathFollower {
 	private double startTime;
 	public PathFollower(Trajectory t) {
 		this.t = t;
-		spinHandler = new PIDLoop(0.0,0.0,0.0);
+		spinHandler = new PIDLoop(.1,0.0,0.0);
 	}
 	public void init()
 	{
@@ -43,8 +43,9 @@ public class PathFollower {
 					double wheelAngle = t.getWheelAngle(Time);
 					double strafeCommand = speed*Math.cos(wheelAngle);
 					double forwardCommand = speed*Math.sin(wheelAngle);
+					double spinCommand = spinHandler.returnOutput(Drivetrain.getInstance().getAngle(),0 );
 					System.out.println("speed: "+ speed);
-					Drivetrain.getInstance().swerve(forwardCommand, strafeCommand, 0.0,Drivetrain.driveCoords.FIELDCENTRIC, 
+					Drivetrain.getInstance().swerve(forwardCommand, strafeCommand, spinCommand,Drivetrain.driveCoords.FIELDCENTRIC, 
 							Drivetrain.driveType.VELOCITY);
 				}
 

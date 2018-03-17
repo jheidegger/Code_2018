@@ -60,7 +60,7 @@ public class leftSwitch extends Auto {
 			
 				};
 		public leftSwitch() {
-			super(loop);
+			super.registerLoop(loop);
 		}
 		
 

@@ -63,7 +63,7 @@ public class middleSwitch extends Auto {
 		
 			};
 	public middleSwitch() {
-		super(loop);
+		super.registerLoop(loop);
 	}
 	
 

@@ -88,7 +88,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousPeriodic() {
 		myLoops.runLoops();
-		driveTrain.swerve(.2, 0.0, 0.0, Drivetrain.driveCoords.FIELDCENTRIC,Drivetrain.driveType.PERCENTPOWER);
+		//driveTrain.swerve(.2, 0.0, 0.0, Drivetrain.driveCoords.FIELDCENTRIC,Drivetrain.driveType.PERCENTPOWER);
 		//SmartDashboard.putNumber("auto speed", t.getSpeed(Timer.getFPGATimestamp()-startTime));
 //		String selected = m_chooser.getSelected();
 //		switch(selected)
@@ -147,11 +147,12 @@ public class Robot extends IterativeRobot {
 					Drivetrain.driveCoords.FIELDCENTRIC, 
 					Drivetrain.driveType.PERCENTPOWER);
 		}
+		//driveTrain.swerve(1.0, 0.0, 0.0,Drivetrain.driveCoords.FIELDCENTRIC, Drivetrain.driveType.VELOCITY);
 		/**
 		 * Intake States
 		 */
 		
-		if((controller.actuatorOpenLoop()>.05) || (controller.actuatorOpenLoop()<-.05))
+		if((controller.actuatorOpenLoop()>.1) || (controller.actuatorOpenLoop()<-1))
 		{
 			isIntakeOpenLoop = true;
 		}
@@ -176,7 +177,7 @@ public class Robot extends IterativeRobot {
 			
 		}
 
-		elevator.setWantedState(Elevator.systemStates.POSITION_FOLLOW);
+		//elevator.setWantedState(Elevator.systemStates.POSITION_FOLLOW);
 		
 		//p.pressurize();
 	}
@@ -200,6 +201,7 @@ public class Robot extends IterativeRobot {
 			driveTrain.swerve(0.0, 0.0, 0.5);
 		case 6:
 			driveTrain.swerve(0.0, 0.0, -0.5);
+			/*
 		case 7:
 			intake.setWantedState(Intake.systemStates.Intaking);
 		case 8:
@@ -208,7 +210,7 @@ public class Robot extends IterativeRobot {
 			intake.setWantedState(Intake.systemStates.Neutral);
 			intake.setPosition(0.0);
 		case 10: 
-			intake.setPosition(intake.downPosition);
+			intake.setPosition(intake.downPosition);*/
 		}	
 	}
 }

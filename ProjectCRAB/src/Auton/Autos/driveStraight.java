@@ -50,7 +50,7 @@ public class driveStraight extends Auto {
 			
 				};
 		public driveStraight() {
-			super(loop);
+			super.registerLoop(loop);
 		}
 		
 

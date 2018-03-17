@@ -51,7 +51,7 @@ public class PIDLoop {
 	
 	public double returnOutput(double current, double setpoint) {
 		currTime = Timer.getFPGATimestamp();
-		deltaTime = currTime-lastTime;
+		deltaTime = .02;
 		lastTime = currTime;
 		error = setpoint - current;
 		if(integral < integralMax || integralMax == 0) {

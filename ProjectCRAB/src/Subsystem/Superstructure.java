@@ -66,7 +66,7 @@ public class Superstructure {
 					elevator.setWantedState(Elevator.systemStates.POSITION_FOLLOW);
 					if(elevator.getHeight() > .1)
 					{
-						elevator.setThrottleValue(0.0);
+						elevator.setWantedFloor(0.0);
 					}
 					else
 					{
@@ -80,7 +80,7 @@ public class Superstructure {
 					elevator.setWantedState(Elevator.systemStates.POSITION_FOLLOW);
 					if(Math.abs(elevator.getHeight()-elevatorCommandedHeight)<Constants.ELEVATORACCEPTEDERROR)
 					{
-						elevator.setThrottleValue(elevatorCommandedHeight);
+						elevator.setWantedFloor(elevatorCommandedHeight);
 						checkState();
 					}
 					else

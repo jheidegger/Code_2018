@@ -27,11 +27,12 @@ public class Constants {
 	 */
 	
 	//Drive Train constants
+	//Gear Facing Right
 	public static double OFFSETS[] = {3316.0,1694.0,3707.0,3392.0};
-	public static double OFFSETS_P[] = {(907.0+2048)%4096,(2357.0+2048)%4096,(3219.0+2048)%4096,(200.0+2048)%4096};
+	public static double OFFSETS_P[] = {2975.0,303.0,1220.0,2164.0};
 	public static double DRIVETRAINLENGTH = 17.5;
 	public static double DRIVETRAINWIDTH = 13.0;
-	public static final double WHEELDIAMETER = 3.25;
+	public static final double WHEELDIAMETER = 3;
 	public static double DRIVETRAINMAXWHEELSPEED = 13.0; // ft/s
 	public static double DRIVETRAINMAXROTATIONSPEED = 5.0; // radians/s
 	public static double ENCODER_UNITS = 4096.0;
@@ -72,8 +73,8 @@ public class Constants {
 	public static final double ELEVATORACCEPTEDERROR = 0.1;
 	
 	//Intake constants
-	public static final double INTAKESPEED = .75;
-	public static final double INTAKESCORESPEED = -7.5;
+	public static final double INTAKESPEED = -.78;
+	public static final double INTAKESCORESPEED = .9;
 	public static final double INTAKEHANDOFFSPEED = 0;
 	public static final double UNSTOWINGTIME = .5;
 	public static final double STOWINGTIME = .5;
