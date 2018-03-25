@@ -5210,3 +5210,1489 @@ Created Time: 2018-03-17 11:05:01.379
 
 !ENTRY riolog 1 0 2018-03-17 16:55:16.133
 !MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-19 18:46:24.602
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-19 18:47:04.959
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-19 18:47:06.618
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-19 18:47:06.625
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-19 18:47:06.640
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-19 19:41:26.602
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-19 19:41:27.589
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-19 19:41:27.610
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-19 19:41:27.635
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-19 19:41:48.550
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-19 19:41:49.655
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-19 19:42:44.799
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-19 19:43:01.838
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-19 19:43:02.820
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-19 19:43:02.837
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-19 19:43:02.867
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-19 20:31:44.541
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-19 20:31:45.648
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-19 20:32:41.838
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-19 20:32:41.871
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-19 20:32:43.851
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-19 20:32:43.857
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-19 20:32:43.870
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-19 20:34:29.867
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-19 20:34:29.904
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-19 20:34:29.910
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-19 20:34:29.920
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-19 20:45:45.028
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-19 20:45:46.134
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-20 18:29:28.700
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 18:29:31.240
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 18:29:32.710
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-20 18:29:32.717
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-20 18:29:32.729
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 18:34:37.961
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 18:34:38.830
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-20 18:34:38.844
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-20 18:34:38.867
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 18:34:54.199
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 18:34:54.881
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-20 18:34:54.888
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-20 18:34:54.898
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 18:34:59.157
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 18:35:00.906
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-20 18:35:00.922
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-20 18:35:00.938
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 18:35:04.400
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 18:35:04.954
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-20 18:35:04.974
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-20 18:35:05.002
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 18:35:18.379
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 18:35:19.019
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-20 18:35:19.039
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-20 18:35:19.058
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 18:35:53.719
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 18:35:55.085
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-20 18:35:55.105
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-20 18:35:55.121
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 18:35:57.440
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 18:35:59.134
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-20 18:35:59.141
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-20 18:35:59.151
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 18:36:14.160
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 18:36:15.163
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-20 18:36:15.185
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-20 18:36:15.210
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 18:36:23.757
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 18:36:25.223
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-20 18:36:25.243
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-20 18:36:25.264
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 18:36:49.058
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 18:36:49.287
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-20 18:36:49.293
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-20 18:36:49.304
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 18:42:20.304
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-20 18:42:21.406
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-20 18:42:26.871
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 18:42:41.243
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 18:42:42.888
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-20 18:42:42.909
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-20 18:42:42.929
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 18:42:43.640
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 18:42:44.941
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-20 18:42:44.959
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-20 18:42:44.978
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 18:58:16.524
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 18:58:17.284
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-20 18:58:17.302
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-20 18:58:17.316
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 18:58:19.515
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 18:58:21.330
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-20 18:58:21.348
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-20 18:58:21.365
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 18:58:22.523
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 18:58:23.381
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-20 18:58:23.401
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-20 18:58:23.426
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 18:58:25.546
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 18:58:27.435
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-20 18:58:27.441
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-20 18:58:27.450
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 18:58:28.544
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 18:58:29.460
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-20 18:58:29.477
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-20 18:58:29.498
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 18:58:31.545
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 18:58:33.510
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-20 18:58:33.530
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-20 18:58:33.560
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 18:58:34.548
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 18:58:35.572
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-20 18:58:35.578
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-20 18:58:35.590
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 18:58:37.571
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 18:58:37.596
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-20 18:58:37.606
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-20 18:58:37.618
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 18:58:40.578
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 18:58:41.626
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-20 18:58:41.638
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-20 18:58:41.659
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 18:58:43.597
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 18:58:43.667
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-20 18:58:43.676
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-20 18:58:43.693
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 18:58:46.595
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 18:58:47.703
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-20 18:58:47.722
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-20 18:58:47.746
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 18:58:49.599
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 18:58:49.757
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-20 18:58:49.762
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-20 18:58:49.773
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 18:58:52.612
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 18:58:53.783
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-20 18:58:53.801
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-20 18:58:53.819
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 18:58:55.616
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 18:58:55.828
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-20 18:58:55.834
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-20 18:58:55.844
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 18:58:58.610
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 18:58:59.853
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-20 18:58:59.870
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-20 18:58:59.898
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 18:59:01.619
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 18:59:01.912
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-20 18:59:01.934
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-20 18:59:01.975
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 18:59:04.635
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 18:59:05.983
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-20 18:59:06.001
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-20 18:59:06.029
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 18:59:07.637
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 18:59:08.038
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-20 18:59:08.043
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-20 18:59:08.053
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 18:59:10.620
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 18:59:12.063
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-20 18:59:12.083
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-20 18:59:12.101
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 18:59:13.657
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 18:59:14.113
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-20 18:59:14.132
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-20 18:59:14.157
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 18:59:16.658
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 18:59:18.166
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-20 18:59:18.185
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-20 18:59:18.208
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 18:59:19.100
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 18:59:20.216
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-20 18:59:20.235
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-20 18:59:20.254
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 19:00:29.182
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-20 19:00:30.291
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-20 19:02:25.739
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 19:02:25.756
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 19:02:27.751
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-20 19:02:27.758
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-20 19:02:27.770
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 19:06:34.923
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 19:06:35.855
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-20 19:06:35.872
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-20 19:06:35.903
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 19:11:47.319
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 19:11:48.002
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-20 19:11:48.017
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-20 19:11:48.039
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 19:28:08.343
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-20 19:31:06.289
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 19:31:06.318
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 19:31:08.303
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-20 19:31:08.318
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-20 19:31:08.340
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 19:31:13.900
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 19:31:14.353
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-20 19:31:14.370
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-20 19:31:14.391
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 19:45:17.057
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 19:45:18.654
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-20 19:45:18.674
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-20 19:45:18.694
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 19:45:59.501
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 19:46:00.718
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-20 19:46:00.738
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-20 19:46:00.761
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 19:46:27.100
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 19:46:28.781
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-20 19:46:28.800
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-20 19:46:28.827
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 19:46:43.539
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 19:46:44.845
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-20 19:46:44.865
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-20 19:46:44.883
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 20:00:30.161
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 20:00:31.139
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-20 20:00:31.162
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-20 20:00:31.176
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 20:01:01.520
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 20:01:03.197
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-20 20:01:03.219
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-20 20:01:03.238
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 20:10:55.237
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 20:10:55.415
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-20 20:10:55.422
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-20 20:10:55.432
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 20:15:00.680
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 20:15:01.513
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-20 20:15:01.529
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-20 20:15:01.550
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 20:36:09.503
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 20:36:09.918
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-20 20:36:09.923
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-20 20:36:09.933
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 20:36:40.850
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-20 20:36:41.952
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-20 20:37:55.071
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 20:38:19.400
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 20:38:21.085
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-20 20:38:21.109
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-20 20:38:21.123
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 20:42:52.399
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 20:42:53.210
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-20 20:42:53.218
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-20 20:42:53.233
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 20:44:27.761
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 20:44:29.272
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-20 20:44:29.291
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-20 20:44:29.331
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 20:54:43.302
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 20:54:43.516
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-20 20:54:43.522
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-20 20:54:43.534
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 20:55:26.617
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 20:55:27.554
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-20 20:55:27.575
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-20 20:55:27.600
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 21:02:14.366
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 21:02:15.732
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-20 21:02:15.752
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-20 21:02:15.775
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-20 21:15:40.923
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-20 21:15:42.025
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY org.eclipse.equinox.p2.transport.ecf 2 0 2018-03-24 09:31:50.455
+!MESSAGE Connection to http://download.eclipse.org/technology/epp/packages/oxygen/content.xml.xz failed on null. Retry attempt 0 started
+!STACK 0
+org.apache.http.client.ClientProtocolException
+	at org.apache.http.impl.client.AbstractHttpClient.doExecute(AbstractHttpClient.java:888)
+	at org.apache.http.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:82)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientRetrieveFileTransfer.performConnect(HttpClientRetrieveFileTransfer.java:1084)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientRetrieveFileTransfer.access$0(HttpClientRetrieveFileTransfer.java:1075)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientRetrieveFileTransfer$1.performFileTransfer(HttpClientRetrieveFileTransfer.java:1071)
+	at org.eclipse.ecf.filetransfer.FileTransferJob.run(FileTransferJob.java:74)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:56)
+Caused by: org.apache.http.ProtocolException: Invalid redirect URI: http://10.254.254.157:8080/ibreports/ibp/bp.html?fn=Default&fp=1&ct=Default Group Policy - limited Internet access.&ip=10.201.105.21&ibip=10.254.254.157&ldu=1&re=0&bu=download.eclipse.org/technology/epp/packages/oxygen/content.xml.xz&bc=Website contains prohibited Technology content.
+	at org.apache.http.impl.client.DefaultRedirectStrategy.createLocationURI(DefaultRedirectStrategy.java:199)
+	at org.apache.http.impl.client.DefaultRedirectStrategy.getLocationURI(DefaultRedirectStrategy.java:147)
+	at org.apache.http.impl.client.DefaultRedirectStrategy.getRedirect(DefaultRedirectStrategy.java:220)
+	at org.apache.http.impl.client.DefaultRequestDirector.handleResponse(DefaultRequestDirector.java:1085)
+	at org.apache.http.impl.client.DefaultRequestDirector.execute(DefaultRequestDirector.java:516)
+	at org.apache.http.impl.client.AbstractHttpClient.doExecute(AbstractHttpClient.java:884)
+	... 6 more
+Caused by: java.net.URISyntaxException: Illegal character in query at index 75: http://10.254.254.157:8080/ibreports/ibp/bp.html?fn=Default&fp=1&ct=Default Group Policy - limited Internet access.&ip=10.201.105.21&ibip=10.254.254.157&ldu=1&re=0&bu=download.eclipse.org/technology/epp/packages/oxygen/content.xml.xz&bc=Website contains prohibited Technology content.
+	at java.net.URI$Parser.fail(Unknown Source)
+	at java.net.URI$Parser.checkChars(Unknown Source)
+	at java.net.URI$Parser.parseHierarchical(Unknown Source)
+	at java.net.URI$Parser.parse(Unknown Source)
+	at java.net.URI.<init>(Unknown Source)
+	at org.apache.http.impl.client.DefaultRedirectStrategy.createLocationURI(DefaultRedirectStrategy.java:188)
+	... 11 more
+
+!ENTRY org.eclipse.equinox.p2.transport.ecf 4 1002 2018-03-24 09:31:50.718
+!MESSAGE Unable to read repository at http://download.eclipse.org/technology/epp/packages/oxygen/content.xml.xz.
+!STACK 0
+org.apache.http.client.ClientProtocolException
+	at org.apache.http.impl.client.AbstractHttpClient.doExecute(AbstractHttpClient.java:888)
+	at org.apache.http.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:82)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientRetrieveFileTransfer.performConnect(HttpClientRetrieveFileTransfer.java:1084)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientRetrieveFileTransfer.access$0(HttpClientRetrieveFileTransfer.java:1075)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientRetrieveFileTransfer$1.performFileTransfer(HttpClientRetrieveFileTransfer.java:1071)
+	at org.eclipse.ecf.filetransfer.FileTransferJob.run(FileTransferJob.java:74)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:56)
+Caused by: org.apache.http.ProtocolException: Invalid redirect URI: http://10.254.254.157:8080/ibreports/ibp/bp.html?fn=Default&fp=1&ct=Default Group Policy - limited Internet access.&ip=10.201.105.21&ibip=10.254.254.157&ldu=1&re=0&bu=download.eclipse.org/technology/epp/packages/oxygen/content.xml.xz&bc=Website contains prohibited Technology content.
+	at org.apache.http.impl.client.DefaultRedirectStrategy.createLocationURI(DefaultRedirectStrategy.java:199)
+	at org.apache.http.impl.client.DefaultRedirectStrategy.getLocationURI(DefaultRedirectStrategy.java:147)
+	at org.apache.http.impl.client.DefaultRedirectStrategy.getRedirect(DefaultRedirectStrategy.java:220)
+	at org.apache.http.impl.client.DefaultRequestDirector.handleResponse(DefaultRequestDirector.java:1085)
+	at org.apache.http.impl.client.DefaultRequestDirector.execute(DefaultRequestDirector.java:516)
+	at org.apache.http.impl.client.AbstractHttpClient.doExecute(AbstractHttpClient.java:884)
+	... 6 more
+Caused by: java.net.URISyntaxException: Illegal character in query at index 75: http://10.254.254.157:8080/ibreports/ibp/bp.html?fn=Default&fp=1&ct=Default Group Policy - limited Internet access.&ip=10.201.105.21&ibip=10.254.254.157&ldu=1&re=0&bu=download.eclipse.org/technology/epp/packages/oxygen/content.xml.xz&bc=Website contains prohibited Technology content.
+	at java.net.URI$Parser.fail(Unknown Source)
+	at java.net.URI$Parser.checkChars(Unknown Source)
+	at java.net.URI$Parser.parseHierarchical(Unknown Source)
+	at java.net.URI$Parser.parse(Unknown Source)
+	at java.net.URI.<init>(Unknown Source)
+	at org.apache.http.impl.client.DefaultRedirectStrategy.createLocationURI(DefaultRedirectStrategy.java:188)
+	... 11 more
+
+!ENTRY org.eclipse.equinox.p2.transport.ecf 2 0 2018-03-24 09:31:51.468
+!MESSAGE Connection to http://download.eclipse.org/oomph/updates/milestone/latest/compositeContent.jar failed on null. Retry attempt 0 started
+!STACK 0
+org.apache.http.client.ClientProtocolException
+	at org.apache.http.impl.client.AbstractHttpClient.doExecute(AbstractHttpClient.java:888)
+	at org.apache.http.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:82)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientRetrieveFileTransfer.performConnect(HttpClientRetrieveFileTransfer.java:1084)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientRetrieveFileTransfer.access$0(HttpClientRetrieveFileTransfer.java:1075)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientRetrieveFileTransfer$1.performFileTransfer(HttpClientRetrieveFileTransfer.java:1071)
+	at org.eclipse.ecf.filetransfer.FileTransferJob.run(FileTransferJob.java:74)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:56)
+Caused by: org.apache.http.ProtocolException: Invalid redirect URI: http://10.254.254.157:8080/ibreports/ibp/bp.html?fn=Default&fp=1&ct=Default Group Policy - limited Internet access.&ip=10.201.105.21&ibip=10.254.254.157&ldu=1&re=0&bu=download.eclipse.org/oomph/updates/milestone/latest/compositecontent.jar&bc=Website contains prohibited Technology content.
+	at org.apache.http.impl.client.DefaultRedirectStrategy.createLocationURI(DefaultRedirectStrategy.java:199)
+	at org.apache.http.impl.client.DefaultRedirectStrategy.getLocationURI(DefaultRedirectStrategy.java:147)
+	at org.apache.http.impl.client.DefaultRedirectStrategy.getRedirect(DefaultRedirectStrategy.java:220)
+	at org.apache.http.impl.client.DefaultRequestDirector.handleResponse(DefaultRequestDirector.java:1085)
+	at org.apache.http.impl.client.DefaultRequestDirector.execute(DefaultRequestDirector.java:516)
+	at org.apache.http.impl.client.AbstractHttpClient.doExecute(AbstractHttpClient.java:884)
+	... 6 more
+Caused by: java.net.URISyntaxException: Illegal character in query at index 75: http://10.254.254.157:8080/ibreports/ibp/bp.html?fn=Default&fp=1&ct=Default Group Policy - limited Internet access.&ip=10.201.105.21&ibip=10.254.254.157&ldu=1&re=0&bu=download.eclipse.org/oomph/updates/milestone/latest/compositecontent.jar&bc=Website contains prohibited Technology content.
+	at java.net.URI$Parser.fail(Unknown Source)
+	at java.net.URI$Parser.checkChars(Unknown Source)
+	at java.net.URI$Parser.parseHierarchical(Unknown Source)
+	at java.net.URI$Parser.parse(Unknown Source)
+	at java.net.URI.<init>(Unknown Source)
+	at org.apache.http.impl.client.DefaultRedirectStrategy.createLocationURI(DefaultRedirectStrategy.java:188)
+	... 11 more
+
+!ENTRY org.eclipse.equinox.p2.transport.ecf 4 1002 2018-03-24 09:31:51.734
+!MESSAGE Unable to read repository at http://download.eclipse.org/oomph/updates/milestone/latest/compositeContent.jar.
+!STACK 0
+org.apache.http.client.ClientProtocolException
+	at org.apache.http.impl.client.AbstractHttpClient.doExecute(AbstractHttpClient.java:888)
+	at org.apache.http.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:82)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientRetrieveFileTransfer.performConnect(HttpClientRetrieveFileTransfer.java:1084)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientRetrieveFileTransfer.access$0(HttpClientRetrieveFileTransfer.java:1075)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientRetrieveFileTransfer$1.performFileTransfer(HttpClientRetrieveFileTransfer.java:1071)
+	at org.eclipse.ecf.filetransfer.FileTransferJob.run(FileTransferJob.java:74)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:56)
+Caused by: org.apache.http.ProtocolException: Invalid redirect URI: http://10.254.254.157:8080/ibreports/ibp/bp.html?fn=Default&fp=1&ct=Default Group Policy - limited Internet access.&ip=10.201.105.21&ibip=10.254.254.157&ldu=1&re=0&bu=download.eclipse.org/oomph/updates/milestone/latest/compositecontent.jar&bc=Website contains prohibited Technology content.
+	at org.apache.http.impl.client.DefaultRedirectStrategy.createLocationURI(DefaultRedirectStrategy.java:199)
+	at org.apache.http.impl.client.DefaultRedirectStrategy.getLocationURI(DefaultRedirectStrategy.java:147)
+	at org.apache.http.impl.client.DefaultRedirectStrategy.getRedirect(DefaultRedirectStrategy.java:220)
+	at org.apache.http.impl.client.DefaultRequestDirector.handleResponse(DefaultRequestDirector.java:1085)
+	at org.apache.http.impl.client.DefaultRequestDirector.execute(DefaultRequestDirector.java:516)
+	at org.apache.http.impl.client.AbstractHttpClient.doExecute(AbstractHttpClient.java:884)
+	... 6 more
+Caused by: java.net.URISyntaxException: Illegal character in query at index 75: http://10.254.254.157:8080/ibreports/ibp/bp.html?fn=Default&fp=1&ct=Default Group Policy - limited Internet access.&ip=10.201.105.21&ibip=10.254.254.157&ldu=1&re=0&bu=download.eclipse.org/oomph/updates/milestone/latest/compositecontent.jar&bc=Website contains prohibited Technology content.
+	at java.net.URI$Parser.fail(Unknown Source)
+	at java.net.URI$Parser.checkChars(Unknown Source)
+	at java.net.URI$Parser.parseHierarchical(Unknown Source)
+	at java.net.URI$Parser.parse(Unknown Source)
+	at java.net.URI.<init>(Unknown Source)
+	at org.apache.http.impl.client.DefaultRedirectStrategy.createLocationURI(DefaultRedirectStrategy.java:188)
+	... 11 more
+
+!ENTRY org.eclipse.equinox.p2.transport.ecf 2 0 2018-03-24 09:31:51.848
+!MESSAGE Connection to http://download.eclipse.org/eclipse/updates/4.7/compositeContent.jar failed on null. Retry attempt 0 started
+!STACK 0
+org.apache.http.client.ClientProtocolException
+	at org.apache.http.impl.client.AbstractHttpClient.doExecute(AbstractHttpClient.java:888)
+	at org.apache.http.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:82)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientRetrieveFileTransfer.performConnect(HttpClientRetrieveFileTransfer.java:1084)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientRetrieveFileTransfer.access$0(HttpClientRetrieveFileTransfer.java:1075)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientRetrieveFileTransfer$1.performFileTransfer(HttpClientRetrieveFileTransfer.java:1071)
+	at org.eclipse.ecf.filetransfer.FileTransferJob.run(FileTransferJob.java:74)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:56)
+Caused by: org.apache.http.ProtocolException: Invalid redirect URI: http://10.254.254.157:8080/ibreports/ibp/bp.html?fn=Default&fp=1&ct=Default Group Policy - limited Internet access.&ip=10.201.105.21&ibip=10.254.254.157&ldu=1&re=0&bu=download.eclipse.org/eclipse/updates/4.7/compositecontent.jar&bc=Website contains prohibited Technology content.
+	at org.apache.http.impl.client.DefaultRedirectStrategy.createLocationURI(DefaultRedirectStrategy.java:199)
+	at org.apache.http.impl.client.DefaultRedirectStrategy.getLocationURI(DefaultRedirectStrategy.java:147)
+	at org.apache.http.impl.client.DefaultRedirectStrategy.getRedirect(DefaultRedirectStrategy.java:220)
+	at org.apache.http.impl.client.DefaultRequestDirector.handleResponse(DefaultRequestDirector.java:1085)
+	at org.apache.http.impl.client.DefaultRequestDirector.execute(DefaultRequestDirector.java:516)
+	at org.apache.http.impl.client.AbstractHttpClient.doExecute(AbstractHttpClient.java:884)
+	... 6 more
+Caused by: java.net.URISyntaxException: Illegal character in query at index 75: http://10.254.254.157:8080/ibreports/ibp/bp.html?fn=Default&fp=1&ct=Default Group Policy - limited Internet access.&ip=10.201.105.21&ibip=10.254.254.157&ldu=1&re=0&bu=download.eclipse.org/eclipse/updates/4.7/compositecontent.jar&bc=Website contains prohibited Technology content.
+	at java.net.URI$Parser.fail(Unknown Source)
+	at java.net.URI$Parser.checkChars(Unknown Source)
+	at java.net.URI$Parser.parseHierarchical(Unknown Source)
+	at java.net.URI$Parser.parse(Unknown Source)
+	at java.net.URI.<init>(Unknown Source)
+	at org.apache.http.impl.client.DefaultRedirectStrategy.createLocationURI(DefaultRedirectStrategy.java:188)
+	... 11 more
+
+!ENTRY org.eclipse.equinox.p2.transport.ecf 4 1002 2018-03-24 09:31:52.099
+!MESSAGE Unable to read repository at http://download.eclipse.org/eclipse/updates/4.7/compositeContent.jar.
+!STACK 0
+org.apache.http.client.ClientProtocolException
+	at org.apache.http.impl.client.AbstractHttpClient.doExecute(AbstractHttpClient.java:888)
+	at org.apache.http.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:82)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientRetrieveFileTransfer.performConnect(HttpClientRetrieveFileTransfer.java:1084)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientRetrieveFileTransfer.access$0(HttpClientRetrieveFileTransfer.java:1075)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientRetrieveFileTransfer$1.performFileTransfer(HttpClientRetrieveFileTransfer.java:1071)
+	at org.eclipse.ecf.filetransfer.FileTransferJob.run(FileTransferJob.java:74)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:56)
+Caused by: org.apache.http.ProtocolException: Invalid redirect URI: http://10.254.254.157:8080/ibreports/ibp/bp.html?fn=Default&fp=1&ct=Default Group Policy - limited Internet access.&ip=10.201.105.21&ibip=10.254.254.157&ldu=1&re=0&bu=download.eclipse.org/eclipse/updates/4.7/compositecontent.jar&bc=Website contains prohibited Technology content.
+	at org.apache.http.impl.client.DefaultRedirectStrategy.createLocationURI(DefaultRedirectStrategy.java:199)
+	at org.apache.http.impl.client.DefaultRedirectStrategy.getLocationURI(DefaultRedirectStrategy.java:147)
+	at org.apache.http.impl.client.DefaultRedirectStrategy.getRedirect(DefaultRedirectStrategy.java:220)
+	at org.apache.http.impl.client.DefaultRequestDirector.handleResponse(DefaultRequestDirector.java:1085)
+	at org.apache.http.impl.client.DefaultRequestDirector.execute(DefaultRequestDirector.java:516)
+	at org.apache.http.impl.client.AbstractHttpClient.doExecute(AbstractHttpClient.java:884)
+	... 6 more
+Caused by: java.net.URISyntaxException: Illegal character in query at index 75: http://10.254.254.157:8080/ibreports/ibp/bp.html?fn=Default&fp=1&ct=Default Group Policy - limited Internet access.&ip=10.201.105.21&ibip=10.254.254.157&ldu=1&re=0&bu=download.eclipse.org/eclipse/updates/4.7/compositecontent.jar&bc=Website contains prohibited Technology content.
+	at java.net.URI$Parser.fail(Unknown Source)
+	at java.net.URI$Parser.checkChars(Unknown Source)
+	at java.net.URI$Parser.parseHierarchical(Unknown Source)
+	at java.net.URI$Parser.parse(Unknown Source)
+	at java.net.URI.<init>(Unknown Source)
+	at org.apache.http.impl.client.DefaultRedirectStrategy.createLocationURI(DefaultRedirectStrategy.java:188)
+	... 11 more
+
+!ENTRY org.eclipse.equinox.p2.transport.ecf 2 0 2018-03-24 09:31:52.451
+!MESSAGE Connection to http://download.eclipse.org/releases/oxygen/compositeContent.jar failed on null. Retry attempt 0 started
+!STACK 0
+org.apache.http.client.ClientProtocolException
+	at org.apache.http.impl.client.AbstractHttpClient.doExecute(AbstractHttpClient.java:888)
+	at org.apache.http.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:82)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientRetrieveFileTransfer.performConnect(HttpClientRetrieveFileTransfer.java:1084)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientRetrieveFileTransfer.access$0(HttpClientRetrieveFileTransfer.java:1075)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientRetrieveFileTransfer$1.performFileTransfer(HttpClientRetrieveFileTransfer.java:1071)
+	at org.eclipse.ecf.filetransfer.FileTransferJob.run(FileTransferJob.java:74)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:56)
+Caused by: org.apache.http.ProtocolException: Invalid redirect URI: http://10.254.254.157:8080/ibreports/ibp/bp.html?fn=Default&fp=1&ct=Default Group Policy - limited Internet access.&ip=10.201.105.21&ibip=10.254.254.157&ldu=1&re=0&bu=download.eclipse.org/releases/oxygen/compositecontent.jar&bc=Website contains prohibited Technology content.
+	at org.apache.http.impl.client.DefaultRedirectStrategy.createLocationURI(DefaultRedirectStrategy.java:199)
+	at org.apache.http.impl.client.DefaultRedirectStrategy.getLocationURI(DefaultRedirectStrategy.java:147)
+	at org.apache.http.impl.client.DefaultRedirectStrategy.getRedirect(DefaultRedirectStrategy.java:220)
+	at org.apache.http.impl.client.DefaultRequestDirector.handleResponse(DefaultRequestDirector.java:1085)
+	at org.apache.http.impl.client.DefaultRequestDirector.execute(DefaultRequestDirector.java:516)
+	at org.apache.http.impl.client.AbstractHttpClient.doExecute(AbstractHttpClient.java:884)
+	... 6 more
+Caused by: java.net.URISyntaxException: Illegal character in query at index 75: http://10.254.254.157:8080/ibreports/ibp/bp.html?fn=Default&fp=1&ct=Default Group Policy - limited Internet access.&ip=10.201.105.21&ibip=10.254.254.157&ldu=1&re=0&bu=download.eclipse.org/releases/oxygen/compositecontent.jar&bc=Website contains prohibited Technology content.
+	at java.net.URI$Parser.fail(Unknown Source)
+	at java.net.URI$Parser.checkChars(Unknown Source)
+	at java.net.URI$Parser.parseHierarchical(Unknown Source)
+	at java.net.URI$Parser.parse(Unknown Source)
+	at java.net.URI.<init>(Unknown Source)
+	at org.apache.http.impl.client.DefaultRedirectStrategy.createLocationURI(DefaultRedirectStrategy.java:188)
+	... 11 more
+
+!ENTRY org.eclipse.equinox.p2.transport.ecf 4 1002 2018-03-24 09:31:52.701
+!MESSAGE Unable to read repository at http://download.eclipse.org/releases/oxygen/compositeContent.jar.
+!STACK 0
+org.apache.http.client.ClientProtocolException
+	at org.apache.http.impl.client.AbstractHttpClient.doExecute(AbstractHttpClient.java:888)
+	at org.apache.http.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:82)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientRetrieveFileTransfer.performConnect(HttpClientRetrieveFileTransfer.java:1084)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientRetrieveFileTransfer.access$0(HttpClientRetrieveFileTransfer.java:1075)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientRetrieveFileTransfer$1.performFileTransfer(HttpClientRetrieveFileTransfer.java:1071)
+	at org.eclipse.ecf.filetransfer.FileTransferJob.run(FileTransferJob.java:74)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:56)
+Caused by: org.apache.http.ProtocolException: Invalid redirect URI: http://10.254.254.157:8080/ibreports/ibp/bp.html?fn=Default&fp=1&ct=Default Group Policy - limited Internet access.&ip=10.201.105.21&ibip=10.254.254.157&ldu=1&re=0&bu=download.eclipse.org/releases/oxygen/compositecontent.jar&bc=Website contains prohibited Technology content.
+	at org.apache.http.impl.client.DefaultRedirectStrategy.createLocationURI(DefaultRedirectStrategy.java:199)
+	at org.apache.http.impl.client.DefaultRedirectStrategy.getLocationURI(DefaultRedirectStrategy.java:147)
+	at org.apache.http.impl.client.DefaultRedirectStrategy.getRedirect(DefaultRedirectStrategy.java:220)
+	at org.apache.http.impl.client.DefaultRequestDirector.handleResponse(DefaultRequestDirector.java:1085)
+	at org.apache.http.impl.client.DefaultRequestDirector.execute(DefaultRequestDirector.java:516)
+	at org.apache.http.impl.client.AbstractHttpClient.doExecute(AbstractHttpClient.java:884)
+	... 6 more
+Caused by: java.net.URISyntaxException: Illegal character in query at index 75: http://10.254.254.157:8080/ibreports/ibp/bp.html?fn=Default&fp=1&ct=Default Group Policy - limited Internet access.&ip=10.201.105.21&ibip=10.254.254.157&ldu=1&re=0&bu=download.eclipse.org/releases/oxygen/compositecontent.jar&bc=Website contains prohibited Technology content.
+	at java.net.URI$Parser.fail(Unknown Source)
+	at java.net.URI$Parser.checkChars(Unknown Source)
+	at java.net.URI$Parser.parseHierarchical(Unknown Source)
+	at java.net.URI$Parser.parse(Unknown Source)
+	at java.net.URI.<init>(Unknown Source)
+	at org.apache.http.impl.client.DefaultRedirectStrategy.createLocationURI(DefaultRedirectStrategy.java:188)
+	... 11 more
+
+!ENTRY org.eclipse.equinox.p2.transport.ecf 2 0 2018-03-24 09:31:53.108
+!MESSAGE Connection to http://download.eclipse.org/technology/epp/packages/oxygen/content.xml.xz failed on null. Retry attempt 0 started
+!STACK 0
+org.apache.http.client.ClientProtocolException
+	at org.apache.http.impl.client.AbstractHttpClient.doExecute(AbstractHttpClient.java:888)
+	at org.apache.http.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:82)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientRetrieveFileTransfer.performConnect(HttpClientRetrieveFileTransfer.java:1084)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientRetrieveFileTransfer.access$0(HttpClientRetrieveFileTransfer.java:1075)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientRetrieveFileTransfer$1.performFileTransfer(HttpClientRetrieveFileTransfer.java:1071)
+	at org.eclipse.ecf.filetransfer.FileTransferJob.run(FileTransferJob.java:74)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:56)
+Caused by: org.apache.http.ProtocolException: Invalid redirect URI: http://10.254.254.157:8080/ibreports/ibp/bp.html?fn=Default&fp=1&ct=Default Group Policy - limited Internet access.&ip=10.201.105.21&ibip=10.254.254.157&ldu=1&re=0&bu=download.eclipse.org/technology/epp/packages/oxygen/content.xml.xz&bc=Website contains prohibited Technology content.
+	at org.apache.http.impl.client.DefaultRedirectStrategy.createLocationURI(DefaultRedirectStrategy.java:199)
+	at org.apache.http.impl.client.DefaultRedirectStrategy.getLocationURI(DefaultRedirectStrategy.java:147)
+	at org.apache.http.impl.client.DefaultRedirectStrategy.getRedirect(DefaultRedirectStrategy.java:220)
+	at org.apache.http.impl.client.DefaultRequestDirector.handleResponse(DefaultRequestDirector.java:1085)
+	at org.apache.http.impl.client.DefaultRequestDirector.execute(DefaultRequestDirector.java:516)
+	at org.apache.http.impl.client.AbstractHttpClient.doExecute(AbstractHttpClient.java:884)
+	... 6 more
+Caused by: java.net.URISyntaxException: Illegal character in query at index 75: http://10.254.254.157:8080/ibreports/ibp/bp.html?fn=Default&fp=1&ct=Default Group Policy - limited Internet access.&ip=10.201.105.21&ibip=10.254.254.157&ldu=1&re=0&bu=download.eclipse.org/technology/epp/packages/oxygen/content.xml.xz&bc=Website contains prohibited Technology content.
+	at java.net.URI$Parser.fail(Unknown Source)
+	at java.net.URI$Parser.checkChars(Unknown Source)
+	at java.net.URI$Parser.parseHierarchical(Unknown Source)
+	at java.net.URI$Parser.parse(Unknown Source)
+	at java.net.URI.<init>(Unknown Source)
+	at org.apache.http.impl.client.DefaultRedirectStrategy.createLocationURI(DefaultRedirectStrategy.java:188)
+	... 11 more
+
+!ENTRY org.eclipse.equinox.p2.transport.ecf 2 0 2018-03-24 09:31:53.462
+!MESSAGE Connection to http://download.eclipse.org/oomph/updates/milestone/latest/compositeContent.jar failed on null. Retry attempt 0 started
+!STACK 0
+org.apache.http.client.ClientProtocolException
+	at org.apache.http.impl.client.AbstractHttpClient.doExecute(AbstractHttpClient.java:888)
+	at org.apache.http.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:82)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientRetrieveFileTransfer.performConnect(HttpClientRetrieveFileTransfer.java:1084)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientRetrieveFileTransfer.access$0(HttpClientRetrieveFileTransfer.java:1075)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientRetrieveFileTransfer$1.performFileTransfer(HttpClientRetrieveFileTransfer.java:1071)
+	at org.eclipse.ecf.filetransfer.FileTransferJob.run(FileTransferJob.java:74)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:56)
+Caused by: org.apache.http.ProtocolException: Invalid redirect URI: http://10.254.254.157:8080/ibreports/ibp/bp.html?fn=Default&fp=1&ct=Default Group Policy - limited Internet access.&ip=10.201.105.21&ibip=10.254.254.157&ldu=1&re=0&bu=download.eclipse.org/oomph/updates/milestone/latest/compositecontent.jar&bc=Website contains prohibited Technology content.
+	at org.apache.http.impl.client.DefaultRedirectStrategy.createLocationURI(DefaultRedirectStrategy.java:199)
+	at org.apache.http.impl.client.DefaultRedirectStrategy.getLocationURI(DefaultRedirectStrategy.java:147)
+	at org.apache.http.impl.client.DefaultRedirectStrategy.getRedirect(DefaultRedirectStrategy.java:220)
+	at org.apache.http.impl.client.DefaultRequestDirector.handleResponse(DefaultRequestDirector.java:1085)
+	at org.apache.http.impl.client.DefaultRequestDirector.execute(DefaultRequestDirector.java:516)
+	at org.apache.http.impl.client.AbstractHttpClient.doExecute(AbstractHttpClient.java:884)
+	... 6 more
+Caused by: java.net.URISyntaxException: Illegal character in query at index 75: http://10.254.254.157:8080/ibreports/ibp/bp.html?fn=Default&fp=1&ct=Default Group Policy - limited Internet access.&ip=10.201.105.21&ibip=10.254.254.157&ldu=1&re=0&bu=download.eclipse.org/oomph/updates/milestone/latest/compositecontent.jar&bc=Website contains prohibited Technology content.
+	at java.net.URI$Parser.fail(Unknown Source)
+	at java.net.URI$Parser.checkChars(Unknown Source)
+	at java.net.URI$Parser.parseHierarchical(Unknown Source)
+	at java.net.URI$Parser.parse(Unknown Source)
+	at java.net.URI.<init>(Unknown Source)
+	at org.apache.http.impl.client.DefaultRedirectStrategy.createLocationURI(DefaultRedirectStrategy.java:188)
+	... 11 more
+
+!ENTRY org.eclipse.equinox.p2.transport.ecf 2 0 2018-03-24 09:31:53.830
+!MESSAGE Connection to http://download.eclipse.org/eclipse/updates/4.7/compositeContent.jar failed on null. Retry attempt 0 started
+!STACK 0
+org.apache.http.client.ClientProtocolException
+	at org.apache.http.impl.client.AbstractHttpClient.doExecute(AbstractHttpClient.java:888)
+	at org.apache.http.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:82)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientRetrieveFileTransfer.performConnect(HttpClientRetrieveFileTransfer.java:1084)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientRetrieveFileTransfer.access$0(HttpClientRetrieveFileTransfer.java:1075)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientRetrieveFileTransfer$1.performFileTransfer(HttpClientRetrieveFileTransfer.java:1071)
+	at org.eclipse.ecf.filetransfer.FileTransferJob.run(FileTransferJob.java:74)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:56)
+Caused by: org.apache.http.ProtocolException: Invalid redirect URI: http://10.254.254.157:8080/ibreports/ibp/bp.html?fn=Default&fp=1&ct=Default Group Policy - limited Internet access.&ip=10.201.105.21&ibip=10.254.254.157&ldu=1&re=0&bu=download.eclipse.org/eclipse/updates/4.7/compositecontent.jar&bc=Website contains prohibited Technology content.
+	at org.apache.http.impl.client.DefaultRedirectStrategy.createLocationURI(DefaultRedirectStrategy.java:199)
+	at org.apache.http.impl.client.DefaultRedirectStrategy.getLocationURI(DefaultRedirectStrategy.java:147)
+	at org.apache.http.impl.client.DefaultRedirectStrategy.getRedirect(DefaultRedirectStrategy.java:220)
+	at org.apache.http.impl.client.DefaultRequestDirector.handleResponse(DefaultRequestDirector.java:1085)
+	at org.apache.http.impl.client.DefaultRequestDirector.execute(DefaultRequestDirector.java:516)
+	at org.apache.http.impl.client.AbstractHttpClient.doExecute(AbstractHttpClient.java:884)
+	... 6 more
+Caused by: java.net.URISyntaxException: Illegal character in query at index 75: http://10.254.254.157:8080/ibreports/ibp/bp.html?fn=Default&fp=1&ct=Default Group Policy - limited Internet access.&ip=10.201.105.21&ibip=10.254.254.157&ldu=1&re=0&bu=download.eclipse.org/eclipse/updates/4.7/compositecontent.jar&bc=Website contains prohibited Technology content.
+	at java.net.URI$Parser.fail(Unknown Source)
+	at java.net.URI$Parser.checkChars(Unknown Source)
+	at java.net.URI$Parser.parseHierarchical(Unknown Source)
+	at java.net.URI$Parser.parse(Unknown Source)
+	at java.net.URI.<init>(Unknown Source)
+	at org.apache.http.impl.client.DefaultRedirectStrategy.createLocationURI(DefaultRedirectStrategy.java:188)
+	... 11 more
+
+!ENTRY org.eclipse.equinox.p2.transport.ecf 2 0 2018-03-24 09:31:54.208
+!MESSAGE Connection to http://download.eclipse.org/releases/oxygen/compositeContent.jar failed on null. Retry attempt 0 started
+!STACK 0
+org.apache.http.client.ClientProtocolException
+	at org.apache.http.impl.client.AbstractHttpClient.doExecute(AbstractHttpClient.java:888)
+	at org.apache.http.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:82)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientRetrieveFileTransfer.performConnect(HttpClientRetrieveFileTransfer.java:1084)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientRetrieveFileTransfer.access$0(HttpClientRetrieveFileTransfer.java:1075)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientRetrieveFileTransfer$1.performFileTransfer(HttpClientRetrieveFileTransfer.java:1071)
+	at org.eclipse.ecf.filetransfer.FileTransferJob.run(FileTransferJob.java:74)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:56)
+Caused by: org.apache.http.ProtocolException: Invalid redirect URI: http://10.254.254.157:8080/ibreports/ibp/bp.html?fn=Default&fp=1&ct=Default Group Policy - limited Internet access.&ip=10.201.105.21&ibip=10.254.254.157&ldu=1&re=0&bu=download.eclipse.org/releases/oxygen/compositecontent.jar&bc=Website contains prohibited Technology content.
+	at org.apache.http.impl.client.DefaultRedirectStrategy.createLocationURI(DefaultRedirectStrategy.java:199)
+	at org.apache.http.impl.client.DefaultRedirectStrategy.getLocationURI(DefaultRedirectStrategy.java:147)
+	at org.apache.http.impl.client.DefaultRedirectStrategy.getRedirect(DefaultRedirectStrategy.java:220)
+	at org.apache.http.impl.client.DefaultRequestDirector.handleResponse(DefaultRequestDirector.java:1085)
+	at org.apache.http.impl.client.DefaultRequestDirector.execute(DefaultRequestDirector.java:516)
+	at org.apache.http.impl.client.AbstractHttpClient.doExecute(AbstractHttpClient.java:884)
+	... 6 more
+Caused by: java.net.URISyntaxException: Illegal character in query at index 75: http://10.254.254.157:8080/ibreports/ibp/bp.html?fn=Default&fp=1&ct=Default Group Policy - limited Internet access.&ip=10.201.105.21&ibip=10.254.254.157&ldu=1&re=0&bu=download.eclipse.org/releases/oxygen/compositecontent.jar&bc=Website contains prohibited Technology content.
+	at java.net.URI$Parser.fail(Unknown Source)
+	at java.net.URI$Parser.checkChars(Unknown Source)
+	at java.net.URI$Parser.parseHierarchical(Unknown Source)
+	at java.net.URI$Parser.parse(Unknown Source)
+	at java.net.URI.<init>(Unknown Source)
+	at org.apache.http.impl.client.DefaultRedirectStrategy.createLocationURI(DefaultRedirectStrategy.java:188)
+	... 11 more
+
+!ENTRY org.eclipse.equinox.p2.transport.ecf 2 0 2018-03-24 09:31:54.568
+!MESSAGE Connection to http://download.eclipse.org/technology/epp/packages/oxygen/content.xml.xz failed on null. Retry attempt 0 started
+!STACK 0
+org.apache.http.client.ClientProtocolException
+	at org.apache.http.impl.client.AbstractHttpClient.doExecute(AbstractHttpClient.java:888)
+	at org.apache.http.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:82)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientRetrieveFileTransfer.performConnect(HttpClientRetrieveFileTransfer.java:1084)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientRetrieveFileTransfer.access$0(HttpClientRetrieveFileTransfer.java:1075)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientRetrieveFileTransfer$1.performFileTransfer(HttpClientRetrieveFileTransfer.java:1071)
+	at org.eclipse.ecf.filetransfer.FileTransferJob.run(FileTransferJob.java:74)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:56)
+Caused by: org.apache.http.ProtocolException: Invalid redirect URI: http://10.254.254.157:8080/ibreports/ibp/bp.html?fn=Default&fp=1&ct=Default Group Policy - limited Internet access.&ip=10.201.105.21&ibip=10.254.254.157&ldu=1&re=0&bu=download.eclipse.org/technology/epp/packages/oxygen/content.xml.xz&bc=Website contains prohibited Technology content.
+	at org.apache.http.impl.client.DefaultRedirectStrategy.createLocationURI(DefaultRedirectStrategy.java:199)
+	at org.apache.http.impl.client.DefaultRedirectStrategy.getLocationURI(DefaultRedirectStrategy.java:147)
+	at org.apache.http.impl.client.DefaultRedirectStrategy.getRedirect(DefaultRedirectStrategy.java:220)
+	at org.apache.http.impl.client.DefaultRequestDirector.handleResponse(DefaultRequestDirector.java:1085)
+	at org.apache.http.impl.client.DefaultRequestDirector.execute(DefaultRequestDirector.java:516)
+	at org.apache.http.impl.client.AbstractHttpClient.doExecute(AbstractHttpClient.java:884)
+	... 6 more
+Caused by: java.net.URISyntaxException: Illegal character in query at index 75: http://10.254.254.157:8080/ibreports/ibp/bp.html?fn=Default&fp=1&ct=Default Group Policy - limited Internet access.&ip=10.201.105.21&ibip=10.254.254.157&ldu=1&re=0&bu=download.eclipse.org/technology/epp/packages/oxygen/content.xml.xz&bc=Website contains prohibited Technology content.
+	at java.net.URI$Parser.fail(Unknown Source)
+	at java.net.URI$Parser.checkChars(Unknown Source)
+	at java.net.URI$Parser.parseHierarchical(Unknown Source)
+	at java.net.URI$Parser.parse(Unknown Source)
+	at java.net.URI.<init>(Unknown Source)
+	at org.apache.http.impl.client.DefaultRedirectStrategy.createLocationURI(DefaultRedirectStrategy.java:188)
+	... 11 more
+
+!ENTRY org.eclipse.equinox.p2.transport.ecf 2 0 2018-03-24 09:31:54.912
+!MESSAGE Connection to http://download.eclipse.org/oomph/updates/milestone/latest/compositeContent.jar failed on null. Retry attempt 0 started
+!STACK 0
+org.apache.http.client.ClientProtocolException
+	at org.apache.http.impl.client.AbstractHttpClient.doExecute(AbstractHttpClient.java:888)
+	at org.apache.http.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:82)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientRetrieveFileTransfer.performConnect(HttpClientRetrieveFileTransfer.java:1084)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientRetrieveFileTransfer.access$0(HttpClientRetrieveFileTransfer.java:1075)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientRetrieveFileTransfer$1.performFileTransfer(HttpClientRetrieveFileTransfer.java:1071)
+	at org.eclipse.ecf.filetransfer.FileTransferJob.run(FileTransferJob.java:74)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:56)
+Caused by: org.apache.http.ProtocolException: Invalid redirect URI: http://10.254.254.157:8080/ibreports/ibp/bp.html?fn=Default&fp=1&ct=Default Group Policy - limited Internet access.&ip=10.201.105.21&ibip=10.254.254.157&ldu=1&re=0&bu=download.eclipse.org/oomph/updates/milestone/latest/compositecontent.jar&bc=Website contains prohibited Technology content.
+	at org.apache.http.impl.client.DefaultRedirectStrategy.createLocationURI(DefaultRedirectStrategy.java:199)
+	at org.apache.http.impl.client.DefaultRedirectStrategy.getLocationURI(DefaultRedirectStrategy.java:147)
+	at org.apache.http.impl.client.DefaultRedirectStrategy.getRedirect(DefaultRedirectStrategy.java:220)
+	at org.apache.http.impl.client.DefaultRequestDirector.handleResponse(DefaultRequestDirector.java:1085)
+	at org.apache.http.impl.client.DefaultRequestDirector.execute(DefaultRequestDirector.java:516)
+	at org.apache.http.impl.client.AbstractHttpClient.doExecute(AbstractHttpClient.java:884)
+	... 6 more
+Caused by: java.net.URISyntaxException: Illegal character in query at index 75: http://10.254.254.157:8080/ibreports/ibp/bp.html?fn=Default&fp=1&ct=Default Group Policy - limited Internet access.&ip=10.201.105.21&ibip=10.254.254.157&ldu=1&re=0&bu=download.eclipse.org/oomph/updates/milestone/latest/compositecontent.jar&bc=Website contains prohibited Technology content.
+	at java.net.URI$Parser.fail(Unknown Source)
+	at java.net.URI$Parser.checkChars(Unknown Source)
+	at java.net.URI$Parser.parseHierarchical(Unknown Source)
+	at java.net.URI$Parser.parse(Unknown Source)
+	at java.net.URI.<init>(Unknown Source)
+	at org.apache.http.impl.client.DefaultRedirectStrategy.createLocationURI(DefaultRedirectStrategy.java:188)
+	... 11 more
+
+!ENTRY org.eclipse.equinox.p2.transport.ecf 2 0 2018-03-24 09:31:55.281
+!MESSAGE Connection to http://download.eclipse.org/eclipse/updates/4.7/compositeContent.jar failed on null. Retry attempt 0 started
+!STACK 0
+org.apache.http.client.ClientProtocolException
+	at org.apache.http.impl.client.AbstractHttpClient.doExecute(AbstractHttpClient.java:888)
+	at org.apache.http.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:82)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientRetrieveFileTransfer.performConnect(HttpClientRetrieveFileTransfer.java:1084)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientRetrieveFileTransfer.access$0(HttpClientRetrieveFileTransfer.java:1075)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientRetrieveFileTransfer$1.performFileTransfer(HttpClientRetrieveFileTransfer.java:1071)
+	at org.eclipse.ecf.filetransfer.FileTransferJob.run(FileTransferJob.java:74)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:56)
+Caused by: org.apache.http.ProtocolException: Invalid redirect URI: http://10.254.254.157:8080/ibreports/ibp/bp.html?fn=Default&fp=1&ct=Default Group Policy - limited Internet access.&ip=10.201.105.21&ibip=10.254.254.157&ldu=1&re=0&bu=download.eclipse.org/eclipse/updates/4.7/compositecontent.jar&bc=Website contains prohibited Technology content.
+	at org.apache.http.impl.client.DefaultRedirectStrategy.createLocationURI(DefaultRedirectStrategy.java:199)
+	at org.apache.http.impl.client.DefaultRedirectStrategy.getLocationURI(DefaultRedirectStrategy.java:147)
+	at org.apache.http.impl.client.DefaultRedirectStrategy.getRedirect(DefaultRedirectStrategy.java:220)
+	at org.apache.http.impl.client.DefaultRequestDirector.handleResponse(DefaultRequestDirector.java:1085)
+	at org.apache.http.impl.client.DefaultRequestDirector.execute(DefaultRequestDirector.java:516)
+	at org.apache.http.impl.client.AbstractHttpClient.doExecute(AbstractHttpClient.java:884)
+	... 6 more
+Caused by: java.net.URISyntaxException: Illegal character in query at index 75: http://10.254.254.157:8080/ibreports/ibp/bp.html?fn=Default&fp=1&ct=Default Group Policy - limited Internet access.&ip=10.201.105.21&ibip=10.254.254.157&ldu=1&re=0&bu=download.eclipse.org/eclipse/updates/4.7/compositecontent.jar&bc=Website contains prohibited Technology content.
+	at java.net.URI$Parser.fail(Unknown Source)
+	at java.net.URI$Parser.checkChars(Unknown Source)
+	at java.net.URI$Parser.parseHierarchical(Unknown Source)
+	at java.net.URI$Parser.parse(Unknown Source)
+	at java.net.URI.<init>(Unknown Source)
+	at org.apache.http.impl.client.DefaultRedirectStrategy.createLocationURI(DefaultRedirectStrategy.java:188)
+	... 11 more
+
+!ENTRY org.eclipse.equinox.p2.transport.ecf 2 0 2018-03-24 09:31:55.658
+!MESSAGE Connection to http://download.eclipse.org/releases/oxygen/compositeContent.jar failed on null. Retry attempt 0 started
+!STACK 0
+org.apache.http.client.ClientProtocolException
+	at org.apache.http.impl.client.AbstractHttpClient.doExecute(AbstractHttpClient.java:888)
+	at org.apache.http.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:82)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientRetrieveFileTransfer.performConnect(HttpClientRetrieveFileTransfer.java:1084)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientRetrieveFileTransfer.access$0(HttpClientRetrieveFileTransfer.java:1075)
+	at org.eclipse.ecf.provider.filetransfer.httpclient4.HttpClientRetrieveFileTransfer$1.performFileTransfer(HttpClientRetrieveFileTransfer.java:1071)
+	at org.eclipse.ecf.filetransfer.FileTransferJob.run(FileTransferJob.java:74)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:56)
+Caused by: org.apache.http.ProtocolException: Invalid redirect URI: http://10.254.254.157:8080/ibreports/ibp/bp.html?fn=Default&fp=1&ct=Default Group Policy - limited Internet access.&ip=10.201.105.21&ibip=10.254.254.157&ldu=1&re=0&bu=download.eclipse.org/releases/oxygen/compositecontent.jar&bc=Website contains prohibited Technology content.
+	at org.apache.http.impl.client.DefaultRedirectStrategy.createLocationURI(DefaultRedirectStrategy.java:199)
+	at org.apache.http.impl.client.DefaultRedirectStrategy.getLocationURI(DefaultRedirectStrategy.java:147)
+	at org.apache.http.impl.client.DefaultRedirectStrategy.getRedirect(DefaultRedirectStrategy.java:220)
+	at org.apache.http.impl.client.DefaultRequestDirector.handleResponse(DefaultRequestDirector.java:1085)
+	at org.apache.http.impl.client.DefaultRequestDirector.execute(DefaultRequestDirector.java:516)
+	at org.apache.http.impl.client.AbstractHttpClient.doExecute(AbstractHttpClient.java:884)
+	... 6 more
+Caused by: java.net.URISyntaxException: Illegal character in query at index 75: http://10.254.254.157:8080/ibreports/ibp/bp.html?fn=Default&fp=1&ct=Default Group Policy - limited Internet access.&ip=10.201.105.21&ibip=10.254.254.157&ldu=1&re=0&bu=download.eclipse.org/releases/oxygen/compositecontent.jar&bc=Website contains prohibited Technology content.
+	at java.net.URI$Parser.fail(Unknown Source)
+	at java.net.URI$Parser.checkChars(Unknown Source)
+	at java.net.URI$Parser.parseHierarchical(Unknown Source)
+	at java.net.URI$Parser.parse(Unknown Source)
+	at java.net.URI.<init>(Unknown Source)
+	at org.apache.http.impl.client.DefaultRedirectStrategy.createLocationURI(DefaultRedirectStrategy.java:188)
+	... 11 more
+
+!ENTRY riolog 1 0 2018-03-24 10:20:54.211
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-24 10:20:55.250
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-24 10:20:56.232
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-24 10:20:56.245
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-24 10:20:56.268
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-24 10:22:01.052
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-24 10:22:02.310
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-24 10:22:02.333
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-24 10:22:02.358
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-24 10:47:27.273
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-24 10:47:28.855
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-24 10:47:28.880
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-24 10:47:28.908
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-24 10:49:01.433
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-24 10:49:02.948
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-24 10:49:02.972
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-24 10:49:02.989
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-24 10:54:07.472
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-24 10:54:09.091
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-24 10:54:09.117
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-24 10:54:09.136
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-24 10:54:32.055
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-24 10:54:33.150
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-24 10:55:28.377
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-24 10:55:28.391
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-24 10:55:30.388
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-24 10:55:30.413
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-24 10:55:30.439
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-24 10:55:36.640
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-24 10:55:38.458
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-24 10:55:38.472
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-24 10:55:38.493
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-24 10:59:49.301
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-24 10:59:50.581
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-24 10:59:50.603
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-24 10:59:50.632
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-24 11:02:15.587
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-24 11:02:16.691
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-24 13:01:41.622
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-24 13:01:44.464
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-24 13:01:45.640
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-24 13:01:45.655
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-24 13:01:45.674
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-24 13:01:56.541
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-24 13:01:57.690
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-24 13:01:57.708
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-24 13:01:57.735
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-24 13:02:11.163
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-24 13:02:11.753
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-24 13:02:11.774
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-24 13:02:11.799
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-24 14:22:33.810
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-24 14:22:35.305
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-24 14:22:35.323
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-24 14:22:35.347
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-24 14:41:10.621
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-24 14:41:11.726
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-24 15:20:44.274
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-24 15:20:50.190
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-24 15:20:50.286
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-24 15:20:50.292
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-24 15:20:50.310
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-24 16:09:08.162
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-24 16:09:09.260
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-25 15:32:57.307
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-25 15:33:44.795
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-25 15:33:45.322
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-25 15:33:45.337
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-25 15:33:45.354
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-25 15:34:32.139
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-25 15:34:33.366
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-25 15:34:33.377
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-25 15:34:33.397
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-25 15:35:54.637
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-25 15:35:55.408
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-25 15:35:55.430
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-25 15:35:55.445
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-25 15:35:57.473
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-25 15:35:59.459
+!MESSAGE failed to send keep alive, reconnecting
+
+!ENTRY riolog 1 0 2018-03-25 15:35:59.479
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-25 15:35:59.498
+!MESSAGE Connected to robot at 10.31.76.2
+
+!ENTRY riolog 1 0 2018-03-25 15:36:24.412
+!MESSAGE socket disconnected during read
+
+!ENTRY riolog 1 0 2018-03-25 15:36:25.512
+!MESSAGE failed to send keep alive, reconnecting

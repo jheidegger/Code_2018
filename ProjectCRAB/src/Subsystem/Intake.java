@@ -173,7 +173,7 @@ public class Intake extends Subsystem {
  				case Homing:
  					if(isIntakeStowed.get())
  					{
- 						stowingMotor.set(.2);
+ 						stowingMotor.set(.5);
  						rightSideWheel.set(0.0);
 	 					leftSideWheel.set(0.0);
  					}
