@@ -281,7 +281,13 @@ public class Drivetrain extends Subsystem {
 			}
 	}
 	
-
+	/**
+	 * ONLY CALL WHEN WHEELS ARE ALIGNED IN THE PITS
+	 **/
+	public void resetOffset()
+	{
+		
+	}
 	
 	@Override
 	public void zeroAllSensors() {
