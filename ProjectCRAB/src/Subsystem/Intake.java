@@ -1,9 +1,12 @@
 package Subsystem;
  
 import org.usfirst.frc.team6713.robot.Constants;
+import org.usfirst.frc.team6713.robot.Robot;
+
 import Util.PIDLoop;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -61,7 +64,7 @@ public class Intake extends Subsystem {
  		stowingMotor = new Victor(Constants.INTAKESTOWINGMOTOR);
  		encoder = new Encoder(2, 3, false, Encoder.EncodingType.k4X);
  		encoder.reset();
- 		//isCubeIn = new DigitalInput(0);
+ 		isCubeIn = new DigitalInput(6);
  		isIntakeStowed = new DigitalInput(5);
  		unJamTimer = new Timer();
  		currState = systemStates.Homing;
@@ -146,6 +149,7 @@ public class Intake extends Subsystem {
  				SmartDashboard.putBoolean("Stowed",isIntakeStowed.get());
  				SmartDashboard.putString("State", currState.toString());
  				SmartDashboard.putNumber("wantedPosition", wantedPosition);
+ 				SmartDashboard.putBoolean("CubeIn", isCubeIn.get());
  				switch(currState)
  				{
  				case openNeutral:
@@ -173,7 +177,7 @@ public class Intake extends Subsystem {
  				case Homing:
  					if(isIntakeStowed.get())
  					{
- 						stowingMotor.set(.5);
+ 						stowingMotor.set(.3);
  						rightSideWheel.set(0.0);
 	 					leftSideWheel.set(0.0);
  					}
@@ -190,19 +194,44 @@ public class Intake extends Subsystem {
  					break;
  					//spins wheels in to intake the Power Cube
  				case Intaking:
- 					//if(!isCubeIn.get())
- 					//{
-	 					rightSideWheel.set(Constants.INTAKESPEED);
-	 					leftSideWheel.set(-Constants.INTAKESPEED);
+ 					if(isCubeIn.get())
+ 					{
+	 					SmartDashboard.putNumber("currentDraw", Drivetrain.getInstance().getPDP().getCurrent(11));
+ 						double rightCurrent = Drivetrain.getInstance().getPDP().getCurrent(11);
+ 						double leftCurrent = Drivetrain.getInstance().getPDP().getCurrent(10);
+ 						
+ 						if(rightCurrent > 23 || leftCurrent > 23) {
+  							wantedState = systemStates.UnJamming;
+  						}
+ 						else if(rightCurrent>6 || leftCurrent>6)
+ 						{
+ 							rightSideWheel.set(Constants.INTAKESPEED);
+ 		 					leftSideWheel.set(-Constants.INTAKESPEED);
+ 						}
+ 						else
+ 						{
+ 							rightSideWheel.set(Constants.INTAKESPEED/1.5);
+ 		 					leftSideWheel.set(-Constants.INTAKESPEED/1.5);
+ 						}
+	 					
 	 					lastState = systemStates.Intaking;
 	 					wantedPosition = downPosition;
-	 					//closedLoopControl();
-	 					checkState();
- 					//}
- 					//else
- 					//{
- 					//	currState = systemStates.Neutral;
- 					//}
+	 					closedLoopControl();
+	 					if(wantedState == systemStates.UnJamming)
+	 					{
+	 						currState = systemStates.UnJamming;
+	 					}
+	 					else if(controller.Stow())
+	 					{
+	 						wantedPosition = 0.0;
+	 						currState = systemStates.Neutral;
+	 					}
+ 					}
+ 					else
+ 					{
+ 						wantedPosition = 0.0;
+ 						currState = systemStates.Neutral;
+ 					}
  					break;
  				//spins the wheels outward to score
  				case Scoring:
@@ -231,7 +260,7 @@ public class Intake extends Subsystem {
  					}
  					else
  					{
- 						checkState();
+ 						currState = systemStates.Intaking;
  					}
  					lastState = systemStates.UnJamming;
  					break;
@@ -256,6 +285,12 @@ public class Intake extends Subsystem {
  					break;
  				default:
 					break;
+ 				}
+ 				if(isCubeIn.get()) {
+ 					LED.getInstance().setWantedState(LED.ledStates.LIGHTSHOW);
+ 				}
+ 				else {
+ 					LED.getInstance().setWantedState(LED.ledStates.CUBE_INTAKED);
  				}
  			}
  			@Override

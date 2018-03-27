@@ -1,6 +1,8 @@
 package Subsystem;
 
 import com.kauailabs.navx.frc.AHRS;
+
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -23,7 +25,7 @@ public class Drivetrain extends Subsystem {
 	private Loop_Manager loopMan = Loop_Manager.getInstance();
 	private Controller controller = Controller.getInstance(); 
 	private PixyCam cam = PixyCam.getInstance();
-	
+	private PowerDistributionPanel pdp = new PowerDistributionPanel(0);
 	private AHRS gyro;
 	
 	private ArrayList<Swervepod> Pods;
@@ -171,7 +173,15 @@ public class Drivetrain extends Subsystem {
 				podDrive[idx] /= rel_max_speed/kMaxSpeed;
 			}
 		}
-		/*if(strafeCommand==0.0&&forwardCommand ==0.0&&spinCommand==0.0)
+		boolean allPodsStopped = true;
+		for(Swervepod p:Pods)
+		{
+			if(!p.isStopped())
+			{
+				allPodsStopped = false;
+			}
+		}
+		if(allPodsStopped && forwardCommand == 0.0 && strafeCommand == 0.0 && spinCommand == 0.0 && false)
 		{
 			// Sending each pod their respective commands
 			
@@ -179,16 +189,15 @@ public class Drivetrain extends Subsystem {
 				Pods.get(1).setPod(0.0, 1.0*Math.PI/4.0);
 				Pods.get(2).setPod(0.0, 3.0*Math.PI/4.0);
 				Pods.get(3).setPod(0.0, -3.0* Math.PI/4.0);
-				
 		}
 		else
-		{*/
+		{
 			// Sending each pod their respective commands
 			for(int idx = 0; idx < Pods.size(); idx++) {
 				//sending power from 0 to 13.5 ft/s and position -pi to pi
 				Pods.get(idx).setPod(podDrive[idx],podGear[idx]); 
 			}
-		//}
+		}
 		SmartDashboard.putNumber("angle", getAngle());
 		
 	}
@@ -297,6 +306,10 @@ public class Drivetrain extends Subsystem {
 		{
 			currentState = requestedState;
 		}
+	}
+	public PowerDistributionPanel getPDP()
+	{
+		return pdp;
 	}
 	
 	@Override

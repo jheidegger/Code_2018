@@ -6,6 +6,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Swervepod extends Subsystem {
@@ -51,7 +52,8 @@ public class Swervepod extends Subsystem {
 		this.driveMotor.config_kP(0,Constants.DRIVE_kP, 0);
 		this.driveMotor.config_kI(0,Constants.DRIVE_kI, 0);
 		this.driveMotor.config_kD(0,Constants.DRIVE_kD, 0);
-		this.driveMotor.config_kF(0, Constants.DRIVE_kF,0);//DRIVE_kF, 0);
+		this.driveMotor.config_kF(0, Constants.DRIVE_kF,0);
+		this.driveMotor.config_IntegralZone(0, Constants.DRIVE_IZONE, 0);
 		this.driveMotor.configClosedloopRamp(Constants.DRIVE_RAMPRATE, 0);
 		
 		this.steerMotor.configAllowableClosedloopError(0, Constants.SWERVE_ALLOWABLE_ERROR, 0);
@@ -64,16 +66,25 @@ public class Swervepod extends Subsystem {
 		velocitySetpoint  = Speed * fps2ups;
 		
 		positionSetpoint = findSteerPosition(Angle); 
-		
-		steerMotor.set(ControlMode.Position, positionSetpoint);
-		
+		if(Speed !=0.0)
+		{
+			steerMotor.set(ControlMode.Position, positionSetpoint);
+			lastAngle = positionSetpoint;
+		}
+		else
+		{
+			steerMotor.set(ControlMode.Position, lastAngle);
+		}
+		driveMotor.set(ControlMode.Velocity, velocitySetpoint);
+		if(id == 0)
+		{
 		SmartDashboard.putNumber("ups", fps2ups);
 		SmartDashboard.putNumber(id+ " position", steerMotor.getSelectedSensorPosition(0));
 		SmartDashboard.putNumber(id + " velocity", driveMotor.getSelectedSensorVelocity(0));
-		SmartDashboard.putNumber(id + " error", 11096 - driveMotor.getSelectedSensorVelocity(0));
-		SmartDashboard.putNumber(id + "rawSpeed", Speed);
-		driveMotor.set(ControlMode.Velocity, velocitySetpoint);
+		//SmartDashboard.putNumber(id + " error", 11096 - driveMotor.getSelectedSensorVelocity(0));
+		SmartDashboard.putNumber(id + " Commanded Speed (f/s)", Speed);
 		//driveMotor.set(ControlMode.PercentOutput, 1.0);
+		}
 	}
 	
 	private double findSteerPosition(double wantedAngle){
@@ -118,7 +129,17 @@ public class Swervepod extends Subsystem {
 	public double getSpeed() {
 		return velocitySetpoint;
 	}
-	
+	public boolean isStopped()
+	{
+		if(Math.abs(driveMotor.getSelectedSensorVelocity(0))<300)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
 	private double radianToEncoderUnits(double Angle)
 	{
 		double encoderUnits = ((Angle / (2.0*Math.PI)) * kEncoderUnits);

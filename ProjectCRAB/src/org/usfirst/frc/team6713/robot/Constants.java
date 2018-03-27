@@ -29,10 +29,10 @@ public class Constants {
 	//Drive Train constants
 	//Gear Facing Right
 	public static double OFFSETS[] = {3316.0,1694.0,3707.0,3392.0};
-	public static double OFFSETS_P[] = {2975.0,303.0,1220.0,2164.0};
+	public static double OFFSETS_P[] = {2968.0,348.0,1184.0,2160.0};
 	public static double DRIVETRAINLENGTH = 17.5;
 	public static double DRIVETRAINWIDTH = 13.0;
-	public static final double WHEELDIAMETER = 3;
+	public static final double WHEELDIAMETER = 2.75;
 	public static double DRIVETRAINMAXWHEELSPEED = 13.0; // ft/s
 	public static double DRIVETRAINMAXROTATIONSPEED = 5.0; // radians/s
 	public static double ENCODER_UNITS = 4096.0;
@@ -43,12 +43,20 @@ public class Constants {
 	public static final double SWERVE_kD = 210.0;
 	public static final double SWERVE_kF = 0.0;
 	public static final int SWERVE_ALLOWABLE_ERROR = 5;
-	
+	/*
 	public static final double DRIVE_kP = .096;//Practice Values .096;
 	public static final double DRIVE_kI = 0.0;//Practice Values 0.0;
 	public static final double DRIVE_kD = 9.33;//Practice Values: 9.33;
 	public static final double DRIVE_kF = 0.110654611;//Practice Value 0.09654611
+	*/
+	//as of 3/25/3018
+	public static final double DRIVE_kP = .096;//Practice Values .096;
+	public static final double DRIVE_kI = 0.0001;//Practice Values 0.0;
+	public static final double DRIVE_kD = 4;//Practice Values: 9.33;
+	public static final double DRIVE_kF = 0.095;//Practice Value 0.09654611
+	public static final int DRIVE_IZONE = 200;
 	public static final int DRIVE_ALLOWABLE_ERROR = 50;
+	
 	public static final double MAXSLOWPERCENTSPEED = .5;
 	public static final double DRIVE_RAMPRATE = .3;
 	public static final double DRIVEGEARREDUCTION = 30.0/48.0;

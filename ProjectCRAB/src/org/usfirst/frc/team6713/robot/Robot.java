@@ -22,6 +22,7 @@ import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.PWM;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.hal.DIOJNI;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -33,6 +34,7 @@ public class Robot extends IterativeRobot {
 	private static final String auto2 = "left switch";
 	private static final String auto3 = "right switch";
 	private static final String auto4 = "drive straight";
+	
 	private Loop_Manager myLoops = Loop_Manager.getInstance();
 	private Drivetrain driveTrain = Drivetrain.getInstance(); 
 	private Controller controller = Controller.getInstance();
@@ -181,7 +183,7 @@ public class Robot extends IterativeRobot {
 		
 		//p.pressurize();
 	}
-
+	
 	@Override
 	public void testPeriodic() { 
 		myLoops.runLoops();
