@@ -38,7 +38,8 @@ public class Intake extends Subsystem {
  	private double wantedPosition;
  	private double currPosition;
  	public final double downPosition = -17000;
- 	
+ 	// -1 full left - 1 full right
+ 	private double cubePosition = 0.0;
  	public enum systemStates{
  		Intaking,
  		Scoring,
@@ -199,19 +200,28 @@ public class Intake extends Subsystem {
 	 					SmartDashboard.putNumber("currentDraw", Drivetrain.getInstance().getPDP().getCurrent(11));
  						double rightCurrent = Drivetrain.getInstance().getPDP().getCurrent(11);
  						double leftCurrent = Drivetrain.getInstance().getPDP().getCurrent(10);
- 						
- 						if(rightCurrent > 23 || leftCurrent > 23) {
-  							wantedState = systemStates.UnJamming;
-  						}
- 						else if(rightCurrent>6 || leftCurrent>6)
- 						{
- 							rightSideWheel.set(Constants.INTAKESPEED);
- 		 					leftSideWheel.set(-Constants.INTAKESPEED);
- 						}
+ 						double maxCurrent = 23;
+ 						cubePosition = (rightCurrent-leftCurrent)/((rightCurrent+leftCurrent)/2.0);
+// 						if(rightCurrent > 23 || leftCurrent > 23) {
+//  							wantedState = systemStates.UnJamming;
+//  						}
+// 						else if(rightCurrent>6 || leftCurrent>6)
+// 						{
+// 							rightSideWheel.set(Constants.INTAKESPEED);
+// 		 					leftSideWheel.set(-Constants.INTAKESPEED);
+// 						}
+// 						else
+// 						{
+// 							rightSideWheel.set(Constants.INTAKESPEED/1.5);
+// 		 					leftSideWheel.set(-Constants.INTAKESPEED/1.5);
+// 						}
+ 						if(rightCurrent > maxCurrent || leftCurrent > maxCurrent) {
+							wantedState = systemStates.UnJamming;
+						}
  						else
  						{
- 							rightSideWheel.set(Constants.INTAKESPEED/1.5);
- 		 					leftSideWheel.set(-Constants.INTAKESPEED/1.5);
+ 							rightSideWheel.set((rightCurrent/maxCurrent)/2.0+.5);
+ 		 					leftSideWheel.set(-((leftCurrent/maxCurrent)/2.0+.5));
  						}
 	 					
 	 					lastState = systemStates.Intaking;
@@ -231,6 +241,7 @@ public class Intake extends Subsystem {
  					{
  						wantedPosition = 0.0;
  						currState = systemStates.Neutral;
+ 						cubePosition = 0.0;
  					}
  					break;
  				//spins the wheels outward to score
@@ -250,8 +261,8 @@ public class Intake extends Subsystem {
  					}
  					if(unJamTimer.get()<.05)
  					{
- 						rightSideWheel.set(Constants.INTAKESPEED*.5);
- 	 					leftSideWheel.set(-Constants.INTAKESPEED*.5);
+ 						rightSideWheel.set(Constants.INTAKESPEED*.5+cubePosition);
+ 	 					leftSideWheel.set(-Constants.INTAKESPEED*.5+cubePosition);
  					}
  					else if(unJamTimer.get() < .1)
  					{
