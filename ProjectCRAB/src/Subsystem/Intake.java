@@ -26,7 +26,8 @@ public class Intake extends Subsystem {
  	private Victor stowingMotor;
  	
  	private Timer unJamTimer;
- 	private DigitalInput isCubeIn;
+ 	private DigitalInput isCubeInLeft;
+ 	private DigitalInput isCubeInRight;
  	private DigitalInput isIntakeStowed;
  	
  	private systemStates currState;
@@ -65,7 +66,8 @@ public class Intake extends Subsystem {
  		stowingMotor = new Victor(Constants.INTAKESTOWINGMOTOR);
  		encoder = new Encoder(2, 3, false, Encoder.EncodingType.k4X);
  		encoder.reset();
- 		isCubeIn = new DigitalInput(6);
+ 		isCubeInLeft = new DigitalInput(6);
+ 		isCubeInRight = new DigitalInput(7);
  		isIntakeStowed = new DigitalInput(5);
  		unJamTimer = new Timer();
  		currState = systemStates.Homing;
@@ -149,8 +151,10 @@ public class Intake extends Subsystem {
  				SmartDashboard.putNumber("curr position", encoder.getRaw());
  				SmartDashboard.putBoolean("Stowed",isIntakeStowed.get());
  				SmartDashboard.putString("State", currState.toString());
+ 				
  				SmartDashboard.putNumber("wantedPosition", wantedPosition);
- 				SmartDashboard.putBoolean("CubeIn", isCubeIn.get());
+ 				SmartDashboard.putBoolean("CubeIn", isCubeInLeft.get());
+ 				SmartDashboard.putBoolean("CubeIn", isCubeInRight.get());
  				switch(currState)
  				{
  				case openNeutral:
@@ -161,6 +165,10 @@ public class Intake extends Subsystem {
  					break;
  				//idle and wait for commands
  				case Neutral:
+ 					if(lastState == systemStates.Scoring || lastState == systemStates.Intaking) {
+ 						wantedPosition = 0.0;
+ 						cubePosition = 0.0;
+ 					}
  					rightSideWheel.set(0.0);
  					leftSideWheel.set(0.0);
  					lastState = systemStates.Neutral;
@@ -195,12 +203,13 @@ public class Intake extends Subsystem {
  					break;
  					//spins wheels in to intake the Power Cube
  				case Intaking:
- 					if(isCubeIn.get())
+ 					if(isCubeInLeft.get() || isCubeInRight.get())
  					{
-	 					SmartDashboard.putNumber("currentDraw", Drivetrain.getInstance().getPDP().getCurrent(11));
- 						double rightCurrent = Drivetrain.getInstance().getPDP().getCurrent(11);
- 						double leftCurrent = Drivetrain.getInstance().getPDP().getCurrent(10);
- 						double maxCurrent = 23;
+ 						double rightCurrent = Drivetrain.getInstance().getPDP().getCurrent(10);
+ 						double leftCurrent = Drivetrain.getInstance().getPDP().getCurrent(11);
+ 						SmartDashboard.putNumber("Right Current", rightCurrent);
+ 						SmartDashboard.putNumber("Left Current", leftCurrent);
+ 						double maxCurrent = 24;
  						cubePosition = (rightCurrent-leftCurrent)/((rightCurrent+leftCurrent)/2.0);
 // 						if(rightCurrent > 23 || leftCurrent > 23) {
 //  							wantedState = systemStates.UnJamming;
@@ -220,10 +229,10 @@ public class Intake extends Subsystem {
 						}
  						else
  						{
- 							rightSideWheel.set((rightCurrent/maxCurrent)/2.0+.5);
- 		 					leftSideWheel.set(-((leftCurrent/maxCurrent)/2.0+.5));
+ 							rightSideWheel.set(-((rightCurrent/maxCurrent)/2.0+.5));
+ 		 					leftSideWheel.set(((leftCurrent/maxCurrent)/2.0+.5));
  						}
-	 					
+	 					SmartDashboard.putNumber("cubePostion", cubePosition);
 	 					lastState = systemStates.Intaking;
 	 					wantedPosition = downPosition;
 	 					closedLoopControl();
@@ -239,10 +248,10 @@ public class Intake extends Subsystem {
  					}
  					else
  					{
- 						wantedPosition = 0.0;
  						currState = systemStates.Neutral;
- 						cubePosition = 0.0;
  					}
+ 					lastState = systemStates.Intaking;
+ 					
  					break;
  				//spins the wheels outward to score
  				case Scoring:
@@ -259,12 +268,12 @@ public class Intake extends Subsystem {
  						unJamTimer.start();
  						unJamTimer.reset();
  					}
- 					if(unJamTimer.get()<.05)
+ 					if(unJamTimer.get()<.02)
  					{
- 						rightSideWheel.set(Constants.INTAKESPEED*.5+cubePosition);
- 	 					leftSideWheel.set(-Constants.INTAKESPEED*.5+cubePosition);
+ 						rightSideWheel.set(0.0);//(Constants.INTAKESPEED*.5)*.5);
+ 	 					leftSideWheel.set(0.0);//(-Constants.INTAKESPEED*.5)*.5);
  					}
- 					else if(unJamTimer.get() < .1)
+ 					else if(unJamTimer.get() < .08)
  					{
  						rightSideWheel.set(-Constants.INTAKESPEED);
  	 					leftSideWheel.set(Constants.INTAKESPEED);
@@ -297,7 +306,7 @@ public class Intake extends Subsystem {
  				default:
 					break;
  				}
- 				if(isCubeIn.get()) {
+ 				if(isCubeInLeft.get() && isCubeInRight.get()) {
  					LED.getInstance().setWantedState(LED.ledStates.LIGHTSHOW);
  				}
  				else {
