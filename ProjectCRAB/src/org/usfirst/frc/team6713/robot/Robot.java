@@ -45,7 +45,9 @@ public class Robot extends IterativeRobot {
 	private Pneumatics pneumatics = Pneumatics.getInstance();
 	int testID = 0;
 	String gameData;
-	private boolean isIntakeOpenLoop = false;
+	private boolean isIntakeOpenLoop;
+	private boolean isElevatorOpenLoop;
+	private double startTime;
 	@Override
 	public void robotInit() {
 		driveTrain.registerLoop();
@@ -55,6 +57,8 @@ public class Robot extends IterativeRobot {
 		pneumatics.registerLoop();
 		myLoops.startLoops();
 		CameraServer.getInstance().startAutomaticCapture();
+		isIntakeOpenLoop = false;
+		isElevatorOpenLoop = false;
 //		m_chooser.addObject("middle switch", auto1);
 //		m_chooser.addObject("left switch", auto2);
 //		m_chooser.addObject("right switch", auto3);
@@ -62,7 +66,7 @@ public class Robot extends IterativeRobot {
 //		m_chooser.addDefault("default", "default");
 //		SmartDashboard.putData("Auto choices", m_chooser);
 	}
-	private double startTime;
+	
 	@Override
 	public void autonomousInit() {
 		gameData = DriverStation.getInstance().getGameSpecificMessage();
@@ -153,11 +157,10 @@ public class Robot extends IterativeRobot {
 					Drivetrain.driveCoords.FIELDCENTRIC, 
 					Drivetrain.driveType.PERCENTPOWER);
 		}
-		//driveTrain.swerve(1.0, 0.0, 0.0,Drivetrain.driveCoords.FIELDCENTRIC, Drivetrain.driveType.VELOCITY);
+		
 		/**
 		 * Intake States
 		 */
-		
 		if(controller.Stow() == true && controller.unStow() == true)
 		{
 			isIntakeOpenLoop = true;
@@ -174,9 +177,27 @@ public class Robot extends IterativeRobot {
 		{
 			intake.setPosition(intake.getCurrPosition()+controller.getintakePositionJoystick()*200);
 		}
-		//elevator.setWantedState(Elevator.systemStates.POSITION_FOLLOW);
+		/**
+		 * Elevator States
+		 */
+		if(controller.elevatorHigh() == true && controller.elevatorLow() == true)
+		{
+			isElevatorOpenLoop = true;
+			elevator.setWantedState(Elevator.systemStates.OPEN_LOOP);
+		}
+		if(!isElevatorOpenLoop)
+		{
+			elevator.setWantedState(Elevator.systemStates.POSITION_FOLLOW);
+		}
+		if(controller.elevatorHigh()) {elevator.setWantedFloor(Constants.SCALEHIGHHEIGHT); }
+		else if (controller.elevatorMid()) {elevator.setWantedFloor(Constants.SCALEMIDHEIGHT);}
+		else if (controller.elevatorLow()) {elevator.setWantedFloor(Constants.SCALELOWHEIGHT);}
+		else
+		{
+			elevator.setWantedFloor(elevator.getHeight()+controller.elevatorPositionJoystick()*2000);
+		}
+		if(controller.elevatorResetEncoder()) {elevator.zeroAllSensors();}
 		
-		//p.pressurize();
 	}
 	
 	@Override

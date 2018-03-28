@@ -62,7 +62,7 @@ public class Controller extends Subsystem{
 			return Math.pow(thetaStick.getX(),1)/6.0;
 		}
 	}
-	public double elevatorOpenLoop() {return -buttonMonkey.getThrottle();}
+	public double elevatorPositionJoystick() {return -buttonMonkey.getThrottle();}
 	public boolean elevatorResetEncoder() {return buttonMonkey.getRawButton(12);};
 	public boolean elevatorHigh() {return buttonMonkey.getRawButton(8);}
 	public boolean elevatorMid() {return buttonMonkey.getRawButton(6);}

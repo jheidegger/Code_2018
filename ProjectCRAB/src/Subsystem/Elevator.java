@@ -27,8 +27,7 @@ public class Elevator extends Subsystem {
 	
 	private systemStates currentState;
 	private systemStates wantedState;
-	private systemStates lastState;
-	
+	private boolean isOpenLoop;
 	private Elevator() {
 		encoder = new Encoder(0, 1, false, Encoder.EncodingType.k4X);
 		driveMotor = new Victor(Constants.ELEVATORMOTOR);
@@ -49,9 +48,9 @@ public class Elevator extends Subsystem {
 	}
 
 	public void setWantedFloor(double wantedFloor) {this.wantedFloor = wantedFloor;}
-	public double getHeight() {return 0;}
+	public double getHeight() {return encoder.getRaw();}
  	public void setWantedState(systemStates wantedState) {this.currentState = wantedState;}
-	@Override public void zeroAllSensors() {}
+	@Override public void zeroAllSensors() { encoder.reset();}
 	@ Override public boolean checkSystem() {return false;}
  	
  	private void checkState() {
@@ -67,41 +66,41 @@ public class Elevator extends Subsystem {
 			@Override
 			public void onStart() {
 				currentState = systemStates.NEUTRAL;
-				wantedState = systemStates.NEUTRAL;				
+				wantedState = systemStates.NEUTRAL;
+				isOpenLoop = false;
 			}
 			@Override
 			public void onloop() {
-				double openLoopAdjust = joystick.elevatorOpenLoop()*2000.0;
-				if(joystick.elevatorResetEncoder()) {encoder.reset();}
+				double openLoopAdjust = joystick.elevatorPositionJoystick()*2000.0;
+				
 				switch(currentState){
 					case NEUTRAL:
-						lastState = systemStates.NEUTRAL;
+					driveMotor.set(0.0);
 						checkState();
 						break;		
 					case OPEN_LOOP:
-						setFloor(wantedFloor);
-						lastState = systemStates.POSITION_FOLLOW;
-						checkState();
+						driveMotor.set(joystick.elevatorPositionJoystick());
+					checkState();
 						break;
-					case POSITION_FOLLOW:
-						if(joystick.elevatorHigh()) {
-							wantedFloor = kMaxHeight;
-							currentHeight=wantedFloor;
-						}
-						else if(joystick.elevatorMid()) {
-							wantedFloor = kMidHeight;
-							currentHeight=wantedFloor;
-						}
-						else if(joystick.elevatorLow()) {
-							wantedFloor = kLowHeight;
-							currentHeight = wantedFloor;
-						}
-						currentHeight += openLoopAdjust;
-						if(currentHeight < 0) {currentHeight = 0;}
-						else if(currentHeight > 90000) {currentHeight = 90000;}
-						setFloor(currentHeight);
-						lastState = systemStates.OPEN_LOOP;
-						checkState();
+					case POSITION_FOLLOW:			
+						setFloor(wantedFloor);
+					checkState();
+//						if(joystick.elevatorHigh()) {
+//							wantedFloor = kMaxHeight;
+//							currentHeight=wantedFloor;
+//						}
+//						else if(joystick.elevatorMid()) {
+//							wantedFloor = kMidHeight;
+//							currentHeight=wantedFloor;
+//						}
+//						else if(joystick.elevatorLow()) {
+//							wantedFloor = kLowHeight;
+//							currentHeight = wantedFloor;
+//						}
+//						currentHeight += openLoopAdjust;
+//						if(currentHeight < 0) {currentHeight = 0;}
+//						else if(currentHeight > 90000) {currentHeight = 90000;}
+//						setFloor(currentHeight);
 						break;
 				}
 			}
