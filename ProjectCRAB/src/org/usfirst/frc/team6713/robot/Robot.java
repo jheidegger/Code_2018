@@ -158,31 +158,22 @@ public class Robot extends IterativeRobot {
 		 * Intake States
 		 */
 		
-		if((controller.actuatorOpenLoop()>.1) || (controller.actuatorOpenLoop()<-1))
+		if(controller.Stow() == true && controller.unStow() == true)
 		{
 			isIntakeOpenLoop = true;
+			intake.setOpenLoopMode(true);
 		}
-		if(isIntakeOpenLoop)
-		{
-			intake.setWantedState(systemStates.OpenLoop);
-			if(controller.getIntakeButton()) {intake.setWantedState(systemStates.Intaking);} 
-			else if(controller.getOuttakeButton()) {intake.setWantedState(systemStates.Scoring);}
-			else if(controller.unjamButton()) {intake.setWantedState(systemStates.UnJamming);}
-			//else {intake.setWantedState(systemStates.openNeutral);}
-			if(controller.Stow()) {isIntakeOpenLoop = false;}
-			else if(controller.unStow()) {isIntakeOpenLoop = false;}
-		}
+		if(controller.getIntakeButton()) {intake.setWantedState(systemStates.Intaking);} 
+		else if(controller.getOuttakeButton()) {intake.setWantedState(systemStates.Scoring);}
+		else if(controller.unjamButton()) {intake.setWantedState(systemStates.UnJamming);}
+		else {intake.setWantedState(systemStates.Neutral);}
+		
+		if(controller.Stow()) {intake.setPosition(0.0);}
+		else if(controller.unStow()) {intake.setPosition(intake.downPosition);}
 		else
 		{
-			if(controller.getIntakeButton()) {intake.setWantedState(systemStates.Intaking);} 
-			else if(controller.getOuttakeButton()) {intake.setWantedState(systemStates.Scoring);}
-			else if(controller.unjamButton()) {intake.setWantedState(systemStates.UnJamming);}
-			else {intake.setWantedState(systemStates.Neutral);}
-			if(controller.Stow()) {intake.setPosition(0.0);}
-			else if(controller.unStow()) {intake.setPosition(intake.downPosition);}
-			
+			intake.setPosition(intake.getCurrPosition()+controller.getintakePositionJoystick()*200);
 		}
-
 		//elevator.setWantedState(Elevator.systemStates.POSITION_FOLLOW);
 		
 		//p.pressurize();

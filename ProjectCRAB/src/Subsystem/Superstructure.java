@@ -76,7 +76,6 @@ public class Superstructure {
 					checkState();
 					break;
 				case MovingToPosition:
-					intake.setWantedState(Intake.systemStates.Stowing);
 					elevator.setWantedState(Elevator.systemStates.POSITION_FOLLOW);
 					if(Math.abs(elevator.getHeight()-elevatorCommandedHeight)<Constants.ELEVATORACCEPTEDERROR)
 					{

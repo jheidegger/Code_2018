@@ -1,12 +1,10 @@
 package Subsystem;
  
 import org.usfirst.frc.team6713.robot.Constants;
-import org.usfirst.frc.team6713.robot.Robot;
 
 import Util.PIDLoop;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -33,7 +31,7 @@ public class Intake extends Subsystem {
  	private systemStates currState;
  	private systemStates lastState;
  	private systemStates wantedState;
-
+ 	private boolean isOpenLoop;
  	private Encoder encoder;
  	private PIDLoop actuatorPID;
  	private double wantedPosition;
@@ -45,13 +43,8 @@ public class Intake extends Subsystem {
  		Intaking,
  		Scoring,
  		UnJamming,
- 		Stowing,
- 		unStowing,
- 		unStowed,
- 		Stowed,
  		Homing,
- 		OpenLoop,
- 		Neutral, openNeutral
+ 		Neutral
  	};
  	
  	public static Intake getInstance() {
@@ -82,21 +75,20 @@ public class Intake extends Subsystem {
  	
  	public boolean isStowed()
  	{
- 		if(currState == systemStates.Stowed)
- 		{
- 			return true;
- 		}
- 		else
- 		{
- 			return false;
- 		}
+ 		return !isIntakeStowed.get();
  	}
  	
  	public void setPosition(double position) {wantedPosition = position;}//degreesToEncoder(position);}
  	public double getCurrPosition() {return currPosition;}
- 	private void findCurrPosition() {currPosition = encoder.getRaw();}
- 	private double encoderToDegrees(double encoderTicks) {return (encoderTicks/2048.0*360.0);}
- 	private double degreesToEncoder(double degrees) {return (degrees/360.0*2048);}
+ 	/**
+ 	 * setting manual override for the intake
+ 	 * @param isOpenLoop a boolean to disable sensors
+ 	 */
+ 	public void setOpenLoopMode(boolean isOpenLoop)
+ 	{
+ 		this.isOpenLoop = isOpenLoop;
+ 	}
+ 	private double findCurrPosition() {return encoder.getRaw();}
  	
  	private void checkState()
  	{
@@ -108,10 +100,7 @@ public class Intake extends Subsystem {
  	
  	private void closedLoopControl()
  	{
- 		
- 		
-		currPosition = encoder.getRaw();
-		
+		currPosition = findCurrPosition();
 		if(wantedPosition < downPosition)
 		{
 			wantedPosition = downPosition;
@@ -120,21 +109,28 @@ public class Intake extends Subsystem {
 		{
 			wantedPosition = 0.0;
 		}
-		if(isIntakeStowed.get()) {
-			stowingMotor.set(actuatorPID.returnOutput(currPosition, wantedPosition));
-			
+		if(isIntakeStowed.get()) 
+		{
+			stowingMotor.set(actuatorPID.returnOutput(currPosition, wantedPosition));	
 		}
-		else {
+		else 
+		{
 			encoder.reset();
 			if(actuatorPID.returnOutput(currPosition, wantedPosition)<0)
 			{
+				//allow the intake to deploy
 				stowingMotor.set(actuatorPID.returnOutput(currPosition, wantedPosition));
 			}
 			else
 			{
+				//closed loop to hold the intake in place
 				stowingMotor.set(actuatorPID.returnOutput(currPosition, 0.0));
 			}
 		}
+ 	}
+ 	private void openLoopControl()
+ 	{
+ 		stowingMotor.set(controller.getintakePositionJoystick() * .2);
  	}
  	
  	@Override
@@ -145,6 +141,7 @@ public class Intake extends Subsystem {
 				currState = systemStates.Homing;
 				lastState = systemStates.Homing;
 				wantedState = systemStates.Homing;
+				isOpenLoop = false;
 			}
  			@Override
  			public void onloop() {
@@ -155,156 +152,160 @@ public class Intake extends Subsystem {
  				SmartDashboard.putNumber("wantedPosition", wantedPosition);
  				SmartDashboard.putBoolean("CubeIn", isCubeInLeft.get());
  				SmartDashboard.putBoolean("CubeIn", isCubeInRight.get());
- 				switch(currState)
+ 				if(isOpenLoop)
  				{
- 				case openNeutral:
- 					rightSideWheel.set(0.0);
- 					leftSideWheel.set(0.0);
- 					lastState = systemStates.Neutral;
- 					checkState();
- 					break;
- 				//idle and wait for commands
- 				case Neutral:
- 					if(lastState == systemStates.Scoring || lastState == systemStates.Intaking) {
- 						wantedPosition = 0.0;
- 						cubePosition = 0.0;
- 					}
- 					rightSideWheel.set(0.0);
- 					leftSideWheel.set(0.0);
- 					lastState = systemStates.Neutral;
- 					closedLoopControl();
- 					checkState();
- 					break;
- 				case Stowed:
- 					wantedPosition = 0.0;
- 					checkState();
- 					break;
- 				case unStowed:
- 					wantedPosition = downPosition;
- 					checkState();
- 					break;
- 				case Homing:
- 					if(isIntakeStowed.get())
+ 					openLoopControl();
+ 					switch(currState)
  					{
- 						stowingMotor.set(.3);
+ 					case Neutral:
  						rightSideWheel.set(0.0);
-	 					leftSideWheel.set(0.0);
- 					}
- 					else
- 					{
- 						encoder.reset();
- 						stowingMotor.set(0.0);
  						rightSideWheel.set(0.0);
-	 					leftSideWheel.set(0.0);
- 						
- 						currState = systemStates.Neutral;
- 					}
- 					lastState = systemStates.Homing;
- 					break;
- 					//spins wheels in to intake the Power Cube
- 				case Intaking:
- 					if(isCubeInLeft.get() || isCubeInRight.get())
- 					{
- 						double rightCurrent = Drivetrain.getInstance().getPDP().getCurrent(10);
- 						double leftCurrent = Drivetrain.getInstance().getPDP().getCurrent(11);
- 						SmartDashboard.putNumber("Right Current", rightCurrent);
- 						SmartDashboard.putNumber("Left Current", leftCurrent);
- 						double maxCurrent = 24;
- 						cubePosition = (rightCurrent-leftCurrent)/((rightCurrent+leftCurrent)/2.0);
-// 						if(rightCurrent > 23 || leftCurrent > 23) {
-//  							wantedState = systemStates.UnJamming;
-//  						}
-// 						else if(rightCurrent>6 || leftCurrent>6)
-// 						{
-// 							rightSideWheel.set(Constants.INTAKESPEED);
-// 		 					leftSideWheel.set(-Constants.INTAKESPEED);
-// 						}
-// 						else
-// 						{
-// 							rightSideWheel.set(Constants.INTAKESPEED/1.5);
-// 		 					leftSideWheel.set(-Constants.INTAKESPEED/1.5);
-// 						}
- 						if(rightCurrent > maxCurrent || leftCurrent > maxCurrent) {
-							wantedState = systemStates.UnJamming;
-						}
- 						else
- 						{
- 							rightSideWheel.set(-((rightCurrent/maxCurrent)/2.0+.5));
- 		 					leftSideWheel.set(((leftCurrent/maxCurrent)/2.0+.5));
- 						}
-	 					SmartDashboard.putNumber("cubePostion", cubePosition);
-	 					lastState = systemStates.Intaking;
-	 					wantedPosition = downPosition;
-	 					closedLoopControl();
-	 					if(wantedState == systemStates.UnJamming)
+ 						lastState = systemStates.Neutral;
+ 						break;
+					case Intaking:
+						rightSideWheel.set(Constants.INTAKESPEED);
+						leftSideWheel.set(-Constants.INTAKESPEED);
+						lastState = systemStates.Intaking;
+						break;
+					case Scoring:
+						rightSideWheel.set(Constants.INTAKESCORESPEED);
+						leftSideWheel.set(-Constants.INTAKESCORESPEED);
+						lastState = systemStates.Scoring;
+						break;
+					case UnJamming:
+						if(lastState != systemStates.UnJamming)
 	 					{
-	 						currState = systemStates.UnJamming;
+	 						unJamTimer.start();
+	 						unJamTimer.reset();
 	 					}
-	 					else if(controller.Stow())
+	 					if(unJamTimer.get()<.02)
 	 					{
-	 						wantedPosition = 0.0;
+	 						rightSideWheel.set(0.0);
+	 	 					leftSideWheel.set(0.0);
+	 					}
+	 					else if(unJamTimer.get() < .08)
+	 					{
+	 						rightSideWheel.set(Constants.INTAKESPEED);
+	 	 					leftSideWheel.set(-Constants.INTAKESPEED);
+	 					}
+	 					else
+	 					{
 	 						currState = systemStates.Neutral;
 	 					}
+	 					lastState = systemStates.UnJamming;
+	 					break;
+					default:
+						currState = systemStates.Neutral;
+						break;
  					}
- 					else
- 					{
- 						currState = systemStates.Neutral;
- 					}
- 					lastState = systemStates.Intaking;
- 					
- 					break;
- 				//spins the wheels outward to score
- 				case Scoring:
- 					rightSideWheel.set(Constants.INTAKESCORESPEED);
- 					leftSideWheel.set(-Constants.INTAKESCORESPEED);
- 					lastState = systemStates.Scoring;
- 					//closedLoopControl();
- 					checkState();
- 					break;
- 				//Spins the wheels out then in to right the Power Cubes
- 				case UnJamming:
- 					if(lastState != systemStates.UnJamming)
- 					{
- 						unJamTimer.start();
- 						unJamTimer.reset();
- 					}
- 					if(unJamTimer.get()<.02)
- 					{
- 						rightSideWheel.set(0.0);//(Constants.INTAKESPEED*.5)*.5);
- 	 					leftSideWheel.set(0.0);//(-Constants.INTAKESPEED*.5)*.5);
- 					}
- 					else if(unJamTimer.get() < .08)
- 					{
- 						rightSideWheel.set(-Constants.INTAKESPEED);
- 	 					leftSideWheel.set(Constants.INTAKESPEED);
- 					}
- 					else
- 					{
- 						currState = systemStates.Intaking;
- 					}
- 					lastState = systemStates.UnJamming;
- 					break;
- 				case OpenLoop:
- 					rightSideWheel.set(0.0);
- 					leftSideWheel.set(0.0);
- 					if(!isIntakeStowed.get())
- 					{
- 						if(controller.actuatorOpenLoop()<0) {
- 							stowingMotor.set(controller.actuatorOpenLoop()*.2);
- 						}
- 						else
- 						{
- 							stowingMotor.set(0.0);
- 						}
- 					}
- 					else
- 					{
- 						stowingMotor.set(controller.actuatorOpenLoop()*.2);
- 					}
- 					checkState();
- 					break;
- 				default:
-					break;
+ 				}
+ 				else
+ 				{
+	 				switch(currState)
+	 				{
+	 				//idle and wait for commands
+	 				case Neutral:
+	 					if(lastState == systemStates.Scoring || lastState == systemStates.Intaking) {
+	 						wantedPosition = 0.0;
+	 						cubePosition = 0.0;
+	 					}
+	 					rightSideWheel.set(0.0);
+	 					leftSideWheel.set(0.0);
+	 					lastState = systemStates.Neutral;
+	 					closedLoopControl();
+	 					checkState();
+	 					break;
+	 				case Homing:
+	 					if(isIntakeStowed.get())
+	 					{
+	 						stowingMotor.set(.3);
+	 						rightSideWheel.set(0.0);
+		 					leftSideWheel.set(0.0);
+	 					}
+	 					else
+	 					{
+	 						encoder.reset();
+	 						stowingMotor.set(0.0);
+	 						rightSideWheel.set(0.0);
+		 					leftSideWheel.set(0.0);
+	 						
+	 						currState = systemStates.Neutral;
+	 					}
+	 					lastState = systemStates.Homing;
+	 					break;
+	 				//spins wheels in to intake the Power Cube
+	 				case Intaking:
+	 					if(isCubeInLeft.get() || isCubeInRight.get())
+	 					{
+	 						double rightCurrent = Drivetrain.getInstance().getPDP().getCurrent(10);
+	 						double leftCurrent = Drivetrain.getInstance().getPDP().getCurrent(11);
+	 						SmartDashboard.putNumber("Right Current", rightCurrent);
+	 						SmartDashboard.putNumber("Left Current", leftCurrent);
+	 						double maxCurrent = 24;
+	 						cubePosition = (rightCurrent-leftCurrent)/((rightCurrent+leftCurrent)/2.0);
+	 						if(rightCurrent > maxCurrent || leftCurrent > maxCurrent) {
+								wantedState = systemStates.UnJamming;
+							}
+	 						else
+	 						{
+	 							rightSideWheel.set(-((rightCurrent/maxCurrent)/2.0+.5));
+	 		 					leftSideWheel.set(((leftCurrent/maxCurrent)/2.0+.5));
+	 						}
+		 					SmartDashboard.putNumber("cubePostion", cubePosition);
+		 					lastState = systemStates.Intaking;
+		 					wantedPosition = downPosition;
+		 					closedLoopControl();
+		 					if(wantedState == systemStates.UnJamming)
+		 					{
+		 						currState = systemStates.UnJamming;
+		 					}
+		 					else if(controller.Stow())
+		 					{
+		 						wantedPosition = 0.0;
+		 						currState = systemStates.Neutral;
+		 					}
+	 					}
+	 					else
+	 					{
+	 						currState = systemStates.Neutral;
+	 					}
+	 					lastState = systemStates.Intaking;
+	 					break;
+	 				//spins the wheels outward to score
+	 				case Scoring:
+	 					rightSideWheel.set(Constants.INTAKESCORESPEED);
+	 					leftSideWheel.set(-Constants.INTAKESCORESPEED);
+	 					lastState = systemStates.Scoring;
+	 					//closedLoopControl();
+	 					checkState();
+	 					break;
+	 				//Spins the wheels out then in to right the Power Cubes
+	 				case UnJamming:
+	 					if(lastState != systemStates.UnJamming)
+	 					{
+	 						unJamTimer.start();
+	 						unJamTimer.reset();
+	 					}
+	 					if(unJamTimer.get()<.02)
+	 					{
+	 						rightSideWheel.set(0.0);//(Constants.INTAKESPEED*.5)*.5);
+	 	 					leftSideWheel.set(0.0);//(-Constants.INTAKESPEED*.5)*.5);
+	 					}
+	 					else if(unJamTimer.get() < .08)
+	 					{
+	 						rightSideWheel.set(Constants.INTAKESPEED);
+	 	 					leftSideWheel.set(-Constants.INTAKESPEED);
+	 					}
+	 					else
+	 					{
+	 						currState = systemStates.Intaking;
+	 					}
+	 					lastState = systemStates.UnJamming;
+	 					break;
+	 				default:
+	 					currState = systemStates.Neutral;
+						break;
+	 				}
  				}
  				if(isCubeInLeft.get() || isCubeInRight.get()) {
  					LED.getInstance().setWantedState(LED.ledStates.LIGHTSHOW);

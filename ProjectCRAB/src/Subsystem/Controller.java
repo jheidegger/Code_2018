@@ -68,7 +68,7 @@ public class Controller extends Subsystem{
 	public boolean elevatorMid() {return buttonMonkey.getRawButton(6);}
 	public boolean elevatorLow() {return buttonMonkey.getRawButton(3);}
 	
-	public double actuatorOpenLoop() {return buttonMonkey.getY();}
+	public double getintakePositionJoystick() {return buttonMonkey.getY();}
 	public boolean getOuttakeButton() {return buttonMonkey.getRawButton(4);}
 	public boolean getIntakeButton() {return buttonMonkey.getRawButton(2);}
 	public boolean unjamButton() {return buttonMonkey.getRawButton(1);}

@@ -84,7 +84,4 @@ public class Constants {
 	//Intake constants
 	public static final double INTAKESPEED = -.78;
 	public static final double INTAKESCORESPEED = .9;
-	public static final double INTAKEHANDOFFSPEED = 0;
-	public static final double UNSTOWINGTIME = .5;
-	public static final double STOWINGTIME = .5;
 }
