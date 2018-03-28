@@ -55,17 +55,23 @@ public class LED extends Subsystem{
 		Loop_Manager.getInstance().addLoop(new Loop() {
 			@Override
 			public void onStart() {
+				currState = ledStates.LIGHTSHOW;
 			}
 			@Override
 			public void onloop() {
+				//sendToArduino((byte)1);
 				switch(currState) {
 				case CUBE_INTAKED:
+					System.out.println("1");
 					sendToArduino((byte)1);
 					checkState();
+					break;
 				case INTAKING:
 				case LIGHTSHOW:
+					System.out.println("0");
 					sendToArduino((byte)0);
 					checkState();
+					break;
 				}
 				
 			}	

@@ -26,6 +26,7 @@ import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.hal.DIOJNI;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends IterativeRobot {
@@ -38,6 +39,7 @@ public class Robot extends IterativeRobot {
 	private Loop_Manager myLoops = Loop_Manager.getInstance();
 	private Drivetrain driveTrain = Drivetrain.getInstance(); 
 	private Controller controller = Controller.getInstance();
+	private LED led = LED.getInstance();
 	private Elevator elevator = Elevator.getInstance();
 	private Intake intake = Intake.getInstance();
 	private Pneumatics pneumatics = Pneumatics.getInstance();
@@ -48,9 +50,11 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		driveTrain.registerLoop();
 		intake.registerLoop(); 
+		led.registerLoop();
 		//elevator.registerLoop();
 		pneumatics.registerLoop();
 		myLoops.startLoops();
+		CameraServer.getInstance().startAutomaticCapture();
 //		m_chooser.addObject("middle switch", auto1);
 //		m_chooser.addObject("left switch", auto2);
 //		m_chooser.addObject("right switch", auto3);

@@ -134,7 +134,6 @@ public class Drivetrain extends Subsystem {
 	public static Drivetrain getInstance(){
 		return instance;
 	}
-
 	private void updateAngle(){
 		//-pi to pi 0 = straight ahead
 		angle = ((((gyro.getAngle()+90)* Math.PI/180.0)) % (2*Math.PI));
@@ -217,7 +216,7 @@ public class Drivetrain extends Subsystem {
 		recordedValuesGyro.clear();
 	}
 	
-	private void resetGyro() {
+	public void resetGyro() {
 		gyro.reset();
 	}
 	public double getAngle()
@@ -298,7 +297,10 @@ public class Drivetrain extends Subsystem {
 	public void setSystemState(systemStates wanted) {
 		requestedState = wanted;
 	}
-	
+	public Swervepod getPod(int idx)
+	{
+		return Pods.get(idx);
+	}
 	public void checkState() {
 		if(requestedState!=currentState)
 		{

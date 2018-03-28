@@ -33,7 +33,7 @@ public class Swervepod extends Subsystem {
 	
 	private double velocitySetpoint; //Wanted velocity in ft/s
 	//770.24
-	private double fps2ups = 12.0/(Constants.WHEELDIAMETER * Math.PI) * 4096.0/10.0 *48.0/30.0;
+	private double fps2ups = Constants.fps2ups;
 
 	private boolean forwardPath = false;
 	
@@ -128,6 +128,10 @@ public class Swervepod extends Subsystem {
 	
 	public double getSpeed() {
 		return velocitySetpoint;
+	}
+	public double getRawSpeed()
+	{
+		return driveMotor.getSelectedSensorVelocity(0);
 	}
 	public boolean isStopped()
 	{

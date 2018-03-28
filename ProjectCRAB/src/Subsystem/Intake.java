@@ -60,7 +60,7 @@ public class Intake extends Subsystem {
  	
  	private Intake()
  	{
- 		actuatorPID = new PIDLoop(.0006,0,0.00002,.35);
+ 		actuatorPID = new PIDLoop(.00008,0,0.0,.4);
  		rightSideWheel = new Victor(Constants.INTAKERIGHTSIDE);
  		leftSideWheel = new Victor(Constants.INTAKELEFTSIDE);
  		stowingMotor = new Victor(Constants.INTAKESTOWINGMOTOR);
@@ -306,7 +306,7 @@ public class Intake extends Subsystem {
  				default:
 					break;
  				}
- 				if(isCubeInLeft.get() && isCubeInRight.get()) {
+ 				if(isCubeInLeft.get() || isCubeInRight.get()) {
  					LED.getInstance().setWantedState(LED.ledStates.LIGHTSHOW);
  				}
  				else {

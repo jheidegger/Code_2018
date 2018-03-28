@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 
 public class Trajectory {
-	private double kMaxVelocity = 4.0;
+	private double kMaxVelocity = 3.0;
 	private double kMaxAcceleration=3.0; 
 	private double timeStep = .01;
 	private double simTime = 0.0;

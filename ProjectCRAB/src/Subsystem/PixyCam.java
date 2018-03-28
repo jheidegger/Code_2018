@@ -35,7 +35,7 @@ private static PixyCam instance = new PixyCam();
 
 	
 	public PixyCam() {
-		pixy = new I2C(Port.kOnboard, 0x54);
+		//pixy = new I2C(Port.kOnboard, 0x54);
 		packets = new PixyPacket[7];
 		pExc = new PixyException(print);
 	}

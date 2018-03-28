@@ -2,8 +2,12 @@ package Auton;
 
 import javax.swing.text.StyleContext.SmallAttributeSet;
 
+import org.usfirst.frc.team6713.robot.Constants;
+
 import Subsystem.Drivetrain;
 import Subsystem.Loop;
+import Subsystem.Swervepod;
+import Subsystem.Drivetrain.driveType;
 import Util.PIDLoop;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -11,6 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class PathFollower {
 	private double currX;
 	private double currY;
+	private double currY2;
 	private PIDLoop spinHandler;
 	private Trajectory t;
 	private double startTime;
@@ -33,6 +38,7 @@ public class PathFollower {
 				public void onStart() {
 					startTime = Timer.getFPGATimestamp();
 					lastTime = 0.0;
+					Drivetrain.getInstance().resetGyro();
 				}
 
 				@Override
@@ -48,8 +54,17 @@ public class PathFollower {
 					SmartDashboard.putNumber("autoSpinCommand", spinCommand);
 					SmartDashboard.putNumber("autoSpeed", forwardCommand);
 					SmartDashboard.putNumber("calculatedY", currY);
-					Drivetrain.getInstance().swerve(forwardCommand, strafeCommand, spinCommand,Drivetrain.driveCoords.FIELDCENTRIC, 
+					//Drivetrain.getInstance().swerve(forwardCommand, strafeCommand, spinCommand,Drivetrain.driveCoords.FIELDCENTRIC, 
+							//Drivetrain.driveType.VELOCITY);
+					Drivetrain.getInstance().swerve(-7.0, 0.0, 0.0,Drivetrain.driveCoords.FIELDCENTRIC, 
 							Drivetrain.driveType.VELOCITY);
+					double wheelSpeed = Drivetrain.getInstance().getPod(0).getRawSpeed();
+					double reqWheelSpeed = Drivetrain.getInstance().getPod(0).getSpeed();
+					double wheelSpeedfps = wheelSpeed / Constants.fps2ups;
+					SmartDashboard.putNumber("wheelSpeed", wheelSpeedfps);
+					SmartDashboard.putNumber("requested wheel Speed", reqWheelSpeed);
+					currY2 += wheelSpeedfps * dt;
+					SmartDashboard.putNumber("currY2", currY2);
 					lastTime = Time;
 					
 				}
