@@ -50,6 +50,7 @@ public class Elevator extends Subsystem {
 	public void setWantedFloor(double wF) {this.wantedFloor = wF;}
 	public double getHeight() {return encoder.getRaw();}
  	public void setWantedState(systemStates wantedState) {this.currentState = wantedState;}
+ 	public systemStates getState() {return currentState;}
 	@Override public void zeroAllSensors() { encoder.reset();}
 	@ Override public boolean checkSystem() {return false;}
  	

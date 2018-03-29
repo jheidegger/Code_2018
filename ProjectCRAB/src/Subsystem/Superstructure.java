@@ -64,9 +64,10 @@ public class Superstructure {
 				{
 				case Intaking:
 					elevator.setWantedState(Elevator.systemStates.POSITION_FOLLOW);
-					if(elevator.getHeight() > .1)
+					if(elevator.getHeight() > 1000)
 					{
-						elevator.setWantedFloor(0.0);
+						elevatorCommandedHeight = 0.0;
+						currState = systemStates.MovingToPosition;
 					}
 					else
 					{
@@ -77,6 +78,7 @@ public class Superstructure {
 					break;
 				case MovingToPosition:
 					elevator.setWantedState(Elevator.systemStates.POSITION_FOLLOW);
+					intake.setPosition(Intake.getInstance().neutralPosition);
 					if(Math.abs(elevator.getHeight()-elevatorCommandedHeight)<Constants.ELEVATORACCEPTEDERROR)
 					{
 						elevator.setWantedFloor(elevatorCommandedHeight);

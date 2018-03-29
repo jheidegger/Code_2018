@@ -133,6 +133,43 @@ public class Intake extends Subsystem {
  	{
  		stowingMotor.set(controller.getintakePositionJoystick() * .2);
  	}
+ 	private void intaking()
+ 	{
+ 		if(isCubeInLeft.get() || isCubeInRight.get())
+			{
+				double rightCurrent = Drivetrain.getInstance().getPDP().getCurrent(10);
+				double leftCurrent = Drivetrain.getInstance().getPDP().getCurrent(11);
+				SmartDashboard.putNumber("Right Current", rightCurrent);
+				SmartDashboard.putNumber("Left Current", leftCurrent);
+				double maxCurrent = 24;
+				cubePosition = (rightCurrent-leftCurrent)/((rightCurrent+leftCurrent)/2.0);
+				if(rightCurrent > maxCurrent || leftCurrent > maxCurrent) {
+				wantedState = systemStates.UnJamming;
+			}
+				else
+				{
+					rightSideWheel.set(-((rightCurrent/maxCurrent)/2.0+.5));
+					leftSideWheel.set(((leftCurrent/maxCurrent)/2.0+.5));
+				}
+				SmartDashboard.putNumber("cubePostion", cubePosition);
+				lastState = systemStates.Intaking;
+				wantedPosition = downPosition;
+				closedLoopControl();
+				if(wantedState == systemStates.UnJamming)
+				{
+					currState = systemStates.UnJamming;
+				}
+				else if(controller.Stow())
+				{
+					wantedPosition = 0.0;
+					currState = systemStates.Neutral;
+				}
+			}
+			else
+			{
+				currState = systemStates.Neutral;
+			}
+ 	}
  	
  	@Override
  	public void registerLoop() {
@@ -239,39 +276,22 @@ public class Intake extends Subsystem {
 	 					break;
 	 				//spins wheels in to intake the Power Cube
 	 				case Intaking:
-	 					if(isCubeInLeft.get() || isCubeInRight.get())
+	 					if(!isOpenLoop && Elevator.getInstance().getState() != Elevator.systemStates.OPEN_LOOP)
 	 					{
-	 						double rightCurrent = Drivetrain.getInstance().getPDP().getCurrent(10);
-	 						double leftCurrent = Drivetrain.getInstance().getPDP().getCurrent(11);
-	 						SmartDashboard.putNumber("Right Current", rightCurrent);
-	 						SmartDashboard.putNumber("Left Current", leftCurrent);
-	 						double maxCurrent = 24;
-	 						cubePosition = (rightCurrent-leftCurrent)/((rightCurrent+leftCurrent)/2.0);
-	 						if(rightCurrent > maxCurrent || leftCurrent > maxCurrent) {
-								wantedState = systemStates.UnJamming;
-							}
+	 						if(Elevator.getInstance().getHeight() > 1000)
+	 						{
+	 							Elevator.getInstance().setWantedFloor(0.0);
+	 							wantedPosition = neutralPosition;
+	 							closedLoopControl();
+	 						}
 	 						else
 	 						{
-	 							rightSideWheel.set(-((rightCurrent/maxCurrent)/2.0+.5));
-	 		 					leftSideWheel.set(((leftCurrent/maxCurrent)/2.0+.5));
+	 							intaking();
 	 						}
-		 					SmartDashboard.putNumber("cubePostion", cubePosition);
-		 					lastState = systemStates.Intaking;
-		 					wantedPosition = downPosition;
-		 					closedLoopControl();
-		 					if(wantedState == systemStates.UnJamming)
-		 					{
-		 						currState = systemStates.UnJamming;
-		 					}
-		 					else if(controller.Stow())
-		 					{
-		 						wantedPosition = 0.0;
-		 						currState = systemStates.Neutral;
-		 					}
 	 					}
 	 					else
 	 					{
-	 						currState = systemStates.Neutral;
+	 						intaking();
 	 					}
 	 					lastState = systemStates.Intaking;
 	 					break;
