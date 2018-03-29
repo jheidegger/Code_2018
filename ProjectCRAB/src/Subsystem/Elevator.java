@@ -47,7 +47,7 @@ public class Elevator extends Subsystem {
 		driveMotor.set(liftSpeed);
 	}
 
-	public void setWantedFloor(double wantedFloor) {this.wantedFloor = wantedFloor;}
+	public void setWantedFloor(double wF) {this.wantedFloor = wF;}
 	public double getHeight() {return encoder.getRaw();}
  	public void setWantedState(systemStates wantedState) {this.currentState = wantedState;}
 	@Override public void zeroAllSensors() { encoder.reset();}
@@ -72,7 +72,8 @@ public class Elevator extends Subsystem {
 			@Override
 			public void onloop() {
 				double openLoopAdjust = joystick.elevatorPositionJoystick()*2000.0;
-				
+				SmartDashboard.putString("elevator state", currentState.toString());
+				SmartDashboard.putNumber("elevator wanted floor", wantedFloor);
 				switch(currentState){
 					case NEUTRAL:
 					driveMotor.set(0.0);
@@ -80,11 +81,11 @@ public class Elevator extends Subsystem {
 						break;		
 					case OPEN_LOOP:
 						driveMotor.set(joystick.elevatorPositionJoystick());
-					checkState();
+						//checkState();
 						break;
 					case POSITION_FOLLOW:			
 						setFloor(wantedFloor);
-					checkState();
+						checkState();
 //						if(joystick.elevatorHigh()) {
 //							wantedFloor = kMaxHeight;
 //							currentHeight=wantedFloor;

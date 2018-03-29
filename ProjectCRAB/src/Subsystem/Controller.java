@@ -17,6 +17,7 @@ public class Controller extends Subsystem{
 	public Controller(){
 		velocityStick = new Joystick(Constants.DRIVE_JOYSTICK);
 		thetaStick = new Joystick(Constants.GEAR_JOYSTICK);
+		
 		buttonMonkey = new Joystick(Constants.BUTTON_MONKEY);
 	}
 	
@@ -76,6 +77,7 @@ public class Controller extends Subsystem{
 	public boolean unStow() {return buttonMonkey.getRawButton(7);}
 	public boolean solenoidOut() {return buttonMonkey.getRawButton(9);}
 	
+	public int getPOVButton() {return thetaStick.getPOV();}
 	public boolean getGyroResetButton() {return velocityStick.getRawButton(8);}
 	public boolean getSlowFieldCentricButton() {return velocityStick.getRawButton(1);}
 	public boolean getSlowRobotCentricButton() {return thetaStick.getRawButton(1);}

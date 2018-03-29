@@ -75,9 +75,9 @@ public class Constants {
 	public static final double MAX_HEIGHT_ENCODER_TICKS = 90000;
 	public static final double MID_HEIGHT_ENCODER_TICKS = 46666;
 	public static final double LOW_HEIGHT_ENCODER_TICKS = 0;
-	public static final double SCALEHIGHHEIGHT = 0;
+	public static final double SCALEHIGHHEIGHT = 90000;
 	public static final double SCALELOWHEIGHT = 0;
-	public static final double SCALEMIDHEIGHT = 0;
+	public static final double SCALEMIDHEIGHT = 46666;
 	public static final double SWITCHHEIGHT = 0;
 	public static final double ELEVATORACCEPTEDERROR = 0.1;
 	

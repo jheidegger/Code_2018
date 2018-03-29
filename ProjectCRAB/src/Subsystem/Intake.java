@@ -159,18 +159,21 @@ public class Intake extends Subsystem {
  					{
  					case Neutral:
  						rightSideWheel.set(0.0);
- 						rightSideWheel.set(0.0);
+ 						leftSideWheel.set(0.0);
+ 						checkState();
  						lastState = systemStates.Neutral;
  						break;
 					case Intaking:
 						rightSideWheel.set(Constants.INTAKESPEED);
 						leftSideWheel.set(-Constants.INTAKESPEED);
+						checkState();
 						lastState = systemStates.Intaking;
 						break;
 					case Scoring:
 						rightSideWheel.set(Constants.INTAKESCORESPEED);
 						leftSideWheel.set(-Constants.INTAKESCORESPEED);
 						lastState = systemStates.Scoring;
+						checkState();
 						break;
 					case UnJamming:
 						if(lastState != systemStates.UnJamming)
@@ -286,12 +289,12 @@ public class Intake extends Subsystem {
 	 						unJamTimer.start();
 	 						unJamTimer.reset();
 	 					}
-	 					if(unJamTimer.get()<.02)
+	 					if(unJamTimer.get()<.04 &&(isCubeInLeft.get() || isCubeInRight.get()))
 	 					{
-	 						rightSideWheel.set(0.0);//(Constants.INTAKESPEED*.5)*.5);
-	 	 					leftSideWheel.set(0.0);//(-Constants.INTAKESPEED*.5)*.5);
+	 						rightSideWheel.set(Constants.INTAKESPEED*1.0);
+	 	 					leftSideWheel.set(Constants.INTAKESPEED*1.0);
 	 					}
-	 					else if(unJamTimer.get() < .08)
+	 					else if(unJamTimer.get() < .12 && !(isCubeInLeft.get() || isCubeInRight.get()) )
 	 					{
 	 						rightSideWheel.set(Constants.INTAKESPEED);
 	 	 					leftSideWheel.set(-Constants.INTAKESPEED);
@@ -307,7 +310,11 @@ public class Intake extends Subsystem {
 						break;
 	 				}
  				}
- 				if(isCubeInLeft.get() || isCubeInRight.get()) {
+ 				if(!isIntakeStowed.get()) {
+ 					System.out.println("LED");
+ 					LED.getInstance().setWantedState(LED.ledStates.INTAKE_STOWED);
+ 				}
+ 				else if(isCubeInLeft.get() || isCubeInRight.get()) {
  					LED.getInstance().setWantedState(LED.ledStates.LIGHTSHOW);
  				}
  				else {

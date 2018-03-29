@@ -53,7 +53,7 @@ public class Robot extends IterativeRobot {
 		driveTrain.registerLoop();
 		intake.registerLoop(); 
 		led.registerLoop();
-		//elevator.registerLoop();
+		elevator.registerLoop();
 		pneumatics.registerLoop();
 		myLoops.startLoops();
 		CameraServer.getInstance().startAutomaticCapture();
@@ -175,12 +175,15 @@ public class Robot extends IterativeRobot {
 		else if(controller.unStow()) {intake.setPosition(intake.downPosition);}
 		else
 		{
-			intake.setPosition(intake.getCurrPosition()+controller.getintakePositionJoystick()*200);
+			if(controller.getintakePositionJoystick()>.05 || controller.getintakePositionJoystick()<-.05)
+			{
+				intake.setPosition(intake.getCurrPosition()+controller.getintakePositionJoystick()*5000);
+			}
 		}
 		/**
 		 * Elevator States
 		 */
-		if(controller.elevatorHigh() == true && controller.elevatorLow() == true)
+		if(controller.elevatorHigh() == true && controller.elevatorMid() == true)
 		{
 			isElevatorOpenLoop = true;
 			elevator.setWantedState(Elevator.systemStates.OPEN_LOOP);
@@ -194,7 +197,10 @@ public class Robot extends IterativeRobot {
 		else if (controller.elevatorLow()) {elevator.setWantedFloor(Constants.SCALELOWHEIGHT);}
 		else
 		{
+			if(controller.elevatorPositionJoystick()>.05||controller.elevatorPositionJoystick()<-.05)
+			{
 			elevator.setWantedFloor(elevator.getHeight()+controller.elevatorPositionJoystick()*2000);
+			}
 		}
 		if(controller.elevatorResetEncoder()) {elevator.zeroAllSensors();}
 		

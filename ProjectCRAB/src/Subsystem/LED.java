@@ -15,7 +15,7 @@ public class LED extends Subsystem{
 	
 	public enum ledStates{
 		CUBE_INTAKED,
-		INTAKING,
+		INTAKE_STOWED,
 		LIGHTSHOW
 	}
 	
@@ -66,7 +66,10 @@ public class LED extends Subsystem{
 					sendToArduino((byte)1);
 					checkState();
 					break;
-				case INTAKING:
+				case INTAKE_STOWED:
+					sendToArduino((byte)2);
+					checkState();
+					break;
 				case LIGHTSHOW:
 					System.out.println("0");
 					sendToArduino((byte)0);
