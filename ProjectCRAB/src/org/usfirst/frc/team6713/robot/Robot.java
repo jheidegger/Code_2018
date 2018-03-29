@@ -48,6 +48,8 @@ public class Robot extends IterativeRobot {
 	private boolean isIntakeOpenLoop;
 	private boolean isElevatorOpenLoop;
 	private double startTime;
+	private Timer intakeManualOverrideTimer = new Timer();
+	private Timer elevatorManualOverrideTimer = new Timer();
 	@Override
 	public void robotInit() {
 		driveTrain.registerLoop();
@@ -59,6 +61,8 @@ public class Robot extends IterativeRobot {
 		CameraServer.getInstance().startAutomaticCapture();
 		isIntakeOpenLoop = false;
 		isElevatorOpenLoop = false;
+		intakeManualOverrideTimer.start();
+		elevatorManualOverrideTimer.start();
 //		m_chooser.addObject("middle switch", auto1);
 //		m_chooser.addObject("left switch", auto2);
 //		m_chooser.addObject("right switch", auto3);
@@ -161,10 +165,19 @@ public class Robot extends IterativeRobot {
 		/**
 		 * Intake States
 		 */
-		if(controller.Stow() == true && controller.unStow() == true)
+		if(controller.Stow() == true && controller.unStow() == true && isIntakeOpenLoop == false && intakeManualOverrideTimer.get()>.5)
 		{
 			isIntakeOpenLoop = true;
 			intake.setOpenLoopMode(true);
+			intakeManualOverrideTimer.reset();
+		}
+		else
+		{
+			if(intakeManualOverrideTimer.get()>.5)
+			{
+				isIntakeOpenLoop = false;
+				intakeManualOverrideTimer.reset();
+			}
 		}
 		if(controller.getIntakeButton()) {intake.setWantedState(systemStates.Intaking);} 
 		else if(controller.getOuttakeButton()) {intake.setWantedState(systemStates.Scoring);}
@@ -183,10 +196,19 @@ public class Robot extends IterativeRobot {
 		/**
 		 * Elevator States
 		 */
-		if(controller.elevatorHigh() == true && controller.elevatorMid() == true)
+		if(controller.elevatorHigh() == true && controller.elevatorMid() == true && isElevatorOpenLoop == false && elevatorManualOverrideTimer.get()<.5)
 		{
 			isElevatorOpenLoop = true;
 			elevator.setWantedState(Elevator.systemStates.OPEN_LOOP);
+			elevatorManualOverrideTimer.reset();
+		}
+		else
+		{
+			if(elevatorManualOverrideTimer.get()>.5)
+			{
+				isElevatorOpenLoop = false;
+				elevatorManualOverrideTimer.reset();
+			}
 		}
 		if(!isElevatorOpenLoop)
 		{
