@@ -247,16 +247,28 @@ public class Robot extends IterativeRobot {
 			driveTrain.swerve(0.0, 0.0, 0.5);
 		case 6:
 			driveTrain.swerve(0.0, 0.0, -0.5);
-			/*
 		case 7:
 			intake.setWantedState(Intake.systemStates.Intaking);
 		case 8:
 			intake.setWantedState(Intake.systemStates.Scoring);
 		case 9:
 			intake.setWantedState(Intake.systemStates.Neutral);
-			intake.setPosition(0.0);
+			intake.setPosition(intake.downPosition);
 		case 10: 
-			intake.setPosition(intake.downPosition);*/
+			intake.setPosition(0.0);
+		case 11:
+			elevator.setWantedState(Elevator.systemStates.POSITION_FOLLOW);
+			elevator.setWantedFloor(Constants.SCALEHIGHHEIGHT);
+		case 12:
+			elevator.setWantedFloor(Constants.SCALEMIDHEIGHT);
+		case 13:
+			elevator.setWantedFloor(Constants.SCALELOWHEIGHT);
+		case 14:
+			driveTrain.swerve(.1, 0.0, 0.0,
+					Drivetrain.driveCoords.FIELDCENTRIC,
+					Drivetrain.driveType.PERCENTPOWER);
+		case 15:
+			driveTrain.swerve(0, 0, 0);
 		}	
 	}
 }
