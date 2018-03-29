@@ -231,43 +231,48 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void testPeriodic() { 
 		myLoops.runLoops();
+		/*
+		 * Runs the Pre-Match Checklist
+		 */
 		if(controller.getSlowFieldCentricButton()) {testID++;}
 		switch(testID) {
-		case 1:
+		case 1: //Drive Forwards and Field-Centric test
 			driveTrain.swerve(1.0, 0, 0, 
 					Drivetrain.driveCoords.FIELDCENTRIC, 
 					Drivetrain.driveType.PERCENTPOWER);
-		case 2:
+		case 2: //Drive Backwards
 			driveTrain.swerve(-1.0, 0.0, 0.0);
-		case 3:
+		case 3: //Strafe Right
 			driveTrain.swerve(0.0, 1.0, 0.0);
-		case 4:
+		case 4: //Strafe Left
 			driveTrain.swerve(0.0, -1.0, 0.0);
-		case 5:
+		case 5: //Rotate Clockwise
 			driveTrain.swerve(0.0, 0.0, 0.5);
-		case 6:
+		case 6: //Rotate Counter-Clockwise
 			driveTrain.swerve(0.0, 0.0, -0.5);
 		case 7:
+			driveTrain.swerve(0, 0, 0);
+		case 8: //Intake In
 			intake.setWantedState(Intake.systemStates.Intaking);
-		case 8:
+		case 9: //Intake Out
 			intake.setWantedState(Intake.systemStates.Scoring);
-		case 9:
+		case 10: //Intake UnStow
 			intake.setWantedState(Intake.systemStates.Neutral);
 			intake.setPosition(intake.downPosition);
-		case 10: 
+		case 11: //Intake Stow
 			intake.setPosition(0.0);
-		case 11:
+		case 12: //Elevator High Position
 			elevator.setWantedState(Elevator.systemStates.POSITION_FOLLOW);
 			elevator.setWantedFloor(Constants.SCALEHIGHHEIGHT);
-		case 12:
+		case 13: //Elevator Med Position
 			elevator.setWantedFloor(Constants.SCALEMIDHEIGHT);
-		case 13:
+		case 14: //Elevator in Rest Position
 			elevator.setWantedFloor(Constants.SCALELOWHEIGHT);
-		case 14:
+		case 15: //Set Wheels in Forward Direction
 			driveTrain.swerve(.1, 0.0, 0.0,
 					Drivetrain.driveCoords.FIELDCENTRIC,
 					Drivetrain.driveType.PERCENTPOWER);
-		case 15:
+		case 16:
 			driveTrain.swerve(0, 0, 0);
 		}	
 	}
