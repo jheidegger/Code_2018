@@ -36,6 +36,7 @@ public class Intake extends Subsystem {
  	private PIDLoop actuatorPID;
  	private double wantedPosition;
  	private double currPosition;
+ 	public final double neutralPosition = -1000;
  	public final double downPosition = -17000;
  	// -1 full left - 1 full right
  	private double cubePosition = 0.0;
