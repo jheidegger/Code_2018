@@ -15,6 +15,7 @@ import Auton.Autos.driveStraight;
 import Auton.Autos.leftSwitch;
 import Auton.Autos.middleSwitch;
 import Auton.Autos.rightSwitch;
+import Auton.Autos.*;
 import Subsystem.*;
 import Subsystem.Intake.systemStates;
 import edu.wpi.first.wpilibj.Compressor;
@@ -35,14 +36,17 @@ public class Robot extends IterativeRobot {
 	private static final String auto2 = "left switch";
 	private static final String auto3 = "right switch";
 	private static final String auto4 = "drive straight";
-	
+	private static final String auto5 = "scale side";
+	private static final String auto6 = "middle 2 switch";
+	private static final String auto7 = "middle switch old one";
+	private static final String auto8 = "trajectory Test";
 	private Loop_Manager myLoops = Loop_Manager.getInstance();
 	private Drivetrain driveTrain = Drivetrain.getInstance(); 
 	private Controller controller = Controller.getInstance();
 	private LED led = LED.getInstance();
 	private Elevator elevator = Elevator.getInstance();
 	private Intake intake = Intake.getInstance();
-	private Pneumatics pneumatics = Pneumatics.getInstance();
+	//private Pneumatics pneumatics = Pneumatics.getInstance();
 	int testID = 0;
 	String gameData;
 	private boolean isIntakeOpenLoop;
@@ -56,45 +60,34 @@ public class Robot extends IterativeRobot {
 		intake.registerLoop(); 
 		led.registerLoop();
 		elevator.registerLoop();
-		pneumatics.registerLoop();
+		//pneumatics.registerLoop();
 		myLoops.startLoops();
 		CameraServer.getInstance().startAutomaticCapture();
 		isIntakeOpenLoop = false;
 		isElevatorOpenLoop = false;
 		intakeManualOverrideTimer.start();
 		elevatorManualOverrideTimer.start();
-//		m_chooser.addObject("middle switch", auto1);
-//		m_chooser.addObject("left switch", auto2);
-//		m_chooser.addObject("right switch", auto3);
-//		m_chooser.addObject("drive straight", auto4);
-//		m_chooser.addDefault("default", "default");
-//		SmartDashboard.putData("Auto choices", m_chooser);
+		m_chooser.addObject("middle switch", auto1);
+		m_chooser.addObject("left switch", auto2);
+		m_chooser.addObject("right switch", auto3);
+		m_chooser.addObject("drive straight", auto4);
+		m_chooser.addObject("scale side", auto5);
+		m_chooser.addObject("old middle switch", auto7);
+		m_chooser.addObject("traj test", auto8);
+		//m_chooser.addObject("middle 2 switch", auto6);
+		m_chooser.addDefault("default", "default");
+		SmartDashboard.putData("Auto choices", m_chooser);
 	}
 	
 	@Override
 	public void autonomousInit() {
 		gameData = DriverStation.getInstance().getGameSpecificMessage();
 		startTime = Timer.getFPGATimestamp();
-		
+		Auto.setGameData(gameData);
+		//middleSwitch.main.setGameData(gameData);
 		//rightSwitch.setGameData(gameData);
-//		String selected = m_chooser.getSelected();
-//		switch(selected)
-//		{
-//		case auto1:
-//			middleSwitch.setGameData(gameData);
-//			break;
-//		case auto2:
-//			driveStraight.setGameData(gameData);
-//			break;
-//		case auto3:
-//			leftSwitch.setGameData(gameData);
-//			break;
-//		case auto4:
-//			leftSwitch.setGameData(gameData);
-//			break;
-//		default:
-//			break;
-//		}
+		String selected = m_chooser.getSelected();
+		
 		
 		
 	}
@@ -104,26 +97,43 @@ public class Robot extends IterativeRobot {
 		myLoops.runLoops();
 		//driveTrain.swerve(.2, 0.0, 0.0, Drivetrain.driveCoords.FIELDCENTRIC,Drivetrain.driveType.PERCENTPOWER);
 		//SmartDashboard.putNumber("auto speed", t.getSpeed(Timer.getFPGATimestamp()-startTime));
-//		String selected = m_chooser.getSelected();
-//		switch(selected)
-//		{
-//		case auto1:
-//			middleSwitch.run();
-//			break;
-//		case auto2:
-//			driveStraight.run();
-//			break;
-//		case auto3:
-//			leftSwitch.run();
-//			break;
-//		case auto4:
-//			leftSwitch.run();
-//			break;
-//		}
-		//middleSwitch.run();
+		String selected = m_chooser.getSelected();
+		if(selected.equals(auto1))
+		{
+			middleSwitchTraj.main.run();
+		}
+		else if(selected.equals(auto2))
+		{
+			sideSwitchLeftTraj.main.run();
+		}
+		else if(selected.equals(auto3))
+		{
+			sideSwitchRightTraj.main.run();
+		}
+		else if(selected.equals(auto4))
+		{
+			driveStraight.main.run();
+		}
+		else if(selected.equals(auto5))
+		{
+			ScaleAuto.main.run();
+		}
+		else if(selected.equals(auto6))
+		{
+			centerSwitchTraj.main.run();
+		}
+		else if(selected.equals(auto7))
+		{
+			middleSwitch.main.run();
+		}
+		else if(selected.equals(auto8))
+		{
+			TrajectoryTest.main.run();
+		}
+		//middleSwitch.main.run();
+		//ScaleAuto.main.run();
 		//rightSwitch.run();
-		TrajectoryTest.main.run();
-		
+		//driveStraight.main.run();
 		//driveStraight.run();
 	}
 
@@ -165,20 +175,17 @@ public class Robot extends IterativeRobot {
 		/**
 		 * Intake States
 		 */
-		if(controller.Stow() == true && controller.unStow() == true && isIntakeOpenLoop == false && intakeManualOverrideTimer.get()>.5)
+		if(controller.Stow() == true && controller.unStow() == true && isIntakeOpenLoop == false)
 		{
 			isIntakeOpenLoop = true;
 			intake.setOpenLoopMode(true);
 			intakeManualOverrideTimer.reset();
 		}
-		else
-		{
-			if(intakeManualOverrideTimer.get()>.5)
-			{
-				isIntakeOpenLoop = false;
-				intakeManualOverrideTimer.reset();
-			}
-		}
+//		else
+//		{	
+//			isIntakeOpenLoop = false;
+//			intakeManualOverrideTimer.reset();
+//		}
 		if(controller.getIntakeButton()) {intake.setWantedState(systemStates.Intaking);} 
 		else if(controller.getOuttakeButton()) {intake.setWantedState(systemStates.Scoring);}
 		else if(controller.unjamButton()) {intake.setWantedState(systemStates.UnJamming);}
@@ -234,6 +241,7 @@ public class Robot extends IterativeRobot {
 		/*
 		 * Runs the Pre-Match Checklist
 		 */
+		SmartDashboard.putNumber("test ID", testID);
 		if(controller.getSlowFieldCentricButton()) {testID++;}
 		switch(testID) {
 		case 1: //Drive Forwards and Field-Centric test
@@ -255,6 +263,8 @@ public class Robot extends IterativeRobot {
 		case 8: //Intake In
 			intake.setWantedState(Intake.systemStates.Intaking);
 		case 9: //Intake Out
+			
+			
 			intake.setWantedState(Intake.systemStates.Scoring);
 		case 10: //Intake UnStow
 			intake.setWantedState(Intake.systemStates.Neutral);

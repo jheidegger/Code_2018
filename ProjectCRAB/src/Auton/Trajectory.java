@@ -4,19 +4,33 @@ package Auton;
 import java.awt.geom.Arc2D;
 import java.util.ArrayList;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 
 public class Trajectory {
-	private double kMaxVelocity = 3.0;
-	private double kMaxAcceleration=3.0; 
+	private double kMaxVelocity = 4.0;
+	private double kMaxAcceleration=7.0;
+	private double kMaxAngularAccel = 1.0;
 	private double timeStep = .01;
 	private double simTime = 0.0;
+	private double timeToComplete;
 	private ArrayList<Waypoint>  points;
 	private ArrayList<Double> speed;
 	private ArrayList<Double> angle;
+	private ArrayList<Double> heading;
 	public Trajectory() {
 		points = new ArrayList<Waypoint>();
 		speed = new ArrayList<Double>();
 		angle = new ArrayList<Double>();
+		heading = new ArrayList<Double>();
+	}
+	public Trajectory(double MaxVel, double MaxAccel) {
+		points = new ArrayList<Waypoint>();
+		speed = new ArrayList<Double>();
+		angle = new ArrayList<Double>();
+		heading = new ArrayList<Double>();
+		kMaxVelocity = MaxVel;
+		kMaxAcceleration = MaxAccel;
 	}
 	public void addWaypoint(Waypoint w)
 	{
@@ -29,9 +43,11 @@ public class Trajectory {
 		double currY = points.get(0).getY();
 		double endSpeed = points.get(1).getSpeed();
 		double currAngle = 0.0;
+		double currHeading = points.get(0).getAngle();
+		double endHeading = points.get(1).getAngle();
 		int waypointIdx = 1;
 		boolean isSlowing = false;
-		while(simTime < 8.0)
+		while(simTime < 15.0)
 		{
 			
 			double stoppingDistance = (Math.pow(endSpeed, 2)-Math.pow(currSpeed,2))/(-2.0*kMaxAcceleration);
@@ -68,9 +84,29 @@ public class Trajectory {
 				}		
 			}
 			speed.add(currSpeed);
-			
+			System.out.println("waypointIdx" + waypointIdx);
 			currX = currX + currSpeed * Math.cos(currAngle) * timeStep;
 			currY = currY + currSpeed * Math.sin(currAngle) * timeStep;
+			if(Math.abs(currX - points.get(waypointIdx).getX()) < .1 && Math.abs(currY - points.get(waypointIdx).getY()) < .1 && waypointIdx <= points.size())
+			{
+				waypointIdx++;
+			}
+			if(Math.abs(currHeading-endHeading) <kMaxAngularAccel*timeStep)
+			{
+				currHeading = endHeading;
+			}
+			else
+			{
+				if(endHeading-currHeading>0)
+				{
+					currHeading += kMaxAngularAccel * timeStep;  
+				}
+				else
+				{
+					currHeading -= kMaxAngularAccel * timeStep;
+				}
+			}
+			heading.add(currHeading);
 			//System.out.println("X: " + currX);
 			//System.out.println(currY);
 			//System.out.println("stop: " + stoppingDistance);
@@ -79,6 +115,12 @@ public class Trajectory {
 			//System.out.println("x: "+  currX  + " y: " +currY + " sp: " + currSpeed +" angle " + (currAngle * 180.0/Math.PI) +  " currway " + waypointIdx );
 			simTime+= timeStep;
 		}
+		int idx = 1;
+		while(speed.get(idx) != 0.0)
+		{
+			idx++;
+		}
+		timeToComplete = idx * timeStep;
 	}
 	public double getSpeed(double Time)
 	{
@@ -90,6 +132,21 @@ public class Trajectory {
 		{
 			return 0.0;
 		}
+	}
+	public double getHeading(double Time)
+	{
+		if(Time/timeStep < speed.size())
+		{
+			return heading.get((int)(Time/timeStep));
+		}
+		else
+		{
+			return 0.0;
+		}
+	}
+	public double getTimeToComplete()
+	{
+		return timeToComplete;
 	}
 	public double getWheelAngle(double Time)
 	{

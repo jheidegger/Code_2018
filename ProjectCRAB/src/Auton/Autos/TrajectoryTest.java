@@ -21,8 +21,8 @@ public class TrajectoryTest extends Auto {
 				public void onStart() {
 					t = new Trajectory();
 					t.addWaypoint(new Waypoint(0.0, 0.0, 0.0));
-					t.addWaypoint(new Waypoint(0.0, -10.0, 0.0));
-					//t.addWaypoint(new Waypoint(4.0,-2.0,0.0));
+					t.addWaypoint(new Waypoint(0.0, -20.0, Math.PI));
+					t.addWaypoint(new Waypoint(0.0,20.0,0.0));
 					//t.addWaypoint(new Waypoint(0.0, -2.0, 0.0));
 					t.calculateTrajectory();
 					p = new PathFollower(t);

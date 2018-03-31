@@ -36,7 +36,7 @@ public class Intake extends Subsystem {
  	private PIDLoop actuatorPID;
  	private double wantedPosition;
  	private double currPosition;
- 	public final double neutralPosition = -1000;
+ 	public final double neutralPosition = -500;
  	public final double downPosition = -17000;
  	// -1 full left - 1 full right
  	private double cubePosition = 0.0;
@@ -106,10 +106,6 @@ public class Intake extends Subsystem {
 		{
 			wantedPosition = downPosition;
 		}
-		if(wantedPosition > 0.0)
-		{
-			wantedPosition = 0.0;
-		}
 		if(isIntakeStowed.get()) 
 		{
 			stowingMotor.set(actuatorPID.returnOutput(currPosition, wantedPosition));	
@@ -131,14 +127,14 @@ public class Intake extends Subsystem {
  	}
  	private void openLoopControl()
  	{
- 		stowingMotor.set(controller.getintakePositionJoystick() * .2);
+ 		stowingMotor.set(controller.getintakePositionJoystick() * .5);
  	}
  	private void intaking()
  	{
  		if(isCubeInLeft.get() || isCubeInRight.get())
 			{
-				double rightCurrent = Drivetrain.getInstance().getPDP().getCurrent(10);
-				double leftCurrent = Drivetrain.getInstance().getPDP().getCurrent(11);
+				double rightCurrent = Drivetrain.getInstance().getPDP().getCurrent(8);
+				double leftCurrent = Drivetrain.getInstance().getPDP().getCurrent(9);
 				SmartDashboard.putNumber("Right Current", rightCurrent);
 				SmartDashboard.putNumber("Left Current", leftCurrent);
 				double maxCurrent = 24;
@@ -186,7 +182,7 @@ public class Intake extends Subsystem {
  				SmartDashboard.putNumber("curr position", encoder.getRaw());
  				SmartDashboard.putBoolean("Stowed",isIntakeStowed.get());
  				SmartDashboard.putString("State", currState.toString());
- 				
+ 				SmartDashboard.putBoolean("IsCubeINBoth", (!isCubeInLeft.get() && !isCubeInRight.get()));
  				SmartDashboard.putNumber("wantedPosition", wantedPosition);
  				SmartDashboard.putBoolean("CubeIn", isCubeInLeft.get());
  				SmartDashboard.putBoolean("CubeIn", isCubeInRight.get());
@@ -259,7 +255,7 @@ public class Intake extends Subsystem {
 	 				case Homing:
 	 					if(isIntakeStowed.get())
 	 					{
-	 						stowingMotor.set(.3);
+	 						stowingMotor.set(.25);
 	 						rightSideWheel.set(0.0);
 		 					leftSideWheel.set(0.0);
 	 					}
@@ -315,7 +311,7 @@ public class Intake extends Subsystem {
 	 						rightSideWheel.set(Constants.INTAKESPEED*1.0);
 	 	 					leftSideWheel.set(Constants.INTAKESPEED*1.0);
 	 					}
-	 					else if(unJamTimer.get() < .12 && !(isCubeInLeft.get() || isCubeInRight.get()) )
+	 					else if(unJamTimer.get() < .2 && !(isCubeInLeft.get() || isCubeInRight.get()) )
 	 					{
 	 						rightSideWheel.set(Constants.INTAKESPEED);
 	 	 					leftSideWheel.set(-Constants.INTAKESPEED);
@@ -331,11 +327,9 @@ public class Intake extends Subsystem {
 						break;
 	 				}
  				}
- 				if(!isIntakeStowed.get()) {
- 					System.out.println("LED");
- 					LED.getInstance().setWantedState(LED.ledStates.INTAKE_STOWED);
- 				}
- 				else if(isCubeInLeft.get() || isCubeInRight.get()) {
+ 				SmartDashboard.putBoolean("IR Left", isCubeInLeft.get());
+ 				SmartDashboard.putBoolean("IR Right", isCubeInRight.get());
+ 				if(isCubeInLeft.get() || isCubeInRight.get()) {
  					LED.getInstance().setWantedState(LED.ledStates.LIGHTSHOW);
  				}
  				else {

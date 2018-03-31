@@ -45,19 +45,20 @@ public class PathFollower {
 				public void onloop() {
 					double Time = Timer.getFPGATimestamp()-startTime;
 					double dt = Time-lastTime;
+					double heading = t.getHeading(Time);
 					double speed = t.getSpeed(Time);
 					double wheelAngle = t.getWheelAngle(Time);
 					double strafeCommand = speed*Math.cos(wheelAngle);
 					double forwardCommand = speed*Math.sin(wheelAngle);
-					double spinCommand = spinHandler.returnOutput(Drivetrain.getInstance().getAngle(), 0 );
+					double spinCommand = spinHandler.returnOutput(Drivetrain.getInstance().getAngle(), heading);
 					currY += forwardCommand * dt;
 					SmartDashboard.putNumber("autoSpinCommand", spinCommand);
 					SmartDashboard.putNumber("autoSpeed", forwardCommand);
 					SmartDashboard.putNumber("calculatedY", currY);
-					//Drivetrain.getInstance().swerve(forwardCommand, strafeCommand, spinCommand,Drivetrain.driveCoords.FIELDCENTRIC, 
-							//Drivetrain.driveType.VELOCITY);
-					Drivetrain.getInstance().swerve(-7.0, 0.0, 0.0,Drivetrain.driveCoords.FIELDCENTRIC, 
+					Drivetrain.getInstance().swerve(forwardCommand, strafeCommand, spinCommand,Drivetrain.driveCoords.FIELDCENTRIC, 
 							Drivetrain.driveType.VELOCITY);
+					//Drivetrain.getInstance().swerve(-7.0, 0.0, 0.0,Drivetrain.driveCoords.FIELDCENTRIC, 
+							//Drivetrain.driveType.VELOCITY);
 					double wheelSpeed = Drivetrain.getInstance().getPod(0).getRawSpeed();
 					double reqWheelSpeed = Drivetrain.getInstance().getPod(0).getSpeed();
 					double wheelSpeedfps = wheelSpeed / Constants.fps2ups;

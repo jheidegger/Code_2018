@@ -1,3 +1,4 @@
+
 package Auton.Autos;
 
 import Subsystem.Loop;
@@ -14,7 +15,7 @@ public class Auto {
 	{
 		autoLoop = loop;
 	}
-	public void setGameData(String gD)
+	public static void setGameData(String gD)
 	{
 		gameData = gD;
 	}
