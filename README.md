@@ -13,4 +13,5 @@ This is the first year the team has written in java, and will start many of the 
 - PID controlled elevator
 - Communication with arduino for LED control
 - Custom smartdashboard interface
+- Motion profiled, trajectory class for autonomous control
 
