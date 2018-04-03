@@ -26,11 +26,8 @@ public class LED extends Subsystem{
 		return instance; 
 	}
 	public void setWantedState(ledStates wantedState) {this.wantedState = wantedState;}
-	@Override
-	public void zeroAllSensors() {
-		// TODO Auto-generated method stub
-		
-	}
+	@Override public void zeroAllSensors() {}
+	
 	private void sendToArduino(byte value) {
 		toSend[0] = (value);
 		arduino.transaction(toSend, 1, emptyArray, 1);
