@@ -47,10 +47,10 @@ public class Kinematics {
 		position[0] += xSpeed * dt;
 		position[1] += ySpeed * dt;
 		position[2] = Drivetrain.getInstance().getAngle();
-		
+	
 	}
 	
-	private double[] getPosition() {
+	public double[] getWheelCalculatedPosition() {
 		return position;
 	}
 	public void regesterLoop()
