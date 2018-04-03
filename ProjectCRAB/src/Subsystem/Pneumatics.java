@@ -24,13 +24,11 @@ public class Pneumatics extends Subsystem {
 	
 	@Override
 	public void zeroAllSensors() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public boolean checkSystem() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
@@ -63,6 +61,11 @@ public class Pneumatics extends Subsystem {
 			}
 			
 		});
+		
+	}
+	@Override
+	public void outputToSmartDashboard() {
+		// TODO Auto-generated method stub
 		
 	}
 

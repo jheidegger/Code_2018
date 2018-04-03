@@ -1,6 +1,5 @@
 package Subsystem;
 
-import Subsystem.Intake.systemStates;
 import edu.wpi.first.wpilibj.I2C;
 
 public class LED extends Subsystem{
@@ -80,6 +79,10 @@ public class LED extends Subsystem{
 			}
 		});	
 		}
+	@Override
+	public void outputToSmartDashboard() {
+		// TODO Auto-generated method stub
 		
-	}
+	}	
+}
 

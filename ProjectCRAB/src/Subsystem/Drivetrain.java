@@ -1,7 +1,6 @@
 package Subsystem;
 
 import com.kauailabs.navx.frc.AHRS;
-
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Timer;
@@ -126,7 +125,7 @@ public class Drivetrain extends Subsystem {
 		updateAngle();
 
 		//initialize the commands
-		forwardCommand = 0.000000000000000000000001;
+		forwardCommand = Math.pow(10, -15);
 		strafeCommand = 0.0;
 		spinCommand = 0.0;
 	}
@@ -372,8 +371,6 @@ public class Drivetrain extends Subsystem {
 					}
 					crabDrive();*/
 					cam.track_cube();
-					SmartDashboard.putNumber("Vision X", cam.getAvgX());
-					SmartDashboard.putNumber("Vision Area", cam.getAvgArea());
 					lastState = systemStates.VISION;
 					checkState();
 					break;
@@ -385,6 +382,12 @@ public class Drivetrain extends Subsystem {
 		public void stop() {				
 		}
 	});
+	}
+
+	@Override
+	public void outputToSmartDashboard() {
+		SmartDashboard.putNumber("Vision X", cam.getAvgX());
+		SmartDashboard.putNumber("Vision Area", cam.getAvgArea());
 	}
 }
 	

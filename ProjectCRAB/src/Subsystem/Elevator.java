@@ -19,6 +19,8 @@ public class Elevator extends Subsystem {
 	private double kMidHeight = Constants.MID_HEIGHT_ENCODER_TICKS;
 	private double kLowHeight = Constants.LOW_HEIGHT_ENCODER_TICKS;
 	
+	private double liftSpeed;
+	
 	public enum systemStates{
 		NEUTRAL,
 		POSITION_FOLLOW,
@@ -43,8 +45,7 @@ public class Elevator extends Subsystem {
 	
 	private void setFloor(double wantedHeight) {
 		//wantedHeight = wantedHeight / .17 * Math.PI * 2048;
-		double liftSpeed = elevatorControlLoop.returnOutput(encoder.getRaw(),wantedHeight);
-		SmartDashboard.putNumber("Lift Speed", liftSpeed);	driveMotor.set(liftSpeed);
+		liftSpeed = elevatorControlLoop.returnOutput(encoder.getRaw(),wantedHeight);
 	}
 
 	public void setWantedFloor(double wF) {this.wantedFloor = wF;}
@@ -80,8 +81,6 @@ public class Elevator extends Subsystem {
 			public void onloop() {
 				//checkEncoder();
 				double openLoopAdjust = joystick.elevatorPositionJoystick()*2000.0;
-				SmartDashboard.putString("elevator state", currentState.toString());
-				SmartDashboard.putNumber("elevator wanted floor", wantedFloor);
 				switch(currentState){
 					case NEUTRAL:
 					driveMotor.set(0.0);
@@ -122,5 +121,13 @@ public class Elevator extends Subsystem {
 				//Smartdashboard.putNumber("Encoder Units", encoder.getRaw());
 			}
 		});
+	}
+
+	@Override
+	public void outputToSmartDashboard() {
+		SmartDashboard.putNumber("Lift Speed", liftSpeed);	driveMotor.set(liftSpeed);
+		SmartDashboard.putNumber("Lift Speed", liftSpeed);	driveMotor.set(liftSpeed);
+		SmartDashboard.putString("elevator state", currentState.toString());
+		SmartDashboard.putNumber("elevator wanted floor", wantedFloor);
 	}
 }

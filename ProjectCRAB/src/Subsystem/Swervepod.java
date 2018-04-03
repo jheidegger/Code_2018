@@ -203,4 +203,9 @@ public class Swervepod extends Subsystem {
 		// N/A
 	}
 
+	@Override
+	public void outputToSmartDashboard() {
+		
+	}
+
 }

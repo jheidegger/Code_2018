@@ -36,6 +36,8 @@ public class Intake extends Subsystem {
  	private PIDLoop actuatorPID;
  	private double wantedPosition;
  	private double currPosition;
+ 	private double leftCurrent;
+ 	private double rightCurrent;
  	public final double neutralPosition = -500;
  	public final double downPosition = -17000;
  	// -1 full left - 1 full right
@@ -71,8 +73,6 @@ public class Intake extends Subsystem {
  	 * @param wantedState requested state for the system to switch into
  	 */
  	public void setWantedState(systemStates wantedState) {this.wantedState = wantedState;}
- 	@Override public void zeroAllSensors() {}
- 	@Override public boolean checkSystem() {return false;}
  	
  	public boolean isStowed()
  	{
@@ -133,10 +133,8 @@ public class Intake extends Subsystem {
  	{
  		if(isCubeInLeft.get() || isCubeInRight.get())
 			{
-				double rightCurrent = Drivetrain.getInstance().getPDP().getCurrent(8);
-				double leftCurrent = Drivetrain.getInstance().getPDP().getCurrent(9);
-				SmartDashboard.putNumber("Right Current", rightCurrent);
-				SmartDashboard.putNumber("Left Current", leftCurrent);
+				rightCurrent = Drivetrain.getInstance().getPDP().getCurrent(8);
+				leftCurrent = Drivetrain.getInstance().getPDP().getCurrent(9);
 				double maxCurrent = 24;
 				cubePosition = (rightCurrent-leftCurrent)/((rightCurrent+leftCurrent)/2.0);
 				if(rightCurrent > maxCurrent || leftCurrent > maxCurrent) {
@@ -147,7 +145,7 @@ public class Intake extends Subsystem {
 					rightSideWheel.set(-((rightCurrent/maxCurrent)/2.0+.5));
 					leftSideWheel.set(((leftCurrent/maxCurrent)/2.0+.5));
 				}
-				SmartDashboard.putNumber("cubePostion", cubePosition);
+				
 				lastState = systemStates.Intaking;
 				wantedPosition = downPosition;
 				closedLoopControl();
@@ -179,13 +177,6 @@ public class Intake extends Subsystem {
 			}
  			@Override
  			public void onloop() {
- 				SmartDashboard.putNumber("curr position", encoder.getRaw());
- 				SmartDashboard.putBoolean("Stowed",isIntakeStowed.get());
- 				SmartDashboard.putString("State", currState.toString());
- 				SmartDashboard.putBoolean("IsCubeINBoth", (!isCubeInLeft.get() && !isCubeInRight.get()));
- 				SmartDashboard.putNumber("wantedPosition", wantedPosition);
- 				SmartDashboard.putBoolean("CubeIn", isCubeInLeft.get());
- 				SmartDashboard.putBoolean("CubeIn", isCubeInRight.get());
  				if(isOpenLoop)
  				{
  					openLoopControl();
@@ -327,8 +318,6 @@ public class Intake extends Subsystem {
 						break;
 	 				}
  				}
- 				SmartDashboard.putBoolean("IR Left", isCubeInLeft.get());
- 				SmartDashboard.putBoolean("IR Right", isCubeInRight.get());
  				if(isCubeInLeft.get() || isCubeInRight.get()) {
  					LED.getInstance().setWantedState(LED.ledStates.LIGHTSHOW);
  				}
@@ -342,5 +331,28 @@ public class Intake extends Subsystem {
 				leftSideWheel.set(0.0);
  			}
  		});
+ 	}
+	@Override
+	public void outputToSmartDashboard() {
+		SmartDashboard.putBoolean("IR Left", isCubeInLeft.get());
+		SmartDashboard.putBoolean("IR Right", isCubeInRight.get());
+		SmartDashboard.putNumber("curr position", encoder.getRaw());
+		SmartDashboard.putBoolean("Stowed",isIntakeStowed.get());
+		SmartDashboard.putString("State", currState.toString());
+		SmartDashboard.putBoolean("IsCubeINBoth", (!isCubeInLeft.get() && !isCubeInRight.get()));
+		SmartDashboard.putNumber("wantedPosition", wantedPosition);
+		SmartDashboard.putBoolean("CubeIn", isCubeInLeft.get());
+		SmartDashboard.putBoolean("CubeIn", isCubeInRight.get());
+		SmartDashboard.putNumber("Right Current", rightCurrent);
+		SmartDashboard.putNumber("Left Current", leftCurrent);
+		SmartDashboard.putNumber("cubePostion", cubePosition);
+	}
+ 	@Override 
+ 	public void zeroAllSensors() {
+ 		
+ 	}
+ 	@Override 
+ 	public boolean checkSystem() {
+ 		return false;
  	}
  }

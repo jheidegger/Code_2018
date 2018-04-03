@@ -15,6 +15,8 @@ public abstract class Subsystem {
 	//called in the test phase before matches. tests all motors and sensors and returns the result
 	public abstract boolean checkSystem();
 	
+	public abstract void outputToSmartDashboard();
+	
 	public abstract void registerLoop();
 	
 }
