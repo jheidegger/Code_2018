@@ -3,10 +3,15 @@ package Auton;
 import java.util.ArrayList;
 
 import Subsystem.Drivetrain;
+import Subsystem.Loop;
+import Subsystem.Loop_Manager;
 import Subsystem.Swervepod;
+import edu.wpi.first.wpilibj.Timer;
 
 public class Kinematics {
 	private ArrayList<Swervepod> podList;
+	private double startTime;
+	private double lastTime;
 	private double xSpeed;
 	private double ySpeed;
 	private double[] position = {0.0, 0.0, 0.0}; //X (FT.), Y (FT.), Theta (-PI to PI) 
@@ -34,15 +39,40 @@ public class Kinematics {
 		double averageD = (D[0] + D[1])/2.0;
 		xSpeed = averageA + (averageB - averageA)/2.0;
 		ySpeed = averageC + (averageD-averageC)/2.0;
+		//calculation delta Time
+		double currTime = Timer.getFPGATimestamp()-startTime;
+		double dt = currTime-lastTime;
 		
 		// Integrate to position
-		position[0] += xSpeed * .02;
-		position[1] += ySpeed * .02;
+		position[0] += xSpeed * dt;
+		position[1] += ySpeed * dt;
 		position[2] = Drivetrain.getInstance().getAngle();
 		
 	}
 	
-	private double getPosition() {
-		return 0.0;
+	private double[] getPosition() {
+		return position;
+	}
+	public void regesterLoop()
+	{
+		Loop_Manager.getInstance().addLoop(new Loop() {
+
+			@Override
+			public void onStart() {
+				startTime = Timer.getFPGATimestamp();
+				lastTime = startTime;
+			}
+
+			@Override
+			public void onloop() {
+				update();
+			}
+
+			@Override
+			public void stop() {
+				
+			}
+			
+		});
 	}
 }

@@ -59,7 +59,7 @@ public class PathFollower {
 							Drivetrain.driveType.VELOCITY);
 					//Drivetrain.getInstance().swerve(-7.0, 0.0, 0.0,Drivetrain.driveCoords.FIELDCENTRIC, 
 							//Drivetrain.driveType.VELOCITY);
-					double wheelSpeed = Drivetrain.getInstance().getPod(0).getRawSpeed();
+					double wheelSpeed = Drivetrain.getInstance().getPod(0).getWheelSpeed();
 					double reqWheelSpeed = Drivetrain.getInstance().getPod(0).getSpeed();
 					double wheelSpeedfps = wheelSpeed / Constants.fps2ups;
 					SmartDashboard.putNumber("wheelSpeed", wheelSpeedfps);
