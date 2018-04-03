@@ -29,7 +29,7 @@ public class Constants {
 	//Drive Train constants
 	//Gear Facing Right
 	public static double OFFSETS[] = {2915.0,2764.0,3729.0,3369.0};
-	public static double OFFSETS_P[] = {2968.0,348.0,1184.0,2160.0};
+	public static double OFFSETS_P[] = {268.0,3228.0,1184.0,2160.0};
 	public static double DRIVETRAINLENGTH = 17.5;
 	public static double DRIVETRAINWIDTH = 13.0;
 	public static final double WHEELDIAMETER = 3.0;

@@ -365,12 +365,15 @@ public class Drivetrain extends Subsystem {
 					checkState();
 					break;
 				case VISION:
-					spinCommand = -pidLoop.returnOutput(cam.getAvgX(), 160);
+					/*spinCommand = -pidLoop.returnOutput(cam.getAvgX(), 160);
 					forwardCommand = pidForward.returnOutput(cam.getAvgArea(), 5000);
 					if(forwardCommand < -.2) {
 						forwardCommand = 0; 
 					}
-					crabDrive();
+					crabDrive();*/
+					cam.track_cube();
+					SmartDashboard.putNumber("Vision X", cam.getAvgX());
+					SmartDashboard.putNumber("Vision Area", cam.getAvgArea());
 					lastState = systemStates.VISION;
 					checkState();
 					break;

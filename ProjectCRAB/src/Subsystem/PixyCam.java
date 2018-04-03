@@ -101,6 +101,7 @@ private static PixyCam instance = new PixyCam();
 				packets[Sig - 1] = new PixyPacket();
 				packets[Sig - 1].X = cvt(rawData[i+9], rawData[i+8]);
 				Xtest = (double)packets[Sig-1].X;
+				System.out.println(packets[Sig-1].X);
 				
 				//System.out.println(cvt(rawData[i+9], rawData[i+8]));
 				packets[Sig - 1].Y = cvt(rawData[i+11], rawData[i+10]);
@@ -145,6 +146,7 @@ private static PixyCam instance = new PixyCam();
 		return (heightTest*widthTest);
 	}
 	private void setAvgX() {
+		System.out.println(getX());
 		xValues[idxX] = getX();
 		averageX = (xValues[0] + xValues[1] + xValues[2] + xValues[3] +xValues[4] + xValues[5] +xValues[6]) / 7;
 		idxX++; 

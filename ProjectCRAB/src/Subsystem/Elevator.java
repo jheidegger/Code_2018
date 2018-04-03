@@ -44,7 +44,7 @@ public class Elevator extends Subsystem {
 	private void setFloor(double wantedHeight) {
 		//wantedHeight = wantedHeight / .17 * Math.PI * 2048;
 		double liftSpeed = elevatorControlLoop.returnOutput(encoder.getRaw(),wantedHeight);
-		driveMotor.set(liftSpeed);
+		SmartDashboard.putNumber("Lift Speed", liftSpeed);	driveMotor.set(liftSpeed);
 	}
 
 	public void setWantedFloor(double wF) {this.wantedFloor = wF;}
