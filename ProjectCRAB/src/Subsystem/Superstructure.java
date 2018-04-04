@@ -10,18 +10,18 @@ public class Superstructure {
 	private Intake intake = Intake.getInstance();
 	private Elevator elevator = Elevator.getInstance();
  	private Loop_Manager loopMan = Loop_Manager.getInstance();
-	
+
 	private systemStates currState;
  	private systemStates lastState;
  	private wantedStates wantedState;
 
- 	private double elevatorCommandedHeight = 0.0; 
- 	
+ 	private double elevatorCommandedHeight = 0.0;
+
  	public enum systemStates{
  		Intaking,
  		UnJamming,
  		MovingToPosition,
- 		Neutral, 
+ 		Neutral,
  		Holding,
  		Scoring
  	};
@@ -35,10 +35,10 @@ public class Superstructure {
  		Down,
  		Unjamming,
  		Neutral
- 	}
+ 	};
 	private Superstructure()
 	{
-		
+
 	}
 	public static Superstructure getInstance()
 	{
@@ -47,17 +47,17 @@ public class Superstructure {
 	public void setWantedState(Superstructure.wantedStates wantedState) {
 		this.wantedState = wantedState;
 	}
-	
+
 	public void registerLoop() {
  		loopMan.addLoop(new Loop() {
- 			
+
 			@Override
 			public void onStart() {
 				currState = systemStates.Neutral;
 			 	lastState = systemStates.Neutral;
 			 	wantedState = wantedStates.Neutral;
 			}
-			
+
 			@Override
 			public void onloop() {
 				switch(currState)
@@ -109,13 +109,13 @@ public class Superstructure {
 					intake.setWantedState(Intake.systemStates.Scoring);
 					break;
 				}
-				
+
 			}
 
 			@Override
 			public void stop() {
 				// TODO Auto-generated method stub
-				
+
 			}
 		});
 
