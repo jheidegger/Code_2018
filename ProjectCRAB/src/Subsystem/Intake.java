@@ -81,6 +81,10 @@ public class Intake extends Subsystem {
  	
  	public void setPosition(double position) {wantedPosition = position;}//degreesToEncoder(position);}
  	public double getCurrPosition() {return currPosition;}
+ 	public boolean isCubeIn()
+ 	{
+ 		return (!isCubeInLeft.get() && !isCubeInRight.get());
+ 	}
  	/**
  	 * setting manual override for the intake
  	 * @param isOpenLoop a boolean to disable sensors
