@@ -59,8 +59,9 @@ public class Drivetrain extends Subsystem {
 	
 	private int idCount = 0; 
 	
-	private PIDLoop pidLoop;
+	private PIDLoop pidRotate;
 	private PIDLoop pidForward;
+	private PIDLoop pidStrafe;
 	private PIDLoop autoHeadingControl;
 	
 	private double kMaxSpeed;
@@ -105,8 +106,9 @@ public class Drivetrain extends Subsystem {
 		//Instantiate array list
 		Pods = new ArrayList<Swervepod>();
 		
-		pidLoop = new PIDLoop(0.0007,0,0);
-		pidForward = new PIDLoop(0.001,0,0);
+		pidRotate = new PIDLoop(0.0009,0,0, 1);
+		pidForward = new PIDLoop(0.04,0,0, 1);
+		pidStrafe = new PIDLoop(.03,0,0,1);
 		autoHeadingControl = new PIDLoop(.6,.1,.01);
 				
 		//Add instantiated Pods to the array list
@@ -371,12 +373,13 @@ public class Drivetrain extends Subsystem {
 					checkState();
 					break;
 				case VISION:
-					/*spinCommand = -pidLoop.returnOutput(cam.getAvgX(), 160);
-					forwardCommand = pidForward.returnOutput(cam.getAvgArea(), 5000);
-					if(forwardCommand < -.2) {
+					spinCommand = pidRotate.returnOutput(cam.getAvgX(), 160);
+					forwardCommand = -pidForward.returnOutput(cam.getAvgArea(), 30000) - (-2.5 * pidForward.returnOutput(60, Math.abs(160-cam.getAvgX())));
+					strafeCommand = -pidStrafe.returnOutput(cam.getAvgX(), 160);
+					/*if(forwardCommand < -.2) {
 						forwardCommand = 0; 
-					}
-					crabDrive();*/
+					}*/
+					crabDrive();
 					cam.track_cube();
 					lastState = systemStates.VISION;
 					checkState();
@@ -384,6 +387,8 @@ public class Drivetrain extends Subsystem {
 				default:
 					break;			
 				}
+			outputToSmartDashboard();
+			kinematics.update();
 		}	
 		@Override
 		public void stop() {				
@@ -395,7 +400,8 @@ public class Drivetrain extends Subsystem {
 	public void outputToSmartDashboard() {
 		SmartDashboard.putNumber("Vision X", cam.getAvgX());
 		SmartDashboard.putNumber("Vision Area", cam.getAvgArea());
-		SmartDashboard.putNumberArray("kinematics Position", kinematics.getWheelCalculatedPosition());
+		//System.out.println(kinematics.getWheelCalculatedPosition());
+		SmartDashboard.putNumber("kinematics Position", kinematics.getY());
 	}
 }
 	
