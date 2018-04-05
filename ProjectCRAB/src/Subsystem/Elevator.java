@@ -80,6 +80,7 @@ public class Elevator extends Subsystem {
 			@Override
 			public void onloop() {
 				//checkEncoder();
+				outputToSmartDashboard();
 				double openLoopAdjust = joystick.elevatorPositionJoystick()*2000.0;
 				switch(currentState){
 					case NEUTRAL:
@@ -88,7 +89,7 @@ public class Elevator extends Subsystem {
 						break;		
 					case OPEN_LOOP:
 						driveMotor.set(joystick.elevatorPositionJoystick());
-						//checkState();
+						checkState();
 						break;
 					case POSITION_FOLLOW:			
 						setFloor(wantedFloor);
@@ -129,5 +130,6 @@ public class Elevator extends Subsystem {
 		SmartDashboard.putNumber("Lift Speed", liftSpeed);	driveMotor.set(liftSpeed);
 		SmartDashboard.putString("elevator state", currentState.toString());
 		SmartDashboard.putNumber("elevator wanted floor", wantedFloor);
+		SmartDashboard.putNumber("position", getHeight());
 	}
 }

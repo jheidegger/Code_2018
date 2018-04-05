@@ -143,6 +143,7 @@ public class Robot extends IterativeRobot {
 		
 		if(controller.executeAutoButton()) { driveTrain.setSystemState(Drivetrain.systemStates.AUTON);}
 		else if(controller.resetAutoButton()) { driveTrain.clearAuton();}
+		else if(controller.getVisionTracking()) { driveTrain.setSystemState(Drivetrain.systemStates.VISION);}
 		else { driveTrain.setSystemState(Drivetrain.systemStates.DRIVE);}
 		//else { driveTrain.setSystemState(Drivetrain.systemStates.VISION);}
 		/**
@@ -204,20 +205,20 @@ public class Robot extends IterativeRobot {
 		/**
 		 * Elevator States
 		 */
-		if(controller.elevatorHigh() == true && controller.elevatorMid() == true && isElevatorOpenLoop == false && elevatorManualOverrideTimer.get()<.5)
+		if(controller.elevatorHigh() == true && controller.elevatorMid() == true && isElevatorOpenLoop == false)
 		{
 			isElevatorOpenLoop = true;
 			elevator.setWantedState(Elevator.systemStates.OPEN_LOOP);
-			elevatorManualOverrideTimer.reset();
+			//elevatorManualOverrideTimer.reset();
 		}
-		else
-		{
-			if(elevatorManualOverrideTimer.get()>.5)
-			{
-				isElevatorOpenLoop = false;
-				elevatorManualOverrideTimer.reset();
-			}
-		}
+//		else
+//		{
+//			if(elevatorManualOverrideTimer.get()>.5)
+//			{
+//				isElevatorOpenLoop = false;
+//				elevatorManualOverrideTimer.reset();
+//			}
+//		}
 		if(!isElevatorOpenLoop)
 		{
 			elevator.setWantedState(Elevator.systemStates.POSITION_FOLLOW);

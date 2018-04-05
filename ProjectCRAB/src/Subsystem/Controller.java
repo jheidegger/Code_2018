@@ -81,7 +81,7 @@ public class Controller extends Subsystem{
 	public boolean getGyroResetButton() {return velocityStick.getRawButton(8);}
 	public boolean getSlowFieldCentricButton() {return velocityStick.getRawButton(1);}
 	public boolean getSlowRobotCentricButton() {return thetaStick.getRawButton(1);}
-	
+	public boolean getVisionTracking() {return velocityStick.getRawButton(12);}
 	
 	public boolean executeAutoButton() {return velocityStick.getRawButton(2);}
 	public boolean resetAutoButton() {return velocityStick.getRawButton(3);}
@@ -102,6 +102,11 @@ public class Controller extends Subsystem{
 	@Override
 	public void registerLoop() {
 		//N/A
+		
+	}
+	@Override
+	public void outputToSmartDashboard() {
+		// TODO Auto-generated method stub
 		
 	}
 	

@@ -9,6 +9,7 @@ import Subsystem.Swervepod;
 import edu.wpi.first.wpilibj.Timer;
 
 public class Kinematics {
+	
 	private ArrayList<Swervepod> podList;
 	private double startTime;
 	private double lastTime;
@@ -52,6 +53,9 @@ public class Kinematics {
 	
 	public double[] getWheelCalculatedPosition() {
 		return position;
+	}
+	public double getY() {
+		return position[1];
 	}
 	public void regesterLoop()
 	{
