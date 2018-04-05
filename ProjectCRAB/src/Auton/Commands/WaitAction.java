@@ -8,6 +8,7 @@ import Subsystem.Superstructure;
 public class WaitAction extends Command {
 
 	public WaitAction(double waitTime) {
+		super(commandType.timeBased,waitTime);
 		super.setLoop(new Loop() {
 			@Override
 			public void onStart() {
@@ -22,6 +23,6 @@ public class WaitAction extends Command {
 
 			}
 		});
-    super(commandType.timeBased,waitTime);
+    
 	}
 }

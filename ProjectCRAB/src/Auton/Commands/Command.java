@@ -1,6 +1,7 @@
 package Auton.Commands;
 
 import Subsystem.Loop;
+import edu.wpi.first.wpilibj.Timer;
 
 public class Command {
 	private double timeToComplete = 0.0;

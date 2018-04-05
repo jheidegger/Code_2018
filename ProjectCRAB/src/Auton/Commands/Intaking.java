@@ -24,7 +24,7 @@ public class Intaking extends Command {
 			}
 		});
 	}
-	public setTrigger(boolean t)
+	public void setTrigger(boolean t)
 	{
 		super.setTrigger(t);
 	}

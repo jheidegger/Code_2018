@@ -8,6 +8,7 @@ import Subsystem.Superstructure;
 public class Scoring extends Command {
 
 	public Scoring(double scoreTime) {
+		super(commandType.timeBased,scoreTime);
 		super.setLoop(new Loop() {
 			@Override
 			public void onStart() {
@@ -19,12 +20,12 @@ public class Scoring extends Command {
 			}
 			@Override
 			public void stop() {
-        Intake.getInstance.setWantedState(systemStates.Neutral);
+				Intake.getInstance().setWantedState(systemStates.Neutral);
 			}
 		});
-    super(commandType.timeBased,scoreTime);
+    
 	}
-	public setTrigger(boolean t)
+	public void setTrigger(boolean t)
 	{
 		super.setTrigger(t);
 	}

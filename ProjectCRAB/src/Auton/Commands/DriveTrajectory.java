@@ -1,14 +1,17 @@
 package Auton.Commands;
 
+import Auton.PathFollower;
+import Auton.Trajectory;
 import Subsystem.Intake;
 import Subsystem.Intake.systemStates;
 import Subsystem.Loop;
 import Subsystem.Superstructure;
 
 public class DriveTrajectory extends Command {
-  private Trajectroy t;
+  private Trajectory t;
   private PathFollower p;
-	public DriveTrajectory(Trajectroy t) {
+	public DriveTrajectory(Trajectory t) {
+	super(commandType.timeBased,t.getTimeToComplete());
     t.calculateTrajectory();
 		super.setLoop(new Loop() {
 			@Override
@@ -25,9 +28,9 @@ public class DriveTrajectory extends Command {
 
 			}
 		});
-    super(commandType.timeBased,t.getTimeToComplete());
+    
 	}
-	public setTrigger(boolean t)
+	public void setTrigger(boolean t)
 	{
 		super.setTrigger(t);
 	}
