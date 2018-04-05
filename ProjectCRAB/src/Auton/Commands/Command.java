@@ -9,6 +9,7 @@ public class Command {
 	private Loop commandLoop;
 	private boolean firstTime = true;
 	private double currTime = 0.0;
+	public double startTimeOfCommand;
 	public enum commandType {
 		timeBased,
 		triggerBased
@@ -29,11 +30,11 @@ public class Command {
 	}
 	private boolean checkEndCondition()
 	{
-		if(type == commandType.timeBased) 
-		{ 
+		if(type == commandType.timeBased)
+		{
 			if(currTime <= timeToComplete) {return false;} else {return true;}
-		} 
-		else 
+		}
+		else
 		{
 			if(!isTriggered) {return false;} else {return true;}
 		}
@@ -42,11 +43,12 @@ public class Command {
 	{
 		this.isTriggered = isTriggered;
 	}
-	public void run(double Time)
+	public void run()
 	{
 		currTime = Time;
 		if(firstTime)
 		{
+			startTimeOfCommand = Timer.getFPGATimestamp();
 			commandLoop.onStart();
 			firstTime = false;
 		}

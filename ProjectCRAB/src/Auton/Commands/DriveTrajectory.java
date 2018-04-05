@@ -5,18 +5,21 @@ import Subsystem.Intake.systemStates;
 import Subsystem.Loop;
 import Subsystem.Superstructure;
 
-public class Intaking extends Command {
-
-	public Intaking(commandType type) {
-		super(type);
+public class DriveTrajectory extends Command {
+  private Trajectroy t;
+  private PathFollower p;
+	public DriveTrajectory() {
+		super(timeBased);
 		super.setLoop(new Loop() {
 			@Override
 			public void onStart() {
-				Intake.getInstance().setWantedState(systemStates.Intaking);
+				t.calculateTrajectory();
+        p = new PathFollower(t);
+        p.init();
 			}
 			@Override
 			public void onloop() {
-				setTrigger(Intake.getInstance().isCubeIn());
+				p.run();
 			}
 			@Override
 			public void stop() {
@@ -24,6 +27,10 @@ public class Intaking extends Command {
 			}
 		});
 	}
+  public setTrajectory(Trajectroy t)
+  {
+    this.t = t;
+  }
 	public setTrigger(boolean t)
 	{
 		super.setTrigger(t);
