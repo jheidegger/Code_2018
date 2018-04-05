@@ -8,12 +8,11 @@ import Subsystem.Superstructure;
 public class DriveTrajectory extends Command {
   private Trajectroy t;
   private PathFollower p;
-	public DriveTrajectory() {
-		super(timeBased);
+	public DriveTrajectory(Trajectroy t) {
+    t.calculateTrajectory();
 		super.setLoop(new Loop() {
 			@Override
 			public void onStart() {
-				t.calculateTrajectory();
         p = new PathFollower(t);
         p.init();
 			}
@@ -26,11 +25,8 @@ public class DriveTrajectory extends Command {
 
 			}
 		});
+    super(commandType.timeBased,t.getTimeToComplete());
 	}
-  public setTrajectory(Trajectroy t)
-  {
-    this.t = t;
-  }
 	public setTrigger(boolean t)
 	{
 		super.setTrigger(t);

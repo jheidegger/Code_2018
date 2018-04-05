@@ -45,7 +45,6 @@ public class Command {
 	}
 	public void run()
 	{
-		currTime = Time;
 		if(firstTime)
 		{
 			startTimeOfCommand = Timer.getFPGATimestamp();
@@ -54,6 +53,7 @@ public class Command {
 		}
 		else if(checkEndCondition())
 		{
+			currTime = Timer.getFPGATimestamp()-startTimeOfCommand;
 			commandLoop.onloop();
 		}
 		else
