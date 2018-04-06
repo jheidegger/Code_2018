@@ -11,13 +11,12 @@ public class DriveTrajectory extends Command {
   private Trajectory t;
   private PathFollower p;
 	public DriveTrajectory(Trajectory t) {
-	super(commandType.timeBased,t.getTimeToComplete());
-    t.calculateTrajectory();
+		super(commandType.timeBased,t.getTimeToComplete());
 		super.setLoop(new Loop() {
 			@Override
 			public void onStart() {
-        p = new PathFollower(t);
-        p.init();
+			p = new PathFollower(t);
+			p.init();
 			}
 			@Override
 			public void onloop() {
@@ -30,8 +29,5 @@ public class DriveTrajectory extends Command {
 		});
     
 	}
-	public void setTrigger(boolean t)
-	{
-		super.setTrigger(t);
-	}
+
 }
