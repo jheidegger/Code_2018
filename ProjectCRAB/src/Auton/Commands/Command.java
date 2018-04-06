@@ -44,6 +44,10 @@ public class Command {
 	{
 		this.isTriggered = isTriggered;
 	}
+	public boolean getIsFinished()
+	{
+		return getIsFinished();
+	}
 	public void run()
 	{
 		if(firstTime)
@@ -60,6 +64,7 @@ public class Command {
 		else
 		{
 			commandLoop.stop();
+			isFinished = true;
 		}
 	}
 
