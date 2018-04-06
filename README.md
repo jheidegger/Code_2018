@@ -14,4 +14,5 @@ This is the first year the team has written in java, and will start many of the 
 - Communication with arduino for LED control
 - Custom smartdashboard interface
 - Motion profiled, trajectory class for autonomous control
-
+- Arduino-Controlled LEDs through I2C Communication
+- Three Different LED Animations (Green Flash, Purple Blinking, Purple Fire)

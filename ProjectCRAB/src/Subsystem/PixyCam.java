@@ -1,51 +1,37 @@
 package Subsystem;
 
-import java.util.ArrayList;
-
-import org.usfirst.frc.team6713.robot.*;
-
 import Vision.PixyException;
 import Vision.PixyPacket;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.I2C.Port;
-
+/**
+ * Handles interaction with the PixyCam, and translates raw data into comprehensive variables.
+ * All done over the I2C port. 
+ * @author Harrison McCarty, Drew Hatfield, Stewart G, and Team 1024
+ */
 public class PixyCam {
-private static PixyCam instance = new PixyCam();
+	private static PixyCam instance = new PixyCam();
 	
 	PixyPacket values;
 	I2C pixy;
 	PixyPacket[] packets;
-	PixyException pExc;
+	PixyException pixyExc;
 	String print;
 	
-	double Xtest = 0;
-	double Ytest = 0;
-	double widthTest = 0;
-	double heightTest = 0;
-	
-	int SIZE = 7;
-	double[] xValues = {0,0,0,0,0,0,0};
-	double averageX = 0;
-	int idxX = 0;
+	private double currentHorizontal, currentVertical, currentWidth, currentHeight = 0;
+	private int arrayLevel = 0;
+	double[] horizontalValues = {0,0,0,0,0,0,0};
+	double averageHorizontal = 0;
 	
 	double[] areaValues = {0,0,0,0,0,0,0};
-	double areaSum = 0;
 	double averageArea = 0;
-	int idxArea = 0;
 
 	
 	public PixyCam() {
 		pixy = new I2C(Port.kOnboard, 0x54);
 		packets = new PixyPacket[7];
-		pExc = new PixyException(print);
+		pixyExc = new PixyException(print);
 	}
-	
-	public enum systemStates{
-		NEUTRAL, 
-		TRACKING_CUBE
-	}
-	
-	private systemStates currentState;
 	
 	public static PixyCam getInstance()
 	{
@@ -61,15 +47,21 @@ private static PixyCam instance = new PixyCam();
 		}
 		setAvgX();
 		setAvgArea();
+		arrayLevel++; 
+		if(arrayLevel >6) {
+			arrayLevel = 0; 
+		}
 	}
 	
 	public int cvt(byte upper, byte lower) {
 		return (((int)upper & 0xff) << 8) | ((int)lower & 0xff);
 	}
 	
-	//This method gathers data, then parses that data, and as	ns the ints to global variables
-	public PixyPacket readPacket(int Signature) throws PixyException { //The signature should be which number object in 
-		int Checksum;												   //pixymon you are trying to get data for
+	/**
+	 * This method gathers vision data, then parses that data, and defines the data into int variables.
+	 */
+	public PixyPacket readPacket(int Signature) throws PixyException { 
+		int Checksum;												   
 		int Sig;
 		byte[] rawData = new byte[32];
 		
@@ -78,7 +70,7 @@ private static PixyCam instance = new PixyCam();
 		} catch (RuntimeException e){}
 		
 		if(rawData.length < 32){
-			System.out.println("byte array length is broken");
+			System.out.println("Vision: Byte array length is broken");
 			return null;
 		}
 		
@@ -99,25 +91,21 @@ private static PixyCam instance = new PixyCam();
 				
 				packets[Sig - 1] = new PixyPacket();
 				packets[Sig - 1].X = cvt(rawData[i+9], rawData[i+8]);
-				Xtest = (double)packets[Sig-1].X;
+				currentHorizontal = (double)packets[Sig-1].X;
 				
-				//System.out.println(cvt(rawData[i+9], rawData[i+8]));
 				packets[Sig - 1].Y = cvt(rawData[i+11], rawData[i+10]);
-				Ytest = (double)packets[Sig-1].Y;
+				currentVertical = (double)packets[Sig-1].Y;
 				
-				//System.out.println(cvt(rawData[i+11], rawData[i+10]));
 				packets[Sig - 1].Width = cvt(rawData[i+13], rawData[i+12]);
-				widthTest = (double)packets[Sig-1].Width;
+				currentWidth = (double)packets[Sig-1].Width;
 				
-				//System.out.println(cvt(rawData[i+13], rawData[i+12]));
 				packets[Sig - 1].Height = cvt(rawData[i+15], rawData[i+14]);
-				heightTest = (double)packets[Sig-1].Height;
+				currentHeight = (double)packets[Sig-1].Height;
 				
-				//System.out.println(cvt(rawData[i+15], rawData[i+14]));
 				//Checks whether the data is valid using the checksum *This if block should never be entered*
 				if (Checksum != Sig + packets[Sig - 1].X + packets[Sig - 1].Y + packets[Sig - 1].Width + packets[Sig - 1].Height) {
 					packets[Sig - 1] = null;
-					throw pExc;
+					throw pixyExc;
 				}
 				break;
 			}
@@ -128,45 +116,21 @@ private static PixyCam instance = new PixyCam();
 		return pkt;
 	}
 	
-	public double getX() {
-		return Xtest;
-	}
-	public double getY() {
-		return Ytest;
-	}
-	public double getWidth() {
-		return widthTest;
-	}
-	public double getHeight() {
-		return heightTest;
-	}
-	public double getArea() {
-		return (heightTest*widthTest);
-	}
+	public double getX() {return currentHorizontal;}
+	public double getY() {return currentVertical;}
+	public double getWidth() {return currentWidth;}
+	public double getHeight() {return currentHeight;}
+	public double getArea() {return (currentHeight*currentWidth);}
+	
+	public double getAvgArea() {return averageArea;}
+	public double getAvgX() {return averageHorizontal;}
+	
 	private void setAvgX() {
-		xValues[idxX] = getX();
-		averageX = (xValues[0] + xValues[1] + xValues[2] + xValues[3] +xValues[4] + xValues[5] +xValues[6]) / 7;
-		idxX++; 
-		if(idxX >6) {
-			idxX = 0; 
-		}
-	}
-	public double getAvgX() {
-		return averageX;
+		horizontalValues[arrayLevel] = getX();
+		averageHorizontal = (horizontalValues[0] + horizontalValues[1] + horizontalValues[2] + horizontalValues[3] +horizontalValues[4] + horizontalValues[5] +horizontalValues[6]) / 7;
 	}
 	private void setAvgArea() {
-		areaValues[idxArea] = getArea();
+		areaValues[arrayLevel] = getArea();
 		averageArea = (areaValues[0] + areaValues[1] + areaValues[2] + areaValues[3] +areaValues[4] + areaValues[5] +areaValues[6]) / 7;
-		idxArea++; 
-		if(idxArea >6) {
-			idxArea = 0; 
-		}
-	}
-	public double getAvgArea() {
-		return averageArea;
-	}
-	
-	public void setSystemState(systemStates wanted) {
-		currentState = wanted;
 	}
 }

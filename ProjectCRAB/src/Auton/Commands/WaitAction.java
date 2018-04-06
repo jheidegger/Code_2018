@@ -5,27 +5,24 @@ import Subsystem.Intake.systemStates;
 import Subsystem.Loop;
 import Subsystem.Superstructure;
 
-public class Intaking extends Command {
+public class WaitAction extends Command {
 
-	public Intaking(commandType type) {
-		super(type);
+	public WaitAction(double waitTime) {
+		super(commandType.timeBased,waitTime);
 		super.setLoop(new Loop() {
 			@Override
 			public void onStart() {
-				Intake.getInstance().setWantedState(systemStates.Intaking);
+
 			}
 			@Override
 			public void onloop() {
-				setTrigger(Intake.getInstance().isCubeIn());
+        //N/A
 			}
 			@Override
 			public void stop() {
 
 			}
 		});
-	}
-	public void setTrigger(boolean t)
-	{
-		super.setTrigger(t);
+    
 	}
 }

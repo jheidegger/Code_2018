@@ -1,31 +1,33 @@
 package Auton.Commands;
 
+import Auton.PathFollower;
+import Auton.Trajectory;
 import Subsystem.Intake;
 import Subsystem.Intake.systemStates;
 import Subsystem.Loop;
 import Subsystem.Superstructure;
 
-public class Intaking extends Command {
-
-	public Intaking(commandType type) {
-		super(type);
+public class DriveTrajectory extends Command {
+  private Trajectory t;
+  private PathFollower p;
+	public DriveTrajectory(Trajectory t) {
+		super(commandType.timeBased,t.getTimeToComplete());
 		super.setLoop(new Loop() {
 			@Override
 			public void onStart() {
-				Intake.getInstance().setWantedState(systemStates.Intaking);
+			p = new PathFollower(t);
+			p.init();
 			}
 			@Override
 			public void onloop() {
-				setTrigger(Intake.getInstance().isCubeIn());
+				p.run();
 			}
 			@Override
 			public void stop() {
 
 			}
 		});
+    
 	}
-	public void setTrigger(boolean t)
-	{
-		super.setTrigger(t);
-	}
+
 }

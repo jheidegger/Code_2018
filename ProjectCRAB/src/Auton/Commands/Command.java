@@ -1,6 +1,7 @@
 package Auton.Commands;
 
 import Subsystem.Loop;
+import edu.wpi.first.wpilibj.Timer;
 
 public class Command {
 	private double timeToComplete = 0.0;
@@ -9,6 +10,7 @@ public class Command {
 	private Loop commandLoop;
 	private boolean firstTime = true;
 	private double currTime = 0.0;
+	public double startTimeOfCommand;
 	public enum commandType {
 		timeBased,
 		triggerBased
@@ -29,11 +31,11 @@ public class Command {
 	}
 	private boolean checkEndCondition()
 	{
-		if(type == commandType.timeBased) 
-		{ 
+		if(type == commandType.timeBased)
+		{
 			if(currTime <= timeToComplete) {return false;} else {return true;}
-		} 
-		else 
+		}
+		else
 		{
 			if(!isTriggered) {return false;} else {return true;}
 		}
@@ -42,21 +44,27 @@ public class Command {
 	{
 		this.isTriggered = isTriggered;
 	}
-	public void run(double Time)
+	public boolean getIsFinished()
 	{
-		currTime = Time;
+		return getIsFinished();
+	}
+	public void run()
+	{
 		if(firstTime)
 		{
+			startTimeOfCommand = Timer.getFPGATimestamp();
 			commandLoop.onStart();
 			firstTime = false;
 		}
 		else if(checkEndCondition())
 		{
+			currTime = Timer.getFPGATimestamp()-startTimeOfCommand;
 			commandLoop.onloop();
 		}
 		else
 		{
 			commandLoop.stop();
+			isFinished = true;
 		}
 	}
 
