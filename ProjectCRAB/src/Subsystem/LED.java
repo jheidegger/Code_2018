@@ -59,20 +59,21 @@ public class LED extends Subsystem{
 				SmartDashboard.putString("LED State", currState.toString());
 				
 				
-				sendToArduino((byte)1);
-//				switch(currState) {
-//				case CUBE_INTAKED:
-//					sendToArduino((byte)1);
-//					checkState();
-//					break;
-//				case INTAKE_STOWED:
-//					sendToArduino((byte)2);
-//					checkState();
-//					break;
-//				case LIGHTSHOW:
-//					sendToArduino((byte)0);
-//					checkState();
-//					break;
+				//sendToArduino((byte)0);
+				switch(currState) {
+					case CUBE_INTAKED:
+						sendToArduino((byte)1);
+						checkState();
+						break;
+//					case INTAKE_STOWED:
+//						sendToArduino((byte)2);
+//						checkState();
+//						break;
+					case LIGHTSHOW:
+						sendToArduino((byte)0);
+						checkState();
+						break;
+				}
 //				case ACCEL_DISPLAY:
 //					double xAccel = Drivetrain.getInstance().getXAccel();
 //					double yAccel = Drivetrain.getInstance().getYAccel();
@@ -82,7 +83,7 @@ public class LED extends Subsystem{
 //					//sentAccel = Math.abs(Controller.getInstance().getForward()*9);
 //					//sendToArduino((byte)((int)(sentAccel*100)));
 //					sendToArduino((byte)(((int)(sentAccel))));
-	//			}
+				
 				
 			}	
 			@Override
