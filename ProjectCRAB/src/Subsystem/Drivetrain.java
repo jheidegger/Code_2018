@@ -146,7 +146,15 @@ public class Drivetrain extends Subsystem {
 		//-pi to pi 0 = straight ahead
 		angle = ((((gyro.getAngle()+90)* Math.PI/180.0)) % (2*Math.PI));
 	}
-	
+	public double getXAccel() {
+		return gyro.getRawAccelX();
+	}
+	public double getYAccel() {
+		return gyro.getRawAccelY();
+	}
+	public double getZAccel() {
+		return gyro.getRawAccelZ();
+	}
 	private void crabDrive() {
 		//Create arrays with the speed and angle of each pod
 		double[] podDrive = new double[4];
@@ -207,6 +215,14 @@ public class Drivetrain extends Subsystem {
 		}
 		SmartDashboard.putNumber("angle", getAngle());
 		
+	}
+	
+	public double getAvgWheelSpeed() {
+		double average =0;
+		for(Swervepod pod: Pods) {
+			average += pod.getWheelSpeed();
+		}
+		return average/Pods.size();
 	}
 	
 	public void recordAuton (){
@@ -334,6 +350,7 @@ public class Drivetrain extends Subsystem {
 			if(controller.getGyroResetButton()) {
 				resetGyro();
 			}
+			
 			updateAngle();
 			switch(currentState) {
 				case NEUTRAL:
