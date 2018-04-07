@@ -4,7 +4,7 @@
 
 #include <avr/power.h>
 #endif
-#define PIN            10
+#define PIN            5
 #define NUMPIXELS      66
 
 bool connectionLossOn;//Wire
@@ -26,12 +26,15 @@ void setup() {
   pixels.begin();
   Wire.begin(9);
   Serial.begin(9600);
+  Wire.onReceive(recFunc);
   for (int i = 0; i < NUMPIXELS; i++) {
     pixels.setPixelColor(i, pixels.Color(0, 150, 0));
+    if (i==0){
+      pixels.setPixelColor(i, pixels.Color(150, 150, 0));
+    }
     pixels.show();
     wait(10);
   }
-  Wire.onReceive(runAnimation);
   wait(500);
   for (int i = 0; i < NUMPIXELS; i++) {
     pixels.setPixelColor(i, pixels.Color(0, 0, 0));
@@ -275,8 +278,23 @@ void whiteB() {
   }
 }
 
-void fireAnim(){
-  
+void purpleFade() {
+  for (int i = 0; i < NUMPIXELS; i += 2) {
+    pixels.setPixelColor(i, pixels.Color(150, 0, 150));
+  }
+  for (int i = 1; i < NUMPIXELS; i += 2) {
+    pixels.setPixelColor(i, pixels.Color(0, 0, 0));
+  }
+  pixels.show();
+  wait(140);
+  for (int i = 0; i < NUMPIXELS; i += 2) {
+    pixels.setPixelColor(i, pixels.Color(0, 0, 0));
+  }
+  for (int i = 1; i < NUMPIXELS; i += 2) {
+    pixels.setPixelColor(i, pixels.Color(150, 0, 150));
+  }
+  pixels.show();
+  wait(140);
 }
 void recFunc(int bytes) {
   Animation = Wire.read();
@@ -290,13 +308,12 @@ void runAnimation() {
   {
     green();
   }
-
   else if (Animation == 2)
   {
     whiteB();
   }
-  else if (Animation == 3){
-    fireAnim();
+  else if (Animation == 3) {
+    purpleFade();
   }
 }
 
