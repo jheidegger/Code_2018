@@ -7,6 +7,6 @@ public class middleSwitchManager {
 	private AutoManager manager = new AutoManager();
 	private middleSwitchManager()
 	{
-		manager.qeueCommand(new DriveTrajectory());
+		//manager.qeueCommand(new DriveTrajectory());
 	}
 }

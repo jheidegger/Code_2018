@@ -226,11 +226,11 @@ public class Robot extends IterativeRobot {
 		if(controller.elevatorHigh()) {elevator.setWantedFloor(Constants.SCALEHIGHHEIGHT); }
 		else if (controller.elevatorMid()) {elevator.setWantedFloor(Constants.SCALEMIDHEIGHT);}
 		else if (controller.elevatorLow()) {elevator.setWantedFloor(Constants.SCALELOWHEIGHT);}
-		else
+		else 
 		{
 			if(controller.elevatorPositionJoystick()>.05||controller.elevatorPositionJoystick()<-.05)
 			{
-			elevator.setWantedFloor(elevator.getHeight()+controller.elevatorPositionJoystick()*2000);
+			elevator.setWantedFloor(elevator.getHeight()+(controller.elevatorPositionJoystick()*3000.0));
 			}
 		}
 		if(controller.elevatorResetEncoder()) {elevator.zeroAllSensors();}

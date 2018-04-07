@@ -14,11 +14,7 @@ public class Elevator extends Subsystem {
 	private Encoder encoder;
 	
 	private double wantedFloor;
-	private double currentHeight;
-	private double kMaxHeight = Constants.MAX_HEIGHT_ENCODER_TICKS;
-	private double kMidHeight = Constants.MID_HEIGHT_ENCODER_TICKS;
-	private double kLowHeight = Constants.LOW_HEIGHT_ENCODER_TICKS;
-	
+
 	private double liftSpeed;
 	
 	public enum systemStates{
@@ -45,11 +41,11 @@ public class Elevator extends Subsystem {
 	
 	private void setFloor(double wantedHeight) {
 		//wantedHeight = wantedHeight / .17 * Math.PI * 2048;
-		liftSpeed = elevatorControlLoop.returnOutput(encoder.getRaw(),wantedHeight);
+		liftSpeed = elevatorControlLoop.returnOutput(-encoder.getRaw(),wantedHeight);
 	}
 
 	public void setWantedFloor(double wF) {this.wantedFloor = wF;}
-	public double getHeight() {return encoder.getRaw();}
+	public double getHeight() {return -encoder.getRaw();}
  	public void setWantedState(systemStates wantedState) {this.currentState = wantedState;}
  	public systemStates getState() {return currentState;}
 	@Override public void zeroAllSensors() { encoder.reset();}
@@ -131,5 +127,6 @@ public class Elevator extends Subsystem {
 		SmartDashboard.putString("elevator state", currentState.toString());
 		SmartDashboard.putNumber("elevator wanted floor", wantedFloor);
 		SmartDashboard.putNumber("position", getHeight());
+		SmartDashboard.putNumber("Rate of spin", encoder.getRate());
 	}
 }
