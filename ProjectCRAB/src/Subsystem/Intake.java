@@ -56,7 +56,7 @@ public class Intake extends Subsystem {
  	
  	private Intake()
  	{
- 		actuatorPID = new PIDLoop(.00008,0,0.0,.4);
+ 		actuatorPID = new PIDLoop(.00008,0,0.0,.55);
  		rightSideWheel = new Victor(Constants.INTAKERIGHTSIDE);
  		leftSideWheel = new Victor(Constants.INTAKELEFTSIDE);
  		stowingMotor = new Victor(Constants.INTAKESTOWINGMOTOR);
@@ -93,7 +93,7 @@ public class Intake extends Subsystem {
  	{
  		this.isOpenLoop = isOpenLoop;
  	}
- 	private double findCurrPosition() {return encoder.getRaw();}
+ 	private double findCurrPosition() {return -encoder.getRaw();}
  	
  	private void checkState()
  	{
@@ -137,8 +137,8 @@ public class Intake extends Subsystem {
  	{
  		if(isCubeInLeft.get() || isCubeInRight.get())
 			{
-				rightCurrent = Drivetrain.getInstance().getPDP().getCurrent(8);
-				leftCurrent = Drivetrain.getInstance().getPDP().getCurrent(9);
+				rightCurrent = Drivetrain.getInstance().getPDP().getCurrent(10);
+				leftCurrent = Drivetrain.getInstance().getPDP().getCurrent(11);
 				double maxCurrent = 24;
 				cubePosition = (rightCurrent-leftCurrent)/((rightCurrent+leftCurrent)/2.0);
 				if(rightCurrent > maxCurrent || leftCurrent > maxCurrent) {

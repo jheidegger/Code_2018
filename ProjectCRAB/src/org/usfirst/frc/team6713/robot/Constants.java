@@ -68,7 +68,7 @@ public class Constants {
 	public static int PIXY_CENTER_X = 160; 
 	
 	//Elevator control loop
-	public static double ELEVATOR_KP = .00035;
+	public static double ELEVATOR_KP = .00015;
 	public static double ELEVATOR_KP_P = .0005;
 	public static double ELEVATOR_KI = 0;
 	public static double ELEVATOR_KD = 0;
@@ -78,7 +78,7 @@ public class Constants {
 	public static final double SCALEHIGHHEIGHT = 90000;
 	public static final double SCALELOWHEIGHT = 0;
 	public static final double SCALEMIDHEIGHT = 66666;
-	public static final double SWITCHHEIGHT = 0;
+	public static final double SWITCHHEIGHT = 34333;
 	public static final double ELEVATORACCEPTEDERROR = 0.1;
 	
 	//Intake constants

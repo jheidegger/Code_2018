@@ -151,7 +151,7 @@ public class Robot extends IterativeRobot {
 		 */
 		if(controller.getSlowFieldCentricButton() == true)
 		{
-			driveTrain.swerve(controller.getForward(), 
+			driveTrain.swerve(controller.getForward()*Constants.MAXSLOWPERCENTSPEED, 
 					controller.getStrafe(), 
 					controller.getRotation(), 
 					Drivetrain.driveCoords.FIELDCENTRIC, 
@@ -167,7 +167,7 @@ public class Robot extends IterativeRobot {
 		}
 		else
 		{
-			driveTrain.swerve(controller.getForward()*Constants.MAXSLOWPERCENTSPEED,
+			driveTrain.swerve(controller.getForward(),
 					controller.getStrafe()*Constants.MAXSLOWPERCENTSPEED, 
 					controller.getRotation()*Constants.MAXSLOWPERCENTSPEED * 1.4, 
 					Drivetrain.driveCoords.FIELDCENTRIC, 
@@ -226,6 +226,7 @@ public class Robot extends IterativeRobot {
 		if(controller.elevatorHigh()) {elevator.setWantedFloor(Constants.SCALEHIGHHEIGHT); }
 		else if (controller.elevatorMid()) {elevator.setWantedFloor(Constants.SCALEMIDHEIGHT);}
 		else if (controller.elevatorLow()) {elevator.setWantedFloor(Constants.SCALELOWHEIGHT);}
+		else if (controller.elevatorSwitch()) {elevator.setWantedFloor(Constants.SWITCHHEIGHT);}
 		else 
 		{
 			if(controller.elevatorPositionJoystick()>.05||controller.elevatorPositionJoystick()<-.05)
