@@ -390,14 +390,13 @@ public class Drivetrain extends Subsystem {
 					checkState();
 					break;
 				case VISION:
-					spinCommand = pidRotate.returnOutput(cam.getAvgX(), 160);
-					forwardCommand = -pidForward.returnOutput(cam.getAvgArea(), 30000) - (-2.5 * pidForward.returnOutput(60, Math.abs(160-cam.getAvgX())));
-					strafeCommand = -pidStrafe.returnOutput(cam.getAvgX(), 160);
+					spinCommand = pidRotate.returnOutput(cam.getAvgX(), 175);
+					forwardCommand = -pidForward.returnOutput(cam.getAvgArea(), 30000) - (-2.5 * pidForward.returnOutput(60, Math.abs(175-cam.getAvgX())));
+					strafeCommand = -pidStrafe.returnOutput(cam.getAvgX(), 175);
 					/*if(forwardCommand < -.2) {
 						forwardCommand = 0; 
 					}*/
 					crabDrive();
-					cam.track_cube();
 					lastState = systemStates.VISION;
 					checkState();
 					break;

@@ -143,7 +143,10 @@ public class Robot extends IterativeRobot {
 		
 		if(controller.executeAutoButton()) { driveTrain.setSystemState(Drivetrain.systemStates.AUTON);}
 		else if(controller.resetAutoButton()) { driveTrain.clearAuton();}
-		else if(controller.getVisionTracking()) { driveTrain.setSystemState(Drivetrain.systemStates.VISION);}
+		else if(controller.getVisionTracking()) { 
+			PixyCam.getInstance().track_cube();
+			driveTrain.setSystemState(Drivetrain.systemStates.VISION);
+		}
 		else { driveTrain.setSystemState(Drivetrain.systemStates.DRIVE);}
 		//else { driveTrain.setSystemState(Drivetrain.systemStates.VISION);}
 		/**
@@ -188,7 +191,7 @@ public class Robot extends IterativeRobot {
 //			isIntakeOpenLoop = false;
 //			intakeManualOverrideTimer.reset();
 //		}
-		if(controller.getIntakeButton()) {intake.setWantedState(systemStates.Intaking);} 
+		if(controller.getIntakeButton() || controller.getVisionTracking()) {intake.setWantedState(systemStates.Intaking);} 
 		else if(controller.getOuttakeButton()) {intake.setWantedState(systemStates.Scoring);}
 		else if(controller.unjamButton()) {intake.setWantedState(systemStates.UnJamming);}
 		else {intake.setWantedState(systemStates.Neutral);}

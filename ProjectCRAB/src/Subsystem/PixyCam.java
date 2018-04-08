@@ -4,6 +4,7 @@ import Vision.PixyException;
 import Vision.PixyPacket;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.I2C.Port;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  * Handles interaction with the PixyCam, and translates raw data into comprehensive variables.
  * All done over the I2C port. 
@@ -47,6 +48,7 @@ public class PixyCam {
 		}
 		setAvgX();
 		setAvgArea();
+		SmartDashboard.putNumber("Pixy X", getAvgX());
 		arrayLevel++; 
 		if(arrayLevel >6) {
 			arrayLevel = 0; 

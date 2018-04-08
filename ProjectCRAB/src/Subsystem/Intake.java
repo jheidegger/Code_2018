@@ -164,7 +164,8 @@ public class Intake extends Subsystem {
 				}
 			}
 			else
-			{
+				//
+			{Drivetrain.getInstance().setSystemState(Drivetrain.systemStates.DRIVE);
 				currState = systemStates.Neutral;
 			}
  	}
