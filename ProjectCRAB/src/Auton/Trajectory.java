@@ -75,7 +75,7 @@ public class Trajectory {
 				if(currSpeed<endSpeed)
 				{
 					currSpeed = endSpeed;
-					if(waypointIdx < points.size()-1)
+					if(waypointIdx < points.size())
 					{
 						waypointIdx++;
 						isSlowing = false;
@@ -87,10 +87,10 @@ public class Trajectory {
 			System.out.println("waypointIdx" + waypointIdx);
 			currX = currX + currSpeed * Math.cos(currAngle) * timeStep;
 			currY = currY + currSpeed * Math.sin(currAngle) * timeStep;
-			if(Math.abs(currX - points.get(waypointIdx).getX()) < .1 && Math.abs(currY - points.get(waypointIdx).getY()) < .1 && waypointIdx <= points.size())
-			{
-				waypointIdx++;
-			}
+//			if(Math.abs(currX - points.get(waypointIdx).getX()) < .1 && Math.abs(currY - points.get(waypointIdx).getY()) < .1 && waypointIdx <= points.size())
+//			{
+//				waypointIdx++;
+//			}
 			if(Math.abs(currHeading-endHeading) <kMaxAngularAccel*timeStep)
 			{
 				currHeading = endHeading;
