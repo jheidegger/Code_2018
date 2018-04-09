@@ -17,7 +17,7 @@ public class Elevator extends Subsystem {
 
 	private double liftSpeed;
 	
-	public enum systemStates{
+	public enum systemStates {
 		NEUTRAL,
 		POSITION_FOLLOW,
 		OPEN_LOOP
@@ -56,13 +56,13 @@ public class Elevator extends Subsystem {
 			currentState=wantedState;
 		}
  	}
- 	private void checkEncoder()
- 	{
- 		if(!ZeroSwitch.get())
- 		{
+ 	
+ 	private void checkEncoder() {
+ 		if(!ZeroSwitch.get()) {
  			encoder.reset();
  		}
  	}
+ 	
 	@Override
 	public void registerLoop() {
 		Loop_Manager.getInstance().addLoop(new Loop()

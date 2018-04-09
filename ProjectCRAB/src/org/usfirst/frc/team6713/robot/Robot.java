@@ -148,15 +148,15 @@ public class Robot extends IterativeRobot {
 			driveTrain.setSystemState(Drivetrain.systemStates.VISION);
 		}
 		else { driveTrain.setSystemState(Drivetrain.systemStates.DRIVE);}
-		//else { driveTrain.setSystemState(Drivetrain.systemStates.VISION);}
+
 		/**
 		 * Drive Train States
 		 */
 		if(controller.getSlowFieldCentricButton() == true)
 		{
 			driveTrain.swerve(controller.getForward()*Constants.MAXSLOWPERCENTSPEED, 
-					controller.getStrafe(), 
-					controller.getRotation(), 
+					controller.getStrafe()*Constants.MAXSLOWPERCENTSPEED, 
+					controller.getRotation()*Constants.MAXSLOWPERCENTSPEED, 
 					Drivetrain.driveCoords.FIELDCENTRIC, 
 					Drivetrain.driveType.PERCENTPOWER);
 		}
@@ -171,8 +171,8 @@ public class Robot extends IterativeRobot {
 		else
 		{
 			driveTrain.swerve(controller.getForward(),
-					controller.getStrafe()*Constants.MAXSLOWPERCENTSPEED, 
-					controller.getRotation()*Constants.MAXSLOWPERCENTSPEED * 1.4, 
+					controller.getStrafe(), 
+					controller.getRotation() * 1.3, 
 					Drivetrain.driveCoords.FIELDCENTRIC, 
 					Drivetrain.driveType.PERCENTPOWER);
 		}

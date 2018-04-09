@@ -3,25 +3,20 @@ package Subsystem;
 import org.usfirst.frc.team6713.robot.*;
 import edu.wpi.first.wpilibj.Joystick;
 
-public class Controller extends Subsystem{
+public class Controller extends Subsystem {
 	private static Controller instance = new Controller(); 
 	
 	private Joystick velocityStick;
 	private Joystick thetaStick;
-	
-	//private PurpleTrigger trigger; 
 	private Joystick buttonMonkey;
 	
-	//private PurpleTrigger ledTest;
-	
-	public Controller(){
+	public Controller() {
 		velocityStick = new Joystick(Constants.DRIVE_JOYSTICK);
 		thetaStick = new Joystick(Constants.GEAR_JOYSTICK);
-		
 		buttonMonkey = new Joystick(Constants.BUTTON_MONKEY);
 	}
 	
-	public enum driveStationStates{
+	public enum driveStationStates {
 		ALL,
 		DRIVER,
 		PROGRAMMING
@@ -30,6 +25,7 @@ public class Controller extends Subsystem{
 	public static Controller getInstance() {
 		return instance; 
 	}
+	
 	/** 
 	 * @return double deadbanded Y axis
 	 */
@@ -41,6 +37,7 @@ public class Controller extends Subsystem{
 			return Math.pow(velocityStick.getY(),1);
 		}
 	}
+	
 	/** 
 	 * @return double deadbanded X axis
 	 */
@@ -52,6 +49,7 @@ public class Controller extends Subsystem{
 			return Math.pow(velocityStick.getX(),1);
 		}
 	}
+	
 	/**
 	 * @return double deadbanded X axis
 	 */
@@ -63,6 +61,7 @@ public class Controller extends Subsystem{
 			return Math.pow(thetaStick.getX(),1)/6.0;
 		}
 	}
+	
 	public double elevatorPositionJoystick() {return -buttonMonkey.getThrottle();}
 	public boolean elevatorResetEncoder() {return buttonMonkey.getRawButton(12);};
 	public boolean elevatorHigh() {return buttonMonkey.getRawButton(8);}
@@ -79,37 +78,30 @@ public class Controller extends Subsystem{
 	public boolean solenoidOut() {return buttonMonkey.getRawButton(9);}
 	
 	public int getPOVButton() {return thetaStick.getPOV();}
-	public boolean getGyroResetButton() {return velocityStick.getRawButton(8);}
+	public boolean getGyroResetButton() {return velocityStick.getRawButton(3);}
 	public boolean getSlowFieldCentricButton() {return velocityStick.getRawButton(1);}
 	public boolean getSlowRobotCentricButton() {return thetaStick.getRawButton(1);}
-	public boolean getVisionTracking() {return velocityStick.getRawButton(12);}
+	public boolean getVisionTracking() {return velocityStick.getRawButton(2);}
 	
-	public boolean executeAutoButton() {return velocityStick.getRawButton(2);}
-	public boolean resetAutoButton() {return velocityStick.getRawButton(3);}
+	public boolean executeAutoButton() {return false;}//velocityStick.getRawButton();}
+	public boolean resetAutoButton() {return false;}// velocityStick.getRawButton(3);}
 	public boolean forwardTest() {return velocityStick.getRawButton(4);}
 
 	@Override
 	public void zeroAllSensors() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public boolean checkSystem() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public void registerLoop() {
-		//N/A
-		
-	}
-	@Override
-	public void outputToSmartDashboard() {
-		// TODO Auto-generated method stub
-		
 	}
 	
+	@Override
+	public void outputToSmartDashboard() {
+	}
 }
 
