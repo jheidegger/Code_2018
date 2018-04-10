@@ -38,8 +38,8 @@ public class Intake extends Subsystem {
  	private double currPosition;
  	private double leftCurrent;
  	private double rightCurrent;
- 	public final double neutralPosition = -500;
- 	public final double downPosition = -17000;
+ 	public final double neutralPosition = 200;
+ 	public final double downPosition = 1200;
  	// -1 full left - 1 full right
  	private double cubePosition = 0.0;
  	public enum systemStates{
@@ -93,7 +93,7 @@ public class Intake extends Subsystem {
  	{
  		this.isOpenLoop = isOpenLoop;
  	}
- 	private double findCurrPosition() {return -encoder.getRaw();}
+ 	private double findCurrPosition() {return encoder.getRaw();}
  	
  	private void checkState()
  	{
@@ -329,6 +329,7 @@ public class Intake extends Subsystem {
  				else {
  					LED.getInstance().setWantedState(LED.ledStates.CUBE_INTAKED);
  				}
+ 				outputToSmartDashboard();
  			}
  			@Override
  			public void stop() {

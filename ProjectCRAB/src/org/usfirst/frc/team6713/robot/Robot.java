@@ -25,7 +25,6 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.PWM;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.hal.DIOJNI;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -142,7 +141,6 @@ public class Robot extends IterativeRobot {
 		myLoops.runLoops();
 		
 		if(controller.executeAutoButton()) { driveTrain.setSystemState(Drivetrain.systemStates.AUTON);}
-		else if(controller.resetAutoButton()) { driveTrain.clearAuton();}
 		else if(controller.getVisionTracking()) { 
 			PixyCam.getInstance().track_cube();
 			driveTrain.setSystemState(Drivetrain.systemStates.VISION);
@@ -172,7 +170,7 @@ public class Robot extends IterativeRobot {
 		{
 			driveTrain.swerve(controller.getForward(),
 					controller.getStrafe(), 
-					controller.getRotation() * 1.3, 
+					controller.getRotation() * 1.2, 
 					Drivetrain.driveCoords.FIELDCENTRIC, 
 					Drivetrain.driveType.PERCENTPOWER);
 		}
@@ -197,7 +195,7 @@ public class Robot extends IterativeRobot {
 		else {intake.setWantedState(systemStates.Neutral);}
 		
 		if(controller.Stow()) {intake.setPosition(Intake.getInstance().neutralPosition);}
-		else if(controller.unStow()) {intake.setPosition(intake.downPosition);}
+		else if(controller.unStow()) {Intake.getInstance().setPosition(intake.downPosition);}
 		else
 		{
 			if(controller.getintakePositionJoystick()>.05 || controller.getintakePositionJoystick()<-.05)
