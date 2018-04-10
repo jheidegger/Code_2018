@@ -12,10 +12,10 @@ public class Main {
 		t.addWaypoint(new Waypoint(15.0,10.0,0.0));
 		t.calculateTrajectory();
 		//t.print();
-		for(double i = 0.0; i<5.0; i=i+.1)
-		{
-		System.out.println(t.getSpeed(i));
-		}
+//		for(double i = 0.0; i<5.0; i=i+.1)
+//		{
+//		System.out.println(t.getSpeed(i));
+//		}
 		//t.print();
 		
 	}
