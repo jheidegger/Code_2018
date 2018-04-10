@@ -1,17 +1,17 @@
 package Auton;
 
 
+
 import java.awt.geom.Arc2D;
 import java.util.ArrayList;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 public class Trajectory {
 	private double kMaxVelocity = 4.0;
 	private double kMaxAcceleration=7.0;
 	private double kMaxAngularAccel = 1.0;
-	private double timeStep = .01;
+	private double timeStep = .1;
 	private double simTime = 0.0;
 	private double timeToComplete;
 	private ArrayList<Waypoint>  points;
@@ -75,7 +75,7 @@ public class Trajectory {
 				if(currSpeed<endSpeed)
 				{
 					currSpeed = endSpeed;
-					if(waypointIdx < points.size())
+					if(waypointIdx < points.size()-1)
 					{
 						waypointIdx++;
 						isSlowing = false;
@@ -84,7 +84,7 @@ public class Trajectory {
 				}		
 			}
 			speed.add(currSpeed);
-			System.out.println("waypointIdx" + waypointIdx);
+			//System.out.println("waypointIdx" + waypointIdx);
 			currX = currX + currSpeed * Math.cos(currAngle) * timeStep;
 			currY = currY + currSpeed * Math.sin(currAngle) * timeStep;
 //			if(Math.abs(currX - points.get(waypointIdx).getX()) < .1 && Math.abs(currY - points.get(waypointIdx).getY()) < .1 && waypointIdx <= points.size())
@@ -112,7 +112,8 @@ public class Trajectory {
 			//System.out.println("stop: " + stoppingDistance);
 			//System.out.println("dtw " + distanceToWaypoint);
 			//System.out.println(currSpeed);
-			//System.out.println("x: "+  currX  + " y: " +currY + " sp: " + currSpeed +" angle " + (currAngle * 180.0/Math.PI) +  " currway " + waypointIdx );
+			//System.out.println("time: " + simTime+ " x: "+  currX  + " y: " +currY + " sp: " + currSpeed +" angle " + (currAngle * 180.0/Math.PI) +  " currway " + waypointIdx );
+			System.out.println( simTime+ ":"+  currX  + ":" +currY + ":" + currSpeed +":" + (currAngle ) +  ":" + waypointIdx );
 			simTime+= timeStep;
 		}
 		int idx = 1;
