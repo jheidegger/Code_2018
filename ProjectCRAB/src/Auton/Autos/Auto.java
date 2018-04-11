@@ -1,10 +1,12 @@
 
 package Auton.Autos;
 
+import Auton.AutoManager;
 import Subsystem.Loop;
 
 public class Auto {
 	private Loop autoLoop;
+	private AutoManager manager;
 	public static String gameData;
 	private  boolean firstTime = true;
 	public Auto()
@@ -14,6 +16,10 @@ public class Auto {
 	public void registerLoop(Loop loop)
 	{
 		autoLoop = loop;
+	}
+	public void registerManager(AutoManager manager)
+	{
+		this.manager = manager;
 	}
 	public static void setGameData(String gD)
 	{
@@ -25,15 +31,23 @@ public class Auto {
 	}
 	public void run()
 	{
-		if(firstTime)
+		if(autoLoop == null)
 		{
-			autoLoop.onStart();
-			firstTime = false;
+			manager.run();
 		}
 		else
 		{
-			autoLoop.onloop();
+			if(firstTime)
+			{
+				autoLoop.onStart();
+				firstTime = false;
+			}
+			else
+			{
+				autoLoop.onloop();
+			}
 		}
+		
 	}	
 }
 

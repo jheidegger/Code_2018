@@ -48,6 +48,21 @@ public class Command {
 	{
 		return isFinished;
 	}
+	public void runOnStart()
+	{
+		startTimeOfCommand = Timer.getFPGATimestamp();
+		commandLoop.onStart();
+	}
+	public void runOnloop()
+	{
+		currTime = Timer.getFPGATimestamp()-startTimeOfCommand;
+		commandLoop.onloop();
+	}
+	public void runStop()
+	{
+		isFinished = true;
+		commandLoop.stop();
+	}
 	public void run()
 	{
 		if(firstTime)

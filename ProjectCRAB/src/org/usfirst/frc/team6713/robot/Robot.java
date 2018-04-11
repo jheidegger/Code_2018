@@ -7,11 +7,13 @@
 
 package org.usfirst.frc.team6713.robot;
 
-import Auton.Autos.Auto;
-import Auton.Autos.TrajectoryTest;
-import Auton.Autos.driveStraight;
-import Auton.Autos.middleSwitch;
 import Auton.Autos.*;
+import Auton.Autos.Deprecated.TrajectoryTest;
+import Auton.Autos.Deprecated.centerSwitchTraj;
+import Auton.Autos.Deprecated.middleSwitchTimeBased;
+import Auton.Autos.Deprecated.middleSwitchTraj;
+import Auton.Autos.Deprecated.sideSwitchLeftTraj;
+import Auton.Autos.Deprecated.sideSwitchRightTraj;
 import Subsystem.*;
 import Subsystem.Intake.systemStates;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -107,7 +109,7 @@ public class Robot extends IterativeRobot {
 		}
 		else if(selected.equals(auto5))
 		{
-			middleSwitchManager.main.run();
+			middleSwitchLeft.main.run();
 			//ScaleAuto.main.run();
 		}
 		else if(selected.equals(auto6))
@@ -116,7 +118,7 @@ public class Robot extends IterativeRobot {
 		}
 		else if(selected.equals(auto7))
 		{
-			middleSwitch.main.run();
+			middleSwitchTimeBased.main.run();
 		}
 		else if(selected.equals(auto8))
 		{
