@@ -7,8 +7,8 @@ import Subsystem.Superstructure;
 
 public class Intaking extends Command {
 
-	public Intaking(commandType type) {
-		super(type);
+	public Intaking() {
+		super(commandType.triggerBased);
 		super.setLoop(new Loop() {
 			@Override
 			public void onStart() {

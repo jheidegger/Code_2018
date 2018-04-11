@@ -14,7 +14,7 @@ public class ParallelCommand extends Command {
 		commands = new ArrayList<Command>();
 		commands.add(c1);
 		commands.add(c2);
-		setLoopConstructor()
+		setLoopConstructor();
 	}
 	public ParallelCommand(Command c1,Command c2,Command c3) {
 		super(commandType.triggerBased);
@@ -22,7 +22,7 @@ public class ParallelCommand extends Command {
 		commands.add(c1);
 		commands.add(c2);
 		commands.add(c3);
-		setLoopConstructor()
+		setLoopConstructor();
 	}
 	private void setLoopConstructor()
 	{
