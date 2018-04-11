@@ -9,17 +9,27 @@ import Subsystem.Intake.systemStates;
 
 public class ParallelCommand extends Command {
 	private ArrayList<Command> commands;
-	public ParallelCommand(Command[] c) {
+	public ParallelCommand(Command c1,Command c2) {
 		super(commandType.triggerBased);
 		commands = new ArrayList<Command>();
-		for (Command command: c)
-		{
-			commands.add(command);
-		}
+		commands.add(c1);
+		commands.add(c2);
+		setLoopConstructor()
+	}
+	public ParallelCommand(Command c1,Command c2,Command c3) {
+		super(commandType.triggerBased);
+		commands = new ArrayList<Command>();
+		commands.add(c1);
+		commands.add(c2);
+		commands.add(c3);
+		setLoopConstructor()
+	}
+	private void setLoopConstructor()
+	{
 		super.setLoop(new Loop() {
 			@Override
 			public void onStart() {
-				
+
 			}
 			@Override
 			public void onloop() {
