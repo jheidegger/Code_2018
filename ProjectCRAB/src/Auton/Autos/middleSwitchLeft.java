@@ -10,15 +10,10 @@ public class middleSwitchLeft extends Auto{
 	private AutoManager manager = new AutoManager();
 	private middleSwitchLeft()
 	{
-		if(super.getGameData().substring(0,1).equals("L"))
-		{
-			manager.qeueCommand(new DriveTrajectory(middleToLeftSwitch.main.get()));
-		}
-		else
-		{
-			manager.qeueCommand(new DriveTrajectory(middleToRightSwitch.main.get()));
-		}
-		manager.qeueCommand(new Scoring(2.0));
+		
+		manager.qeueCommand(new DriveTrajectory(middleToLeftSwitch.main.get()));
+		manager.qeueCommand(new Scoring(1.0));
+		manager.qeueCommand(new DriveTrajectory(LeftSwitchToCenterCube.main.get()));
 		super.registerManager(manager);
 	}
 	
