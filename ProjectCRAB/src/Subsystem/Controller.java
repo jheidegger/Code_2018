@@ -1,5 +1,6 @@
 package Subsystem;
 
+import Util.*;
 import org.usfirst.frc.team6713.robot.*;
 import edu.wpi.first.wpilibj.Joystick;
 
@@ -9,11 +10,13 @@ public class Controller extends Subsystem {
 	private Joystick velocityStick;
 	private Joystick thetaStick;
 	private Joystick buttonMonkey;
+	public static PurpleTrigger vision;
 	
 	public Controller() {
 		velocityStick = new Joystick(Constants.DRIVE_JOYSTICK);
 		thetaStick = new Joystick(Constants.GEAR_JOYSTICK);
 		buttonMonkey = new Joystick(Constants.BUTTON_MONKEY);
+		vision = new PurpleTrigger(velocityStick, 2);
 	}
 	
 	public enum driveStationStates {
@@ -81,7 +84,7 @@ public class Controller extends Subsystem {
 	public boolean getGyroResetButton() {return velocityStick.getRawButton(3);}
 	public boolean getSlowFieldCentricButton() {return velocityStick.getRawButton(1);}
 	public boolean getSlowRobotCentricButton() {return thetaStick.getRawButton(1);}
-	public boolean getVisionTracking() {return velocityStick.getRawButton(2);}
+	public boolean getVisionTracking() {return vision.getTrigger();}//return velocityStick.getRawButton(2);}
 	
 	public boolean executeAutoButton() {return false;}//velocityStick.getRawButton();}
 	public boolean resetAutoButton() {return false;}// velocityStick.getRawButton(3);}

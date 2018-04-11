@@ -14,10 +14,7 @@ public class middleSwitchManager extends Auto{
 		{
 			manager.qeueCommand(new DriveTrajectory(middleToLeftSwitch.main.get()));
 		}
-		else
-		{
-			manager.qeueCommand(new Scoring(2.0));
-		}
+		manager.qeueCommand(new Scoring(2.0));
 		super.registerLoop(new Loop() {
 			@Override
 			public void onStart() {

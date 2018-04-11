@@ -20,4 +20,8 @@ public class PurpleTrigger {
 		}
 		return currentState;
 	}
+	
+	public void setFalse() {
+		currentState = false;
+	}
 }

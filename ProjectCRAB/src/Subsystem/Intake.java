@@ -28,6 +28,8 @@ public class Intake extends Subsystem {
  	private DigitalInput isCubeInRight;
  	private DigitalInput isIntakeStowed;
  	
+ 	private double encTicks;
+ 	
  	private systemStates currState;
  	private systemStates lastState;
  	private systemStates wantedState;
@@ -38,8 +40,8 @@ public class Intake extends Subsystem {
  	private double currPosition;
  	private double leftCurrent;
  	private double rightCurrent;
- 	public final double neutralPosition = 200;
- 	public final double downPosition = 1200;
+ 	public final double neutralPosition = -400;
+ 	public final double downPosition = -15000;
  	// -1 full left - 1 full right
  	private double cubePosition = 0.0;
  	public enum systemStates{
@@ -56,7 +58,7 @@ public class Intake extends Subsystem {
  	
  	private Intake()
  	{
- 		actuatorPID = new PIDLoop(.00008,0,0.0,.55);
+ 		actuatorPID = new PIDLoop(.0002,0,0.0,.55);
  		rightSideWheel = new Victor(Constants.INTAKERIGHTSIDE);
  		leftSideWheel = new Victor(Constants.INTAKELEFTSIDE);
  		stowingMotor = new Victor(Constants.INTAKESTOWINGMOTOR);
@@ -93,7 +95,7 @@ public class Intake extends Subsystem {
  	{
  		this.isOpenLoop = isOpenLoop;
  	}
- 	private double findCurrPosition() {return encoder.getRaw();}
+ 	private double findCurrPosition() {return encTicks;}
  	
  	private void checkState()
  	{
@@ -165,7 +167,8 @@ public class Intake extends Subsystem {
 			}
 			else
 				//
-			{Drivetrain.getInstance().setSystemState(Drivetrain.systemStates.DRIVE);
+			{
+				//Controller.vision.setFalse();
 				currState = systemStates.Neutral;
 			}
  	}
@@ -182,6 +185,8 @@ public class Intake extends Subsystem {
 			}
  			@Override
  			public void onloop() {
+ 				outputToSmartDashboard();
+ 				encTicks = encoder.getRaw(); //Comp is neg, prac is pos
  				if(isOpenLoop)
  				{
  					openLoopControl();
@@ -329,7 +334,6 @@ public class Intake extends Subsystem {
  				else {
  					LED.getInstance().setWantedState(LED.ledStates.CUBE_INTAKED);
  				}
- 				outputToSmartDashboard();
  			}
  			@Override
  			public void stop() {
@@ -342,7 +346,7 @@ public class Intake extends Subsystem {
 	public void outputToSmartDashboard() {
 		SmartDashboard.putBoolean("IR Left", isCubeInLeft.get());
 		SmartDashboard.putBoolean("IR Right", isCubeInRight.get());
-		SmartDashboard.putNumber("curr position", encoder.getRaw());
+		SmartDashboard.putNumber("curr position", encTicks);
 		SmartDashboard.putBoolean("Stowed",isIntakeStowed.get());
 		SmartDashboard.putString("State", currState.toString());
 		SmartDashboard.putBoolean("IsCubeINBoth", (!isCubeInLeft.get() && !isCubeInRight.get()));
@@ -361,4 +365,4 @@ public class Intake extends Subsystem {
  	public boolean checkSystem() {
  		return false;
  	}
- }
+}

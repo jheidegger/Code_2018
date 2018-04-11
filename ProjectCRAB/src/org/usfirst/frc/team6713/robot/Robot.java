@@ -7,23 +7,15 @@
 
 package org.usfirst.frc.team6713.robot;
 
-import Auton.Trajectory;
-import Auton.Waypoint;
 import Auton.Autos.Auto;
 import Auton.Autos.TrajectoryTest;
 import Auton.Autos.driveStraight;
-import Auton.Autos.leftSwitch;
 import Auton.Autos.middleSwitch;
-import Auton.Autos.rightSwitch;
 import Auton.Autos.*;
 import Subsystem.*;
 import Subsystem.Intake.systemStates;
-import edu.wpi.first.wpilibj.Compressor;
-import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.PWM;
-import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.CameraServer;
@@ -115,7 +107,8 @@ public class Robot extends IterativeRobot {
 		}
 		else if(selected.equals(auto5))
 		{
-			ScaleAuto.main.run();
+			middleSwitchManager.main.run();
+			//ScaleAuto.main.run();
 		}
 		else if(selected.equals(auto6))
 		{
@@ -200,7 +193,7 @@ public class Robot extends IterativeRobot {
 		{
 			if(controller.getintakePositionJoystick()>.05 || controller.getintakePositionJoystick()<-.05)
 			{
-				intake.setPosition(intake.getCurrPosition()+controller.getintakePositionJoystick()*5000);
+				intake.setPosition(intake.getCurrPosition()+controller.getintakePositionJoystick()*2000);
 			}
 		}
 		/**

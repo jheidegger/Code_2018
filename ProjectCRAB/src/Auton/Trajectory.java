@@ -113,11 +113,11 @@ public class Trajectory {
 			//System.out.println("dtw " + distanceToWaypoint);
 			//System.out.println(currSpeed);
 			//System.out.println("time: " + simTime+ " x: "+  currX  + " y: " +currY + " sp: " + currSpeed +" angle " + (currAngle * 180.0/Math.PI) +  " currway " + waypointIdx );
-			System.out.println( simTime+ ":"+  currX  + ":" +currY + ":" + currSpeed +":" + (currAngle ) +  ":" + waypointIdx );
+			//System.out.println( simTime+ ":"+  currX  + ":" +currY + ":" + currSpeed +":" + (currAngle ) +  ":" + waypointIdx );
 			simTime+= timeStep;
 		}
 		int idx = 1;
-		while(speed.get(idx) != 0.0)
+		while(speed.get(idx) != 0.0 || speed.get(idx+3) != 0.0)
 		{
 			idx++;
 		}

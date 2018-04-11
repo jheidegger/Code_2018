@@ -46,19 +46,21 @@ public class Command {
 	}
 	public boolean getIsFinished()
 	{
-		return getIsFinished();
+		return isFinished;
 	}
 	public void run()
 	{
 		if(firstTime)
 		{
 			startTimeOfCommand = Timer.getFPGATimestamp();
+			//System.out.println("initLoop with: " + checkEndCondition() + " as end condition");
 			commandLoop.onStart();
 			firstTime = false;
 		}
-		else if(checkEndCondition())
+		else if(!checkEndCondition())
 		{
 			currTime = Timer.getFPGATimestamp()-startTimeOfCommand;
+			//System.out.println("doing loop");
 			commandLoop.onloop();
 		}
 		else
