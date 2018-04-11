@@ -78,7 +78,8 @@ public class Drivetrain extends Subsystem {
 		DRIVE,
 		PARK,
 		VISION, 
-		AUTON
+		AUTON, 
+		SECRET_SAUCE
 	}
 	
 	public enum driveCoords{
@@ -318,7 +319,14 @@ public class Drivetrain extends Subsystem {
 					lastState = systemStates.DRIVE;
 					checkState();
 					break;
+				case SECRET_SAUCE:
+					Coords = driveCoords.ROBOTCENTRIC;
+					commandType = driveType.PERCENTPOWER;
+					Intake.getInstance().setWantedState(Intake.systemStates.Intaking);
+					forwardCommand = .4;
 				case VISION:
+					Coords = driveCoords.ROBOTCENTRIC;
+					commandType = driveType.PERCENTPOWER;
 					spinCommand = pidRotate.returnOutput(cam.getAvgX(), 175);
 					forwardCommand = -pidForward.returnOutput(cam.getAvgArea(), 10000) * 1.5; /* - (-2.5 * pidForward.returnOutput(60, Math.abs(175-cam.getAvgX())))*/;
 					strafeCommand = -pidStrafe.returnOutput(cam.getAvgX(), 175);
