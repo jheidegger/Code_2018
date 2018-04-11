@@ -149,7 +149,7 @@ public class Robot extends IterativeRobot {
 		{
 			driveTrain.swerve(controller.getForward()*Constants.MAXSLOWPERCENTSPEED, 
 					controller.getStrafe()*Constants.MAXSLOWPERCENTSPEED, 
-					controller.getRotation()*Constants.MAXSLOWPERCENTSPEED, 
+					controller.getRotation()* 1.15 * Constants.MAXSLOWPERCENTSPEED, 
 					Drivetrain.driveCoords.FIELDCENTRIC, 
 					Drivetrain.driveType.PERCENTPOWER);
 		}
@@ -157,7 +157,7 @@ public class Robot extends IterativeRobot {
 		{
 			driveTrain.swerve(controller.getForward()*Constants.MAXSLOWPERCENTSPEED, 
 					controller.getStrafe()*Constants.MAXSLOWPERCENTSPEED, 
-					controller.getRotation()*Constants.MAXSLOWPERCENTSPEED, 
+					controller.getRotation()* 1.15 *Constants.MAXSLOWPERCENTSPEED, 
 					Drivetrain.driveCoords.ROBOTCENTRIC, 
 					Drivetrain.driveType.PERCENTPOWER);
 		}
@@ -165,7 +165,7 @@ public class Robot extends IterativeRobot {
 		{
 			driveTrain.swerve(controller.getForward(),
 					controller.getStrafe(), 
-					controller.getRotation() * 1.2, 
+					controller.getRotation() * 1.15, 
 					Drivetrain.driveCoords.FIELDCENTRIC, 
 					Drivetrain.driveType.PERCENTPOWER);
 		}
@@ -198,6 +198,7 @@ public class Robot extends IterativeRobot {
 				intake.setPosition(intake.getCurrPosition()+controller.getintakePositionJoystick()*2000);
 			}
 		}
+		
 		/**
 		 * Elevator States
 		 */

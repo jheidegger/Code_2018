@@ -168,7 +168,6 @@ public class Intake extends Subsystem {
 			else
 				//
 			{
-				//Controller.vision.setFalse();
 				currState = systemStates.Neutral;
 			}
  	}
@@ -332,6 +331,7 @@ public class Intake extends Subsystem {
  					LED.getInstance().setWantedState(LED.ledStates.LIGHTSHOW);
  				}
  				else {
+ 					Controller.vision.setFalse();
  					LED.getInstance().setWantedState(LED.ledStates.CUBE_INTAKED);
  				}
  			}
