@@ -22,7 +22,7 @@ public class PathFollower {
 	private double lastTime;
 	public PathFollower(Trajectory t) {
 		this.t = t;
-		spinHandler = new PIDLoop(1.0,0.0,0.0);
+		spinHandler = new PIDLoop(.7,0.0,0.0);
 	}
 	public void init()
 	{

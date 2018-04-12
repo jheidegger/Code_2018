@@ -47,7 +47,7 @@ public class Elevator extends Subsystem {
 
 	public void setWantedFloor(double wF) {this.wantedFloor = wF;}
 	public double getHeight() {return -encoder.getRaw();}
- 	public void setWantedState(systemStates wantedState) {this.currentState = wantedState;}
+ 	public void setWantedState(systemStates wantedState) {this.wantedState = wantedState;}
  	public systemStates getState() {return currentState;}
 	@Override public void zeroAllSensors() { encoder.reset();}
 	@ Override public boolean checkSystem() {return false;}
@@ -126,6 +126,7 @@ public class Elevator extends Subsystem {
 		//SmartDashboard.putNumber("Lift Speed", liftSpeed);	driveMotor.set(liftSpeed);
 		//SmartDashboard.putNumber("Lift Speed", liftSpeed);	driveMotor.set(liftSpeed);
 		SmartDashboard.putString("elevator state", currentState.toString());
+		SmartDashboard.putString("elevator wantedState", wantedState.toString());
 		SmartDashboard.putNumber("elevator wanted floor", wantedFloor);
 		SmartDashboard.putNumber("position", getHeight());
 		SmartDashboard.putNumber("Rate of spin", encoder.getRate());

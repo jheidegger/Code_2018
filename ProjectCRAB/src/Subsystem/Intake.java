@@ -109,9 +109,9 @@ public class Intake extends Subsystem {
  	private void closedLoopControl()
  	{
 		currPosition = findCurrPosition();
-		if(wantedPosition < downPosition)
+		if(wantedPosition < downPosition_p)
 		{
-			wantedPosition = downPosition;
+			wantedPosition = downPosition_p;
 		}
 		if(isIntakeStowed.get()) 
 		{
@@ -145,16 +145,15 @@ public class Intake extends Subsystem {
 				double maxCurrent = 24;
 				cubePosition = (rightCurrent-leftCurrent)/((rightCurrent+leftCurrent)/2.0);
 				if(rightCurrent > maxCurrent || leftCurrent > maxCurrent) {
-				wantedState = systemStates.UnJamming;
-			}
+					wantedState = systemStates.UnJamming;
+				}
 				else
 				{
 					rightSideWheel.set(-((rightCurrent/maxCurrent)/2.0+.5));
 					leftSideWheel.set(((leftCurrent/maxCurrent)/2.0+.5));
 				}
-				
 				lastState = systemStates.Intaking;
-				wantedPosition = downPosition;
+				wantedPosition = downPosition_p;
 				closedLoopControl();
 				if(wantedState == systemStates.UnJamming)
 				{
@@ -307,12 +306,12 @@ public class Intake extends Subsystem {
 	 						unJamTimer.start();
 	 						unJamTimer.reset();
 	 					}
-	 					if(unJamTimer.get()<.04 &&(isCubeInLeft.get() || isCubeInRight.get()))
+	 					if(unJamTimer.get()<.1 &&(isCubeInLeft.get() || isCubeInRight.get()))
 	 					{
 	 						rightSideWheel.set(Constants.INTAKESPEED*1.0);
 	 	 					leftSideWheel.set(Constants.INTAKESPEED*1.0);
 	 					}
-	 					else if(unJamTimer.get() < .2 && !(isCubeInLeft.get() || isCubeInRight.get()) )
+	 					else if(unJamTimer.get() < .5 && !(isCubeInLeft.get() || isCubeInRight.get()) )
 	 					{
 	 						rightSideWheel.set(Constants.INTAKESPEED);
 	 	 					leftSideWheel.set(-Constants.INTAKESPEED);
@@ -349,7 +348,7 @@ public class Intake extends Subsystem {
 		SmartDashboard.putBoolean("IR Right", isCubeInRight.get());
 		SmartDashboard.putNumber("curr position", encTicks);
 		SmartDashboard.putBoolean("Stowed",isIntakeStowed.get());
-		SmartDashboard.putString("State", currState.toString());
+		SmartDashboard.putString("INtake State", currState.toString());
 		SmartDashboard.putBoolean("IsCubeINBoth", (!isCubeInLeft.get() && !isCubeInRight.get()));
 		SmartDashboard.putNumber("wantedPosition", wantedPosition);
 		SmartDashboard.putBoolean("CubeIn", isCubeInLeft.get());
@@ -357,6 +356,7 @@ public class Intake extends Subsystem {
 		SmartDashboard.putNumber("Right Current", rightCurrent);
 		SmartDashboard.putNumber("Left Current", leftCurrent);
 		SmartDashboard.putNumber("cubePostion", cubePosition);
+		
 	}
  	@Override 
  	public void zeroAllSensors() {

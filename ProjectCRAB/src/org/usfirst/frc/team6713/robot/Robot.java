@@ -80,7 +80,7 @@ public class Robot extends IterativeRobot {
 		//middleSwitch.main.setGameData(gameData);
 		//rightSwitch.setGameData(gameData);
 		String selected = m_chooser.getSelected();
-		
+		myLoops.runLoops();
 		
 		
 	}
