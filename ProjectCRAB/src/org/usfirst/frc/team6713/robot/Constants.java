@@ -68,7 +68,7 @@ public class Constants {
 	public static int PIXY_CENTER_X = 160; 
 	
 	//Elevator control loop
-	public static double ELEVATOR_KP = .00015;
+	public static double ELEVATOR_KP = .00009;
 	public static double ELEVATOR_KP_P = .0005;
 	public static double ELEVATOR_KI = 0;
 	public static double ELEVATOR_KD = 0;

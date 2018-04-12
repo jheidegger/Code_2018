@@ -41,7 +41,8 @@ public class Intake extends Subsystem {
  	private double leftCurrent;
  	private double rightCurrent;
  	public final double neutralPosition = -400;
- 	public final double downPosition = -15000;
+ 	public final double downPosition = -18000;
+ 	public final double downPosition_p = -15000;
  	// -1 full left - 1 full right
  	private double cubePosition = 0.0;
  	public enum systemStates{
