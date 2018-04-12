@@ -1,5 +1,7 @@
 package Subsystem;
 
+import java.util.ArrayList;
+
 import org.usfirst.frc.team6713.robot.Constants;
 import Util.PIDLoop;
 import edu.wpi.first.wpilibj.*;
@@ -16,7 +18,6 @@ public class Elevator extends Subsystem {
 	private double wantedFloor;
 
 	private double liftSpeed;
-	
 	public enum systemStates {
 		NEUTRAL,
 		POSITION_FOLLOW,
@@ -44,7 +45,6 @@ public class Elevator extends Subsystem {
 		liftSpeed = elevatorControlLoop.returnOutput(-encoder.getRaw(),wantedHeight);
 		driveMotor.set(liftSpeed);
 	}
-
 	public void setWantedFloor(double wF) {this.wantedFloor = wF;}
 	public double getHeight() {return -encoder.getRaw();}
  	public void setWantedState(systemStates wantedState) {this.wantedState = wantedState;}

@@ -8,9 +8,9 @@ public class CenterCubeToLeftSwitch extends Path {
 	private Trajectory t = new Trajectory();
 	private CenterCubeToLeftSwitch() {
 		t.addWaypoint(new Waypoint(0.0, 0.0, 0.0));
-		t.addWaypoint(new Waypoint(0.0, 3.0, -Math.PI/4.0));
-		t.addWaypoint(new Waypoint(-4.0,3.0,-Math.PI/4.0));
-		t.addWaypoint(new Waypoint(-4.0,-1.0, -Math.PI/4.0));
+		t.addWaypoint(new Waypoint(0.0, 1.0, 0.0));
+		t.addWaypoint(new Waypoint(-4.0,1.0,0.0));
+		t.addWaypoint(new Waypoint(-4.0,-1.0, 0.0));
 		super.regesterTrajectory(t);
 	}
 }
