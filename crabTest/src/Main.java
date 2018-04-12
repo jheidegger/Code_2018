@@ -6,15 +6,14 @@
 public class Main {
 	public static void main(String arg[])
 	{
-		Trajectory t = new Trajectory();
+		Trajectory1D t = new Trajectory1D(10000,5000);
 		t.addWaypoint(new Waypoint(0.0, 0.0, 0.0,0.0));
-		t.addWaypoint(new Waypoint(10.0,10.0,0.0,0.0));
-		t.addWaypoint(new Waypoint(15.0,10.0,0.0));
+		t.addWaypoint(new Waypoint(66666.0,0.0,0.0,0.0));
 		t.calculateTrajectory();
 		//t.print();
 //		for(double i = 0.0; i<5.0; i=i+.1)
 //		{
-//		System.out.println(t.getSpeed(i));
+//			System.out.println(t.getPosition(i));
 //		}
 		//t.print();
 		

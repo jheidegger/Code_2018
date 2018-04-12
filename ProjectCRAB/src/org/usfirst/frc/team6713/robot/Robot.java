@@ -64,8 +64,8 @@ public class Robot extends IterativeRobot {
 		m_chooser.addObject("left switch", auto2);
 		m_chooser.addObject("right switch", auto3);
 		m_chooser.addObject("drive straight", auto4);
-		m_chooser.addObject("scale side", auto5);
-		m_chooser.addObject("old middle switch", auto7);
+		m_chooser.addObject("scale left", auto5);
+		m_chooser.addObject("scale right", auto7);
 		m_chooser.addObject("traj test", auto8);
 		//m_chooser.addObject("middle 2 switch", auto6);
 		m_chooser.addDefault("default", "default");
@@ -77,31 +77,32 @@ public class Robot extends IterativeRobot {
 		gameData = DriverStation.getInstance().getGameSpecificMessage();
 		startTime = Timer.getFPGATimestamp();
 		Auto.setGameData(gameData);
-		//middleSwitch.main.setGameData(gameData);
-		//rightSwitch.setGameData(gameData);
 		String selected = m_chooser.getSelected();
 		myLoops.runLoops();
-		
-		
 	}
 	
 	@Override
 	public void autonomousPeriodic() {
 		myLoops.runLoops();
-		//driveTrain.swerve(.2, 0.0, 0.0, Drivetrain.driveCoords.FIELDCENTRIC,Drivetrain.driveType.PERCENTPOWER);
-		//SmartDashboard.putNumber("auto speed", t.getSpeed(Timer.getFPGATimestamp()-startTime));
 		String selected = m_chooser.getSelected();
 		if(selected.equals(auto1))
 		{
-			middleSwitchTraj.main.run();
+			if(gameData.substring(0,1).equals("R"))
+			{
+				middleSwitchRight.main.run();
+			}
+			else
+			{
+				middleSwitchLeft.main.run();
+			}
 		}
 		else if(selected.equals(auto2))
 		{
-			sideSwitchLeftTraj.main.run();
+			sideSwitchLeft.main.run();
 		}
 		else if(selected.equals(auto3))
 		{
-			sideSwitchRightTraj.main.run();
+			sideSwitchRight.main.run();
 		}
 		else if(selected.equals(auto4))
 		{
@@ -109,26 +110,20 @@ public class Robot extends IterativeRobot {
 		}
 		else if(selected.equals(auto5))
 		{
-			middleSwitchLeft.main.run();
-			//ScaleAuto.main.run();
+			scaleLeftStart.main.run();
 		}
 		else if(selected.equals(auto6))
 		{
-			centerSwitchTraj.main.run();
+			scaleRightStart.main.run();
 		}
 		else if(selected.equals(auto7))
 		{
-			middleSwitchTimeBased.main.run();
+			scaleRightStart.main.run();
 		}
 		else if(selected.equals(auto8))
 		{
 			TrajectoryTest.main.run();
 		}
-		//middleSwitch.main.run();
-		//ScaleAuto.main.run();
-		//rightSwitch.run();
-		//driveStraight.main.run();
-		//driveStraight.run();
 	}
 
 	@Override

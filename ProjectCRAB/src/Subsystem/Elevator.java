@@ -3,7 +3,11 @@ package Subsystem;
 import java.util.ArrayList;
 
 import org.usfirst.frc.team6713.robot.Constants;
+
+import Auton.Trajectory;
+import Auton.Waypoint;
 import Util.PIDLoop;
+import Util.Trajectory1D;
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -14,18 +18,20 @@ public class Elevator extends Subsystem {
 	private Victor driveMotor;
 	private PIDLoop elevatorControlLoop; 
 	private Encoder encoder;
-	
 	private double wantedFloor;
-
+	private Trajectory1D motionProfileTrajectory;
 	private double liftSpeed;
+	private double motionProfileStartTime;
 	public enum systemStates {
 		NEUTRAL,
 		POSITION_FOLLOW,
+		MOTION_PROFILE,
 		OPEN_LOOP
 	}
 	
 	private systemStates currentState;
 	private systemStates wantedState;
+	private systemStates lastState;
 	private boolean isOpenLoop;
 	private Elevator() {
 		encoder = new Encoder(0, 1, false, Encoder.EncodingType.k4X);
@@ -45,6 +51,7 @@ public class Elevator extends Subsystem {
 		liftSpeed = elevatorControlLoop.returnOutput(-encoder.getRaw(),wantedHeight);
 		driveMotor.set(liftSpeed);
 	}
+	
 	public void setWantedFloor(double wF) {this.wantedFloor = wF;}
 	public double getHeight() {return -encoder.getRaw();}
  	public void setWantedState(systemStates wantedState) {this.wantedState = wantedState;}
@@ -83,30 +90,43 @@ public class Elevator extends Subsystem {
 					case NEUTRAL:
 						driveMotor.set(0.0);
 						checkState();
+						lastState = systemStates.NEUTRAL;
 						break;		
 					case OPEN_LOOP:
 						driveMotor.set(joystick.elevatorPositionJoystick());
 						checkState();
+						lastState = systemStates.OPEN_LOOP;
 						break;
 					case POSITION_FOLLOW:			
-						setFloor(wantedFloor);
 						checkState();
-//						if(joystick.elevatorHigh()) {
-//							wantedFloor = kMaxHeight;
-//							currentHeight=wantedFloor;
-//						}
-//						else if(joystick.elevatorMid()) {
-//							wantedFloor = kMidHeight;
-//							currentHeight=wantedFloor;
-//						}
-//						else if(joystick.elevatorLow()) {
-//							wantedFloor = kLowHeight;
-//							currentHeight = wantedFloor;
-//						}
-//						currentHeight += openLoopAdjust;
-//						if(currentHeight < 0) {currentHeight = 0;}
-//						else if(currentHeight > 90000) {currentHeight = 90000;}
-//						setFloor(currentHeight);
+						if(Math.abs(wantedFloor-getHeight())>10000)
+						{
+							currentState = systemStates.MOTION_PROFILE;
+						}
+						else
+						{
+							setFloor(wantedFloor);
+						}
+						lastState = systemStates.POSITION_FOLLOW;
+						break;
+					case MOTION_PROFILE:
+						if(lastState != systemStates.MOTION_PROFILE)
+						{
+							motionProfileTrajectory = new Trajectory1D(100000.0,5000.0);
+							motionProfileTrajectory.addWaypoint(new Waypoint(getHeight(),0.0,0.0));
+							motionProfileTrajectory.addWaypoint(new Waypoint(wantedFloor,0.0,0.0));
+							motionProfileTrajectory.calculateTrajectory();
+							motionProfileStartTime = Timer.getFPGATimestamp();
+						}
+						else if(Timer.getFPGATimestamp()-motionProfileStartTime<motionProfileTrajectory.getTimeToComplete())
+						{
+							setFloor(motionProfileTrajectory.getPosition(Timer.getFPGATimestamp()-motionProfileStartTime));
+						}
+						else
+						{
+							currentState = systemStates.POSITION_FOLLOW;
+						}
+						lastState = systemStates.MOTION_PROFILE;
 						break;
 				}
 			}
