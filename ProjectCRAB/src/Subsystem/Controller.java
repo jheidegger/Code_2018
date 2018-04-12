@@ -4,19 +4,23 @@ import Util.*;
 import org.usfirst.frc.team6713.robot.*;
 import edu.wpi.first.wpilibj.Joystick;
 
+/** 
+*  Handles all the driver input, and controller deadband
+*/
+
 public class Controller extends Subsystem {
-	private static Controller instance = new Controller(); 
 	
+	private static Controller instance = new Controller(); 
 	private Joystick velocityStick;
 	private Joystick thetaStick;
 	private Joystick buttonMonkey;
-	public static PurpleTrigger vision;
+	//public static PurpleTrigger vision;
 	
 	public Controller() {
 		velocityStick = new Joystick(Constants.DRIVE_JOYSTICK);
 		thetaStick = new Joystick(Constants.GEAR_JOYSTICK);
 		buttonMonkey = new Joystick(Constants.BUTTON_MONKEY);
-		vision = new PurpleTrigger(velocityStick, 2);
+		//vision = new PurpleTrigger(velocityStick, 2);
 	}
 	
 	public enum driveStationStates {
@@ -73,12 +77,12 @@ public class Controller extends Subsystem {
 	public boolean elevatorLow() {return buttonMonkey.getRawButton(3);}
 	
 	public double getintakePositionJoystick() {return buttonMonkey.getY();}
-	public boolean getOuttakeButton() {return buttonMonkey.getRawButton(4)||velocityStick.getRawButton(6);}
+	public boolean getOuttakeButton() {return buttonMonkey.getRawButton(4);}//||velocityStick.getRawButton(6);}
 	public boolean getSlowOuttakeButton() {return buttonMonkey.getRawButton(10);}
-	public boolean getIntakeButton() {return buttonMonkey.getRawButton(2)||velocityStick.getRawButton(4);}
+	public boolean getIntakeButton() {return buttonMonkey.getRawButton(2);}//||velocityStick.getRawButton(4);}
 	public boolean unjamButton() {return buttonMonkey.getRawButton(1);}
-	public boolean Stow() {return buttonMonkey.getRawButton(5)||thetaStick.getRawButton(4);}
-	public boolean unStow() {return buttonMonkey.getRawButton(7)||thetaStick.getRawButton(3);}
+	public boolean Stow() {return buttonMonkey.getRawButton(5);}//||thetaStick.getRawButton(4);}
+	public boolean unStow() {return buttonMonkey.getRawButton(7);}//||thetaStick.getRawButton(3);}
 	public boolean solenoidOut() {return buttonMonkey.getRawButton(9);}
 	
 	public int getPOVButton() {return thetaStick.getPOV();}

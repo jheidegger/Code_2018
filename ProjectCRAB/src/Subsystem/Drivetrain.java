@@ -31,11 +31,6 @@ public class Drivetrain extends Subsystem {
 	
 	private ArrayList<Swervepod> Pods;
 	
-	private ArrayList<Double> recordedValuesY = new ArrayList<Double>();
-	private ArrayList<Double> recordedValuesX = new ArrayList<Double>();
-	private ArrayList<Double> recordedValuesOmega = new ArrayList<Double>();
-	private ArrayList<Double> recordedValuesGyro = new ArrayList<Double>();
-	
 	private Swervepod upperRight;
 	private Swervepod upperLeft;
 	private Swervepod lowerLeft;
@@ -100,14 +95,15 @@ public class Drivetrain extends Subsystem {
 	
 	private Drivetrain(){
 		//instantiate the pods
-		upperRight = new Swervepod(0,driveTalon[0], gearTalon[0]);
-		upperLeft = new Swervepod(1,driveTalon[1], gearTalon[1]);
-		lowerLeft = new Swervepod(2,driveTalon[2], gearTalon[2]);
-		lowerRight = new Swervepod(3,driveTalon[3], gearTalon[3]);
+		upperRight = new Swervepod(0, driveTalon[0], gearTalon[0]);
+		upperLeft = new Swervepod(1, driveTalon[1], gearTalon[1]);
+		lowerLeft = new Swervepod(2, driveTalon[2], gearTalon[2]);
+		lowerRight = new Swervepod(3, driveTalon[3], gearTalon[3]);
 		
 		//Instantiate array list
 		Pods = new ArrayList<Swervepod>();
 		
+		//PID Loops for Macro-tasks, ex. Secret Sauce
 		pidRotate = new PIDLoop(0.0009,0,0, 1);
 		pidForward = new PIDLoop(0.04,0,0, 1);
 		pidStrafe = new PIDLoop(.03,0,0,1);
@@ -119,34 +115,39 @@ public class Drivetrain extends Subsystem {
 		Pods.add(lowerLeft);
 		Pods.add(lowerRight);
 		
-		//setting constants
+		//Setting constants
 		kLength = Constants.DRIVETRAINLENGTH;
 		kWidth = Constants.DRIVETRAINWIDTH;
 		kRadius = Math.sqrt(Math.pow(kLength,2)+Math.pow(kWidth,2));
 		kMaxSpeed = Constants.DRIVETRAINMAXWHEELSPEED;
 		kMaxRotation = Constants.DRIVETRAINMAXROTATIONSPEED;
 		
-		//instantiate the gyro
+		//Instantiating the gyro
 		gyro = new AHRS(SPI.Port.kMXP);
 		resetGyro();
 		updateAngle();
 		
-		//instantiate the kinematics class
+		//Instantiating the kinematics class
 		kinematics = new Kinematics(Pods);
 		kinematics.regesterLoop();
 		
-		//initialize the commands
-		forwardCommand = Math.pow(10, -15);
+		//Initializing the commands
+		forwardCommand = Math.pow(10, -15); //Puts wheels in forward-facing direction
 		strafeCommand = 0.0;
 		spinCommand = 0.0;
 		
 		secretSauceTimer = new Timer();
 	}
 	
+	/**
+	 * Prevents more than one instance of Drivetrain
+	 */
 	public static Drivetrain getInstance(){
 		return instance;
 	}
 	
+	
+	// Handles swerve commands and sends them to each pod
 	private void crabDrive() {
 		//Create arrays with the speed and angle of each pod
 		double[] podDrive = new double[4];
@@ -189,6 +190,7 @@ public class Drivetrain extends Subsystem {
 			}
 		}
 		
+		//If enabled, sends each pod to a defensive lock when not moving. 
 		if(allPodsStopped && forwardCommand == 0.0 && strafeCommand == 0.0 && spinCommand == 0.0 && false) {
 			// Sending each pod their respective commands
 			Pods.get(0).setPod(0.0,-1.0*Math.PI/4.0);
@@ -293,10 +295,7 @@ public class Drivetrain extends Subsystem {
 	}
 
 	@Override
-	public boolean checkSystem() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+	public boolean checkSystem() {return false;}
 	
 	@Override
 	public void registerLoop()
@@ -335,15 +334,15 @@ public class Drivetrain extends Subsystem {
 					}
 					else if(secretSauceTimer.get() < 1) {
 						forwardCommand = 3.0;
-						strafeCommand = -1.5;
+						//strafeCommand = -1.5;
 					}
 					else if(!Intake.getInstance().isCubeIn()){
 						forwardCommand = -2.25;
-						strafeCommand = 3.0;
+						//strafeCommand = 3.0;
 					}
 					else {
 						forwardCommand = 0.0;
-						strafeCommand = 0.0;
+						//strafeCommand = 0.0;
 					}
 					crabDrive();
 					lastState = systemStates.SECRET_SAUCE;
@@ -362,9 +361,7 @@ public class Drivetrain extends Subsystem {
 						forwardCommand = 0.0;
 						strafeCommand = 0.0;
 					}
-					/*if(forwardCommand < -.2) {
-						forwardCommand = 0; 
-					}*/
+					
 					crabDrive();
 					lastState = systemStates.VISION;
 					checkState();

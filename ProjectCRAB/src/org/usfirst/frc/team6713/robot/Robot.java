@@ -49,7 +49,7 @@ public class Robot extends IterativeRobot {
 	private Timer elevatorManualOverrideTimer = new Timer();
 	@Override
 	public void robotInit() {
-		driveTrain.registerLoop();
+		driveTrain.registerLoop(); 
 		intake.registerLoop(); 
 		led.registerLoop();
 		elevator.registerLoop();

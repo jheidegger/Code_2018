@@ -6,7 +6,9 @@ import java.util.ArrayList;
  * Manages onStart and onLoop of each subsystem.
  * @author Jonathon Heidegger
  */
+
 public class Loop_Manager {
+	
 	private static Loop_Manager instance = new Loop_Manager();
 	private static Controller controller = Controller.getInstance();
 	private ArrayList<Loop> Loops;

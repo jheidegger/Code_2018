@@ -1,22 +1,29 @@
 package Subsystem;
 
+/**
+ *  Used to define every distinct robot function. 
+ *  Subsystems are coded as state machines and will be given Loops to accomplish tasks.
+ *  See {@link Drivetrain} as an example.
+ */
 public abstract class Subsystem {
-	/*
-	 * The Subsystem class is used for each distinct robot function.
-	 * Subsystems are coded as state machines and will be given Loops to accomplish tasks 
-	 */
+
+	public Subsystem() {}
 	
-	public Subsystem()
-	{
-		
-	}
 	public abstract void zeroAllSensors();
 	
-	//called in the test phase before matches. tests all motors and sensors and returns the result
+	/**
+	 *  Checks in with the Subsystem to see if still functional
+	 */
 	public abstract boolean checkSystem();
 	
+	/**
+	 *  Outputs all wanted values to the WPILIB Dashboard
+	 */
 	public abstract void outputToSmartDashboard();
 	
+	/**
+	 *  Creates a new loop for each subsystem, that is then handled by {@link Loop_Manager}
+	 */
 	public abstract void registerLoop();
 	
 }
