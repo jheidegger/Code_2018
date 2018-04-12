@@ -84,5 +84,7 @@ public class Constants {
 	//Intake constants
 	public static final double INTAKESPEED = -.78;
 	public static final double INTAKESCORESPEED = .93;
+	public static final double INTAKESLOWSCORESPEED = .5;
 	public static final int ELEVATOR_ZERO_SWITCH = 8;
+	
 }

@@ -48,6 +48,7 @@ public class Intake extends Subsystem {
  	public enum systemStates{
  		Intaking,
  		Scoring,
+ 		SlowScoring,
  		UnJamming,
  		Homing,
  		Neutral
@@ -119,7 +120,9 @@ public class Intake extends Subsystem {
 		}
 		else 
 		{
-			encoder.reset();
+			if(Math.abs(encoder.getRaw())<1000) {
+				encoder.reset();
+			}
 			if(actuatorPID.returnOutput(currPosition, wantedPosition)<0)
 			{
 				//allow the intake to deploy
@@ -299,6 +302,13 @@ public class Intake extends Subsystem {
 	 					//closedLoopControl();
 	 					checkState();
 	 					break;
+	 				case SlowScoring:
+	 					rightSideWheel.set(Constants.INTAKESLOWSCORESPEED);
+	 					leftSideWheel.set(-Constants.INTAKESLOWSCORESPEED);
+	 					lastState = systemStates.Scoring;
+	 					//closedLoopControl();
+	 					checkState();
+	 					break;
 	 				//Spins the wheels out then in to right the Power Cubes
 	 				case UnJamming:
 	 					if(lastState != systemStates.UnJamming)
@@ -360,7 +370,7 @@ public class Intake extends Subsystem {
 	}
  	@Override 
  	public void zeroAllSensors() {
- 		
+ 		encoder.reset();
  	}
  	@Override 
  	public boolean checkSystem() {

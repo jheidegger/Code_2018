@@ -6,9 +6,9 @@ import Subsystem.Intake;
 import Subsystem.Loop;
 import Subsystem.Intake.systemStates;
 
-public class goToElevatorHeight extends Command {
+public class GoToElevatorHeight extends Command {
 	private double Height;
-	public goToElevatorHeight(double Height) {
+	public GoToElevatorHeight(double Height) {
 		super(commandType.triggerBased);
 		this.Height = Height;
 		super.setLoop(new Loop() {

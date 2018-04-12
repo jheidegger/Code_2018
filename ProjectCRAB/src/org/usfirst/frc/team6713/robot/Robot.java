@@ -182,13 +182,9 @@ public class Robot extends IterativeRobot {
 			intake.setOpenLoopMode(true);
 			intakeManualOverrideTimer.reset();
 		}
-//		else
-//		{	
-//			isIntakeOpenLoop = false;
-//			intakeManualOverrideTimer.reset();
-//		}
 		if(controller.getIntakeButton() || controller.getVisionTracking()) {intake.setWantedState(systemStates.Intaking);} 
 		else if(controller.getOuttakeButton()) {intake.setWantedState(systemStates.Scoring);}
+		else if(controller.getSlowOuttakeButton()) {intake.setWantedState(systemStates.SlowScoring);}
 		else if(controller.unjamButton()) {intake.setWantedState(systemStates.UnJamming);}
 		else {intake.setWantedState(systemStates.Neutral);}
 		
@@ -201,7 +197,6 @@ public class Robot extends IterativeRobot {
 				intake.setPosition(intake.getCurrPosition()+controller.getintakePositionJoystick()*2000);
 			}
 		}
-		
 		/**
 		 * Elevator States
 		 */
@@ -211,14 +206,6 @@ public class Robot extends IterativeRobot {
 			elevator.setWantedState(Elevator.systemStates.OPEN_LOOP);
 			//elevatorManualOverrideTimer.reset();
 		}
-//		else
-//		{
-//			if(elevatorManualOverrideTimer.get()>.5)
-//			{
-//				isElevatorOpenLoop = false;
-//				elevatorManualOverrideTimer.reset();
-//			}
-//		}
 		if(!isElevatorOpenLoop)
 		{
 			elevator.setWantedState(Elevator.systemStates.POSITION_FOLLOW);

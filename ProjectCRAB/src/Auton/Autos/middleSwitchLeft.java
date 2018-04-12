@@ -13,11 +13,11 @@ public class middleSwitchLeft extends Auto{
 	private AutoManager manager = new AutoManager();
 	private middleSwitchLeft()
 	{
-		manager.qeueCommand(new ParallelCommand(new DriveTrajectory(middleToLeftSwitch.main.get()),new goToElevatorHeight(Constants.SWITCHHEIGHT),new DeployIntake()));
-		manager.qeueCommand(new Scoring(1.0));
+		manager.qeueCommand(new ParallelCommand(new DriveTrajectory(middleToLeftSwitch.main.get()),new GoToElevatorHeight(Constants.SWITCHHEIGHT),new DeployIntake()));
+		manager.qeueCommand(new SlowScoring(1.0));
 		manager.qeueCommand(new ParallelCommand(new DriveTrajectory(LeftSwitchToCenterCube.main.get()),new Intaking()));
-		manager.qeueCommand(new ParallelCommand(new DriveTrajectory(CenterCubeToLeftSwitch.main.get()),new goToElevatorHeight(Constants.SWITCHHEIGHT)));
-		manager.qeueCommand(new Scoring(1.0));
+		manager.qeueCommand(new ParallelCommand(new DriveTrajectory(CenterCubeToLeftSwitch.main.get()),new GoToElevatorHeight(Constants.SWITCHHEIGHT)));
+		manager.qeueCommand(new SlowScoring(1.0));
 		super.registerManager(manager);
 	}
 

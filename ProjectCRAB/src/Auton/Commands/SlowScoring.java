@@ -5,25 +5,25 @@ import Subsystem.Intake.systemStates;
 import Subsystem.Loop;
 import Subsystem.Superstructure;
 
-public class Intaking extends Command {
+public class SlowScoring extends Command {
 
-	public Intaking() {
-		super(commandType.triggerBased);
+	public SlowScoring(double scoreTime) {
+		super(commandType.timeBased,scoreTime);
 		super.setLoop(new Loop() {
 			@Override
 			public void onStart() {
-				Intake.getInstance().setWantedState(systemStates.Intaking);
+				Intake.getInstance().setWantedState(systemStates.SlowScoring);
 			}
 			@Override
 			public void onloop() {
-				Intake.getInstance().setWantedState(systemStates.Neutral);
-				setTrigger(Intake.getInstance().isCubeIn());
+
 			}
 			@Override
 			public void stop() {
-
+				Intake.getInstance().setWantedState(systemStates.Neutral);
 			}
 		});
+    
 	}
 	public void setTrigger(boolean t)
 	{
