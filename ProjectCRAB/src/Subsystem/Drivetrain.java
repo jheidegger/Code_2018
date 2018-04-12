@@ -72,6 +72,8 @@ public class Drivetrain extends Subsystem {
 	private double strafeCommand;
 	private double spinCommand;
 	
+	private Timer secretSauceTimer; 
+	
 	public enum systemStates{
 		NEUTRAL,
 		HOMING,
@@ -137,6 +139,8 @@ public class Drivetrain extends Subsystem {
 		forwardCommand = Math.pow(10, -15);
 		strafeCommand = 0.0;
 		spinCommand = 0.0;
+		
+		secretSauceTimer = new Timer();
 	}
 	
 	public static Drivetrain getInstance(){
@@ -320,16 +324,44 @@ public class Drivetrain extends Subsystem {
 					checkState();
 					break;
 				case SECRET_SAUCE:
-					Coords = driveCoords.ROBOTCENTRIC;
-					commandType = driveType.PERCENTPOWER;
-					Intake.getInstance().setWantedState(Intake.systemStates.Intaking);
-					forwardCommand = .4;
+					if(lastState != systemStates.SECRET_SAUCE) {
+						secretSauceTimer.start();
+						secretSauceTimer.reset();
+						Coords = driveCoords.ROBOTCENTRIC;
+						Intake.getInstance().setWantedState(Intake.systemStates.Intaking);
+					}
+					if(secretSauceTimer.get() < .3) {
+						forwardCommand = -1.0;
+					}
+					else if(secretSauceTimer.get() < 1) {
+						forwardCommand = 3.0;
+						strafeCommand = -1.5;
+					}
+					else if(!Intake.getInstance().isCubeIn()){
+						forwardCommand = -2.25;
+						strafeCommand = 3.0;
+					}
+					else {
+						forwardCommand = 0.0;
+						strafeCommand = 0.0;
+					}
+					crabDrive();
+					lastState = systemStates.SECRET_SAUCE;
+					checkState();
+					break;
 				case VISION:
 					Coords = driveCoords.ROBOTCENTRIC;
 					commandType = driveType.PERCENTPOWER;
-					spinCommand = pidRotate.returnOutput(cam.getAvgX(), 175);
-					forwardCommand = -pidForward.returnOutput(cam.getAvgArea(), 10000) * 1.5; /* - (-2.5 * pidForward.returnOutput(60, Math.abs(175-cam.getAvgX())))*/;
-					strafeCommand = -pidStrafe.returnOutput(cam.getAvgX(), 175);
+					if(!Intake.getInstance().isCubeIn()) {
+						spinCommand = pidRotate.returnOutput(cam.getAvgX(), 175);
+						forwardCommand = -pidForward.returnOutput(cam.getAvgArea(), 10000) * 3.5; /* - (-2.5 * pidForward.returnOutput(60, Math.abs(175-cam.getAvgX())))*/;
+						//strafeCommand = -pidStrafe.returnOutput(cam.getAvgX(), 175);
+					}
+					else {
+						spinCommand = 0.0;
+						forwardCommand = 0.0;
+						strafeCommand = 0.0;
+					}
 					/*if(forwardCommand < -.2) {
 						forwardCommand = 0; 
 					}*/

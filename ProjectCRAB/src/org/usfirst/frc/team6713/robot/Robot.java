@@ -140,6 +140,9 @@ public class Robot extends IterativeRobot {
 			PixyCam.getInstance().track_cube();
 			driveTrain.setSystemState(Drivetrain.systemStates.VISION);
 		}
+		else if(controller.secretSauce()) {
+			driveTrain.setSystemState(Drivetrain.systemStates.SECRET_SAUCE);
+		}
 		else { driveTrain.setSystemState(Drivetrain.systemStates.DRIVE);}
 
 		/**
@@ -147,25 +150,25 @@ public class Robot extends IterativeRobot {
 		 */
 		if(controller.getSlowFieldCentricButton() == true)
 		{
-			driveTrain.swerve(controller.getForward()*Constants.MAXSLOWPERCENTSPEED, 
-					controller.getStrafe()*Constants.MAXSLOWPERCENTSPEED, 
-					controller.getRotation()* 1.15 * Constants.MAXSLOWPERCENTSPEED, 
+			driveTrain.swerve(controller.getForward(), 
+					controller.getStrafe(), 
+					controller.getRotation()* 1.15, 
 					Drivetrain.driveCoords.FIELDCENTRIC, 
 					Drivetrain.driveType.PERCENTPOWER);
 		}
 		else if(controller.getSlowRobotCentricButton() == true)
 		{
-			driveTrain.swerve(controller.getForward()*Constants.MAXSLOWPERCENTSPEED, 
-					controller.getStrafe()*Constants.MAXSLOWPERCENTSPEED, 
+			driveTrain.swerve(controller.getForward() *Constants.MAXSLOWPERCENTSPEED, 
+					controller.getStrafe() *Constants.MAXSLOWPERCENTSPEED, 
 					controller.getRotation()* 1.15 *Constants.MAXSLOWPERCENTSPEED, 
 					Drivetrain.driveCoords.ROBOTCENTRIC, 
 					Drivetrain.driveType.PERCENTPOWER);
 		}
 		else
 		{
-			driveTrain.swerve(controller.getForward(),
-					controller.getStrafe(), 
-					controller.getRotation() * 1.15, 
+			driveTrain.swerve(controller.getForward()*Constants.MAXSLOWPERCENTSPEED,
+					controller.getStrafe() *Constants.MAXSLOWPERCENTSPEED, 
+					controller.getRotation() * 1.15 * Constants.MAXSLOWPERCENTSPEED, 
 					Drivetrain.driveCoords.FIELDCENTRIC, 
 					Drivetrain.driveType.PERCENTPOWER);
 		}

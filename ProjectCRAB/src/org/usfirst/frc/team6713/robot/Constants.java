@@ -9,7 +9,7 @@ public class Constants {
 	 * Port Map *
 	 */
 	
-	public static int ELEVATORMOTOR = 2;
+	public static int ELEVATORMOTOR = 5;
 	public static final int INTAKERIGHTSIDE = 0;
 	public static final int INTAKELEFTSIDE = 1;
 	public static final int INTAKESTOWINGMOTOR = 4;

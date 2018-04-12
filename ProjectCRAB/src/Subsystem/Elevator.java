@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Elevator extends Subsystem {
 	private static Elevator instance = new Elevator();
 	private Controller joystick = Controller.getInstance(); 
-	private DigitalInput ZeroSwitch = new DigitalInput(Constants.ELEVATOR_ZERO_SWITCH);
+	//private DigitalInput ZeroSwitch = new DigitalInput(Constants.ELEVATOR_ZERO_SWITCH);
 	private Victor driveMotor;
 	private PIDLoop elevatorControlLoop; 
 	private Encoder encoder;
@@ -58,9 +58,9 @@ public class Elevator extends Subsystem {
  	}
  	
  	private void checkEncoder() {
- 		if(!ZeroSwitch.get()) {
+ 		/*if(!ZeroSwitch.get()) {
  			encoder.reset();
- 		}
+ 		}*/
  	}
  	
 	@Override
@@ -80,7 +80,7 @@ public class Elevator extends Subsystem {
 				double openLoopAdjust = joystick.elevatorPositionJoystick()*2000.0;
 				switch(currentState){
 					case NEUTRAL:
-					driveMotor.set(0.0);
+						driveMotor.set(0.0);
 						checkState();
 						break;		
 					case OPEN_LOOP:
@@ -122,8 +122,8 @@ public class Elevator extends Subsystem {
 
 	@Override
 	public void outputToSmartDashboard() {
-		SmartDashboard.putNumber("Lift Speed", liftSpeed);	driveMotor.set(liftSpeed);
-		SmartDashboard.putNumber("Lift Speed", liftSpeed);	driveMotor.set(liftSpeed);
+		//SmartDashboard.putNumber("Lift Speed", liftSpeed);	driveMotor.set(liftSpeed);
+		//SmartDashboard.putNumber("Lift Speed", liftSpeed);	driveMotor.set(liftSpeed);
 		SmartDashboard.putString("elevator state", currentState.toString());
 		SmartDashboard.putNumber("elevator wanted floor", wantedFloor);
 		SmartDashboard.putNumber("position", getHeight());
