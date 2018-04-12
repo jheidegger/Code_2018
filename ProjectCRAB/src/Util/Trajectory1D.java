@@ -2,6 +2,7 @@ package Util;
 
 
 
+
 import java.awt.geom.Arc2D;
 import java.util.ArrayList;
 
@@ -9,13 +10,15 @@ import Auton.Waypoint;
 
 
 
+
 public class Trajectory1D {
 	private double kMaxVelocity = 4.0;
 	private double kMaxAcceleration=4.0;
 	private double kMaxAngularAccel = 1.0;
-	private double timeStep = .1;
+	private double timeStep = .01;
 	private double simTime = 0.0;
 	private double timeToComplete;
+	private boolean normaldirection = true;
 	private ArrayList<Waypoint> points;
 	private ArrayList<Double> speed;
 	private ArrayList<Double> position;
@@ -42,12 +45,19 @@ public class Trajectory1D {
 		double endSpeed = points.get(1).getSpeed();
 		int waypointIdx = 1;
 		boolean isSlowing = false;
-		while(simTime < 15.0)
+		if(currX-points.get(waypointIdx).getX() < 0)
 		{
-			
+			normaldirection = true;
+		}
+		else
+		{
+			normaldirection = false;
+		}
+		while(simTime < 20.0)
+		{
 			double stoppingDistance = (Math.pow(endSpeed, 2)-Math.pow(currSpeed,2))/(-2.0*kMaxAcceleration);
 			double distanceToWaypoint = currX-points.get(waypointIdx).getX();
-			if(stoppingDistance>distanceToWaypoint)
+			if(stoppingDistance>Math.abs(distanceToWaypoint))
 			{
 				isSlowing = true;
 			}
@@ -55,17 +65,39 @@ public class Trajectory1D {
 			{
 				if((kMaxVelocity - Math.abs(currSpeed)) < kMaxAcceleration*timeStep)
 				{
-					currSpeed = kMaxVelocity;
+					if(normaldirection)
+					{
+						currSpeed = kMaxVelocity;
+					}
+					else
+					{
+						currSpeed = -kMaxVelocity;
+					}
+							
+				}
+				else
+				{
+					if(normaldirection)
+					{
+						currSpeed = currSpeed + kMaxAcceleration * timeStep;
+					}
+					else
+					{
+						currSpeed = currSpeed - kMaxAcceleration * timeStep;
+					}
+				}
+			}
+			else
+			{
+				if(normaldirection)
+				{
+					currSpeed = currSpeed - kMaxAcceleration * timeStep;
 				}
 				else
 				{
 					currSpeed = currSpeed + kMaxAcceleration * timeStep;
 				}
-			}
-			else
-			{
-				currSpeed = currSpeed - kMaxAcceleration * timeStep;
-				if(currSpeed<endSpeed)
+				if((normaldirection && currSpeed<endSpeed)||(!normaldirection && currSpeed>endSpeed))
 				{
 					currSpeed = endSpeed;
 					if(waypointIdx < points.size()-1)
@@ -78,7 +110,7 @@ public class Trajectory1D {
 			}
 			speed.add(currSpeed);
 			//System.out.println("waypointIdx" + waypointIdx);
-			currX = currX + currSpeed * timeStep;
+			currX += currSpeed * timeStep;
 			position.add(currX);
 			//System.out.println("X: " + currX);
 			//System.out.println(currY);
@@ -86,11 +118,11 @@ public class Trajectory1D {
 			//System.out.println("dtw " + distanceToWaypoint);
 			//System.out.println(currSpeed);
 			//System.out.println("time: " + simTime+ " x: "+  currX  + " y: " +currY + " sp: " + currSpeed +" angle " + (currAngle * 180.0/Math.PI) +  " currway " + waypointIdx );
-			//System.out.println( simTime+ ":"+  currX  + ":" +currY + ":" + currSpeed +":" + (currAngle ) +  ":" + waypointIdx );
+			System.out.println( currX  + ":"  + currSpeed +":" + stoppingDistance + ":" + distanceToWaypoint);
 			simTime+= timeStep;
 		}
 		int idx = 1;
-		while(speed.get(idx) != 0.0 || speed.get(idx+3) != 0.0)
+		while(speed.get(idx) != 0.0)
 		{
 			idx++;
 		}
