@@ -13,17 +13,17 @@ public class sideSwitchLeft extends Auto{
 	private AutoManager manager = new AutoManager();
 	private sideSwitchLeft()
 	{
-		if(getGameData().substring(0,1).equals("R"))
+		if(getGameData().substring(0,1).equals("L"))
 		{
 			manager.qeueCommand(new ParallelCommand(new DriveTrajectory(leftToLeftSwitch.main.get()),
-					new GoToElevatorHeight(Constants.SCALEHIGHHEIGHT),
+					new GoToElevatorHeight(Constants.SWITCHHEIGHT+10000),
 					new DeployIntake()));
 			manager.qeueCommand(new SlowScoring(1.0));
 			manager.qeueCommand(new GoToElevatorHeight(0.0));
 		}
 		else
 		{
-			manager.qeueCommand(new DriveTrajectory(leftToLeftSwitch.main.get()));
+			manager.qeueCommand(new DriveTrajectory(drivestraight.main.get()));
 		}
 		super.registerManager(manager);
 	}

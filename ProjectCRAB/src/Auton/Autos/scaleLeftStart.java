@@ -24,7 +24,7 @@ public class scaleLeftStart extends Auto{
 					new GoToElevatorHeight(Constants.SCALEHIGHHEIGHT)));
 		}
 		manager.qeueCommand(new DeployIntake());
-		manager.qeueCommand(new SlowScoring(1.0));
+		manager.qeueCommand(new Scoring(.3));
 		manager.qeueCommand(new GoToElevatorHeight(0.0));
 		super.registerManager(manager);
 	}

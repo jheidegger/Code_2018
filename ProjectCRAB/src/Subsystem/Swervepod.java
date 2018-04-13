@@ -68,6 +68,7 @@ public class Swervepod extends Subsystem {
 			steerMotor.set(ControlMode.Position, lastEncoderPosition);
 		}
 		driveMotor.set(ControlMode.Velocity, velocitySetpoint);
+		outputToSmartDashboard();
 	}
 	
 	private double findSteerPosition(double wantedAngle) {

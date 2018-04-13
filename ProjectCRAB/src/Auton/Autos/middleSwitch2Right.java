@@ -14,11 +14,14 @@ public class middleSwitch2Right extends Auto{
 	private middleSwitch2Right()
 	{
 		manager.qeueCommand(new ParallelCommand(new DriveTrajectory(middleToRightSwitch.main.get()),new GoToElevatorHeight(Constants.SWITCHHEIGHT),new DeployIntake()));
-		manager.qeueCommand(new SlowScoring(1.0));
+		manager.qeueCommand(new SlowScoring(.1));
 		manager.qeueCommand(new GoToElevatorHeight(0.0));
 		manager.qeueCommand(new ParallelCommand(new DriveTrajectory(RightSwitchToCenterCube.main.get()),new Intaking()));
-		manager.qeueCommand(new ParallelCommand(new DriveTrajectory(CenterCubeToRightSwitch.main.get()),new GoToElevatorHeight(Constants.SWITCHHEIGHT)));
-		manager.qeueCommand(new SlowScoring(1.0));
+		manager.qeueCommand(new ParallelCommand(new DriveTrajectory(CenterCubeToRightSwitch.main.get()),
+												new GoToElevatorHeight(Constants.SWITCHHEIGHT),
+												new DeployIntake()));
+		manager.qeueCommand(new SlowScoring(.1));
+		manager.qeueCommand(new GoToElevatorHeight(0.0));
 		super.registerManager(manager);
 	}
 

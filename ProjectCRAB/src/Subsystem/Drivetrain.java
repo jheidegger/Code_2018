@@ -104,7 +104,7 @@ public class Drivetrain extends Subsystem {
 		Pods = new ArrayList<Swervepod>();
 		
 		//PID Loops for Macro-tasks, ex. Secret Sauce
-		pidRotate = new PIDLoop(0.002,0,0, 1);
+		pidRotate = new PIDLoop(0.0025,0,0, 1);
 		pidForward = new PIDLoop(0.04,0,0, 1);
 		pidStrafe = new PIDLoop(.03,0,0,1);
 		autoHeadingControl = new PIDLoop(.6,.1,.01);
@@ -353,7 +353,7 @@ public class Drivetrain extends Subsystem {
 					commandType = driveType.PERCENTPOWER;
 					if(!Intake.getInstance().isCubeIn()) {
 						spinCommand = pidRotate.returnOutput(cam.getAvgX(), 175);
-						//forwardCommand = -pidForward.returnOutput(cam.getAvgArea(), 10000) * 3.5; /* - (-2.5 * pidForward.returnOutput(60, Math.abs(175-cam.getAvgX())))*/;
+						forwardCommand = -pidForward.returnOutput(cam.getAvgY(), 20) * 3.5; /* - (-2.5 * pidForward.returnOutput(60, Math.abs(175-cam.getAvgX())))*/;
 						//strafeCommand = -pidStrafe.returnOutput(cam.getAvgX(), 175);
 					}
 					else {

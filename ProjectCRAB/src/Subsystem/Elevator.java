@@ -16,6 +16,7 @@ public class Elevator extends Subsystem {
 	private Controller joystick = Controller.getInstance(); 
 	//private DigitalInput ZeroSwitch = new DigitalInput(Constants.ELEVATOR_ZERO_SWITCH);
 	private Victor driveMotor;
+	private Victor driveMotor2;
 	private PIDLoop elevatorControlLoop; 
 	private Encoder encoder;
 	private double wantedFloor;
@@ -36,6 +37,7 @@ public class Elevator extends Subsystem {
 	private Elevator() {
 		encoder = new Encoder(0, 1, false, Encoder.EncodingType.k4X);
 		driveMotor = new Victor(Constants.ELEVATORMOTOR);
+		driveMotor2 = new Victor(6);
 		elevatorControlLoop = new PIDLoop(Constants.ELEVATOR_KP, //Proportional Gain
 											Constants.ELEVATOR_KI, //Integral Gain
 											Constants.ELEVATOR_KD,
@@ -50,6 +52,7 @@ public class Elevator extends Subsystem {
 		//wantedHeight = wantedHeight / .17 * Math.PI * 2048;
 		liftSpeed = elevatorControlLoop.returnOutput(-encoder.getRaw(),wantedHeight);
 		driveMotor.set(liftSpeed);
+		driveMotor2.set(liftSpeed);
 	}
 	
 	public void setWantedFloor(double wF) {this.wantedFloor = wF;}
@@ -89,11 +92,13 @@ public class Elevator extends Subsystem {
 				switch(currentState){
 					case NEUTRAL:
 						driveMotor.set(0.0);
+						driveMotor2.set(0.0);
 						checkState();
 						lastState = systemStates.NEUTRAL;
 						break;		
 					case OPEN_LOOP:
 						driveMotor.set(joystick.elevatorPositionJoystick());
+						driveMotor2.set(joystick.elevatorPositionJoystick());
 						checkState();
 						lastState = systemStates.OPEN_LOOP;
 						break;
