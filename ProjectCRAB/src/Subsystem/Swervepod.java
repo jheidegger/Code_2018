@@ -17,7 +17,7 @@ public class Swervepod extends Subsystem {
 
 	private double PI = Math.PI;
 	private double kEncoderUnits = Constants.ENCODER_UNITS; //# of ticks on Mag Encoder
-	private double kConstants[] = Constants.OFFSETS_P;
+	private double kConstants[] = Constants.OFFSETS;
 	
 	private double lastEncoderPosition; //Previous position in encoder units	
 	private double encoderError; //Error in encoder units

@@ -42,7 +42,7 @@ public class Intake extends Subsystem {
  	private double rightCurrent;
  	public final double neutralPosition = -400;
  	public final double downPosition = -18000;
- 	public final double downPosition_p = -15000;
+ 	public final double downPosition_p = -18000;
  	// -1 full left - 1 full right
  	private double cubePosition = 0.0;
  	public enum systemStates{
@@ -60,7 +60,7 @@ public class Intake extends Subsystem {
  	
  	private Intake()
  	{
- 		actuatorPID = new PIDLoop(.0002,0,0.0,.55);
+ 		actuatorPID = new PIDLoop(.0002,0,0.0,.6);
  		rightSideWheel = new Victor(Constants.INTAKERIGHTSIDE);
  		leftSideWheel = new Victor(Constants.INTAKELEFTSIDE);
  		stowingMotor = new Victor(Constants.INTAKESTOWINGMOTOR);
@@ -143,8 +143,8 @@ public class Intake extends Subsystem {
  	{
  		if(isCubeInLeft.get() || isCubeInRight.get())
 			{
-				rightCurrent = Drivetrain.getInstance().getPDP().getCurrent(10);
-				leftCurrent = Drivetrain.getInstance().getPDP().getCurrent(11);
+				rightCurrent = Drivetrain.getInstance().getPDP().getCurrent(8);
+				leftCurrent = Drivetrain.getInstance().getPDP().getCurrent(9);
 				double maxCurrent = 24;
 				cubePosition = (rightCurrent-leftCurrent)/((rightCurrent+leftCurrent)/2.0);
 				if(rightCurrent > maxCurrent || leftCurrent > maxCurrent) {
@@ -341,7 +341,7 @@ public class Intake extends Subsystem {
  					LED.getInstance().setWantedState(LED.ledStates.LIGHTSHOW);
  				}
  				else {
- 					Controller.vision.setFalse();
+ 					//Controller.vision.setFalse();
  					LED.getInstance().setWantedState(LED.ledStates.CUBE_INTAKED);
  				}
  			}

@@ -11,7 +11,7 @@ public class Trajectory {
 	private double kMaxVelocity = 4.0;
 	private double kMaxAcceleration=4.0;
 	private double kMaxAngularAccel = 1.0;
-	private double timeStep = .01;
+	private double timeStep = .05;
 	private double simTime = 0.0;
 	private double timeToComplete;
 	private ArrayList<Waypoint>  points;
@@ -80,6 +80,7 @@ public class Trajectory {
 						waypointIdx++;
 						isSlowing = false;
 						endSpeed = points.get(waypointIdx).getSpeed();
+						endHeading = points.get(waypointIdx).getAngle();
 					}
 				}		
 			}

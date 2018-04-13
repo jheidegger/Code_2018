@@ -15,7 +15,7 @@ public class Trajectory1D {
 	private double kMaxVelocity = 4.0;
 	private double kMaxAcceleration=4.0;
 	private double kMaxAngularAccel = 1.0;
-	private double timeStep = .01;
+	private double timeStep = .1;
 	private double simTime = 0.0;
 	private double timeToComplete;
 	private boolean normaldirection = true;
@@ -53,7 +53,7 @@ public class Trajectory1D {
 		{
 			normaldirection = false;
 		}
-		while(simTime < 20.0)
+		while(simTime < 10.0)
 		{
 			double stoppingDistance = (Math.pow(endSpeed, 2)-Math.pow(currSpeed,2))/(-2.0*kMaxAcceleration);
 			double distanceToWaypoint = currX-points.get(waypointIdx).getX();

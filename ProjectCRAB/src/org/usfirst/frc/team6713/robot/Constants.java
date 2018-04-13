@@ -28,7 +28,7 @@ public class Constants {
 	
 	//Drive Train constants
 	//Gear Facing Right
-	public static double OFFSETS[] = {2915.0,2764.0,3729.0,3369.0};
+	public static double OFFSETS[] = {1053.0,2299.0,3764.0,3380.0};
 	public static double OFFSETS_P[] = {268.0,3228.0,1184.0,2160.0};
 	public static double DRIVETRAINLENGTH = 17.5;
 	public static double DRIVETRAINWIDTH = 13.0;
@@ -50,10 +50,10 @@ public class Constants {
 	public static final double DRIVE_kF = 0.110654611;//Practice Value 0.09654611
 	*/
 	//as of 3/25/3018
-	public static final double DRIVE_kP = .35;//Practice Values .096;
+	public static final double DRIVE_kP = .4;//Practice Values .096;
 	public static final double DRIVE_kI = 0.0001;//Practice Values 0.0;
-	public static final double DRIVE_kD = 4;//Practice Values: 9.33;
-	public static final double DRIVE_kF = 0.095;//Practice Value 0.09654611
+	public static final double DRIVE_kD = 9.33;//Practice Values: 9.33;
+	public static final double DRIVE_kF = 0.130654611;//Practice Value 0.09654611
 	public static final int DRIVE_IZONE = 200;
 	public static double fps2ups = 12.0/(Constants.WHEELDIAMETER * Math.PI) * 4096.0/10.0 *48.0/30.0;
 	public static final int DRIVE_ALLOWABLE_ERROR = 50;
@@ -72,8 +72,8 @@ public class Constants {
 	public static double ELEVATOR_KP_P = .0005;
 	public static double ELEVATOR_KI = 0;
 	public static double ELEVATOR_KD = 0;
-	public static final double MAX_HEIGHT_ENCODER_TICKS = 100000;
-	public static final double MID_HEIGHT_ENCODER_TICKS = 66666;
+	public static final double MAX_HEIGHT_ENCODER_TICKS = 90000;
+	public static final double MID_HEIGHT_ENCODER_TICKS = 75000;
 	public static final double LOW_HEIGHT_ENCODER_TICKS = 0;
 	public static final double SCALEHIGHHEIGHT = 90000;
 	public static final double SCALELOWHEIGHT = 0;
@@ -84,7 +84,7 @@ public class Constants {
 	//Intake constants
 	public static final double INTAKESPEED = -.78;
 	public static final double INTAKESCORESPEED = .93;
-	public static final double INTAKESLOWSCORESPEED = .5;
+	public static final double INTAKESLOWSCORESPEED = .6;
 	public static final int ELEVATOR_ZERO_SWITCH = 8;
 	
 }

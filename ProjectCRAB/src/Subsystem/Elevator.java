@@ -112,7 +112,14 @@ public class Elevator extends Subsystem {
 					case MOTION_PROFILE:
 						if(lastState != systemStates.MOTION_PROFILE)
 						{
-							motionProfileTrajectory = new Trajectory1D(100000.0,5000.0);
+							if(getHeight()<wantedFloor)
+							{
+								motionProfileTrajectory = new Trajectory1D(100000.0,400000.0);
+							}
+							else
+							{
+								motionProfileTrajectory = new Trajectory1D(50000.0,100000.0);
+							}
 							motionProfileTrajectory.addWaypoint(new Waypoint(getHeight(),0.0,0.0));
 							motionProfileTrajectory.addWaypoint(new Waypoint(wantedFloor,0.0,0.0));
 							motionProfileTrajectory.calculateTrajectory();
