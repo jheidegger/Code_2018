@@ -25,14 +25,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends IterativeRobot {
 	private SendableChooser<String> m_chooser = new SendableChooser<>();
-	private static final String auto1 = "middle switch";
-	private static final String auto2 = "left switch";
-	private static final String auto3 = "right switch";
-	private static final String auto4 = "drive straight";
-	private static final String auto5 = "scale side";
-	private static final String auto6 = "middle 2 switch";
-	private static final String auto7 = "middle switch old one";
-	private static final String auto8 = "trajectory Test";
+	private static final String auto1 = "auto1";
+	private static final String auto2 = "auto2";
+	private static final String auto3 = "auto3";
+	private static final String auto4 = "auto4";
+	private static final String auto5 = "auto5";
+	private static final String auto6 = "auto6";
+	private static final String auto7 = "auto7";
+	private static final String auto8 = "auto8";
 	private Loop_Manager myLoops = Loop_Manager.getInstance();
 	private Drivetrain driveTrain = Drivetrain.getInstance(); 
 	private Controller controller = Controller.getInstance();
@@ -61,13 +61,13 @@ public class Robot extends IterativeRobot {
 		intakeManualOverrideTimer.start();
 		elevatorManualOverrideTimer.start();
 		m_chooser.addObject("middle switch", auto1);
+		m_chooser.addObject("middle 2 switch", auto6);
 		m_chooser.addObject("left switch", auto2);
 		m_chooser.addObject("right switch", auto3);
 		m_chooser.addObject("drive straight", auto4);
 		m_chooser.addObject("scale left", auto5);
 		m_chooser.addObject("scale right", auto7);
 		m_chooser.addObject("traj test", auto8);
-		//m_chooser.addObject("middle 2 switch", auto6);
 		m_chooser.addDefault("default", "default");
 		SmartDashboard.putData("Auto choices", m_chooser);
 	}
@@ -114,7 +114,14 @@ public class Robot extends IterativeRobot {
 		}
 		else if(selected.equals(auto6))
 		{
-			scaleRightStart.main.run();
+			if(gameData.substring(0,1).equals("R"))
+			{
+				middleSwitch2Right.main.run();
+			}
+			else
+			{
+				middleSwitch2Left.main.run();
+			}
 		}
 		else if(selected.equals(auto7))
 		{
