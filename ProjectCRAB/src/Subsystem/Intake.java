@@ -187,7 +187,7 @@ public class Intake extends Subsystem {
 			}
  			@Override
  			public void onloop() {
- 				outputToSmartDashboard();
+ 				//outputToSmartDashboard();
  				encTicks = encoder.getRaw(); //Comp is neg, prac is pos
  				if(isOpenLoop)
  				{

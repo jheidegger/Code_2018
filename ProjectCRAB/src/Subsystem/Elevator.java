@@ -87,7 +87,7 @@ public class Elevator extends Subsystem {
 			@Override
 			public void onloop() {
 				//checkEncoder();
-				outputToSmartDashboard();
+				//outputToSmartDashboard();
 				double openLoopAdjust = joystick.elevatorPositionJoystick()*2000.0;
 				switch(currentState){
 					case NEUTRAL:

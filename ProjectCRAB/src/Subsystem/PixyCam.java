@@ -54,6 +54,7 @@ public class PixyCam {
 		setAvgY();
 		setAvgArea();
 		SmartDashboard.putNumber("Pixy X", getAvgX());
+		SmartDashboard.putNumber("Pixy Y", getY());
 		//SmartDashboard.putNumber("Cube 2", currentHorizontal2);
 		arrayLevel++; 
 		if(arrayLevel >6) {

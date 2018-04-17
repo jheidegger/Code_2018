@@ -28,12 +28,12 @@ public class Constants {
 	
 	//Drive Train constants
 	//Gear Facing Right
-	public static double OFFSETS[] = {3040.0,2147.0,3710.0,3357.0};
+	public static double OFFSETS[] = {2991.0,2201.0,3746.0,3392.0};
 	public static double OFFSETS_P[] = {268.0,3228.0,1184.0,2160.0};
 	public static double DRIVETRAINLENGTH = 17.5;
 	public static double DRIVETRAINWIDTH = 13.0;
 	public static final double WHEELDIAMETER = 3.0;
-	public static double DRIVETRAINMAXWHEELSPEED = 13.0; // ft/s
+	public static double DRIVETRAINMAXWHEELSPEED = 13.5; // ft/s
 	public static double DRIVETRAINMAXROTATIONSPEED = 5.0; // radians/s
 	public static double ENCODER_UNITS = 4096.0;
 	
@@ -58,7 +58,7 @@ public class Constants {
 	public static double fps2ups = 12.0/(Constants.WHEELDIAMETER * Math.PI) * 4096.0/10.0 *48.0/30.0;
 	public static final int DRIVE_ALLOWABLE_ERROR = 50;
 	
-	public static final double MAXSLOWPERCENTSPEED = .5;
+	public static final double MAXSLOWPERCENTSPEED = .4;
 	public static final double DRIVE_RAMPRATE = .3;
 	public static final double DRIVEGEARREDUCTION = 30.0/48.0;
 	public static final double DRIVEMAXENCODERSPEED = 10000.0;

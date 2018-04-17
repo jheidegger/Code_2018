@@ -78,9 +78,9 @@ public class Controller extends Subsystem {
 	
 	public double getintakePositionJoystick() {return buttonMonkey.getY();}
 	public boolean getOuttakeButton() {return buttonMonkey.getRawButton(4);}//||velocityStick.getRawButton(6);}
-	public boolean getSlowOuttakeButton() {return buttonMonkey.getRawButton(10);}
+	public boolean getSlowOuttakeButton() {return buttonMonkey.getRawButton(1);}
 	public boolean getIntakeButton() {return buttonMonkey.getRawButton(2);}//||velocityStick.getRawButton(4);}
-	public boolean unjamButton() {return buttonMonkey.getRawButton(1);}
+	public boolean unjamButton() {return buttonMonkey.getRawButton(10);}
 	public boolean Stow() {return buttonMonkey.getRawButton(5);}//||thetaStick.getRawButton(4);}
 	public boolean unStow() {return buttonMonkey.getRawButton(7);}//||thetaStick.getRawButton(3);}
 	public boolean solenoidOut() {return buttonMonkey.getRawButton(9);}

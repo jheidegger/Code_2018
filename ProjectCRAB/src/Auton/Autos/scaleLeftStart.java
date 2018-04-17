@@ -17,15 +17,21 @@ public class scaleLeftStart extends Auto{
 		{
 			manager.qeueCommand(new ParallelCommand(new DriveTrajectory(leftToLeftScale.main.get()),
 					new GoToElevatorHeight(Constants.SCALEHIGHHEIGHT)));
+			manager.qeueCommand(new shootPositionIntake());
+			manager.qeueCommand(new Scoring(.2));
+			manager.qeueCommand(new GoToElevatorHeight(0.0));
+//			manager.qeueCommand(new ParallelCommand(new DriveTrajectory(LeftScaleToCube.main.get()),
+//					new Intaking()));
+//			manager.qeueCommand(new ParallelCommand(new DriveTrajectory(BackCubeToLeftScale.main.get()), new GoToElevatorHeight(Constants.SCALEHIGHHEIGHT)));
+//			manager.qeueCommand(new shootPositionIntake());
+//			manager.qeueCommand(new Scoring(.2));
+//			manager.qeueCommand(new GoToElevatorHeight(0.0));
 		}
 		else
 		{
-			manager.qeueCommand(new ParallelCommand(new DriveTrajectory(leftToRightScale.main.get()),
-					new GoToElevatorHeight(Constants.SCALEHIGHHEIGHT)));
+			manager.qeueCommand(new DriveTrajectory(drivestraight.main.get()));
 		}
-		manager.qeueCommand(new DeployIntake());
-		manager.qeueCommand(new Scoring(.3));
-		manager.qeueCommand(new GoToElevatorHeight(0.0));
+		
 		super.registerManager(manager);
 	}
 
