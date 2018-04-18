@@ -16,7 +16,7 @@ public class LED extends Subsystem{
 	public enum ledStates{
 		CUBE_INTAKED,
 		INTAKE_STOWED,
-		LIGHTSHOW, ACCEL_DISPLAY
+		LIGHTSHOW
 	}
 	
 	private ledStates wantedState; 
@@ -65,26 +65,15 @@ public class LED extends Subsystem{
 						sendToArduino((byte)1);
 						checkState();
 						break;
-//					case INTAKE_STOWED:
-//						sendToArduino((byte)2);
-//						checkState();
-//						break;
+					case INTAKE_STOWED:
+						sendToArduino((byte)2);
+						checkState();
+						break;
 					case LIGHTSHOW:
 						sendToArduino((byte)0);
 						checkState();
 						break;
 				}
-//				case ACCEL_DISPLAY:
-//					double xAccel = Drivetrain.getInstance().getXAccel();
-//					double yAccel = Drivetrain.getInstance().getYAccel();
-//					//double zAccel = Drivetrain.getInstance().getZAccel();
-//					double sentAccel = Drivetrain.getInstance().getAvgWheelSpeed()/1000;//Math.max(xAccel, yAccel);
-//					System.out.println(sentAccel);
-//					//sentAccel = Math.abs(Controller.getInstance().getForward()*9);
-//					//sendToArduino((byte)((int)(sentAccel*100)));
-//					sendToArduino((byte)(((int)(sentAccel))));
-				
-				
 			}	
 			@Override
 			public void stop() {				
@@ -93,7 +82,7 @@ public class LED extends Subsystem{
 		}
 	@Override
 	public void outputToSmartDashboard() {
-		// TODO Auto-generated method stub
+		SmartDashboard.putString("LED state", currState.toString());
 		
 	}	
 }

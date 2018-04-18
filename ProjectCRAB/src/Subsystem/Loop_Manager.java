@@ -4,13 +4,12 @@ import java.util.ArrayList;
 
 /**
  * Manages onStart and onLoop of each subsystem.
- * @author Jonathon Heidegger
+ * @author Jonathan Heidegger
  */
 
 public class Loop_Manager {
 	
 	private static Loop_Manager instance = new Loop_Manager();
-	private static Controller controller = Controller.getInstance();
 	private ArrayList<Loop> Loops;
 
 	//private constructor
@@ -53,21 +52,6 @@ public class Loop_Manager {
 			L.stop();
 		}
 	}
-	/*
-	public void testSystem() {
-		if(controller.testDrivetrain()) {
-			
-		}
-		else if(controller.testIntake()) {
-			
-		}
-		else if(controller.testElevator()) {
-			
-		}
-		else if(controller.testLED()) {
-			
-		}
-	}*/
 	
 
 }

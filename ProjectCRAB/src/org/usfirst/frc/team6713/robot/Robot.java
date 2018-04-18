@@ -9,16 +9,10 @@ package org.usfirst.frc.team6713.robot;
 
 import Auton.Autos.*;
 import Auton.Autos.Deprecated.TrajectoryTest;
-import Auton.Autos.Deprecated.centerSwitchTraj;
-import Auton.Autos.Deprecated.middleSwitchTimeBased;
-import Auton.Autos.Deprecated.middleSwitchTraj;
-import Auton.Autos.Deprecated.sideSwitchLeftTraj;
-import Auton.Autos.Deprecated.sideSwitchRightTraj;
 import Subsystem.*;
 import Subsystem.Intake.systemStates;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -39,27 +33,20 @@ public class Robot extends IterativeRobot {
 	private LED led = LED.getInstance();
 	private Elevator elevator = Elevator.getInstance();
 	private Intake intake = Intake.getInstance();
-	//private Pneumatics pneumatics = Pneumatics.getInstance();
 	int testID = 0;
 	String gameData;
 	private boolean isIntakeOpenLoop;
 	private boolean isElevatorOpenLoop;
-	private double startTime;
-	private Timer intakeManualOverrideTimer = new Timer();
-	private Timer elevatorManualOverrideTimer = new Timer();
 	@Override
 	public void robotInit() {
 		driveTrain.registerLoop(); 
 		intake.registerLoop(); 
 		led.registerLoop();
 		elevator.registerLoop();
-		//pneumatics.registerLoop();
 		myLoops.startLoops();
 		CameraServer.getInstance().startAutomaticCapture();
 		isIntakeOpenLoop = false;
 		isElevatorOpenLoop = false;
-		intakeManualOverrideTimer.start();
-		elevatorManualOverrideTimer.start();
 		m_chooser.addObject("middle switch", auto1);
 		m_chooser.addObject("middle 2 switch", auto6);
 		m_chooser.addObject("left switch", auto2);
@@ -75,9 +62,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousInit() {
 		gameData = DriverStation.getInstance().getGameSpecificMessage();
-		startTime = Timer.getFPGATimestamp();
 		Auto.setGameData(gameData);
-		String selected = m_chooser.getSelected();
 		myLoops.runLoops();
 	}
 	
@@ -205,7 +190,6 @@ public class Robot extends IterativeRobot {
 		{
 			isIntakeOpenLoop = true;
 			intake.setOpenLoopMode(true);
-			intakeManualOverrideTimer.reset();
 		}
 		if(controller.getIntakeButton() || controller.getVisionTracking()) {intake.setWantedState(systemStates.Intaking);} 
 		else if(controller.getOuttakeButton()) {intake.setWantedState(systemStates.Scoring);}
@@ -229,7 +213,6 @@ public class Robot extends IterativeRobot {
 		{
 			isElevatorOpenLoop = true;
 			elevator.setWantedState(Elevator.systemStates.OPEN_LOOP);
-			//elevatorManualOverrideTimer.reset();
 		}
 		if(!isElevatorOpenLoop)
 		{
@@ -246,7 +229,6 @@ public class Robot extends IterativeRobot {
 			elevator.setWantedFloor(elevator.getHeight()+(controller.elevatorPositionJoystick()*7000.0));
 			}
 		}
-		//if(controller.elevatorResetEncoder()) {elevator.zeroAllSensors();}
 		
 	}
 	
