@@ -1,10 +1,7 @@
 package Subsystem;
 
-import java.util.ArrayList;
 
 import org.usfirst.frc.team6713.robot.Constants;
-
-import Auton.Trajectory;
 import Auton.Waypoint;
 import Util.PIDLoop;
 import Util.Trajectory1D;
@@ -23,6 +20,12 @@ public class Elevator extends Subsystem {
 	private Trajectory1D motionProfileTrajectory;
 	private double liftSpeed;
 	private double motionProfileStartTime;
+	/**
+	 *  NEUTRAL : Do Nothing <p>
+	 *	POSITION_FOLLOW : follow wanted height (calls MOTION_PROFILE if needed) <p>
+	 *	MOTION_PROFILE : executing a motion profile (Internal Use only) <p>
+	 *	OPEN_LOOP : direct current to wheels <p>
+	 */
 	public enum systemStates {
 		NEUTRAL,
 		POSITION_FOLLOW,
@@ -33,7 +36,6 @@ public class Elevator extends Subsystem {
 	private systemStates currentState;
 	private systemStates wantedState;
 	private systemStates lastState;
-	private boolean isOpenLoop;
 	private Elevator() {
 		encoder = new Encoder(0, 1, false, Encoder.EncodingType.k4X);
 		driveMotor = new Victor(Constants.ELEVATORMOTOR);
@@ -43,20 +45,40 @@ public class Elevator extends Subsystem {
 											Constants.ELEVATOR_KD,
 											1); //Max Speed
 	}
-	
+	/**
+	 * Prevents more than one instance from being created
+	 * @return instance of the Elevator
+	 */
 	public static Elevator getInstance() {
 		return instance; 
 	}
 	
+	/**
+	 * sets the setpoint of the control loop for the Elevator
+	 * @param wantedHeight the wanted height of the elevator in encoder ticks
+	 */
 	private void setFloor(double wantedHeight) {
-		//wantedHeight = wantedHeight / .17 * Math.PI * 2048;
 		liftSpeed = elevatorControlLoop.returnOutput(-encoder.getRaw(),wantedHeight);
 		driveMotor.set(liftSpeed);
 		driveMotor2.set(liftSpeed);
 	}
 	
+	/**
+	 * sets the wanted position of the elevato. Must be in POSITION_FOLLOW to respond
+	 * @param wF wanted height of the elevator in encoder ticks
+	 * @see {@link #setWantedState(systemStates wantedState) setWantedState()}
+	 */
 	public void setWantedFloor(double wF) {this.wantedFloor = wF;}
+	/**
+	 * gets the raw value from the encoder
+	 * @return the encoder ticks from the elevator
+	 */
 	public double getHeight() {return -encoder.getRaw();}
+	/**
+	 * Requests the desired state for the Elevator
+	 * @param wantedState the systemState for the elevator to transition to
+	 * @see {@link systemStates}
+	 */
  	public void setWantedState(systemStates wantedState) {this.wantedState = wantedState;}
  	public systemStates getState() {return currentState;}
 	@Override public void zeroAllSensors() { encoder.reset();}
@@ -68,12 +90,6 @@ public class Elevator extends Subsystem {
 		}
  	}
  	
- 	private void checkEncoder() {
- 		/*if(!ZeroSwitch.get()) {
- 			encoder.reset();
- 		}*/
- 	}
- 	
 	@Override
 	public void registerLoop() {
 		Loop_Manager.getInstance().addLoop(new Loop()
@@ -82,13 +98,10 @@ public class Elevator extends Subsystem {
 			public void onStart() {
 				currentState = systemStates.NEUTRAL;
 				wantedState = systemStates.NEUTRAL;
-				isOpenLoop = false;
 			}
 			@Override
 			public void onloop() {
-				//checkEncoder();
 				//outputToSmartDashboard();
-				double openLoopAdjust = joystick.elevatorPositionJoystick()*2000.0;
 				switch(currentState){
 					case NEUTRAL:
 						driveMotor.set(0.0);
