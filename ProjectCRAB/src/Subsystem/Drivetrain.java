@@ -1,6 +1,6 @@
 package Subsystem;
 
-import com.kauailabs.navx.frc.AHRS;
+import com.kauailabs.navx.frc.AHRS; //Need to install Nav-X libraries to use
 import Auton.Kinematics;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.SPI;
@@ -16,11 +16,8 @@ import java.io.PrintWriter;
 
 /** 
  * Handles crab drive states and manages individual swervepods, see {@link Swervepod}
- * @author Harrison McCarty, Jonathan Heidegger, and Matt Halsmer
  */
-
 public class Drivetrain extends Subsystem {
-
 	private static Drivetrain instance = new Drivetrain();
 	private Loop_Manager loopMan = Loop_Manager.getInstance();
 	private Controller controller = Controller.getInstance(); 
@@ -36,8 +33,6 @@ public class Drivetrain extends Subsystem {
 	private Swervepod lowerLeft;
 	private Swervepod lowerRight;
 	
-	double lastAngle = 0;
-	
 	private driveCoords Coords;
 	private driveType commandType;
 	
@@ -50,19 +45,17 @@ public class Drivetrain extends Subsystem {
 	private double kLength;
 	private double kWidth;
 	private double kRadius;
-	
-	private int idCount = 0; 
-	
+
 	private PIDLoop pidRotate;
 	private PIDLoop pidForward;
 	private PIDLoop pidStrafe;
-	private PIDLoop autoHeadingControl;
 	
 	private double kMaxSpeed;
 	private double kMaxRotation;
 	
-	private double rel_max_speed = 0;
+	private double rel_max_speed;
 	private double angle;
+	
 	private double forwardCommand;
 	private double strafeCommand;
 	private double spinCommand;
@@ -106,8 +99,6 @@ public class Drivetrain extends Subsystem {
 		//PID Loops for Macro-tasks, ex. Secret Sauce
 		pidRotate = new PIDLoop(0.0015,0,0, .5);
 		pidForward = new PIDLoop(.06,0,0, 3.0);
-		pidStrafe = new PIDLoop(.03,0,0,1);
-		autoHeadingControl = new PIDLoop(.6,.1,.01);
 				
 		//Add instantiated Pods to the array list
 		Pods.add(upperRight);
@@ -127,10 +118,6 @@ public class Drivetrain extends Subsystem {
 		resetGyro();
 		updateAngle();
 		
-		//Instantiating the kinematics class
-		kinematics = new Kinematics(Pods);
-		kinematics.regesterLoop();
-		
 		//Initializing the commands
 		forwardCommand = Math.pow(10, -15); //Puts wheels in forward-facing direction
 		strafeCommand = 0.0;
@@ -147,7 +134,9 @@ public class Drivetrain extends Subsystem {
 	}
 	
 	
-	// Handles swerve commands and sends them to each pod
+	/**
+	 * Handles each swerve command and communicates with the swervepods
+	 */
 	private void crabDrive() {
 		//Create arrays with the speed and angle of each pod
 		double[] podDrive = new double[4];
@@ -190,7 +179,7 @@ public class Drivetrain extends Subsystem {
 			}
 		}
 		
-		//If enabled, sends each pod to a defensive lock when not moving. 
+		//If enabled, sends each pod to a defensive lock when not moving 
 		if(allPodsStopped && forwardCommand == 0.0 && strafeCommand == 0.0 && spinCommand == 0.0 && false) {
 			// Sending each pod their respective commands
 			Pods.get(0).setPod(0.0,-1.0*Math.PI/4.0);
@@ -199,9 +188,8 @@ public class Drivetrain extends Subsystem {
 			Pods.get(3).setPod(0.0, -3.0* Math.PI/4.0);
 		}
 		else {
-			// Sending each pod their respective commands
+			//Sending each pod their respective commands
 			for(int idx = 0; idx < Pods.size(); idx++) {
-				//sending power from 0 to 13.5 ft/s and position -pi to pi
 				Pods.get(idx).setPod(podDrive[idx],podGear[idx]); 
 			}
 		}
@@ -209,9 +197,9 @@ public class Drivetrain extends Subsystem {
 	
 	/**
 	 * Determines the settings of swerve drive, and the current commands
-	 * @param forwardCommand magnitude on the Y-Axis 
-	 * @param strafeCommand magnitude on the X-Axis 
-	 * @param spinCommand magnitude on the Omega Axis 
+	 * @param forwardCommand the magnitude on the Y-Axis 
+	 * @param strafeCommand the magnitude on the X-Axis 
+	 * @param spinCommand the magnitude on the Omega Axis 
 	 * @param Coords determines whether swerve is in Robot-Centric or Field-Centric
 	 * @param commandType determines whether commanding values are in percent power (-1 to 1) or their intended velocity values (in ft/s)
 	 */
@@ -286,16 +274,14 @@ public class Drivetrain extends Subsystem {
 	
 	public void resetGyro() {gyro.reset();}
 	
-	@Override
-	public void zeroAllSensors() {
+	@Override public void zeroAllSensors() {
 		for(int idx = 0; idx < 4; idx++)
 		{
 			Pods.get(idx).zeroAllSensors();
 		}
 	}
 
-	@Override
-	public boolean checkSystem() {return false;}
+	@Override public boolean checkSystem() {return false;}
 	
 	@Override
 	public void registerLoop()
@@ -334,15 +320,12 @@ public class Drivetrain extends Subsystem {
 					}
 					else if(secretSauceTimer.get() < 1) {
 						forwardCommand = 3.0;
-						//strafeCommand = -1.5;
 					}
 					else if(!Intake.getInstance().isCubeIn()){
 						forwardCommand = -2.25;
-						//strafeCommand = 3.0;
 					}
 					else {
 						forwardCommand = 0.0;
-						//strafeCommand = 0.0;
 					}
 					crabDrive();
 					lastState = systemStates.SECRET_SAUCE;
@@ -362,7 +345,6 @@ public class Drivetrain extends Subsystem {
 						{
 							forwardCommand = -3.0;
 						}
-						//strafeCommand = -pidStrafe.returnOutput(cam.getAvgX(), 175);
 					}
 					else {
 						spinCommand = 0.0;
@@ -378,7 +360,7 @@ public class Drivetrain extends Subsystem {
 				default:
 					break;			
 				}
-			//outputToSmartDashboard();
+			outputToSmartDashboard();
 			kinematics.update();
 		}	
 		@Override
@@ -391,7 +373,6 @@ public class Drivetrain extends Subsystem {
 	public void outputToSmartDashboard() {
 		SmartDashboard.putNumber("Vision X", cam.getAvgX());
 		SmartDashboard.putNumber("Vision Area", cam.getAvgArea());
-		//System.out.println(kinematics.getWheelCalculatedPosition());
 		SmartDashboard.putNumber("kinematics Position", kinematics.getY());
 		SmartDashboard.putNumber("angle", getAngle());
 	}

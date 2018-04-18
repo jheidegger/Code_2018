@@ -1,16 +1,12 @@
 package Subsystem;
-import org.usfirst.frc.team6713.robot.Constants;
 
-import com.ctre.phoenix.CTREJNIWrapper;
+import org.usfirst.frc.team6713.robot.Constants;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Swervepod extends Subsystem {
-	
 	private TalonSRX driveMotor;
 	private TalonSRX steerMotor;
 	private int id;
@@ -23,7 +19,7 @@ public class Swervepod extends Subsystem {
 	private double encoderError; //Error in encoder units
 	private double encoderPosition; //Current position in encoder units
 	private double encoderSetpoint; //Position wanted in encoder units
-	private double driveCommand =0 ;
+	private double driveCommand;
 	
 	private double radianError; //Error in radians
 	private double radianPosition; //Current position in radian units
@@ -54,9 +50,12 @@ public class Swervepod extends Subsystem {
 		this.steerMotor.configAllowableClosedloopError(0, Constants.DRIVE_ALLOWABLE_ERROR, 0);
 	}
 	
+	/**
+	 * Commands the Talons controlling the pod
+	 * @param Speed A velocity value from 0 - 13 ft/s
+	 * @param Angle A position value from 0 - 2pi
+	 */
 	public void setPod(double Speed, double Angle) {
-		
-		//Speed = 13.0;
 		velocitySetpoint  = Speed * fps2ups;
 		encoderSetpoint = findSteerPosition(Angle);
 		
@@ -132,26 +131,17 @@ public class Swervepod extends Subsystem {
 	
 	public double getRawSpeed() {return driveMotor.getSelectedSensorVelocity(0);}
 	
-	@Override
-	public void zeroAllSensors() {
+	@Override public void zeroAllSensors() {
+		steerMotor.set(ControlMode.Position, 0.0);
+		driveMotor.set(ControlMode.Velocity, 0.0);
 	}
 
-	@Override
-	public boolean checkSystem() {
-		return false;
-	}
+	@Override public boolean checkSystem() {return false;} //Not yet implemented
 	
-	@Override
-	public void registerLoop() {
-		// N/A
-	}
+	@Override public void registerLoop() {/*NA*/}
 
-	@Override
-	public void outputToSmartDashboard() {
-		SmartDashboard.putNumber(id + " enc pos", encoderPosition);
-		SmartDashboard.putNumber("ups", fps2ups);
-		SmartDashboard.putNumber(id+ " position", steerMotor.getSelectedSensorPosition(0));
-		SmartDashboard.putNumber(id + " velocity", driveMotor.getSelectedSensorVelocity(0));
-		//SmartDashboard.putNumber(id + " error", 11096 - driveMotor.getSelectedSensorVelocity(0));
+	@Override public void outputToSmartDashboard() {
+		SmartDashboard.putNumber("Pod " + id + "'s Encoder Position", encoderPosition);
+		SmartDashboard.putNumber("Pod " + id + "'s velocity", driveMotor.getSelectedSensorVelocity(0));
 	}
 }
