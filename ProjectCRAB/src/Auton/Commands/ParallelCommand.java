@@ -1,11 +1,7 @@
 package Auton.Commands;
 
 import java.util.ArrayList;
-
-import Auton.Commands.Command.commandType;
-import Subsystem.Intake;
 import Subsystem.Loop;
-import Subsystem.Intake.systemStates;
 
 public class ParallelCommand extends Command {
 	private ArrayList<Command> commands;

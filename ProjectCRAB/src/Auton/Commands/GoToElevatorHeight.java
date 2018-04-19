@@ -1,10 +1,7 @@
 package Auton.Commands;
 
-import Auton.Commands.Command.commandType;
 import Subsystem.Elevator;
-import Subsystem.Intake;
 import Subsystem.Loop;
-import Subsystem.Intake.systemStates;
 
 public class GoToElevatorHeight extends Command {
 	private double Height;

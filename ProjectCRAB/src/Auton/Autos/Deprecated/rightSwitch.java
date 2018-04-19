@@ -5,10 +5,8 @@ package Auton.Autos.Deprecated;
 import Subsystem.Drivetrain;
 	import Subsystem.Drivetrain.driveCoords;
 	import Subsystem.Drivetrain.driveType;
-	import Subsystem.Elevator.systemStates;
 	import Subsystem.Intake;
 	import Subsystem.Loop;
-	import Subsystem.Swervepod;
 	import edu.wpi.first.wpilibj.Timer;
 	import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -16,7 +14,6 @@ public class rightSwitch extends Auto{
 		public static rightSwitch main = new rightSwitch();
 		private static double driveTime = 2.0;
 		private static double turnTime = 1.0;
-		private static double scoringTime = 2.0;
 		private static double startTime;
 		private static Loop loop = new Loop()
 				{

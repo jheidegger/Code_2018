@@ -2,13 +2,10 @@ package Auton.Commands;
 
 import Auton.PathFollower;
 import Auton.Trajectory;
-import Subsystem.Intake;
-import Subsystem.Intake.systemStates;
 import Subsystem.Loop;
 import Subsystem.*;
 
 public class DriveTrajectory extends Command {
-  private Trajectory t;
   private PathFollower p;
 	public DriveTrajectory(Trajectory t) {
 		super(commandType.timeBased,t.getTimeToComplete());

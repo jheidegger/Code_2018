@@ -3,12 +3,10 @@ package Auton;
 import java.util.ArrayList;
 
 import Auton.Commands.Command;
-import edu.wpi.first.wpilibj.Timer;
 
 public class AutoManager {
 	private ArrayList<Command> commands;
 	private int commandIdx = 0;
-	private double startTime;
 	private boolean isFirstTime = true;
 	public AutoManager()
 	{
@@ -22,7 +20,6 @@ public class AutoManager {
 	{
 		if(isFirstTime)
 		{
-			startTime = Timer.getFPGATimestamp();
 			System.out.println("------Auto Started--------");
 			for(Command c: commands)
 			{

@@ -1,6 +1,6 @@
 package Auton.Autos.Deprecated;
 
-import com.ctre.phoenix.motion.TrajectoryPoint.TrajectoryDuration;
+
 
 import Auton.PathFollower;
 import Auton.Trajectory;
@@ -9,8 +9,6 @@ import Auton.Autos.Auto;
 import Subsystem.Drivetrain;
 import Subsystem.Intake;
 import Subsystem.Loop;
-import Subsystem.Drivetrain.driveCoords;
-import Subsystem.Drivetrain.driveType;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -26,7 +24,6 @@ public class centerSwitchTraj extends Auto {
 	private static double startTime;
 	private static boolean firstLoop1 = true;
 	private static boolean firstLoop2 = true;
-	private static boolean haveCube = false;
 	public centerSwitchTraj() {
 		super.registerLoop(new Loop()
 		{
