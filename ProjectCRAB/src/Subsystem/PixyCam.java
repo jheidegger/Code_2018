@@ -20,12 +20,16 @@ public class PixyCam {
 	String print;
 	
 	private double currentHorizontal, currentVertical, currentWidth, currentHeight = 0;
+	private double currentHorizontal2, currentVertical2, currentWidth2, currentHeight2 = 0;
 	private int arrayLevel = 0;
 	double[] horizontalValues = {0,0,0,0,0,0,0};
 	double averageHorizontal = 0;
 	
 	double[] areaValues = {0,0,0,0,0,0,0};
 	double averageArea = 0;
+	
+	double[] yValues = {0,0,0,0,0,0,0};
+	double averageY = 0;
 
 	
 	public PixyCam() {
@@ -47,8 +51,11 @@ public class PixyCam {
 			e.printStackTrace();
 		}
 		setAvgX();
+		setAvgY();
 		setAvgArea();
 		SmartDashboard.putNumber("Pixy X", getAvgX());
+		SmartDashboard.putNumber("Pixy Y", getY());
+		//SmartDashboard.putNumber("Cube 2", currentHorizontal2);
 		arrayLevel++; 
 		if(arrayLevel >6) {
 			arrayLevel = 0; 
@@ -76,7 +83,7 @@ public class PixyCam {
 			return null;
 		}
 		
-		for (int i = 0; i <= 16; i++) {
+		for (int i = 0; i <= 15; i++) {
 			int syncWord = cvt(rawData[i+1], rawData[i+0]); //Parse first 2 bytes
 			if (syncWord == 0xaa55) { //Check is first 2 bytes equal a "sync word", which indicates the start of a packet of valid data
 				syncWord = cvt(rawData[i+3], rawData[i+2]); //Parse the next 2 bytes
@@ -104,6 +111,21 @@ public class PixyCam {
 				packets[Sig - 1].Height = cvt(rawData[i+15], rawData[i+14]);
 				currentHeight = (double)packets[Sig-1].Height;
 				
+//				int Sig2 = cvt(rawData[i+17], rawData[i+16]);
+//				packets[Sig - 1] = new PixyPacket();
+//				packets[Sig - 1].X = cvt(rawData[i+17], rawData[i+16]);
+//				currentHorizontal2 = (double)packets[Sig-1].X;
+//				
+//				packets[Sig - 1].Y = cvt(rawData[i+19], rawData[i+18]);
+//				currentVertical2 = (double)packets[Sig-1].Y;
+//				
+//				packets[Sig - 1].Width = cvt(rawData[i+21], rawData[i+20]);
+//				currentWidth2 = (double)packets[Sig-1].Width;
+//				
+//				packets[Sig - 1].Height = cvt(rawData[i+23], rawData[i+22]);
+//				currentHeight2 = (double)packets[Sig-1].Height;
+				
+				
 				//Checks whether the data is valid using the checksum *This if block should never be entered*
 				if (Checksum != Sig + packets[Sig - 1].X + packets[Sig - 1].Y + packets[Sig - 1].Width + packets[Sig - 1].Height) {
 					packets[Sig - 1] = null;
@@ -126,6 +148,7 @@ public class PixyCam {
 	
 	public double getAvgArea() {return averageArea;}
 	public double getAvgX() {return averageHorizontal;}
+	public double getAvgY() {return averageY;}
 	
 	private void setAvgX() {
 		horizontalValues[arrayLevel] = getX();
@@ -134,5 +157,9 @@ public class PixyCam {
 	private void setAvgArea() {
 		areaValues[arrayLevel] = getArea();
 		averageArea = (areaValues[0] + areaValues[1] + areaValues[2] + areaValues[3] +areaValues[4] + areaValues[5] +areaValues[6]) / 7;
+	}
+	private void setAvgY() {
+		yValues[arrayLevel] = getY();
+		averageY = (areaValues[0] + areaValues[1] + areaValues[2] + areaValues[3] +areaValues[4] + areaValues[5] +areaValues[6]) / 7;
 	}
 }

@@ -110,7 +110,19 @@ public class Robot extends IterativeRobot {
 		}
 		else if(selected.equals(auto5))
 		{
-			scaleLeftStart.main.run();
+			if(gameData.substring(1,2).equals("L"))
+			{
+				scaleLeftStart.main.run();
+			}
+			else if(gameData.substring(0,1).equals("L"))
+			{
+				sideSwitchLeft.main.run();
+			}
+			else
+			{
+				driveStraight.main.run();
+			}
+			
 		}
 		else if(selected.equals(auto6))
 		{

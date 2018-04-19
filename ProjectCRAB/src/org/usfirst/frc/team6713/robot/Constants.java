@@ -28,7 +28,7 @@ public class Constants {
 	
 	//Drive Train constants
 	//Gear Facing Right
-	public static double OFFSETS[] = {1053.0,2299.0,3764.0,3380.0};
+	public static double OFFSETS[] = {3040.0,2147.0,3710.0,3357.0};
 	public static double OFFSETS_P[] = {268.0,3228.0,1184.0,2160.0};
 	public static double DRIVETRAINLENGTH = 17.5;
 	public static double DRIVETRAINWIDTH = 13.0;
@@ -78,7 +78,7 @@ public class Constants {
 	public static final double SCALEHIGHHEIGHT = 90000;
 	public static final double SCALELOWHEIGHT = 0;
 	public static final double SCALEMIDHEIGHT = 66666;
-	public static final double SWITCHHEIGHT = 34333;
+	public static final double SWITCHHEIGHT = 40000;
 	public static final double ELEVATORACCEPTEDERROR = 0.1;
 	
 	//Intake constants
