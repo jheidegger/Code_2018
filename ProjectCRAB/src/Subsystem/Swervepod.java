@@ -51,7 +51,7 @@ public class Swervepod extends Subsystem {
 	}
 	
 	/**
-	 * Commands the Talons controlling the pod
+	 * Commands the Talons to give the wanted wheel values
 	 * @param Speed A velocity value from 0 - 13 ft/s
 	 * @param Angle A position value from 0 - 2pi
 	 */
@@ -70,6 +70,11 @@ public class Swervepod extends Subsystem {
 		outputToSmartDashboard();
 	}
 	
+	/**
+	 * Finds the shortest path to the given angle, converts it into a encoder position, and determines when to 
+	 * @param wantedAngle
+	 * @return
+	 */
 	private double findSteerPosition(double wantedAngle) {
 		encoderPosition = steerMotor.getSelectedSensorPosition(0) - kConstants[id];
 		radianPosition = encoderUnitsToRadian(encoderPosition);
