@@ -11,7 +11,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Elevator extends Subsystem {
 	private static Elevator instance = new Elevator();
 	private Controller joystick = Controller.getInstance(); 
-	//private DigitalInput ZeroSwitch = new DigitalInput(Constants.ELEVATOR_ZERO_SWITCH);
 	private Victor driveMotor;
 	private Victor driveMotor2;
 	private PIDLoop elevatorControlLoop; 
@@ -69,27 +68,46 @@ public class Elevator extends Subsystem {
 	 * @see {@link #setWantedState(systemStates wantedState) setWantedState()}
 	 */
 	public void setWantedFloor(double wF) {this.wantedFloor = wF;}
+	
 	/**
 	 * gets the raw value from the encoder
 	 * @return the encoder ticks from the elevator
 	 */
 	public double getHeight() {return -encoder.getRaw();}
+	
 	/**
 	 * Requests the desired state for the Elevator
 	 * @param wantedState the systemState for the elevator to transition to
 	 * @see {@link systemStates}
 	 */
  	public void setWantedState(systemStates wantedState) {this.wantedState = wantedState;}
- 	public systemStates getState() {return currentState;}
-	@Override public void zeroAllSensors() { encoder.reset();}
-	@ Override public boolean checkSystem() {return false;}
  	
+ 	/**
+ 	 * Gives State of the Elevator
+ 	 * @return current SystemState 
+ 	 * @see {@link systemStates}
+ 	 */
+ 	public systemStates getState() {return currentState;}
+ 	
+ 	/**
+ 	 * resets the winch encoder
+ 	 */
+	@Override public void zeroAllSensors() { encoder.reset();}
+	
+	@ Override public boolean checkSystem() {return true;}
+ 	
+	/**
+	 * checks the wanted state vs the current state to transition states
+	 */
  	private void checkState() {
  		if(currentState!=wantedState) {
 			currentState=wantedState;
 		}
  	}
  	
+ 	/**
+ 	 * adds Elevator Loop to the static {@link Loop_Manager} to be run
+ 	 */
 	@Override
 	public void registerLoop() {
 		Loop_Manager.getInstance().addLoop(new Loop()

@@ -45,6 +45,14 @@ public class Intake extends Subsystem {
  	public final double downPosition_p = -18000;
  	// -1 full left - 1 full right
  	private double cubePosition = 0.0;
+ 	/**
+ 	 * Intaking : triggers intake down and wheels to intake then transitions to Neutral <p>
+ 	 * Scoring : spins wheels outward at fast speed then stows intake <p>
+ 	 * SlowScoring : spins wheels outward at slow speed then stows intake <p>
+ 	 * Unjamming : spins wheels to spin cube then triggers intake <p>
+ 	 * Homing : resets the intake encoder with bump switch <p>
+ 	 * Neutral : no wheel action follows a set position <p>
+ 	 */
  	public enum systemStates{
  		Intaking,
  		Scoring,
@@ -53,11 +61,16 @@ public class Intake extends Subsystem {
  		Homing,
  		Neutral
  	};
- 	
+ 	/**
+ 	 * prevents multiple instances of Intake from being instantiated 
+ 	 * @return instance of the Intake
+ 	 */
  	public static Intake getInstance() {
  		return instance;
  	}
- 	
+ 	/**
+ 	 * Constructer that sets control loop and motor controllers port assignemnts
+ 	 */
  	private Intake()
  	{
  		actuatorPID = new PIDLoop(.0002,0,0.0,.6);
@@ -77,18 +90,37 @@ public class Intake extends Subsystem {
  	 * @param wantedState requested state for the system to switch into
  	 */
  	public void setWantedState(systemStates wantedState) {this.wantedState = wantedState;}
- 	
+ 	/**
+ 	 * reads bump switch to see if intake is in stowed position <p>
+ 	 * True: intake stowed <p>
+ 	 * False: intake is not yet stowed (down) <p>
+ 	 * @return if the intake is stowed
+ 	 */
  	public boolean isStowed()
  	{
  		return !isIntakeStowed.get();
  	}
+ 	/**
+ 	 * sets the wanted position so the intake to go to
+ 	 * @param position in encoder ticks (0 - -170000)
+ 	 */
+ 	public void setPosition(double position) {wantedPosition = position;}
  	
- 	public void setPosition(double position) {wantedPosition = position;}//degreesToEncoder(position);}
+ 	/**
+ 	 * gives the current position of the intake in Encoder ticks
+ 	 * @return current position (0 - -170000)
+ 	 */
  	public double getCurrPosition() {return currPosition;}
+ 	
+ 	/**
+ 	 * checks both IR sensors to see if cube is in
+ 	 * @return boolean of if the cube is fully intaked
+ 	 */
  	public boolean isCubeIn()
  	{
  		return (!isCubeInLeft.get() && !isCubeInRight.get());
  	}
+ 	
  	/**
  	 * setting manual override for the intake
  	 * @param isOpenLoop a boolean to disable sensors
@@ -97,6 +129,9 @@ public class Intake extends Subsystem {
  	{
  		this.isOpenLoop = isOpenLoop;
  	}
+ 	/**
+ 	 * @return return raw encoder ticks
+ 	 */
  	private double findCurrPosition() {return encTicks;}
  	
  	private void checkState()
