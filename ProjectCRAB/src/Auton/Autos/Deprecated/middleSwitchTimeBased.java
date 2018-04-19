@@ -4,10 +4,8 @@ import Auton.Autos.Auto;
 import Subsystem.Drivetrain;
 import Subsystem.Drivetrain.driveCoords;
 import Subsystem.Drivetrain.driveType;
-import Subsystem.Elevator.systemStates;
 import Subsystem.Intake;
 import Subsystem.Loop;
-import Subsystem.Swervepod;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 

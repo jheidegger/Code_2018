@@ -6,7 +6,6 @@ import Auton.Waypoint;
 import Auton.Autos.Auto;
 import Subsystem.Loop;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.hal.ConstantsJNI;
 import Subsystem.*;
 import org.usfirst.frc.team6713.robot.*;
 public class ScaleAuto extends Auto {

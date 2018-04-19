@@ -15,14 +15,8 @@ public class middleSwitchTraj extends Auto {
 	private static Trajectory t1 = new Trajectory();
 	private static PathFollower p1;
 	private static Trajectory t2 = new Trajectory();
-	private static PathFollower p2;
-	private static Trajectory t3 = new Trajectory();
-	private static PathFollower p3;
 	private static double scoringTime = 2.0;
 	private static double startTime;
-	private static boolean firstLoop1 = true;
-	private static boolean firstLoop2 = true;
-	private static boolean haveCube = false;
 	public middleSwitchTraj() {
 		super.registerLoop(new Loop()
 		{
@@ -41,7 +35,6 @@ public class middleSwitchTraj extends Auto {
 				t2.addWaypoint(new Waypoint(0.0,0.0,0.0));
 				t2.addWaypoint(new Waypoint(0.0,1.0,0.0));
 				t2.calculateTrajectory();
-				p2 = new PathFollower(t2);
 				t1.calculateTrajectory();
 				p1 = new PathFollower(t1);
 				p1.init();

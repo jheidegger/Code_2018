@@ -3,12 +3,7 @@ import Auton.PathFollower;
 import Auton.Trajectory;
 import Auton.Waypoint;
 import Auton.Autos.Auto;
-import Subsystem.Drivetrain;
 import Subsystem.Loop;
-import Subsystem.Drivetrain.driveCoords;
-import Subsystem.Drivetrain.driveType;
-import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class TrajectoryTest extends Auto {
 		public static TrajectoryTest main = new TrajectoryTest();

@@ -1,19 +1,15 @@
 package Auton;
 
-import javax.swing.text.StyleContext.SmallAttributeSet;
+
 
 import org.usfirst.frc.team6713.robot.Constants;
-
 import Subsystem.Drivetrain;
 import Subsystem.Loop;
-import Subsystem.Swervepod;
-import Subsystem.Drivetrain.driveType;
 import Util.PIDLoop;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class PathFollower {
-	private double currX;
 	private double currY;
 	private double currY2;
 	private PIDLoop spinHandler;

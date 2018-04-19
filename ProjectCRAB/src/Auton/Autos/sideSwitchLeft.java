@@ -3,8 +3,7 @@ package Auton.Autos;
 import Auton.AutoManager;
 import Auton.Commands.*;
 import Auton.Paths.*;
-import Subsystem.Loop;
-import edu.wpi.first.wpilibj.hal.ConstantsJNI;
+
 
 import org.usfirst.frc.team6713.robot.*;
 
