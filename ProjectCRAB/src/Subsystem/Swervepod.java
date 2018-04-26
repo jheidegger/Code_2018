@@ -71,7 +71,8 @@ public class Swervepod extends Subsystem {
 	}
 	
 	/**
-	 * Finds the shortest path to the given angle, converts it into a encoder position, and determines when to reverse drive direction 
+	 * Finds the shortest path to the given angle, converts it into a encoder position, and determines when to reverse drive direction.
+	 * Uses {@link Swervepod#radianToEncoderUnits(double) Swervepod#encoderUnitsToRadian(double) radianToEncoderUnits() & encoderUnitsToRadian} 
 	 * @param wantedAngle Position wanted in radians
 	 * @return Encoder position needed to move to
 	 */
