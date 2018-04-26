@@ -12,10 +12,19 @@ public class AutoManager {
 	{
 		commands = new ArrayList<Command>();
 	}
+	/**
+	 * Main method call to que commands for AutoManager
+	 * @param c Command to be qeued and executed during {@link #run() run()}
+	 */
 	public void qeueCommand(Command c)
 	{
 		commands.add(c);
 	}
+	/**
+	 * Reports all commands to console as qeued <p>
+	 * Runs commands {@link Command#run() run()} in sequence based on the Commands {@link Command#getIsFinished() getIsFinished()} <p>
+	 *  run() should be called Iteratively 
+	 */
 	public void run()
 	{
 		if(isFirstTime)

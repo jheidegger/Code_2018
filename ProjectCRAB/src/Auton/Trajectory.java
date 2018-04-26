@@ -24,6 +24,11 @@ public class Trajectory {
 		angle = new ArrayList<Double>();
 		heading = new ArrayList<Double>();
 	}
+	/**
+	 * Initializes the array lists and sets constants
+	 * @param MaxVel the maximum velocity in ft/s
+	 * @param MaxAccel the maximum acceleration in ft/s/s
+	 */
 	public Trajectory(double MaxVel, double MaxAccel) {
 		points = new ArrayList<Waypoint>();
 		speed = new ArrayList<Double>();
