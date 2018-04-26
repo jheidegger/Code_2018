@@ -52,8 +52,8 @@ public class Swervepod extends Subsystem {
 	
 	/**
 	 * Commands the Talons to give the wanted wheel values
-	 * @param Speed A velocity value from 0 - 13 ft/s
-	 * @param Angle A position value from 0 - 2pi
+	 * @param Speed Velocity value from 0 - 13 ft/s
+	 * @param Angle Position value from 0 - 2pi
 	 */
 	public void setPod(double Speed, double Angle) {
 		velocitySetpoint  = Speed * fps2ups;
@@ -71,9 +71,9 @@ public class Swervepod extends Subsystem {
 	}
 	
 	/**
-	 * Finds the shortest path to the given angle, converts it into a encoder position, and determines when to 
-	 * @param wantedAngle
-	 * @return
+	 * Finds the shortest path to the given angle, converts it into a encoder position, and determines when to reverse drive direction 
+	 * @param wantedAngle Position wanted in radians
+	 * @return Encoder position needed to move to
 	 */
 	private double findSteerPosition(double wantedAngle) {
 		encoderPosition = steerMotor.getSelectedSensorPosition(0) - kConstants[id];
@@ -91,6 +91,9 @@ public class Swervepod extends Subsystem {
 		return (driveCommand);
 	}
 	
+	/**
+	 * @return Whether pod is still driving
+	 */
 	public boolean isStopped() {
 		if(Math.abs(driveMotor.getSelectedSensorVelocity(0))<300)
 		{
@@ -102,11 +105,19 @@ public class Swervepod extends Subsystem {
 		}
 	}
 	
+	/**
+	 * @param Angle The radian position to be converted
+	 * @return Given position in encoder units
+	 */
 	private double radianToEncoderUnits(double Angle) {
 		double encoderUnits = ((Angle / (2.0*Math.PI)) * kEncoderUnits);
 		return encoderUnits;
 	}
 	
+	/**
+	 * @param EncoderUnits The encoder position to be converted
+	 * @return Given position in radians
+	 */
 	private double encoderUnitsToRadian(double EncoderUnits) {
 		EncoderUnits = EncoderUnits % kEncoderUnits;
 		if(EncoderUnits < 0) {
@@ -117,23 +128,44 @@ public class Swervepod extends Subsystem {
 		return Angle;
 	}
 	
-	//returns between 0 - 4096 absolute 
+	/**
+	 * @return Encoder position in absolute encoder ticks
+	 */
 	public double getPosition() {return (steerMotor.getSelectedSensorPosition(0));}
 	
-	//encoder units traveled total
+	/**
+	 * @return Encoder units traveled total
+	 */
 	public double getWheelDisplacment() {return(driveMotor.getSelectedSensorPosition(0));}
 	
-	// encoder units per second
+	/**
+	 * @return Encoder units per second
+	 */
 	public double getWheelSpeed() {return (driveMotor.getSelectedSensorVelocity(0));}
 	
+	/**
+	 * @return Position error in radians
+	 */
 	public double getPhi() {return radianError;}
 	
+	/**
+	 * @return Position error in encoder ticks
+	 */
 	public double getFinal() {return encoderError;}
 	
+	/**
+	 * @return Position of wheel in encoder ticks
+	 */
 	public double getCur() {return encoderPosition;}
 	
+	/** 
+	 * @return Wanted velocity of the wheels
+	 */
 	public double getSpeed() {return velocitySetpoint;}
 	
+	/**
+	 * @return Speed of the wheel in Encoder Ticks/100 Ms
+	 */
 	public double getRawSpeed() {return driveMotor.getSelectedSensorVelocity(0);}
 	
 	@Override public void zeroAllSensors() {
@@ -143,7 +175,7 @@ public class Swervepod extends Subsystem {
 
 	@Override public boolean checkSystem() {return false;} //Not yet implemented
 	
-	@Override public void registerLoop() {/*NA*/}
+	@Override public void registerLoop() {/*NA*/} //Not being used
 
 	@Override public void outputToSmartDashboard() {
 		SmartDashboard.putNumber("Pod " + id + "'s Encoder Position", encoderPosition);
