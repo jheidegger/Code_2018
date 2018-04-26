@@ -16,6 +16,12 @@ public class PathFollower {
 	private Trajectory t;
 	private double startTime;
 	private double lastTime;
+	/**
+	 * Constructor initializing the trajectory
+	 * @param Trajectory t the path to be followed that has already been calculated with {@link Trajectory#calculateTrajectory() calculateTrajectory()}
+	 * @see {@link Trajectory}
+	 * 
+	 */
 	public PathFollower(Trajectory t) {
 		this.t = t;
 		spinHandler = new PIDLoop(.7,0.0,0.0);
@@ -24,6 +30,9 @@ public class PathFollower {
 	{
 		pathLoop.onStart();
 	}
+	/**
+	 * runs the loop to follow given trajectory
+	 */
 	public void run()
 	{
 		pathLoop.onloop();
