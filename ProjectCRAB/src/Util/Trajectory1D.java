@@ -3,7 +3,6 @@ package Util;
 
 
 
-import java.awt.geom.Arc2D;
 import java.util.ArrayList;
 
 import Auton.Waypoint;
@@ -14,7 +13,6 @@ import Auton.Waypoint;
 public class Trajectory1D {
 	private double kMaxVelocity = 4.0;
 	private double kMaxAcceleration=4.0;
-	private double kMaxAngularAccel = 1.0;
 	private double timeStep = .1;
 	private double simTime = 0.0;
 	private double timeToComplete;

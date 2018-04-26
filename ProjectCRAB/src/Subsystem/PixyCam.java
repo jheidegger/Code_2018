@@ -20,7 +20,6 @@ public class PixyCam {
 	String print;
 	
 	private double currentHorizontal, currentVertical, currentWidth, currentHeight = 0;
-	private double currentHorizontal2, currentVertical2, currentWidth2, currentHeight2 = 0;
 	private int arrayLevel = 0;
 	double[] horizontalValues = {0,0,0,0,0,0,0};
 	double averageHorizontal = 0;
