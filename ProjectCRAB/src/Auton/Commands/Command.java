@@ -11,20 +11,38 @@ public class Command {
 	private boolean firstTime = true;
 	private double currTime = 0.0;
 	public double startTimeOfCommand;
+	/**
+	 * timeBased : command runs for x seconds then stops <p>
+	 * triggerBased : command runs until a trigger
+	 */
 	public enum commandType {
 		timeBased,
 		triggerBased
 	}
 	private commandType type;
+	/**Constructor for the command to initialize the command 
+	 * @param type the type of the commands {@link commandType}
+	 * @param timeToComplete the time in second the command lasts
+	 */
 	public Command(commandType type, double timeToComplete)
 	{
 		this.type = type;
 		this.timeToComplete = timeToComplete;
 	}
+	/**
+	 * Constructor for the command to initialize the command 
+	 * @param type the type of the commands {@link commandType}
+	 */
 	public Command(commandType type)
 	{
 		this.type = type;
 	}
+	/**
+	 * sets the command loop to be executed. 
+	 * Methods that are called iteratively should be put in run. 
+	 * Methods that are called only once should be put in onStart
+	 * @param l
+	 */
 	public void setLoop(Loop l)
 	{
 		commandLoop = l;
