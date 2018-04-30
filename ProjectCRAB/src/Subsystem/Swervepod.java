@@ -6,6 +6,10 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+/**
+ * Handles commands on the Talon Level. Ensuring that each pod is being
+ * given the correct commands in the most effecient manner. 
+ */
 public class Swervepod extends Subsystem {
 	private TalonSRX driveMotor;
 	private TalonSRX steerMotor;
@@ -72,9 +76,10 @@ public class Swervepod extends Subsystem {
 	
 	/**
 	 * Finds the shortest path to the given angle, converts it into a encoder position, and determines when to reverse drive direction.
-	 * Uses {@link Swervepod#radianToEncoderUnits(double) Swervepod#encoderUnitsToRadian(double) radianToEncoderUnits() & encoderUnitsToRadian} 
 	 * @param wantedAngle Position wanted in radians
 	 * @return Encoder position needed to move to
+	 * @see {@link Swervepod#radianToEncoderUnits(double Angle) radianToEncoderUnits()} </p>
+	 *		{@link Swervepod#encoderUnitsToRadian(double EncoderUnits) encoderUnitsToRadian()}
 	 */
 	private double findSteerPosition(double wantedAngle) {
 		encoderPosition = steerMotor.getSelectedSensorPosition(0) - kConstants[id];
