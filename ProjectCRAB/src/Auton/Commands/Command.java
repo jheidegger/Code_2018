@@ -47,6 +47,10 @@ public class Command {
 	{
 		commandLoop = l;
 	}
+	/**
+	 * checks to see if the command is done based on either time or trigger based
+	 * @return boolean is the command finished
+	 */
 	private boolean checkEndCondition()
 	{
 		if(type == commandType.timeBased)
@@ -58,29 +62,51 @@ public class Command {
 			if(!isTriggered) {return false;} else {return true;}
 		}
 	}
+	/**
+	 * called to set a trigger for if it is finished
+	 * @param isTriggered boolean true for if finished false if still executing
+	 */
 	public void setTrigger(boolean isTriggered)
 	{
 		this.isTriggered = isTriggered;
 	}
+	/**
+	 * @return if the command is finished
+	 */
 	public boolean getIsFinished()
 	{
 		return isFinished;
 	}
+	/**
+	 * records start time from FPGA
+	 * runs the onStart() of the commandLoop
+	 */
 	public void runOnStart()
 	{
 		startTimeOfCommand = Timer.getFPGATimestamp();
 		commandLoop.onStart();
 	}
+	/**
+	 * sets current time based off start time from FPGA
+	 * runs the onloop() of the commandLoop
+	 */
 	public void runOnloop()
 	{
 		currTime = Timer.getFPGATimestamp()-startTimeOfCommand;
 		commandLoop.onloop();
 	}
+	/**
+	 * sets isFinished to true
+	 * runs the stop() of the commandLoop
+	 */
 	public void runStop()
 	{
 		isFinished = true;
 		commandLoop.stop();
 	}
+	/**
+	 * runs onStart() then runs onLoop() until {@link #checkEndCondition()} is true then runs stop()
+	 */
 	public void run()
 	{
 		if(firstTime)

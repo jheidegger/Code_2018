@@ -7,6 +7,12 @@ import Subsystem.*;
 
 public class DriveTrajectory extends Command {
   private PathFollower p;
+  	 /**
+	 * CommandType: timeBased  <p>
+	 * TimeToComplete/Trigger: the {@link Trajectory#getTimeToComplete()} <p>
+	 * drives a Trajectory or Path with a {@link PathFollower} call as new DriveTrajectory(ExamplePath.main.get()) 
+	 * @param Trajectory t the trajectory to be driven. Use the {@link Path} to calculate the trajectory. 
+	 */
 	public DriveTrajectory(Trajectory t) {
 		super(commandType.timeBased,t.getTimeToComplete());
 		super.setLoop(new Loop() {
@@ -17,7 +23,6 @@ public class DriveTrajectory extends Command {
 			}
 			@Override
 			public void onloop() {
-				//System.out.println("running path");
 				p.run();
 			}
 			@Override
