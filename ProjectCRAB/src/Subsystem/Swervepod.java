@@ -6,6 +6,10 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+/**
+ * Handles commands on the Talon Level. Ensuring that each pod is being
+ * given the correct commands in the most effecient manner. 
+ */
 public class Swervepod extends Subsystem {
 	private TalonSRX driveMotor;
 	private TalonSRX steerMotor;
