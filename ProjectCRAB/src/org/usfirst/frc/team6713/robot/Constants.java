@@ -5,28 +5,25 @@ package org.usfirst.frc.team6713.robot;
  */
 
 public class Constants {
-	/**
-	 * Port Map *
-	 */
 	
+	/************\
+	|* Port Map *|
+	\************/
 	public static int ELEVATORMOTOR = 5;
 	public static final int INTAKERIGHTSIDE = 0;
 	public static final int INTAKELEFTSIDE = 1;
 	public static final int INTAKESTOWINGMOTOR = 4;
 
-	/**
-	 * Driver Station Constants *
-	 */
-	
+	/****************************\
+	|* Driver Station Constants *|
+	\****************************/
 	public static int DRIVE_JOYSTICK = 0; 
 	public static int GEAR_JOYSTICK = 1;
 	public static int BUTTON_MONKEY = 2;
 	
-	/**
-	 * Subsystem Constants *
-	 */
-	
-	//Drive Train constants
+	/************************\
+	|* Drivetrain Constants *|
+	\************************/
 	//Gear Facing Right
 	public static double OFFSETS[] = {2991.0,2201.0,3746.0,3392.0};
 	public static double OFFSETS_P[] = {268.0,3228.0,1184.0,2160.0};
@@ -37,7 +34,9 @@ public class Constants {
 	public static double DRIVETRAINMAXROTATIONSPEED = 5.0; // radians/s
 	public static double ENCODER_UNITS = 4096.0;
 	
-	//Swerve Pod constants
+	/***********************\
+	|* Swervepod Constants *|
+	\***********************/
 	public static final double SWERVE_kP = 4.5;
 	public static final double SWERVE_kI = 0.0023;
 	public static final double SWERVE_kD = 210.0;
@@ -63,11 +62,15 @@ public class Constants {
 	public static final double DRIVEGEARREDUCTION = 30.0/48.0;
 	public static final double DRIVEMAXENCODERSPEED = 10000.0;
 	
-	//Vision constants
+	/********************\
+	|* Vision Constants *|
+	\********************/
 	public static int AVG_LIST_SIZE = 10;
 	public static int PIXY_CENTER_X = 160; 
 	
-	//Elevator control loop
+	/**********************\
+	|* Elevator Constants *|
+	\**********************/
 	public static double ELEVATOR_KP = .00009;
 	public static double ELEVATOR_KP_P = .0005;
 	public static double ELEVATOR_KI = 0;
@@ -81,7 +84,9 @@ public class Constants {
 	public static final double SWITCHHEIGHT = 40000;
 	public static final double ELEVATORACCEPTEDERROR = 0.1;
 	
-	//Intake constants
+	/********************\
+	|* Intake Constants *|
+	\********************/
 	public static final double INTAKESPEED = -.78;
 	public static final double INTAKESCORESPEED = .93;
 	public static final double INTAKESLOWSCORESPEED = .6;
