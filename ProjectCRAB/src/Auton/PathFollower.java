@@ -8,7 +8,9 @@ import Subsystem.Loop;
 import Util.PIDLoop;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
+/**
+ * follows a trajectory and commands the drivetrain
+ */
 public class PathFollower {
 	private double currY;
 	private double currY2;

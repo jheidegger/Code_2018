@@ -3,7 +3,9 @@ package Auton;
 import java.util.ArrayList;
 
 import Auton.Commands.Command;
-
+/**
+ * manages and runs commands
+ */
 public class AutoManager {
 	private ArrayList<Command> commands;
 	private int commandIdx = 0;
