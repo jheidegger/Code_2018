@@ -6,7 +6,11 @@ import Subsystem.Loop;
 
 
 public class StowIntake extends Command {
-
+	/**
+	 * CommandType: timeBased  <p>
+	 * TimeToComplete/Trigger: .5 s <p>
+	 * deploys the {@link Intake} and sets intake to {@link systemStates Neutral} 
+	 */
 	public StowIntake() {
 		super(commandType.timeBased,.5);
 		super.setLoop(new Loop() {

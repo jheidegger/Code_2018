@@ -5,6 +5,12 @@ import Subsystem.Loop;
 
 public class ParallelCommand extends Command {
 	private ArrayList<Command> commands;
+	/**
+	 * Creates a new command that executes both commands simultaneously. 
+	 * Trigger based see {@link ParallelCommand#areAllCommandsFinished() areAllCommandsFinished()} 
+	 * @param c1 Command 1
+	 * @param c2 Command 2
+	 */
 	public ParallelCommand(Command c1,Command c2) {
 		super(commandType.triggerBased);
 		commands = new ArrayList<Command>();
@@ -12,6 +18,13 @@ public class ParallelCommand extends Command {
 		commands.add(c2);
 		setLoopConstructor();
 	}
+	/**
+	 * Creates a new command that executes both commands simultaneously. 
+	 * Trigger based see {@link ParallelCommand#areAllCommandsFinished() areAllCommandsFinished()} 
+	 * @param c1 Command 1
+	 * @param c2 Command 2
+	 * @param c3 Command 3
+	 */
 	public ParallelCommand(Command c1,Command c2,Command c3) {
 		super(commandType.triggerBased);
 		commands = new ArrayList<Command>();
@@ -41,6 +54,10 @@ public class ParallelCommand extends Command {
 			}
 		});
 	}
+	/**
+	 * checks to see if the commands are finished by polling them individually with the getIsFinished()
+	 * @return True: if all commands have finished False: if not all commands are finished
+	 */
 	private boolean areAllCommandsFinished()
 	{
 		boolean isDone = true;

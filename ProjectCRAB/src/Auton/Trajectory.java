@@ -37,10 +37,17 @@ public class Trajectory {
 		kMaxVelocity = MaxVel;
 		kMaxAcceleration = MaxAccel;
 	}
+	/**
+	 * Adds an instantiated {@link Waypoint} to the trajectory
+	 * @param w Waypoint to be added to the trajectory
+	 */
 	public void addWaypoint(Waypoint w)
 	{
 		points.add(w);
 	}
+	/**
+	 *   simulates the trajectory and generates the speeds and directions for drivetrain commands
+	 */
 	public void calculateTrajectory()
 	{
 		double currSpeed = 0.0;
@@ -129,6 +136,11 @@ public class Trajectory {
 		}
 		timeToComplete = idx * timeStep;
 	}
+	/**
+	 * returns the speed to drive 
+	 * @param Time the time in s from start of trajectory
+	 * @return speed in ft/s
+	 */
 	public double getSpeed(double Time)
 	{
 		if(Time/timeStep < speed.size())
@@ -140,6 +152,11 @@ public class Trajectory {
 			return 0.0;
 		}
 	}
+	/**
+	 * returns the heading to point the drive train
+	 * @param Time the time in s from start of trajectory
+	 * @return angle (-PI to PI) with 0 as straight ahead
+	 */
 	public double getHeading(double Time)
 	{
 		if(Time/timeStep < speed.size())
@@ -151,10 +168,17 @@ public class Trajectory {
 			return 0.0;
 		}
 	}
+	/**
+	 * @return the time in s to complete the trajectory
+	 */
 	public double getTimeToComplete()
 	{
 		return timeToComplete;
 	}
+	/**
+	 * @param Time the time in s from start of trajectory
+	 * @return angle (-PI to PI) with 0 as straight ahead the translational angle for the drivetrain to move
+	 */
 	public double getWheelAngle(double Time)
 	{
 		
@@ -167,6 +191,9 @@ public class Trajectory {
 			return 0.0;
 		}
 	}
+	/**
+	 * prints full arrays to the console.
+	 */
 	public void print()
 	{
 	    for (int i = 0; i<speed.size(); i++)

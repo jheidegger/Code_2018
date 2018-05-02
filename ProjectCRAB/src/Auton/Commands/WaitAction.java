@@ -1,10 +1,13 @@
 package Auton.Commands;
-
 import Subsystem.Loop;
 
 
 public class WaitAction extends Command {
-
+	/**
+	 * CommandType: timeBased  <p>
+	 * TimeToComplete/Trigger: variable <p>
+	 * @param waitTime time to wait in s
+	 */
 	public WaitAction(double waitTime) {
 		super(commandType.timeBased,waitTime);
 		super.setLoop(new Loop() {
@@ -14,7 +17,7 @@ public class WaitAction extends Command {
 			}
 			@Override
 			public void onloop() {
-        //N/A
+				//N/A
 			}
 			@Override
 			public void stop() {

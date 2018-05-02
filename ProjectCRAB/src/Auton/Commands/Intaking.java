@@ -5,7 +5,11 @@ import Subsystem.Intake.systemStates;
 import Subsystem.Loop;
 
 public class Intaking extends Command {
-
+	/**
+	 * CommandType: trigger <p>
+	 * TimeToComplete/Trigger: when {@link Intake#isCubeIn()}  is true <p>
+	 * deploys intake and starts sets wanted state as {@link systemStates Intaking} 
+	 */
 	public Intaking() {
 		super(commandType.triggerBased);
 		super.setLoop(new Loop() {

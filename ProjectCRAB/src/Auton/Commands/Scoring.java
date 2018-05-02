@@ -6,7 +6,11 @@ import Subsystem.Loop;
 
 
 public class Scoring extends Command {
-
+	/**
+	 * CommandType: Time <p>
+	 * sets intakes wanted state to {@link systemStates Scoring}
+	 * @param scoreTime the time to score in s
+	 */
 	public Scoring(double scoreTime) {
 		super(commandType.timeBased,scoreTime);
 		super.setLoop(new Loop() {
@@ -24,9 +28,5 @@ public class Scoring extends Command {
 			}
 		});
     
-	}
-	public void setTrigger(boolean t)
-	{
-		super.setTrigger(t);
 	}
 }
