@@ -14,12 +14,20 @@ public class Controller extends Subsystem {
 	private Joystick velocityStick;
 	private Joystick thetaStick;
 	private Joystick buttonMonkey;
+	
+	private Joystick velocityStick_slave;
+	private Joystick thetaStick_slave;
+	
+	boolean isMaster = false; 
 	//public static PurpleTrigger vision;
 	
 	public Controller() {
 		velocityStick = new Joystick(Constants.DRIVE_JOYSTICK);
 		thetaStick = new Joystick(Constants.GEAR_JOYSTICK);
 		buttonMonkey = new Joystick(Constants.BUTTON_MONKEY);
+		
+		velocityStick_slave = new Joystick(Constants.DRIVE_JOYSTICK + 3);
+		thetaStick_slave = new Joystick(Constants.GEAR_JOYSTICK + 3); 
 		//vision = new PurpleTrigger(velocityStick, 2);
 	}
 	
@@ -33,6 +41,15 @@ public class Controller extends Subsystem {
 		return instance; 
 	}
 	
+	public void checkIsMaster() {
+		if(velocityStick.getY()+velocityStick.getX()+thetaStick.getX() == 0) {
+			isMaster = false;
+		}
+		else {
+			isMaster = true;
+		}
+	}
+	
 	/** 
 	 * @return double deadbanded Y axis
 	 */
@@ -41,7 +58,8 @@ public class Controller extends Subsystem {
 			return 0.0;
 		}
 		else {
-			return Math.pow(velocityStick.getY(),1);
+			if(isMaster) {return Math.pow(velocityStick.getY(),1);}
+			else {return Math.pow(velocityStick_slave.getY(), 1)*.7;}
 		}
 	}
 	
@@ -53,7 +71,8 @@ public class Controller extends Subsystem {
 			return 0;
 		}
 		else {
-			return Math.pow(velocityStick.getX(),1);
+			if(isMaster) {return Math.pow(velocityStick.getX(),1);}
+			else {return Math.pow(velocityStick_slave.getX(), 1)*.7;}
 		}
 	}
 	
@@ -65,7 +84,8 @@ public class Controller extends Subsystem {
 			return 0.0;
 		}
 		else {
-			return Math.pow(thetaStick.getX(),1)/6.0;
+			if(isMaster) { return Math.pow(thetaStick.getX(),1)/6.0;}
+			else {return Math.pow(thetaStick_slave.getX(), 1)/7.0;}
 		}
 	}
 	

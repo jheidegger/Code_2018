@@ -158,6 +158,7 @@ public class Robot extends IterativeRobot {
 		/**
 		 * Drive Train States
 		 */
+		controller.checkIsMaster();
 		if(controller.getSlowFieldCentricButton() == true)
 		{
 			driveTrain.swerve(controller.getForward(), 
